@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Busca do Portal ESEO</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: transparent !important;
+      font-family: "Segoe UI", Inter, Arial, sans-serif;
+    }
+    .wrap { width: min(100%, 660px); padding: 6px; }
+    .search-form {
+      display: grid;
+      grid-template-columns: 24px 1fr 46px;
+      align-items: center;
+      gap: 12px;
+      height: 58px;
+      padding: 0 7px 0 18px;
+      border: 1px solid rgba(255, 255, 255, .76);
+      border-radius: 10px;
+      background: rgba(3, 13, 23, .34);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, .2);
+      backdrop-filter: blur(11px);
+      transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .search-form:focus-within {
+      border-color: #ffb900;
+      background: rgba(3, 13, 23, .62);
+      box-shadow: 0 0 0 3px rgba(255, 185, 0, .17), 0 14px 32px rgba(0, 0, 0, .28);
+    }
+    .search-form > svg { width: 22px; height: 22px; color: #ffb900; }
+    #siteSearch {
+      width: 100%;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      color: #fff;
+      background: transparent;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    #siteSearch::placeholder { color: rgba(255, 255, 255, .8); font-weight: 450; }
+    .search-button {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 8px;
+      color: #061a30;
+      background: #ffb900;
+      cursor: pointer;
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .search-button:hover, .search-button:focus-visible {
+      background: #ffd154;
+      box-shadow: 0 10px 24px rgba(255, 185, 0, .25);
+      transform: translateY(-1px);
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+    .search-button svg { width: 20px; height: 20px; }
+    .toast {
+      position: fixed;
+      z-index: 10;
+      left: 7px;
+      right: 7px;
+      top: 69px;
+      padding: 9px 12px;
+      border-left: 4px solid #ffb900;
+      border-radius: 7px;
+      color: #fff;
+      background: rgba(3, 13, 23, .97);
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-5px);
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    @media (max-width: 460px) {
+      .search-form { grid-template-columns: 20px 1fr 42px; gap: 8px; padding-left: 12px; }
+      #siteSearch { font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <form class="search-form" id="searchForm" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+      <input id="siteSearch" type="search" autocomplete="off" placeholder="Busque páginas, notícias e materiais no Portal ESEO" aria-label="Pesquisar conteúdo no Portal ESEO">
+      <button class="search-button" type="submit" aria-label="Pesquisar no Portal ESEO">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+      </button>
+    </form>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    /* Se necessário, cole abaixo a URL do Portal ESEO sem /SitePages/... */
+    const SEARCH_SITE_URL = "";
+
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("siteSearch");
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 3300);
+    }
+
+    function getPortalBaseUrl() {
+      if (SEARCH_SITE_URL.trim()) return SEARCH_SITE_URL.trim().replace(/\/$/, "");
+      try {
+        const referrer = new URL(document.referrer);
+        const sitePath = referrer.pathname.split(/\/SitePages\//i)[0].replace(/\/$/, "");
+        return `${referrer.origin}${sitePath}`;
+      } catch {
+        return "";
+      }
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      const query = input.value.trim();
+      if (!query) {
+        showToast("Digite o que deseja localizar no Portal ESEO.");
+        input.focus();
+        return;
+      }
+      const portalBase = getPortalBaseUrl();
+      if (!portalBase) {
+        showToast("Precisamos configurar uma vez o endereço do Portal ESEO.");
+        return;
+      }
+      const searchUrl = `${portalBase}/_layouts/15/search.aspx/siteall?q=${encodeURIComponent(query)}`;
+      window.open(searchUrl, "_blank", "noopener,noreferrer");
+    });
+  </script>
+</body>
+</html>
