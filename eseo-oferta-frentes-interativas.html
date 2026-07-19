@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Frentes da oferta de cursos online</title>
+  <style>
+    :root {
+      --amarelo: #ffbd00;
+      --vinho: #790019;
+      --vinho-escuro: #240008;
+      --vermelho: #bd0d2e;
+      --preto: #151515;
+      --branco: #ffffff;
+      --cinza: #5b5b5b;
+      --borda-clara: rgba(255, 255, 255, .30);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: transparent;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      padding: 8px;
+      color: var(--branco);
+    }
+
+    .shell {
+      width: min(100%, 1140px);
+      margin: 0 auto;
+      padding: 18px;
+      overflow: hidden;
+      border: 1px solid var(--borda-clara);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 96% 8%, rgba(255, 189, 0, .10), transparent 28%),
+        linear-gradient(135deg, rgba(10, 0, 4, .78), rgba(82, 0, 20, .76));
+      box-shadow: 0 18px 44px rgba(0, 0, 0, .20);
+    }
+
+    .instruction {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 14px;
+      color: rgba(255, 255, 255, .82);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .instruction::before {
+      content: "";
+      width: 24px;
+      height: 3px;
+      border-radius: 4px;
+      background: var(--amarelo);
+    }
+
+    .selector {
+      display: grid;
+      grid-template-columns: 315px minmax(0, 1fr);
+      gap: 18px;
+      min-height: 318px;
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .tab {
+      width: 100%;
+      min-height: 92px;
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr) 24px;
+      align-items: center;
+      gap: 13px;
+      padding: 15px;
+      border: 1px solid rgba(255, 255, 255, .28);
+      border-radius: 12px;
+      color: var(--branco);
+      background: rgba(4, 0, 2, .35);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .22s ease, background .22s ease, color .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+
+    .tab:hover,
+    .tab:focus-visible {
+      transform: translateX(4px);
+      border-color: rgba(255, 189, 0, .8);
+      outline: none;
+    }
+
+    .tab[aria-selected="true"] {
+      color: #1d1500;
+      background: var(--amarelo);
+      border-color: var(--amarelo);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .22);
+    }
+
+    .tab-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: var(--amarelo);
+      background: rgba(255, 189, 0, .09);
+      border: 1px solid rgba(255, 189, 0, .48);
+      transition: color .22s ease, background .22s ease, border-color .22s ease;
+    }
+
+    .tab[aria-selected="true"] .tab-icon {
+      color: var(--vinho);
+      background: rgba(255, 255, 255, .55);
+      border-color: rgba(70, 0, 14, .18);
+    }
+
+    .tab-icon svg {
+      width: 23px;
+      height: 23px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .tab-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .tab-number {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .10em;
+      opacity: .78;
+      text-transform: uppercase;
+    }
+
+    .tab-title {
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.22;
+      text-transform: uppercase;
+    }
+
+    .arrow {
+      font-size: 20px;
+      line-height: 1;
+      opacity: .72;
+      transition: transform .22s ease;
+    }
+
+    .tab[aria-selected="true"] .arrow { transform: translateX(3px); }
+
+    .panels {
+      position: relative;
+      min-height: 318px;
+      overflow: hidden;
+      border-radius: 13px;
+      background: rgba(255, 255, 255, .97);
+      color: var(--preto);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .55);
+    }
+
+    .panel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 27px 30px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(22px);
+      transition: opacity .28s ease, transform .32s ease, visibility 0s linear .32s;
+    }
+
+    .panel.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+      transition-delay: 0s;
+    }
+
+    .panel-label {
+      margin: 0 0 7px;
+      color: var(--vinho);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 19px;
+      color: var(--preto);
+      font-size: clamp(22px, 2.2vw, 31px);
+      line-height: 1.1;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+
+    h2::after {
+      content: "";
+      display: block;
+      width: 54px;
+      height: 4px;
+      margin-top: 12px;
+      border-radius: 4px;
+      background: var(--amarelo);
+    }
+
+    ul {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 25px;
+      row-gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      position: relative;
+      padding-left: 18px;
+      color: #363636;
+      font-size: 13px;
+      line-height: 1.38;
+    }
+
+    li::before {
+      content: "";
+      position: absolute;
+      left: 1px;
+      top: .48em;
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      background: var(--vinho);
+      transform: rotate(45deg);
+    }
+
+    @media (max-width: 900px) {
+      .selector { grid-template-columns: 285px minmax(0, 1fr); }
+      .tab { grid-template-columns: 40px minmax(0, 1fr) 18px; padding: 12px; }
+      .tab-icon { width: 40px; height: 40px; }
+      .panel { padding: 24px; }
+      li { font-size: 12px; }
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 5px 0; }
+      .shell { padding: 14px; border-radius: 14px; }
+      .selector { display: block; min-height: 0; }
+
+      .tabs {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: min(78vw, 290px);
+        grid-template-rows: none;
+        grid-template-columns: none;
+        gap: 10px;
+        margin-bottom: 13px;
+        padding-bottom: 8px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: thin;
+        scrollbar-color: var(--amarelo) rgba(255, 255, 255, .18);
+      }
+
+      .tab {
+        min-height: 78px;
+        scroll-snap-align: start;
+      }
+
+      .tab:hover,
+      .tab:focus-visible { transform: translateY(-2px); }
+
+      .panels { min-height: 455px; }
+      .panel { padding: 23px 21px; }
+      ul { grid-template-columns: 1fr; row-gap: 10px; }
+      li { font-size: 13px; }
+    }
+
+    @media (max-width: 420px) {
+      .instruction { font-size: 10px; }
+      .tabs { grid-auto-columns: 84vw; }
+      .panels { min-height: 505px; }
+      h2 { font-size: 21px; }
+      li { font-size: 12.5px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <p class="instruction">Passe o cursor ou selecione uma frente</p>
+
+    <div class="selector">
+      <div class="tabs" role="tablist" aria-label="Frentes da oferta de cursos online">
+        <button class="tab" id="tab-diferenciais" role="tab" aria-selected="true" aria-controls="painel-diferenciais" tabindex="0" data-panel="painel-diferenciais">
+          <span class="tab-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/><path d="m3 6 6-3 6 5 6-5"/></svg>
+          </span>
+          <span class="tab-copy">
+            <span class="tab-number">Frente 01</span>
+            <span class="tab-title">Diferenciais que geram valor</span>
+          </span>
+          <span class="arrow" aria-hidden="true">›</span>
+        </button>
+
+        <button class="tab" id="tab-apoio" role="tab" aria-selected="false" aria-controls="painel-apoio" tabindex="-1" data-panel="painel-apoio">
+          <span class="tab-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/><circle cx="12" cy="12" r="10"/></svg>
+          </span>
+          <span class="tab-copy">
+            <span class="tab-number">Frente 02</span>
+            <span class="tab-title">Apoio estratégico às escolas</span>
+          </span>
+          <span class="arrow" aria-hidden="true">›</span>
+        </button>
+
+        <button class="tab" id="tab-solucoes" role="tab" aria-selected="false" aria-controls="painel-solucoes" tabindex="-1" data-panel="painel-solucoes">
+          <span class="tab-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/><path d="m7.5 16.5 9-9"/></svg>
+          </span>
+          <span class="tab-copy">
+            <span class="tab-number">Frente 03</span>
+            <span class="tab-title">Soluções que impulsionam resultados</span>
+          </span>
+          <span class="arrow" aria-hidden="true">›</span>
+        </button>
+      </div>
+
+      <div class="panels">
+        <section class="panel active" id="painel-diferenciais" role="tabpanel" aria-labelledby="tab-diferenciais">
+          <p class="panel-label">Frente 01</p>
+          <h2>Diferenciais que geram valor</h2>
+          <ul>
+            <li>Atendimento integrado às demandas da indústria, das empresas, da comunidade e das Unidades SENAI-SP.</li>
+            <li>Ampliação do acesso à educação profissional, com impacto na receita e na gratuidade.</li>
+            <li>Flexibilidade de formatos: autoinstrucional, colaborativo, semipresencial, híbrido e <em>in company</em>.</li>
+            <li>Escalabilidade com rapidez, melhor aproveitamento de recursos e padronização da experiência educacional.</li>
+            <li>Atendimento a diferentes públicos e regiões do estado.</li>
+          </ul>
+        </section>
+
+        <section class="panel" id="painel-apoio" role="tabpanel" aria-labelledby="tab-apoio" hidden>
+          <p class="panel-label">Frente 02</p>
+          <h2>Apoio estratégico às escolas</h2>
+          <ul>
+            <li>Estruturação da oferta, desde a análise da demanda até a operação do curso.</li>
+            <li>Consultoria para definição da modalidade, do modelo educacional, do escopo e da viabilidade técnica.</li>
+            <li>Formação, onboarding e suporte contínuo para tutores e monitores.</li>
+            <li>Operação centralizada de monitoria, acompanhamento e emissão de relatórios.</li>
+            <li>Decisões orientadas por indicadores e compartilhamento de boas práticas entre as Unidades SENAI-SP.</li>
+          </ul>
+        </section>
+
+        <section class="panel" id="painel-solucoes" role="tabpanel" aria-labelledby="tab-solucoes" hidden>
+          <p class="panel-label">Frente 03</p>
+          <h2>Soluções educacionais que impulsionam resultados</h2>
+          <ul>
+            <li>Desenvolvimento e adaptação de cursos alinhados às demandas do mercado e da indústria.</li>
+            <li>Escalabilidade das ofertas com qualidade pedagógica e identidade institucional.</li>
+            <li>Integração entre teoria online e prática presencial em laboratórios especializados.</li>
+            <li>Trilhas de aprendizagem adequadas a diferentes perfis profissionais.</li>
+            <li>Maior engajamento e retenção por meio de tutoria, monitoria e acompanhamento contínuo.</li>
+            <li>Atualização ágil dos conteúdos e formação orientada à aplicação prática das competências.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+    function activateTab(tab, moveFocus = false) {
+      tabs.forEach((item) => {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      });
+
+      panels.forEach((panel) => {
+        const selected = panel.id === tab.dataset.panel;
+        panel.hidden = !selected;
+        panel.classList.toggle('active', selected);
+      });
+
+      if (moveFocus) tab.focus();
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('mouseenter', () => activateTab(tab));
+      tab.addEventListener('focus', () => activateTab(tab));
+      tab.addEventListener('click', () => activateTab(tab));
+
+      tab.addEventListener('keydown', (event) => {
+        let nextIndex = null;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+        if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = tabs.length - 1;
+
+        if (nextIndex !== null) {
+          event.preventDefault();
+          activateTab(tabs[nextIndex], true);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
