@@ -1,1 +1,41 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box}html,body{margin:0;background:transparent;font-family:Arial,Helvetica,sans-serif}.chamada{color:#fff;padding:28px clamp(20px,5vw,70px)}.chamada small{color:#f7b900;font-size:12px;font-weight:900;letter-spacing:.18em}.chamada h1{font-size:clamp(52px,7vw,92px);letter-spacing:-.055em;line-height:.92;margin:17px 0}.chamada h1 span{color:#df191e}.regua{background:#f7b900;height:5px;margin:25px 0 20px;width:95px}.chamada p{color:#eef2f7;font-size:clamp(16px,1.7vw,21px);line-height:1.55;margin:0;max-width:760px;text-shadow:0 2px 12px #000}@media(max-width:520px){.chamada{padding:22px 18px}.chamada h1{font-size:54px}}</style></head><body><section class="chamada"><small>QUE BOM TER VOCÊ AQUI</small><h1>PORTAL <span>ESEO</span></h1><div class="regua"></div><p>Orientações, serviços e oportunidades para apoiar as escolas SENAI-SP na oferta de cursos EAD.</p></section></body></html>
+/*
+ * Ajuste da saudação do Portal ESEO
+ *
+ * No HTML, use:
+ * <p class="eseo-saudacao">QUE BOM TER VOCÊ AQUI</p>
+ * <h1 class="eseo-titulo">PORTAL ESEO</h1>
+ */
+
+.eseo-saudacao {
+  margin: 0 0 22px;
+  color: #ffcc00;
+  font-size: clamp(16px, 1.05vw, 19px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.eseo-titulo,
+.eseo-titulo span {
+  margin: 0;
+  color: #ffffff !important;
+  font-size: clamp(64px, 6.4vw, 112px);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .eseo-saudacao {
+    margin-bottom: 16px;
+    font-size: 15px;
+    letter-spacing: 0.18em;
+  }
+
+  .eseo-titulo,
+  .eseo-titulo span {
+    font-size: clamp(48px, 14vw, 72px);
+  }
+}
