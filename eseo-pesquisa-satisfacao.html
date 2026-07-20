@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pesquisa de satisfação — Portal ESEO</title>
+
+  <script src="https://mfpembedcdnwus2.azureedge.net/mfpembedcontwus2/Embed.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="https://mfpembedcdnwus2.azureedge.net/mfpembedcontwus2/Embed.css">
+
+  <style>
+    :root {
+      --eseo-red: #970025;
+      --eseo-text: #17171a;
+      --eseo-muted: #5f626b;
+      --eseo-white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: transparent;
+      color: var(--eseo-text);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .feedback {
+      width: 100%;
+      background: var(--eseo-white);
+      padding: 44px clamp(22px, 4vw, 72px);
+    }
+
+    .feedback__inner {
+      width: min(1320px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(290px, .8fr) minmax(420px, 1.2fr);
+      gap: clamp(34px, 6vw, 90px);
+      align-items: start;
+    }
+
+    .feedback__intro {
+      padding-top: 20px;
+    }
+
+    .feedback__eyebrow {
+      margin: 0 0 22px;
+      color: var(--eseo-red);
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: .19em;
+      text-transform: uppercase;
+    }
+
+    .feedback__title {
+      max-width: 580px;
+      margin: 0 0 12px;
+      font-size: clamp(36px, 4vw, 62px);
+      line-height: .98;
+      font-weight: 400;
+      letter-spacing: -.045em;
+    }
+
+    .feedback__description {
+      max-width: 600px;
+      margin: 0;
+      color: var(--eseo-muted);
+      font-size: clamp(16px, 1.45vw, 20px);
+      line-height: 1.5;
+    }
+
+    .feedback__survey {
+      width: 100%;
+      min-width: 350px;
+      min-height: 480px;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    #surveyDiv {
+      width: 100%;
+      min-height: 480px;
+      background: transparent;
+    }
+
+    @media (max-width: 820px) {
+      .feedback { padding: 32px 20px; }
+
+      .feedback__inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .feedback__intro { padding-top: 0; }
+      .feedback__survey { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="feedback" aria-labelledby="feedback-title">
+    <div class="feedback__inner">
+      <header class="feedback__intro">
+        <p class="feedback__eyebrow">Sua experiência importa</p>
+        <h1 class="feedback__title" id="feedback-title">Como está sendo usar o Portal ESEO?</h1>
+        <p class="feedback__description">Uma resposta rápida ajuda a equipe a priorizar as próximas melhorias.</p>
+      </header>
+
+      <section class="feedback__survey" aria-label="Pesquisa de satisfação do Portal ESEO">
+        <div id="surveyDiv"></div>
+      </section>
+    </div>
+  </main>
+
+  <script type="text/javascript">
+    function renderSurvey(parentElementId, FirstName, LastName, locale, companyname, Email) {
+      var se = new SurveyEmbed(
+        "3qZIQdENBE2kxXjjdOT21nGK6v4eNzNJg4WxJUmaEBNUOTFNNlI1V1RBMFJSNFNMNlBDRVpOSko0RC4u",
+        "https://customervoice.microsoft.com/",
+        "https://mfpembedcdnwus2.azureedge.net/mfpembedcontwus2/",
+        "true"
+      );
+
+      var context = {
+        "First Name": FirstName,
+        "Last Name": LastName,
+        "locale": locale,
+        "companyname": companyname,
+        "Email": Email
+      };
+
+      se.renderInline(parentElementId, context);
+    }
+
+    window.addEventListener("load", function () {
+      renderSurvey("surveyDiv", "", "", "pt-BR", "SENAI-SP", "");
+    });
+  </script>
+</body>
+</html>
