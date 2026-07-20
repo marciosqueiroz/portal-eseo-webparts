@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customer Voice — pop-up automático</title>
+  <script src="https://mfpembedcdnwus2.azureedge.net/mfpembedcontwus2/Embed.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="https://mfpembedcdnwus2.azureedge.net/mfpembedcontwus2/Embed.css">
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      min-height: 720px;
+      margin: 0;
+      background: transparent;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <script type="text/javascript">
+    function renderSurvey(FirstName, LastName, locale, companyname, Email) {
+      var se = new SurveyEmbed(
+        "3qZIQdENBE2kxXjjdOT21nGK6v4eNzNJg4WxJUmaEBNUOTFNNlI1V1RBMFJSNFNMNlBDRVpOSko0RC4u",
+        "https://customervoice.microsoft.com/",
+        "https://mfpembedcdnwus2.azureedge.net/mfpembedcontwus2/",
+        "true"
+      );
+      var context = {
+        "First Name": FirstName,
+        "Last Name": LastName,
+        "locale": locale,
+        "companyname": companyname,
+        "Email": Email
+      };
+      se.renderPopup(context);
+    }
+
+    window.addEventListener("load", function () {
+      renderSurvey("", "", "pt-BR", "SENAI-SP", "");
+    });
+  </script>
+</body>
+</html>
