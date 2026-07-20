@@ -1,121 +1,149 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
 
-<style>
-:root {
-  --preto: #000000;
-  --amarelo: #F7B900;
-  --branco: #FFFFFF;
-}
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
 
-* {
-  box-sizing: border-box;
-}
+  <title>Menu do Portal ESEO</title>
 
-html,
-body {
-  margin: 0;
-  background: transparent;
-  font-family: Arial, Helvetica, sans-serif;
-  overflow: hidden;
-}
+  <style>
+    :root {
+      --preto: #000000;
+      --amarelo: #F7B900;
+      --branco: #FFFFFF;
+    }
 
-.menu {
-  align-items: center;
-  background: var(--preto);
-  display: flex;
-  justify-content: center;
-  min-height: 70px;
-  padding: 0 18px;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-.menu a {
-  color: var(--branco);
-  font-size: 13px;
-  font-weight: 700;
-  padding: 26px 28px 22px;
-  position: relative;
-  text-decoration: none;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
+    html,
+    body {
+      margin: 0;
+      background: transparent;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow: hidden;
+    }
 
-/* Barra amarela interna */
-.menu a::after {
-  background: transparent;
-  bottom: 7px;
-  content: "";
-  height: 4px;
-  left: 28px;
-  position: absolute;
-  right: 28px;
-}
+    .menu {
+      align-items: center;
+      background: var(--preto);
+      display: flex;
+      justify-content: center;
+      min-height: 70px;
+      padding: 0 24px;
+      width: 100%;
+    }
 
-/* Página selecionada */
-.menu a.ativo {
-  color: var(--amarelo);
-}
+    .menu a {
+      color: var(--branco);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      padding: 26px 30px 22px;
+      position: relative;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
 
-.menu a.ativo::after {
-  background: var(--amarelo);
-}
+    /* Barra inferior: inicialmente invisível */
 
-/* Passar o mouse */
-.menu a:hover {
-  color: var(--amarelo);
-}
+    .menu a::after {
+      background: transparent;
+      bottom: 7px;
+      content: "";
+      height: 4px;
+      left: 30px;
+      position: absolute;
+      right: 30px;
+    }
 
-.menu a:hover::after {
-  background: var(--amarelo);
-}
+    /* Página atual */
 
-@media (max-width: 760px) {
-  .menu {
-    justify-content: flex-start;
-    overflow-x: auto;
-  }
+    .menu a.ativo {
+      color: var(--amarelo);
+    }
 
-  .menu a {
-    font-size: 11px;
-    padding-left: 17px;
-    padding-right: 17px;
-  }
+    .menu a.ativo::after {
+      background: var(--amarelo);
+    }
 
-  .menu a::after {
-    left: 17px;
-    right: 17px;
-  }
-}
-</style>
+    /* Ao passar o cursor:
+       somente o texto muda de cor */
+
+    .menu a:hover {
+      color: var(--amarelo);
+    }
+
+    /* Navegação pelo teclado */
+
+    .menu a:focus-visible {
+      color: var(--amarelo);
+      outline: 2px solid var(--amarelo);
+      outline-offset: -6px;
+    }
+
+    /* Celular e telas menores */
+
+    @media (max-width: 760px) {
+      .menu {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 0 8px;
+      }
+
+      .menu a {
+        flex: none;
+        font-size: 12px;
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .menu a::after {
+        left: 18px;
+        right: 18px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<nav class="menu" aria-label="Navegação principal do Portal ESEO">
+  <nav
+    class="menu"
+    aria-label="Navegação principal do Portal ESEO"
+  >
 
-  <a
-    class="ativo"
-    href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta"
-    target="_top">
-    Home
-  </a>
+    <a
+      class="ativo"
+      href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta"
+      target="_top"
+    >
+      Home
+    </a>
 
-  <a
-    href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx"
-    target="_top">
-    Conheça a ESEO
-  </a>
+    <a
+      href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx"
+      target="_top"
+    >
+      Conheça a ESEO
+    </a>
 
-  <a
-    href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
-    target="_top">
-    Oferta de Cursos Online
-  </a>
+    <a
+      href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+      target="_top"
+    >
+      Oferta de Cursos Online
+    </a>
 
-</nav>
+  </nav>
 
 </body>
+
 </html>
