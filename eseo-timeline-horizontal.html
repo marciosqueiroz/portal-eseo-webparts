@@ -3,27 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linha do tempo ESEO — visão completa</title>
+  <title>Linha do tempo ESEO — distribuição equidistante</title>
 
   <style>
     :root {
       --eseo-primary: #0a2537;
       --eseo-secondary: #1d728f;
       --eseo-accent: #0eb7d5;
-      --eseo-light: #f2f2f2;
       --white: #ffffff;
       --ink: #101826;
       --muted: #60707d;
-      --line: rgba(29, 114, 143, .28);
       --focus: #ffcb05;
+      --start: #7a1f5c;
     }
 
     * { box-sizing: border-box; }
 
-    html,
-    body {
+    html, body {
       width: 100%;
-      min-height: 410px;
+      min-height: 390px;
       margin: 0;
       padding: 0;
       overflow: hidden;
@@ -35,69 +33,32 @@
     button { font: inherit; }
 
     .timeline {
-      position: relative;
       width: 100%;
-      max-width: 1380px;
-      min-height: 410px;
+      max-width: 1450px;
+      min-height: 390px;
       margin: 0 auto;
-      padding: 22px 78px 24px;
+      padding: 14px 16px 14px;
       overflow: hidden;
       background: transparent;
     }
 
-    .side-message {
-      position: absolute;
-      top: 50%;
-      z-index: 4;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--eseo-secondary);
-      font-size: 10px;
-      font-weight: 950;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      writing-mode: vertical-rl;
-      transform: translateY(-50%) rotate(180deg);
-      user-select: none;
-    }
-
-    .side-message::before {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--eseo-accent);
-      content: "";
-      box-shadow: 0 0 0 5px rgba(14, 183, 213, .12);
-    }
-
-    .side-message.start { left: 21px; }
-
-    .side-message.end {
-      right: 21px;
-      color: var(--eseo-primary);
-      transform: translateY(-50%);
-    }
-
     .story-card {
-      position: relative;
-      z-index: 5;
-      width: min(670px, calc(100% - 20px));
-      min-height: 145px;
+      width: min(620px, calc(100% - 24px));
+      min-height: 128px;
       margin: 0 auto;
-      padding: 19px 22px 18px;
-      border: 1px solid rgba(29, 114, 143, .24);
+      padding: 16px 19px 15px;
+      border: 1px solid rgba(29,114,143,.22);
       border-top: 4px solid var(--eseo-accent);
-      border-radius: 17px;
-      background: rgba(255, 255, 255, .76);
-      box-shadow: 0 13px 30px rgba(10, 37, 55, .08);
-      backdrop-filter: blur(9px);
-      transition: transform .18s ease, opacity .18s ease;
+      border-radius: 16px;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 12px 26px rgba(10,37,55,.08);
+      backdrop-filter: blur(10px);
+      transition: opacity .16s ease, transform .16s ease;
     }
 
     .story-card.changing {
       opacity: .45;
-      transform: translateY(4px);
+      transform: translateY(3px);
     }
 
     .story-meta {
@@ -116,7 +77,7 @@
 
     .story-year {
       display: inline-flex;
-      min-height: 27px;
+      min-height: 26px;
       align-items: center;
       padding: 0 10px;
       border-radius: 999px;
@@ -129,7 +90,7 @@
     .story-title {
       margin: 0;
       color: var(--eseo-primary);
-      font-size: clamp(19px, 2.4vw, 26px);
+      font-size: clamp(19px, 2.1vw, 25px);
       line-height: 1.12;
       letter-spacing: -.025em;
     }
@@ -138,39 +99,39 @@
       margin: 8px 0 0;
       color: var(--muted);
       font-size: 13.5px;
-      line-height: 1.5;
+      line-height: 1.48;
     }
 
     .line-zone {
       position: relative;
-      height: 155px;
-      margin-top: 17px;
+      height: 156px;
+      margin-top: 8px;
     }
 
     .timeline-line {
       position: absolute;
       top: 78px;
-      left: 0;
-      right: 0;
+      left: 4.0000%;
+      right: 4.0000%;
       height: 4px;
       border-radius: 999px;
       background:
         linear-gradient(
           90deg,
           var(--eseo-primary),
-          var(--eseo-secondary) 50%,
+          var(--eseo-secondary) 52%,
           var(--eseo-accent)
         );
-      box-shadow: 0 0 0 5px rgba(14, 183, 213, .08);
+      box-shadow: 0 0 0 6px rgba(14,183,213,.08);
     }
 
     .timeline-point {
       position: absolute;
       top: 78px;
-      left: var(--position);
-      z-index: 3;
-      width: 30px;
-      height: 30px;
+      left: var(--x);
+      z-index: 4;
+      width: 27px;
+      height: 27px;
       padding: 0;
       border: 0;
       border-radius: 50%;
@@ -181,29 +142,25 @@
 
     .timeline-point .dot {
       position: absolute;
-      inset: 5px;
+      inset: 4px;
       border: 3px solid var(--white);
       border-radius: 50%;
       background: var(--eseo-secondary);
       box-shadow:
         0 0 0 3px var(--eseo-secondary),
-        0 7px 14px rgba(10, 37, 55, .18);
-      transition:
-        inset .16s ease,
-        background .16s ease,
-        box-shadow .16s ease,
-        transform .16s ease;
+        0 7px 14px rgba(10,37,55,.17);
+      transition: inset .15s ease, background .15s ease, box-shadow .15s ease, transform .15s ease;
     }
 
     .timeline-point:hover .dot,
     .timeline-point:focus-visible .dot,
     .timeline-point.active .dot {
-      inset: 2px;
+      inset: 1px;
       background: var(--eseo-accent);
       box-shadow:
         0 0 0 3px var(--eseo-primary),
-        0 9px 18px rgba(10, 37, 55, .24);
-      transform: scale(1.04);
+        0 9px 18px rgba(10,37,55,.22);
+      transform: scale(1.03);
     }
 
     .timeline-point.active .dot {
@@ -218,24 +175,24 @@
     .year-label {
       position: absolute;
       left: 50%;
-      min-width: 58px;
+      min-width: 52px;
       padding: 4px 5px;
-      border: 1px solid rgba(29, 114, 143, .22);
+      border: 1px solid rgba(29,114,143,.20);
       border-radius: 8px;
-      background: rgba(255, 255, 255, .82);
+      background: rgba(255,255,255,.82);
       color: var(--eseo-primary);
-      font-size: 10.5px;
+      font-size: 9.8px;
       font-weight: 900;
       line-height: 1.05;
       text-align: center;
       white-space: normal;
-      box-shadow: 0 5px 12px rgba(10, 37, 55, .07);
+      box-shadow: 0 5px 12px rgba(10,37,55,.06);
       transform: translateX(-50%);
-      transition: color .16s ease, border-color .16s ease, background .16s ease;
+      transition: color .15s ease, border-color .15s ease, background .15s ease;
     }
 
-    .timeline-point.above .year-label { bottom: 29px; }
-    .timeline-point.below .year-label { top: 29px; }
+    .timeline-point.above .year-label { bottom: 27px; }
+    .timeline-point.below .year-label { top: 27px; }
 
     .timeline-point:hover .year-label,
     .timeline-point:focus-visible .year-label,
@@ -245,15 +202,67 @@
       color: var(--white);
     }
 
-    .timeline-point.first .year-label {
-      left: 0;
-      transform: none;
+    .terminal {
+      position: absolute;
+      top: 78px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
     }
 
-    .timeline-point.last .year-label {
-      right: 0;
-      left: auto;
-      transform: none;
+    .terminal.start { left: 4.0000%; }
+    .terminal.end { left: 96.0000%; }
+
+    .terminal-dot,
+    .terminal-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border: 3px solid var(--white);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px currentColor, 0 7px 14px rgba(10,37,55,.16);
+    }
+
+    .terminal-dot {
+      color: var(--start);
+      background: var(--start);
+    }
+
+    .terminal-arrow {
+      color: var(--eseo-accent);
+      background: var(--eseo-accent);
+      color: var(--eseo-primary);
+      font-size: 15px;
+      font-weight: 950;
+    }
+
+    .terminal-label {
+      position: absolute;
+      min-width: 52px;
+      padding: 4px 5px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.82);
+      font-size: 9.5px;
+      font-weight: 900;
+      text-align: center;
+      box-shadow: 0 5px 12px rgba(10,37,55,.06);
+    }
+
+    .terminal.start .terminal-label {
+      bottom: 27px;
+      color: var(--start);
+      border: 1px solid rgba(122,31,92,.22);
+    }
+
+    .terminal.end .terminal-label {
+      top: 27px;
+      color: var(--eseo-primary);
+      border: 1px solid rgba(14,183,213,.25);
     }
 
     .instruction {
@@ -261,9 +270,9 @@
       align-items: center;
       justify-content: center;
       gap: 7px;
-      margin: 7px 0 0;
+      margin: 2px 0 0;
       color: #72808c;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 650;
       text-align: center;
     }
@@ -278,64 +287,54 @@
 
     @media (max-width: 900px) {
       .timeline {
-        padding-inline: 57px;
+        padding-inline: 8px;
       }
 
-      .side-message.start { left: 12px; }
-      .side-message.end { right: 12px; }
+      .story-card {
+        width: min(600px, calc(100% - 8px));
+      }
 
-      .year-label {
-        min-width: 48px;
-        font-size: 9.5px;
+      .year-label,
+      .terminal-label {
+        min-width: 46px;
+        font-size: 8.8px;
       }
     }
 
     @media (max-width: 650px) {
-      html,
-      body,
-      .timeline {
-        min-height: 390px;
+      html, body, .timeline {
+        min-height: 380px;
       }
 
       .timeline {
-        padding: 16px 16px 20px;
-      }
-
-      .side-message {
-        display: none;
+        padding: 10px 6px 12px;
       }
 
       .story-card {
-        width: 100%;
-        min-height: 165px;
-        padding: 16px;
+        min-height: 154px;
+        padding: 15px;
       }
 
-      .story-title {
-        font-size: 20px;
-      }
-
-      .story-description {
-        font-size: 12.5px;
-      }
+      .story-title { font-size: 20px; }
+      .story-description { font-size: 12.3px; }
 
       .line-zone {
-        height: 135px;
-        margin-top: 10px;
+        height: 140px;
       }
 
       .timeline-line,
-      .timeline-point {
-        top: 68px;
+      .timeline-point,
+      .terminal {
+        top: 70px;
       }
 
       .timeline-point {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
       }
 
       .timeline-point .dot {
-        inset: 5px;
+        inset: 4px;
         border-width: 2px;
         box-shadow: 0 0 0 2px var(--eseo-secondary);
       }
@@ -343,7 +342,7 @@
       .timeline-point:hover .dot,
       .timeline-point:focus-visible .dot,
       .timeline-point.active .dot {
-        inset: 2px;
+        inset: 1px;
         box-shadow: 0 0 0 2px var(--eseo-primary);
       }
 
@@ -353,27 +352,25 @@
 
       .timeline-point.active .year-label {
         display: block;
-        top: 27px;
+        top: 25px;
         bottom: auto;
-        left: 50%;
-        min-width: 58px;
-        transform: translateX(-50%);
+        min-width: 52px;
       }
 
-      .timeline-point.first.active .year-label {
-        left: 0;
-        transform: none;
+      .terminal-label {
+        display: none;
       }
 
-      .timeline-point.last.active .year-label {
-        right: 0;
-        left: auto;
-        transform: none;
+      .terminal-dot,
+      .terminal-arrow {
+        width: 20px;
+        height: 20px;
+        border-width: 2px;
       }
 
       .instruction {
-        margin-top: 2px;
-        font-size: 10px;
+        margin-top: 0;
+        font-size: 9.5px;
       }
     }
 
@@ -389,9 +386,6 @@
 
 <body>
   <section class="timeline" aria-label="Linha do tempo da Escola SENAI de Educação Online">
-    <div class="side-message start" aria-hidden="true">Início</div>
-    <div class="side-message end" aria-hidden="true">A jornada continua ao seu lado</div>
-
     <article class="story-card" id="storyCard" aria-live="polite">
       <div class="story-meta">
         <span class="story-sequence" id="storySequence">MARCO 01 DE 11</span>
@@ -404,13 +398,19 @@
       </p>
     </article>
 
-    <div class="line-zone" id="lineZone">
+    <div class="line-zone">
       <div class="timeline-line" aria-hidden="true"></div>
+
+      <div class="terminal start" aria-hidden="true">
+        <span class="terminal-dot"></span>
+        <span class="terminal-label">INÍCIO</span>
+      </div>
+
       
         <button
-          class="timeline-point above first active"
+          class="timeline-point above active"
           type="button"
-          style="--position:0.0000%"
+          style="--x:11.6667%;"
           data-index="0"
           data-year="1979"
           data-title="O primeiro marco: Desenho Técnico-Mecânico"
@@ -424,7 +424,7 @@
         <button
           class="timeline-point below"
           type="button"
-          style="--position:10.0000%"
+          style="--x:19.3333%;"
           data-index="1"
           data-year="1990"
           data-title="Expansão do modelo híbrido"
@@ -438,7 +438,7 @@
         <button
           class="timeline-point above"
           type="button"
-          style="--position:20.0000%"
+          style="--x:27.0000%;"
           data-index="2"
           data-year="1995"
           data-title="A era do Telecurso 2000"
@@ -452,7 +452,7 @@
         <button
           class="timeline-point below"
           type="button"
-          style="--position:30.0000%"
+          style="--x:34.6667%;"
           data-index="3"
           data-year="2007"
           data-title="Nascimento do Centro de EaD"
@@ -466,7 +466,7 @@
         <button
           class="timeline-point above"
           type="button"
-          style="--position:40.0000%"
+          style="--x:42.3333%;"
           data-index="4"
           data-year="2010"
           data-title="Pioneirismo no ensino superior"
@@ -480,7 +480,7 @@
         <button
           class="timeline-point below"
           type="button"
-          style="--position:50.0000%"
+          style="--x:50.0000%;"
           data-index="5"
           data-year="2010–2017"
           data-title="A virada digital e a escala"
@@ -494,7 +494,7 @@
         <button
           class="timeline-point above"
           type="button"
-          style="--position:60.0000%"
+          style="--x:57.6667%;"
           data-index="6"
           data-year="2017"
           data-title="Primeiro curso técnico semipresencial"
@@ -508,7 +508,7 @@
         <button
           class="timeline-point below"
           type="button"
-          style="--position:70.0000%"
+          style="--x:65.3333%;"
           data-index="7"
           data-year="2019"
           data-title="Expansão para a pós-graduação"
@@ -522,7 +522,7 @@
         <button
           class="timeline-point above"
           type="button"
-          style="--position:80.0000%"
+          style="--x:73.0000%;"
           data-index="8"
           data-year="2020"
           data-title="Aceleração durante a pandemia"
@@ -536,7 +536,7 @@
         <button
           class="timeline-point below"
           type="button"
-          style="--position:90.0000%"
+          style="--x:80.6667%;"
           data-index="9"
           data-year="2022"
           data-title="Consolidação da ESEO"
@@ -548,9 +548,9 @@
           <span class="year-label">2022</span>
         </button>
         <button
-          class="timeline-point above last"
+          class="timeline-point above"
           type="button"
-          style="--position:100.0000%"
+          style="--x:88.3333%;"
           data-index="10"
           data-year="2025"
           data-title="Novo marco regulatório"
@@ -561,11 +561,14 @@
           <span class="dot" aria-hidden="true"></span>
           <span class="year-label">2025</span>
         </button>
+
+      <div class="terminal end" aria-hidden="true">
+        <span class="terminal-arrow">→</span>
+        <span class="terminal-label">CONTINUA</span>
+      </div>
     </div>
 
-    <p class="instruction">
-      Passe o cursor pelas datas, clique ou use as setas do teclado.
-    </p>
+    <p class="instruction">Passe o cursor pelas datas, clique ou use as setas do teclado.</p>
   </section>
 
   <script>
@@ -590,7 +593,7 @@
           storyTitle.textContent = point.dataset.title;
           storyDescription.textContent = point.dataset.description;
           storyCard.classList.remove("changing");
-        }, 70);
+        }, 65);
 
         points.forEach((item, itemIndex) => {
           const isActive = itemIndex === activeIndex;
@@ -608,10 +611,7 @@
       });
 
       document.addEventListener("keydown", event => {
-        const timelineHasFocus =
-          document.activeElement.classList.contains("timeline-point");
-
-        if (!timelineHasFocus) return;
+        if (!document.activeElement.classList.contains("timeline-point")) return;
 
         if (event.key === "ArrowRight") {
           event.preventDefault();
