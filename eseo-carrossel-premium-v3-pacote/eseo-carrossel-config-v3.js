@@ -44,7 +44,7 @@ const slides = [
     variante: "assistente",
     selo: "Assistente virtual",
     titulo: "Olá, posso te ajudar?",
-    texto: "Nosso assistente virtual ESEO pode esclarecer dúvidas sobre conteúdos, serviços e informações do portal. Para iniciar uma conversa, clique no ícone do Copilot no canto da página.",
+    texto: "Nosso assistente virtual ESEO pode esclarecer dúvidas sobre conteúdos, serviços e informações do portal. Para iniciar uma conversa, clique no ícone do Assistente ESEO.",
     link: ""
   }
 ];
