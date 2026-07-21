@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roda de áreas ESEO</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #667085;
+      --line: #d9e0e8;
+      --surface: #ffffff;
+      --soft: #f5f7fa;
+      --focus: #ffbf00;
+      --active: #e30613;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      min-height: 740px;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: transparent;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    button { font: inherit; }
+
+    .wheel-shell {
+      width: min(1320px, 100%);
+      min-height: 740px;
+      margin: 0 auto;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 12% 88%, rgba(0,103,177,.08), transparent 30%),
+        linear-gradient(145deg, #fff, #f6f8fb);
+      box-shadow: 0 14px 38px rgba(23,32,51,.08);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 22px;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: #e30613;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: #111827;
+      font-size: clamp(28px, 3.5vw, 46px);
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+
+    .intro {
+      max-width: 680px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .interaction-tip {
+      flex: 0 0 auto;
+      padding: 9px 13px;
+      border: 1px solid #d5dce5;
+      border-radius: 999px;
+      background: #fff;
+      color: #495366;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(540px, 1.1fr) minmax(380px, .9fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .wheel-stage {
+      position: relative;
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+    }
+
+    svg {
+      width: min(590px, 100%);
+      height: auto;
+      overflow: visible;
+      filter: drop-shadow(0 12px 20px rgba(23,32,51,.10));
+    }
+
+    .segment {
+      cursor: pointer;
+      outline: none;
+    }
+
+    .segment path {
+      stroke: #fff;
+      stroke-width: 4;
+      transition: filter .18s ease, opacity .18s ease, transform .18s ease;
+      transform-origin: 320px 320px;
+    }
+
+    .segment text {
+      fill: #fff;
+      font-weight: 900;
+      text-anchor: middle;
+      pointer-events: none;
+      paint-order: stroke;
+      stroke: rgba(0,0,0,.12);
+      stroke-width: 2px;
+      stroke-linejoin: round;
+    }
+
+    .segment:hover path,
+    .segment:focus path,
+    .segment.active path {
+      filter: brightness(1.08) drop-shadow(0 8px 12px rgba(23,32,51,.22));
+      transform: scale(1.025);
+    }
+
+    .segment.dimmed path { opacity: .52; }
+
+    .segment:focus-visible path {
+      stroke: var(--focus);
+      stroke-width: 7;
+    }
+
+    .center-circle {
+      fill: #fff;
+      stroke: #d5dce6;
+      stroke-width: 5;
+    }
+
+    .center-ring {
+      fill: none;
+      stroke: #aeb8c6;
+      stroke-width: 2;
+      stroke-dasharray: 8 8;
+    }
+
+    .center-brand {
+      fill: #e30613;
+      font-weight: 950;
+      text-anchor: middle;
+    }
+
+    .center-sub {
+      fill: #4e596b;
+      font-size: 15px;
+      font-weight: 750;
+      text-anchor: middle;
+    }
+
+    .detail-card {
+      position: relative;
+      min-height: 450px;
+      overflow: hidden;
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255,255,255,.98);
+      box-shadow: 0 16px 34px rgba(23,32,51,.10);
+      isolation: isolate;
+    }
+
+    .detail-card::before {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 8px;
+      content: "";
+      background: var(--active);
+      transition: background .2s ease;
+    }
+
+    .detail-card::after {
+      position: absolute;
+      right: -120px;
+      bottom: -120px;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      content: "";
+      background: radial-gradient(circle, color-mix(in srgb, var(--active) 16%, transparent), transparent 67%);
+      z-index: -1;
+    }
+
+    .detail-kicker {
+      color: var(--active);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .detail-title {
+      max-width: 430px;
+      margin: 10px 0 16px;
+      color: #111827;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.02;
+      letter-spacing: -.035em;
+    }
+
+    .detail-copy {
+      max-width: 470px;
+      color: #465064;
+      font-size: 17px;
+      line-height: 1.58;
+    }
+
+    .detail-copy p { margin: 0 0 14px; }
+
+    .detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .detail-tags span {
+      padding: 7px 10px;
+      border: 1px solid #dce3eb;
+      border-radius: 999px;
+      background: #f8fafc;
+      color: #4d586b;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .mobile-list {
+      display: none;
+      gap: 8px;
+      margin-top: 14px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .mobile-list button {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border: 1px solid #d7dee8;
+      border-radius: 999px;
+      background: #fff;
+      color: #3e4858;
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .mobile-list button.active { border-color: var(--active); }
+    .mobile-list button:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+    @media (max-width: 980px) {
+      html, body { min-height: 1180px; }
+      .wheel-shell { min-height: 1180px; }
+      .wheel-layout { grid-template-columns: 1fr; }
+      .wheel-stage { min-height: 560px; }
+      .detail-card { min-height: 390px; }
+      .mobile-list { display: flex; }
+    }
+
+    @media (max-width: 600px) {
+      html, body { min-height: 1040px; }
+      .wheel-shell { min-height: 1040px; padding: 16px; border-radius: 18px; }
+      .header { display: block; }
+      .interaction-tip { display: inline-block; margin-top: 12px; }
+      .wheel-stage { min-height: 450px; }
+      svg { width: 460px; max-width: 118%; }
+      .detail-card { min-height: 430px; padding: 26px 22px; }
+      .detail-copy { font-size: 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .segment path { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <section class="wheel-shell" aria-labelledby="wheel-title">
+    <header class="header">
+      <div>
+        <p class="eyebrow">Como a escola funciona</p>
+        <h1 id="wheel-title">A roda da ESEO</h1>
+        <p class="intro">Cada área contribui para uma mesma jornada: desenvolver recursos, viabilizar a oferta e apoiar a aprendizagem do aluno.</p>
+      </div>
+      <span class="interaction-tip">Passe o cursor ou clique em uma área</span>
+    </header>
+
+    <div class="wheel-layout">
+      <div class="wheel-stage">
+        <svg id="wheel" viewBox="0 0 640 640" role="group" aria-label="Roda interativa das áreas da ESEO">
+          <circle class="center-ring" cx="320" cy="320" r="182"></circle>
+          <g id="segments"></g>
+          <circle class="center-circle" cx="320" cy="320" r="154"></circle>
+          <text class="center-brand" x="320" y="292" font-size="42">ESEO</text>
+          <text class="center-brand" x="320" y="334" font-size="28">Escola SENAI</text>
+          <text class="center-brand" x="320" y="368" font-size="28">de Educação Online</text>
+          <text class="center-sub" x="320" y="403">Desenvolver · Ofertar · Apoiar</text>
+        </svg>
+      </div>
+
+      <aside class="detail-card" id="detailCard" aria-live="polite">
+        <span class="detail-kicker" id="detailKicker">Integração que gera valor</span>
+        <h2 class="detail-title" id="detailTitle">Uma escola, várias competências</h2>
+        <div class="detail-copy" id="detailCopy">
+          <p>A ESEO combina gestão, pedagogia, tecnologia, produção multimídia, dados e atendimento ao aluno para oferecer experiências de aprendizagem online e semipresenciais com qualidade.</p>
+          <p>Explore a roda para conhecer o papel de cada área.</p>
+        </div>
+        <div class="detail-tags" id="detailTags">
+          <span>Educação</span><span>Tecnologia</span><span>Inovação</span><span>Qualidade</span>
+        </div>
+      </aside>
+    </div>
+
+    <div class="mobile-list" id="mobileList" aria-label="Lista das áreas da ESEO"></div>
+  </section>
+
+  <script>
+    (() => {
+      const areas = [
+        {
+          short: 'DIREÇÃO E COORDENAÇÕES',
+          label: 'Direção e Coordenações',
+          color: '#6e1115',
+          kicker: 'Gestão e estratégia',
+          copy: '<p>Define diretrizes, metas e parâmetros da escola e realiza a interlocução com stakeholders internos e externos.</p><p>As coordenações de Desenvolvimento e de Oferta conectam a produção dos cursos à qualidade do processo de ensino e aprendizagem.</p>',
+          tags: ['Diretrizes', 'Metas', 'Articulação', 'Qualidade']
+        },
+        {
+          short: 'NDA',
+          label: 'Núcleo de Design de Aprendizagem',
+          color: '#b91f1f',
+          kicker: 'Planejamento pedagógico',
+          copy: '<p>Planeja os projetos pedagógicos, documentos norteadores e experiências de aprendizagem, aplicando a Metodologia SENAI e as especificidades da EaD.</p><p>Orienta docentes conteudistas, roteiriza recursos interativos e organiza os entregáveis pedagógicos dos cursos.</p>',
+          tags: ['Design instrucional', 'Roteiros', 'Metodologia', 'Conteúdo']
+        },
+        {
+          short: 'NPM',
+          label: 'Núcleo de Produção Multimídia',
+          color: '#e33b1d',
+          kicker: 'Produção criativa',
+          copy: '<p>Desenvolve soluções visuais, interativas, sonoras e audiovisuais para a educação profissional.</p><p>Produz interfaces, animações, ilustrações, videoaulas, podcasts e materiais digitais com acessibilidade, responsividade e identidade visual.</p>',
+          tags: ['Vídeo', 'Animação', 'Áudio', 'Design visual']
+        },
+        {
+          short: 'NTEC',
+          label: 'Núcleo de Tecnologia Educacional',
+          color: '#f26b21',
+          kicker: 'Tecnologia e plataformas',
+          copy: '<p>Desenvolve objetos de aprendizagem complexos, simuladores e soluções web, além de administrar os Ambientes Virtuais de Aprendizagem.</p><p>Cuida da estabilidade, atualização, usabilidade, integrações e suporte técnico para equipes e estudantes.</p>',
+          tags: ['AVA', 'Integrações', 'Programação', 'Suporte']
+        },
+        {
+          short: 'TUTORIA',
+          label: 'Central de Tutoria',
+          color: '#5d5d60',
+          kicker: 'Acompanhamento pedagógico',
+          copy: '<p>Acompanha o processo de ensino e aprendizagem, apoia tutores e fortalece a mediação pedagógica nos cursos online e semipresenciais.</p><p>Promove formação contínua, reflexão da prática docente e ações de melhoria na experiência do aluno.</p>',
+          tags: ['Mediação', 'Tutores', 'Aprendizagem', 'Formação']
+        },
+        {
+          short: 'MONITORIA',
+          label: 'Central de Monitoria',
+          color: '#44464a',
+          kicker: 'Operação e atendimento',
+          copy: '<p>Planeja a oferta, organiza turmas e alunos no AVA e mantém a comunicação com escolas, empresas, Departamentos Regionais e demais clientes.</p><p>Também apoia os estudantes na navegação e no uso das ferramentas, acompanhando sua jornada do início ao fim.</p>',
+          tags: ['Turmas', 'Atendimento', 'AVA', 'Relacionamento']
+        },
+        {
+          short: 'ADMINISTRAÇÃO',
+          label: 'Administração Escolar',
+          color: '#303236',
+          kicker: 'Governança e suporte',
+          copy: '<p>Garante a fidedignidade dos atos e registros escolares e sustenta a operação administrativa da unidade.</p><p>Atua na gestão de pessoas, recursos, contratos, patrimônio, atendimento ao cliente, infraestrutura e suporte institucional.</p>',
+          tags: ['Registros', 'Recursos', 'Contratos', 'Infraestrutura']
+        },
+        {
+          short: 'NIE',
+          label: 'Núcleo de Inteligência Educacional',
+          color: '#1c1d20',
+          kicker: 'Dados e transformação',
+          copy: '<p>Fortalece a cultura orientada por dados e apoia decisões por meio de indicadores, análises e projeções.</p><p>Automatiza e otimiza processos internos, promovendo padronização, integração de sistemas, rastreabilidade e ganho de agilidade operacional.</p>',
+          tags: ['Dados', 'Indicadores', 'Automação', 'Inteligência artificial']
+        }
+      ];
+
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const group = document.getElementById('segments');
+      const mobileList = document.getElementById('mobileList');
+      const cx = 320, cy = 320, inner = 170, outer = 292;
+      let activeIndex = -1;
+
+      function polar(radius, angle) {
+        const rad = (angle - 90) * Math.PI / 180;
+        return { x: cx + radius * Math.cos(rad), y: cy + radius * Math.sin(rad) };
+      }
+
+      function donutPath(startAngle, endAngle) {
+        const p1 = polar(outer, startAngle);
+        const p2 = polar(outer, endAngle);
+        const p3 = polar(inner, endAngle);
+        const p4 = polar(inner, startAngle);
+        const large = endAngle - startAngle <= 180 ? 0 : 1;
+        return [
+          `M ${p1.x} ${p1.y}`,
+          `A ${outer} ${outer} 0 ${large} 1 ${p2.x} ${p2.y}`,
+          `L ${p3.x} ${p3.y}`,
+          `A ${inner} ${inner} 0 ${large} 0 ${p4.x} ${p4.y}`,
+          'Z'
+        ].join(' ');
+      }
+
+      function wrapLabel(text) {
+        if (text.length <= 13) return [text];
+        const words = text.split(' ');
+        const lines = [];
+        let line = '';
+        words.forEach(word => {
+          const test = line ? `${line} ${word}` : word;
+          if (test.length > 15 && line) {
+            lines.push(line);
+            line = word;
+          } else {
+            line = test;
+          }
+        });
+        if (line) lines.push(line);
+        return lines.slice(0, 3);
+      }
+
+      areas.forEach((area, index) => {
+        const start = index * 45 - 22.5;
+        const end = start + 45;
+        const mid = start + 22.5;
+        const segment = document.createElementNS(svgNS, 'g');
+        segment.classList.add('segment');
+        segment.setAttribute('tabindex', '0');
+        segment.setAttribute('role', 'button');
+        segment.setAttribute('aria-label', `${area.label}. ${area.kicker}`);
+        segment.dataset.index = index;
+
+        const path = document.createElementNS(svgNS, 'path');
+        path.setAttribute('d', donutPath(start + 0.7, end - 0.7));
+        path.setAttribute('fill', area.color);
+        segment.appendChild(path);
+
+        const labelPoint = polar(230, mid);
+        const text = document.createElementNS(svgNS, 'text');
+        text.setAttribute('x', labelPoint.x);
+        text.setAttribute('y', labelPoint.y);
+        text.setAttribute('font-size', area.short.length > 15 ? '15' : '18');
+        const lines = wrapLabel(area.short);
+        const startDy = -((lines.length - 1) * 10);
+        lines.forEach((line, lineIndex) => {
+          const tspan = document.createElementNS(svgNS, 'tspan');
+          tspan.setAttribute('x', labelPoint.x);
+          tspan.setAttribute('dy', lineIndex === 0 ? startDy : 21);
+          tspan.textContent = line;
+          text.appendChild(tspan);
+        });
+        segment.appendChild(text);
+
+        segment.addEventListener('mouseenter', () => { selectArea(index); dimOthers(index, true); });
+        segment.addEventListener('focus', () => { selectArea(index); dimOthers(index, true); });
+        segment.addEventListener('blur', () => dimOthers(index, false));
+        segment.addEventListener('click', () => selectArea(index));
+        segment.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            selectArea(index);
+          }
+          if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+            event.preventDefault();
+            const next = (index + 1) % areas.length;
+            group.children[next].focus();
+          }
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+            event.preventDefault();
+            const previous = (index - 1 + areas.length) % areas.length;
+            group.children[previous].focus();
+          }
+        });
+
+        group.appendChild(segment);
+
+        const mobileButton = document.createElement('button');
+        mobileButton.type = 'button';
+        mobileButton.textContent = area.short;
+        mobileButton.addEventListener('click', () => selectArea(index));
+        mobileList.appendChild(mobileButton);
+      });
+
+      function selectArea(index) {
+        activeIndex = index;
+        const area = areas[index];
+        document.documentElement.style.setProperty('--active', area.color);
+        [...group.children].forEach((segment, i) => {
+          segment.classList.toggle('active', i === index);
+        });
+        [...mobileList.children].forEach((button, i) => button.classList.toggle('active', i === index));
+        document.getElementById('detailKicker').textContent = area.kicker;
+        document.getElementById('detailTitle').textContent = area.label;
+        document.getElementById('detailCopy').innerHTML = area.copy;
+        document.getElementById('detailTags').innerHTML = area.tags.map(tag => `<span>${tag}</span>`).join('');
+      }
+
+      function dimOthers(index, on) {
+        [...group.children].forEach((segment, i) => {
+          segment.classList.toggle('dimmed', on && i !== index);
+        });
+      }
+
+      document.getElementById('wheel').addEventListener('mouseleave', () => dimOthers(activeIndex, false));
+
+      selectArea(0);
+    })();
+  </script>
+</body>
+</html>

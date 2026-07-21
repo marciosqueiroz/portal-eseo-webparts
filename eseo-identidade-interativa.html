@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Identidade ESEO</title>
+  <style>
+    :root {
+      --eseo-red: #e30613;
+      --eseo-orange: #f5a800;
+      --eseo-blue: #0067b1;
+      --ink: #1b2433;
+      --muted: #626c7c;
+      --surface: #ffffff;
+      --soft: #f4f6f9;
+      --line: #dce2ea;
+      --focus: #ffbf00;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      min-height: 610px;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: transparent;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    button { font: inherit; }
+
+    .identity-shell {
+      width: min(1280px, 100%);
+      min-height: 610px;
+      margin: 0 auto;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 95% 10%, rgba(0,103,177,.10), transparent 32%),
+        linear-gradient(145deg, #fff, #f7f9fc);
+      box-shadow: 0 14px 36px rgba(27, 36, 51, .08);
+    }
+
+    .header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      margin: 0 0 4px;
+      color: var(--eseo-red);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(26px, 3.2vw, 42px);
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin: 9px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .hint-btn {
+      flex: 0 0 auto;
+      padding: 10px 14px;
+      border: 1px solid #cfd7e2;
+      border-radius: 999px;
+      background: #fff;
+      color: #344054;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: border-color .18s ease, transform .18s ease;
+    }
+
+    .hint-btn:hover { border-color: var(--eseo-blue); transform: translateY(-1px); }
+    .hint-btn:focus-visible, .letter:focus-visible, .tab:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .experience {
+      display: grid;
+      grid-template-columns: minmax(410px, .95fr) minmax(430px, 1.05fr);
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .puzzle-card,
+    .detail-card {
+      min-height: 445px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 12px 28px rgba(27,36,51,.07);
+    }
+
+    .puzzle-card { padding: 20px; }
+
+    .puzzle-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .puzzle-top strong { font-size: 15px; }
+    .status {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(24px, 1fr));
+      gap: 5px;
+      width: 100%;
+      aspect-ratio: 1;
+      padding: 10px;
+      border: 1px solid #e3e8ef;
+      border-radius: 18px;
+      background:
+        linear-gradient(90deg, rgba(0,103,177,.025) 1px, transparent 1px),
+        linear-gradient(rgba(0,103,177,.025) 1px, transparent 1px),
+        #fbfcfe;
+      background-size: 26px 26px;
+    }
+
+    .letter {
+      display: grid;
+      place-items: center;
+      min-width: 0;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: #344054;
+      font-size: clamp(13px, 1.6vw, 20px);
+      font-weight: 800;
+      cursor: default;
+      transition: background .16s ease, color .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+
+    .letter[data-word] { cursor: pointer; }
+
+    .letter.word-hover,
+    .letter.word-selected {
+      color: #fff;
+      transform: scale(1.06);
+      box-shadow: 0 5px 12px rgba(27,36,51,.12);
+    }
+
+    .letter[data-word="missao"].word-hover,
+    .letter[data-word="missao"].word-selected { background: var(--eseo-red); }
+
+    .letter[data-word="visao"].word-hover,
+    .letter[data-word="visao"].word-selected { background: var(--eseo-blue); }
+
+    .letter[data-word="valores"].word-hover,
+    .letter[data-word="valores"].word-selected { background: var(--eseo-orange); color: #222; }
+
+    .letter.hint {
+      animation: pulse 1.2s ease-in-out 2;
+      box-shadow: inset 0 0 0 2px var(--eseo-blue);
+    }
+
+    @keyframes pulse {
+      50% { transform: scale(1.13); background: rgba(0,103,177,.12); }
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .legend i {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #cdd5df;
+    }
+
+    .detail-card {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+      isolation: isolate;
+    }
+
+    .detail-card::before {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 7px;
+      content: "";
+      background: var(--active-color, var(--eseo-red));
+      transition: background .2s ease;
+    }
+
+    .detail-card::after {
+      position: absolute;
+      right: -80px;
+      bottom: -110px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      content: "";
+      background: radial-gradient(circle, color-mix(in srgb, var(--active-color, var(--eseo-red)) 13%, transparent), transparent 68%);
+      z-index: -1;
+    }
+
+    .detail-number {
+      color: var(--active-color, var(--eseo-red));
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .detail-title {
+      margin: 10px 0 16px;
+      color: #111827;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: .95;
+      letter-spacing: -.045em;
+    }
+
+    .detail-copy {
+      max-width: 640px;
+      color: #3f4959;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .detail-copy p { margin: 0 0 14px; }
+
+    .tabs {
+      position: absolute;
+      right: 22px;
+      bottom: 20px;
+      left: 30px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .tab {
+      flex: 1;
+      min-width: 0;
+      padding: 11px 10px;
+      border: 1px solid #d9e0e9;
+      border-radius: 12px;
+      background: #fff;
+      color: #3d4655;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .16s ease, border-color .16s ease, background .16s ease;
+    }
+
+    .tab:hover { transform: translateY(-2px); }
+    .tab.active { border-color: var(--active-color, var(--eseo-red)); background: #f7f9fc; }
+
+    @media (max-width: 900px) {
+      html, body { min-height: 1050px; }
+      .identity-shell { min-height: 1050px; padding: 20px; }
+      .header { align-items: flex-start; }
+      .experience { grid-template-columns: 1fr; }
+      .puzzle-card, .detail-card { min-height: auto; }
+      .detail-card { min-height: 440px; padding: 26px; }
+    }
+
+    @media (max-width: 560px) {
+      html, body { min-height: 980px; }
+      .identity-shell { min-height: 980px; padding: 14px; border-radius: 18px; }
+      .header { display: block; }
+      .hint-btn { margin-top: 12px; }
+      .puzzle-card { padding: 12px; }
+      .grid { gap: 2px; padding: 6px; }
+      .letter { border-radius: 6px; font-size: 13px; }
+      .detail-card { min-height: 500px; padding: 24px 20px; }
+      .detail-copy { font-size: 15px; }
+      .tabs { right: 14px; left: 20px; }
+      .tab { font-size: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .letter, .hint-btn, .tab { transition: none; }
+      .letter.hint { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <section class="identity-shell" aria-labelledby="identity-title">
+    <header class="header">
+      <div>
+        <p class="eyebrow">Essência ESEO</p>
+        <h1 id="identity-title">Encontre o que nos move</h1>
+        <p class="intro">Três palavras orientam a atuação da Escola SENAI de Educação Online. Localize uma delas no caça-palavras e descubra seu significado.</p>
+      </div>
+      <button class="hint-btn" id="hintButton" type="button">Dar uma pista</button>
+    </header>
+
+    <div class="experience">
+      <section class="puzzle-card" aria-label="Caça-palavras da identidade ESEO">
+        <div class="puzzle-top">
+          <strong>Caça-palavras institucional</strong>
+          <span class="status" id="status">0 de 3 descobertas</span>
+        </div>
+        <div class="grid" id="grid" aria-label="Grade de letras"></div>
+        <div class="legend" aria-hidden="true">
+          <span><i></i> As palavras podem estar na horizontal, vertical ou diagonal.</span>
+        </div>
+      </section>
+
+      <section class="detail-card" id="detailCard" aria-live="polite">
+        <span class="detail-number" id="detailNumber">Comece pelo caça-palavras</span>
+        <h2 class="detail-title" id="detailTitle">Identidade</h2>
+        <div class="detail-copy" id="detailCopy">
+          <p>Passe o cursor pelas letras ou clique em uma palavra encontrada. A descrição aparecerá aqui.</p>
+          <p>No celular, basta tocar sobre uma das palavras.</p>
+        </div>
+        <div class="tabs" aria-label="Atalhos da identidade">
+          <button class="tab" type="button" data-open="missao">Missão</button>
+          <button class="tab" type="button" data-open="visao">Visão</button>
+          <button class="tab" type="button" data-open="valores">Valores</button>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      const size = 12;
+      const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const placements = {
+        missao: { word: 'MISSAO', row: 1, col: 1, dr: 0, dc: 1 },
+        visao: { word: 'VISAO', row: 5, col: 1, dr: 1, dc: 1 },
+        valores: { word: 'VALORES', row: 2, col: 9, dr: 1, dc: 0 }
+      };
+
+      const content = {
+        missao: {
+          label: '01 · Missão',
+          title: 'MISSÃO',
+          color: '#e30613',
+          html: '<p>Promover o desenvolvimento sustentável do país e a competitividade da indústria por meio da educação profissional — presencial e online — aliada à inovação e à tecnologia, garantindo acesso à formação de qualidade em qualquer tempo e lugar.</p>'
+        },
+        visao: {
+          label: '02 · Visão',
+          title: 'VISÃO',
+          color: '#0067b1',
+          html: '<p>Ser reconhecido pela oferta de formação profissional de padrão global. Ser reconhecido como indutor da inovação e da tecnologia para a competitividade da indústria.</p><p>Distinguir-se pela excelência dos seus serviços e dos seus processos.</p>'
+        },
+        valores: {
+          label: '03 · Valores',
+          title: 'VALORES',
+          color: '#f5a800',
+          html: '<p>Nossas ações são guiadas pela credibilidade, integridade e compromisso, pautadas na transparência, confiança e disciplina. Atuamos de forma organizada e responsável, buscando excelência no desenvolvimento e na oferta de cursos, sempre valorizando a diversidade, a inclusão e o acesso igualitário à educação.</p><p>Valorizamos a inovação, práticas ágeis e sustentáveis, o trabalho colaborativo e experiências de aprendizagem de alta qualidade em todos os formatos.</p>'
+        }
+      };
+
+      const matrix = Array.from({ length: size }, () => Array.from({ length: size }, () => ''));
+      const wordMap = new Map();
+
+      Object.entries(placements).forEach(([key, place]) => {
+        [...place.word].forEach((char, index) => {
+          const row = place.row + place.dr * index;
+          const col = place.col + place.dc * index;
+          matrix[row][col] = char;
+          wordMap.set(`${row}-${col}`, key);
+        });
+      });
+
+      let seed = 47;
+      function randomLetter() {
+        seed = (seed * 9301 + 49297) % 233280;
+        return alphabet[Math.floor((seed / 233280) * alphabet.length)];
+      }
+
+      const grid = document.getElementById('grid');
+      const found = new Set();
+      let active = null;
+
+      matrix.forEach((row, r) => {
+        row.forEach((char, c) => {
+          const button = document.createElement('button');
+          const key = wordMap.get(`${r}-${c}`);
+          button.type = 'button';
+          button.className = 'letter';
+          button.textContent = char || randomLetter();
+          button.setAttribute('aria-label', `Letra ${button.textContent}`);
+          if (key) {
+            button.dataset.word = key;
+            button.setAttribute('aria-label', `Letra ${button.textContent}, parte da palavra ${content[key].title}`);
+            button.addEventListener('mouseenter', () => highlight(key, true));
+            button.addEventListener('mouseleave', () => highlight(key, false));
+            button.addEventListener('focus', () => highlight(key, true));
+            button.addEventListener('blur', () => highlight(key, false));
+            button.addEventListener('click', () => openWord(key));
+          }
+          grid.appendChild(button);
+        });
+      });
+
+      function highlight(key, on) {
+        document.querySelectorAll(`[data-word="${key}"]`).forEach(el => {
+          if (!el.classList.contains('word-selected')) el.classList.toggle('word-hover', on);
+        });
+      }
+
+      function openWord(key) {
+        active = key;
+        found.add(key);
+        document.querySelectorAll('.letter[data-word]').forEach(el => {
+          el.classList.toggle('word-selected', el.dataset.word === key || found.has(el.dataset.word));
+          el.classList.remove('word-hover');
+        });
+        const item = content[key];
+        const card = document.getElementById('detailCard');
+        card.style.setProperty('--active-color', item.color);
+        document.getElementById('detailNumber').textContent = item.label;
+        document.getElementById('detailTitle').textContent = item.title;
+        document.getElementById('detailCopy').innerHTML = item.html;
+        document.getElementById('status').textContent = `${found.size} de 3 descobertas`;
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.toggle('active', tab.dataset.open === key));
+      }
+
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => openWord(tab.dataset.open));
+      });
+
+      let hintIndex = 0;
+      document.getElementById('hintButton').addEventListener('click', () => {
+        const keys = Object.keys(placements);
+        const key = keys[hintIndex % keys.length];
+        hintIndex += 1;
+        const first = document.querySelector(`[data-word="${key}"]`);
+        first.classList.remove('hint');
+        void first.offsetWidth;
+        first.classList.add('hint');
+        first.focus({ preventScroll: true });
+      });
+    })();
+  </script>
+</body>
+</html>

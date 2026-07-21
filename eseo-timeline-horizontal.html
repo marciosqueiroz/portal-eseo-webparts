@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linha do tempo ESEO</title>
+  <style>
+    :root {
+      --eseo-blue: #0067b1;
+      --eseo-blue-dark: #003f75;
+      --eseo-red: #e30613;
+      --ink: #172033;
+      --muted: #5f6878;
+      --line: #cbd3df;
+      --surface: #ffffff;
+      --soft: #f6f8fb;
+      --focus: #ffbf00;
+      --shadow: 0 12px 30px rgba(23, 32, 51, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      min-height: 660px;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: transparent;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    button { font: inherit; }
+
+    .timeline-shell {
+      width: 100%;
+      max-width: 1400px;
+      min-height: 660px;
+      margin: 0 auto;
+      padding: 24px 18px 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(246,248,251,.98));
+      border: 1px solid rgba(203, 211, 223, .75);
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(23, 32, 51, .07);
+    }
+
+    .timeline-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 8px 16px;
+    }
+
+    .eyebrow {
+      margin: 0 0 5px;
+      color: var(--eseo-blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: #111827;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.05;
+      letter-spacing: -.025em;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .counter {
+      min-width: 62px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .nav-btn {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #cdd5e1;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--eseo-blue-dark);
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--eseo-blue);
+      background: #eef6fc;
+    }
+
+    .nav-btn:focus-visible,
+    .timeline-viewport:focus-visible,
+    .milestone:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .nav-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .timeline-viewport {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      cursor: grab;
+      overscroll-behavior-inline: contain;
+      touch-action: pan-x;
+    }
+
+    .timeline-viewport::-webkit-scrollbar { display: none; }
+    .timeline-viewport.dragging { cursor: grabbing; scroll-behavior: auto; }
+
+    .timeline-track {
+      position: relative;
+      display: flex;
+      gap: 28px;
+      width: max-content;
+      min-width: 100%;
+      height: 100%;
+      padding: 10px 64px 16px;
+    }
+
+    .timeline-track::before {
+      position: absolute;
+      top: 250px;
+      left: 54px;
+      right: 54px;
+      height: 4px;
+      border-radius: 999px;
+      content: "";
+      background: linear-gradient(90deg, var(--eseo-blue-dark), var(--eseo-blue) 64%, var(--eseo-red));
+      box-shadow: 0 0 0 4px rgba(0, 103, 177, .08);
+    }
+
+    .milestone {
+      position: relative;
+      width: 316px;
+      height: 100%;
+      flex: 0 0 316px;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+    }
+
+    .milestone::before {
+      position: absolute;
+      left: 50%;
+      top: 230px;
+      width: 38px;
+      height: 38px;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      content: "";
+      background: var(--eseo-blue);
+      box-shadow: 0 0 0 3px var(--eseo-blue), 0 7px 14px rgba(0, 103, 177, .22);
+      transform: translateX(-50%);
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+      z-index: 3;
+    }
+
+    .milestone::after {
+      position: absolute;
+      left: 50%;
+      width: 2px;
+      content: "";
+      background: linear-gradient(var(--eseo-blue), rgba(0,103,177,.12));
+      transform: translateX(-50%);
+    }
+
+    .milestone:nth-child(odd)::after {
+      top: 199px;
+      height: 33px;
+    }
+
+    .milestone:nth-child(even)::after {
+      top: 270px;
+      height: 33px;
+      background: linear-gradient(rgba(0,103,177,.12), var(--eseo-blue));
+    }
+
+    .milestone:hover::before,
+    .milestone:focus-visible::before,
+    .milestone.active::before {
+      background: var(--eseo-red);
+      box-shadow: 0 0 0 3px var(--eseo-red), 0 9px 20px rgba(227, 6, 19, .22);
+      transform: translateX(-50%) scale(1.1);
+    }
+
+    .year {
+      position: absolute;
+      left: 50%;
+      top: 205px;
+      z-index: 4;
+      padding: 5px 10px;
+      border: 1px solid #dbe2ec;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--eseo-blue-dark);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .02em;
+      transform: translate(-50%, -100%);
+      box-shadow: 0 4px 12px rgba(23,32,51,.08);
+      white-space: nowrap;
+    }
+
+    .milestone:nth-child(even) .year {
+      top: 295px;
+      transform: translate(-50%, 0);
+    }
+
+    .card {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      min-height: 182px;
+      padding: 20px 20px 18px;
+      border: 1px solid #dce3ec;
+      border-radius: 20px;
+      background: rgba(255,255,255,.98);
+      box-shadow: var(--shadow);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .milestone:nth-child(odd) .card { top: 8px; }
+    .milestone:nth-child(even) .card { top: 319px; }
+
+    .milestone:hover .card,
+    .milestone:focus-visible .card,
+    .milestone.active .card {
+      border-color: rgba(0,103,177,.6);
+      box-shadow: 0 17px 38px rgba(23, 32, 51, .16);
+      transform: translateY(-4px);
+    }
+
+    .milestone:nth-child(even):hover .card,
+    .milestone:nth-child(even):focus-visible .card,
+    .milestone:nth-child(even).active .card {
+      transform: translateY(4px);
+    }
+
+    .sequence {
+      position: absolute;
+      top: 15px;
+      right: 16px;
+      color: #a7b0bf;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    .card h2 {
+      max-width: 255px;
+      margin: 0 0 10px;
+      color: #111827;
+      font-size: 20px;
+      line-height: 1.18;
+      letter-spacing: -.015em;
+    }
+
+    .card p {
+      margin: 0;
+      color: #465066;
+      font-size: 14px;
+      line-height: 1.52;
+    }
+
+    .hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 4px 8px 0;
+      color: #697386;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .hint svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--eseo-blue);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (max-width: 760px) {
+      html, body { min-height: 690px; }
+      .timeline-shell { min-height: 690px; border-radius: 18px; padding: 18px 8px 14px; }
+      .timeline-header { align-items: flex-start; padding-inline: 10px; }
+      .subtitle { font-size: 14px; }
+      .counter { display: none; }
+      .timeline-viewport { height: 520px; }
+      .timeline-track { padding-inline: 34px; gap: 18px; }
+      .timeline-track::before { left: 30px; right: 30px; }
+      .milestone { width: 286px; flex-basis: 286px; }
+      .card { padding: 18px; }
+      .card h2 { font-size: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .timeline-viewport { scroll-behavior: auto; }
+      .nav-btn, .milestone::before, .card { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <section class="timeline-shell" aria-labelledby="timeline-title">
+    <header class="timeline-header">
+      <div>
+        <p class="eyebrow">Nossa trajetória</p>
+        <h1 id="timeline-title">Linha do tempo ESEO</h1>
+        <p class="subtitle">Uma história de inovação educacional que começou no impresso, atravessou a televisão e ganhou escala no digital.</p>
+      </div>
+      <div class="controls" aria-label="Controles da linha do tempo">
+        <button class="nav-btn" id="prev" type="button" aria-label="Voltar na linha do tempo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+        </button>
+        <span class="counter" id="counter" aria-live="polite">1 / 11</span>
+        <button class="nav-btn" id="next" type="button" aria-label="Avançar na linha do tempo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="timeline-viewport" id="viewport" tabindex="0" aria-label="Linha do tempo horizontal. Arraste ou use as setas do teclado para navegar.">
+      <div class="timeline-track">
+        <article class="milestone active" tabindex="0">
+          <span class="year">1979</span>
+          <div class="card">
+            <span class="sequence">01</span>
+            <h2>O primeiro marco: Desenho Técnico-Mecânico</h2>
+            <p>Lançamento do curso de Leitura e Interpretação de Desenho Técnico-Mecânico. O formato inovador combinava módulos impressos com salas de aula equipadas com televisores.</p>
+          </div>
+        </article>
+
+        <article class="milestone" tabindex="0">
+          <span class="year">1990</span>
+          <div class="card">
+            <span class="sequence">02</span>
+            <h2>Expansão do modelo híbrido</h2>
+            <p>Consolidação e crescimento do catálogo de cursos, com expansão do modelo baseado no binômio material impresso e videoaulas.</p>
+          </div>
+        </article>
+
+        <article class="milestone" tabindex="0">
+          <span class="year">1995</span>
+          <div class="card">
+            <span class="sequence">03</span>
+            <h2>A era do Telecurso 2000</h2>
+            <p>O SENAI-SP participa do desenvolvimento do Telecurso 2000 Profissionalizante em Mecânica, uma experiência nacional marcante de Educação a Distância.</p>
+          </div>
+        </article>
+
+        <article class="milestone" tabindex="0">
+          <span class="year">2007</span>
+          <div class="card">
+            <span class="sequence">04</span>
+            <h2>Nascimento do Centro de EaD</h2>
+            <p>Criação do grupo que daria origem ao Centro SENAI de Educação a Distância e início da transição dos materiais impressos para as primeiras tecnologias digitais.</p>
+          </div>
+        </article>
+
+        <article class="milestone" tabindex="0">
+          <span class="year">2010</span>
+          <div class="card">
+            <span class="sequence">05</span>
+            <h2>Pioneirismo no ensino superior</h2>
+            <p>O curso superior de Tecnologia de Produção Gráfica passa a ofertar unidades curriculares a distância, introduzindo o modelo híbrido na graduação.</p>
+          </div>
+        </article>
+
+        <article class="milestone" tabindex="0">
+          <span class="year">2010–2017</span>
+          <div class="card">
+            <span class="sequence">06</span>
+            <h2>A virada digital e a escala</h2>
+            <p>Consolidação da cultura digital e foco em recursos online, alcançando a marca de 1,5 milhão de alunos formados a distância pelo SENAI-SP em dez anos.</p>
+          </div>
+        </article>
+
+        <article class="milestone" tabindex="0">
+          <span class="year">2017</span>
+          <div class="card">
+            <span class="sequence">07</span>
+            <h2>Primeiro Curso Técnico Semipresencial</h2>
+            <p>Implantação do primeiro curso técnico semipresencial da rede, iniciado em Santos e rapidamente expandido para sete cursos e 19 turmas ativas.</p>
+          </div>
+        </article>
+
+        <article class="milestone" tabindex="0">
+          <span class="year">2019</span>
+          <div class="card">
+            <span class="sequence">08</span>
+            <h2>Expansão para a Pós-Graduação</h2>
+            <p>Lançamento da especialização Lato Sensu em Inovação e Competitividade Industrial, abrindo caminho para novas ofertas digitais de graduação e pós-graduação.</p>
+          </div>
+        </article>
+
+        <article class="milestone" tabindex="0">
+          <span class="year">2020</span>
+          <div class="card">
+            <span class="sequence">09</span>
+            <h2>Aceleração e resposta à pandemia</h2>
+            <p>Diante do isolamento social, o SENAI-SP acelera suas soluções 100% online e registra mais de 800 mil matrículas em diferentes modalidades.</p>
+          </div>
+        </article>
+
+        <article class="milestone" tabindex="0">
+          <span class="year">2022</span>
+          <div class="card">
+            <span class="sequence">10</span>
+            <h2>Consolidação da ESEO</h2>
+            <p>O braço de EaD é oficialmente nomeado Escola SENAI de Educação Online e se consolida como hub multidisciplinar de cursos, simuladores, games, vídeos, RV e RA.</p>
+          </div>
+        </article>
+
+        <article class="milestone" tabindex="0">
+          <span class="year">2025</span>
+          <div class="card">
+            <span class="sequence">11</span>
+            <h2>O novo marco regulatório do Ensino Superior</h2>
+            <p>O Decreto nº 12.456/2025 institui a modalidade semipresencial, redefine limites para a oferta remota e estabelece requisitos de infraestrutura e avaliação presencial.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <p class="hint">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 12h8M12 8l-4 4 4 4M12 8l4 4-4 4" /></svg>
+      Arraste para os lados, use a roda do mouse ou as setas do teclado.
+    </p>
+  </section>
+
+  <script>
+    (() => {
+      const viewport = document.getElementById('viewport');
+      const milestones = [...document.querySelectorAll('.milestone')];
+      const counter = document.getElementById('counter');
+      const prev = document.getElementById('prev');
+      const next = document.getElementById('next');
+      let activeIndex = 0;
+      let isDown = false;
+      let startX = 0;
+      let startScroll = 0;
+
+      function setActive(index, shouldScroll = true) {
+        activeIndex = Math.max(0, Math.min(milestones.length - 1, index));
+        milestones.forEach((item, i) => item.classList.toggle('active', i === activeIndex));
+        counter.textContent = `${activeIndex + 1} / ${milestones.length}`;
+        if (shouldScroll) {
+          milestones[activeIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+
+      prev.addEventListener('click', () => setActive(activeIndex - 1));
+      next.addEventListener('click', () => setActive(activeIndex + 1));
+
+      milestones.forEach((item, index) => {
+        item.addEventListener('click', () => setActive(index));
+        item.addEventListener('focus', () => setActive(index, false));
+      });
+
+      viewport.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          setActive(activeIndex + 1);
+        }
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          setActive(activeIndex - 1);
+        }
+        if (event.key === 'Home') {
+          event.preventDefault();
+          setActive(0);
+        }
+        if (event.key === 'End') {
+          event.preventDefault();
+          setActive(milestones.length - 1);
+        }
+      });
+
+      viewport.addEventListener('wheel', (event) => {
+        if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+          event.preventDefault();
+          viewport.scrollLeft += event.deltaY;
+        }
+      }, { passive: false });
+
+      viewport.addEventListener('pointerdown', (event) => {
+        isDown = true;
+        startX = event.clientX;
+        startScroll = viewport.scrollLeft;
+        viewport.setPointerCapture(event.pointerId);
+        viewport.classList.add('dragging');
+      });
+
+      viewport.addEventListener('pointermove', (event) => {
+        if (!isDown) return;
+        viewport.scrollLeft = startScroll - (event.clientX - startX);
+      });
+
+      function stopDrag() {
+        isDown = false;
+        viewport.classList.remove('dragging');
+      }
+
+      viewport.addEventListener('pointerup', stopDrag);
+      viewport.addEventListener('pointercancel', stopDrag);
+      viewport.addEventListener('pointerleave', stopDrag);
+
+      let ticking = false;
+      viewport.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const center = viewport.scrollLeft + viewport.clientWidth / 2;
+          let closest = 0;
+          let minDistance = Infinity;
+          milestones.forEach((item, index) => {
+            const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+            const distance = Math.abs(itemCenter - center);
+            if (distance < minDistance) {
+              minDistance = distance;
+              closest = index;
+            }
+          });
+          setActive(closest, false);
+          ticking = false;
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
