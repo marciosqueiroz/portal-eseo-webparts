@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Identidade ESEO</title>
+  <title>Identidade ESEO — paleta oficial transparente</title>
   <style>
     :root {
-      --eseo-red: #e30613;
-      --eseo-orange: #f5a800;
-      --eseo-blue: #0067b1;
+      --eseo-red: #0a2537;
+      --eseo-orange: #0eb7d5;
+      --eseo-blue: #1d728f;
       --ink: #1b2433;
       --muted: #626c7c;
       --surface: #ffffff;
-      --soft: #f4f6f9;
+      --soft: #f2f2f2;
       --line: #dce2ea;
       --focus: #ffbf00;
     }
@@ -25,7 +25,7 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      background: transparent;
+      background: transparent !important;
       color: var(--ink);
       font-family: "Segoe UI", Arial, sans-serif;
     }
@@ -39,7 +39,7 @@
       padding: 28px;
       border: 0;
       border-radius: 0;
-      background: transparent;
+      background: transparent !important;
       box-shadow: none;
     }
 
@@ -80,7 +80,7 @@
       padding: 10px 14px;
       border: 1px solid #cfd7e2;
       border-radius: 999px;
-      background: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.76);
       color: #344054;
       font-size: 13px;
       font-weight: 800;
@@ -106,7 +106,7 @@
       min-height: 445px;
       border: 1px solid var(--line);
       border-radius: 22px;
-      background: rgba(255,255,255,.76);
+      background: rgba(255,255,255,.70);
       box-shadow: 0 12px 28px rgba(27,36,51,.07);
     }
 
@@ -173,7 +173,7 @@
     .letter[data-word="visao"].word-selected { background: var(--eseo-blue); }
 
     .letter[data-word="valores"].word-hover,
-    .letter[data-word="valores"].word-selected { background: var(--eseo-orange); color: #222; }
+    .letter[data-word="valores"].word-selected { background: var(--eseo-orange); color: #0a2537; }
 
     .letter.hint {
       animation: pulse 1.2s ease-in-out 2;
@@ -275,7 +275,7 @@
       padding: 11px 10px;
       border: 1px solid #d9e0e9;
       border-radius: 12px;
-      background: rgba(255,255,255,.82);
+      background: rgba(255,255,255,.76);
       color: #3d4655;
       font-size: 12px;
       font-weight: 900;
@@ -369,19 +369,19 @@
         missao: {
           label: '01 · Missão',
           title: 'MISSÃO',
-          color: '#e30613',
+          color: '#0a2537',
           html: '<p>Promover o desenvolvimento sustentável do país e a competitividade da indústria por meio da educação profissional — presencial e online — aliada à inovação e à tecnologia, garantindo acesso à formação de qualidade em qualquer tempo e lugar.</p>'
         },
         visao: {
           label: '02 · Visão',
           title: 'VISÃO',
-          color: '#0067b1',
+          color: '#1d728f',
           html: '<p>Ser reconhecido pela oferta de formação profissional de padrão global. Ser reconhecido como indutor da inovação e da tecnologia para a competitividade da indústria.</p><p>Distinguir-se pela excelência dos seus serviços e dos seus processos.</p>'
         },
         valores: {
           label: '03 · Valores',
           title: 'VALORES',
-          color: '#f5a800',
+          color: '#0eb7d5',
           html: '<p>Nossas ações são guiadas pela credibilidade, integridade e compromisso, pautadas na transparência, confiança e disciplina. Atuamos de forma organizada e responsável, buscando excelência no desenvolvimento e na oferta de cursos, sempre valorizando a diversidade, a inclusão e o acesso igualitário à educação.</p><p>Valorizamos a inovação, práticas ágeis e sustentáveis, o trabalho colaborativo e experiências de aprendizagem de alta qualidade em todos os formatos.</p>'
         }
       };
