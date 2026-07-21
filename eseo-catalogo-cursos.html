@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catálogo Inteligente de Cursos EAD — ESEO</title>
+  <title>Catálogo Inteligente de Cursos EAD — ESEO | Paleta Oficial</title>
   <style>
     :root {
-      --red: #ed1c24;
-      --red-dark: #b80016;
-      --navy: #002b5c;
-      --ink: #121826;
-      --muted: #697386;
-      --line: #dce2ea;
-      --soft: #f4f6f9;
+      --accent: #0eb7d5;
+      --secondary: #1d728f;
+      --primary: #0a2537;
+      --ink: #101826;
+      --muted: #60707d;
+      --line: #d8e3e8;
+      --soft: #f2f2f2;
       --white: #ffffff;
       --focus: #ffbf00;
       --shadow: 0 15px 42px rgba(18, 24, 38, .10);
@@ -24,7 +24,8 @@
       width: 100%;
       min-height: 100%;
       margin: 0;
-      background: transparent;
+      overflow-x: hidden;
+      background: transparent !important;
       color: var(--ink);
       font-family: "Segoe UI", Arial, sans-serif;
     }
@@ -36,6 +37,8 @@
       width: min(1440px, 100%);
       margin: 0 auto;
       padding: 18px;
+      overflow-x: hidden;
+      background: transparent;
     }
 
     .shell {
@@ -67,7 +70,7 @@
       bottom: -150px;
       width: 420px;
       height: 420px;
-      border: 56px solid rgba(237,28,36,.20);
+      border: 56px solid rgba(14,183,213,.20);
       border-radius: 50%;
       content: "";
       pointer-events: none;
@@ -96,7 +99,7 @@
 
     .eyebrow {
       margin: 0 0 5px;
-      color: #ff858a;
+      color: #0eb7d5;
       font-size: 12px;
       font-weight: 900;
       letter-spacing: .13em;
@@ -170,8 +173,8 @@
     }
 
     .search-input:focus {
-      border-color: var(--red);
-      box-shadow: 0 0 0 4px rgba(237,28,36,.11);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(14,183,213,.11);
     }
 
     .clear-search {
@@ -194,18 +197,19 @@
     .primary-action {
       min-height: 56px;
       padding: 0 20px;
-      border: 1px solid var(--red);
+      border: 1px solid var(--accent);
       border-radius: 15px;
-      background: var(--red);
-      color: #fff;
+      background: var(--accent);
+      color: var(--primary);
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 10px 22px rgba(237,28,36,.20);
+      box-shadow: 0 10px 22px rgba(14,183,213,.20);
       transition: transform .18s ease, background .18s ease;
     }
 
     .primary-action:hover {
-      background: var(--red-dark);
+      background: var(--secondary);
+      color: var(--white);
       transform: translateY(-2px);
     }
 
@@ -254,7 +258,7 @@
       cursor: pointer;
     }
 
-    .reset-button:hover { border-color: var(--red); color: var(--red); }
+    .reset-button:hover { border-color: var(--accent); color: var(--accent); }
 
     .quick-chips {
       display: flex;
@@ -288,9 +292,9 @@
 
     .chip:hover,
     .chip.active {
-      border-color: var(--red);
-      background: rgba(237,28,36,.07);
-      color: var(--red-dark);
+      border-color: var(--accent);
+      background: rgba(14,183,213,.07);
+      color: var(--secondary);
     }
 
     .metrics {
@@ -317,7 +321,7 @@
       width: 90px;
       height: 90px;
       border-radius: 50%;
-      background: rgba(237,28,36,.08);
+      background: rgba(14,183,213,.08);
       content: "";
     }
 
@@ -396,7 +400,7 @@
     }
 
     .course-card:hover {
-      border-color: rgba(237,28,36,.55);
+      border-color: rgba(14,183,213,.55);
       box-shadow: 0 13px 28px rgba(18,24,38,.09);
       transform: translateY(-3px);
     }
@@ -414,8 +418,8 @@
       min-height: 28px;
       padding: 0 10px;
       border-radius: 999px;
-      background: rgba(0,43,92,.08);
-      color: var(--navy);
+      background: rgba(10,37,55,.08);
+      color: var(--primary);
       font-size: 10px;
       font-weight: 900;
       letter-spacing: .035em;
@@ -435,9 +439,9 @@
     }
 
     .favorite-button.active {
-      border-color: #f6c20f;
-      background: #fff9dc;
-      color: #b17800;
+      border-color: var(--accent);
+      background: rgba(14,183,213,.14);
+      color: var(--primary);
     }
 
     .course-title {
@@ -490,12 +494,12 @@
     }
 
     .details-button {
-      border: 1px solid var(--navy);
-      background: var(--navy);
+      border: 1px solid var(--primary);
+      background: var(--primary);
       color: #fff;
     }
 
-    .details-button:hover { background: #001f43; }
+    .details-button:hover { background: #061a28; }
 
     .sgset-button {
       padding: 0 12px;
@@ -504,7 +508,7 @@
       color: #3e4755;
     }
 
-    .sgset-button:hover { border-color: var(--red); color: var(--red); }
+    .sgset-button:hover { border-color: var(--accent); color: var(--accent); }
 
     .empty-state {
       display: none;
@@ -544,7 +548,7 @@
       cursor: pointer;
     }
 
-    .load-more:hover { border-color: var(--red); color: var(--red); }
+    .load-more:hover { border-color: var(--accent); color: var(--accent); }
 
     .drawer-backdrop {
       position: fixed;
@@ -585,7 +589,7 @@
 
     .drawer-kicker {
       margin: 0;
-      color: var(--red);
+      color: var(--accent);
       font-size: 11px;
       font-weight: 900;
       letter-spacing: .09em;
@@ -682,9 +686,9 @@
     }
 
     .drawer-primary {
-      border: 1px solid var(--red);
-      background: var(--red);
-      color: #fff;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: var(--primary);
     }
 
     .drawer-secondary {
@@ -736,8 +740,8 @@
 
     .course-code{margin:3px 0 0;color:#9aa3b0;font-size:10px;font-weight:700;letter-spacing:.04em;}
     .oferta-badge{display:inline-flex;align-items:center;gap:4px;min-height:22px;padding:0 8px;border-radius:999px;font-size:10px;font-weight:800;}
-    .oferta-ready{background:#d1fae5;color:#065f46;}
-    .oferta-info{background:#fef3c7;color:#92400e;}
+    .oferta-ready{background:rgba(14,183,213,.16);color:#0a2537;}
+    .oferta-info{background:rgba(29,114,143,.12);color:#1d728f;}
     .pending-text{color:#c0c7d0;font-style:italic;font-size:13px;}
     .drawer-hours-detail{color:#9aa3b0;font-size:11px;margin-top:2px;}
 
@@ -866,9 +870,9 @@
 
         <section class="metrics" aria-label="Indicadores do catálogo">
           <article class="metric">
-            <span class="metric-label">Portfólio institucional</span>
+            <span class="metric-label">Total do portfólio</span>
             <strong class="metric-value">156</strong>
-            <span class="metric-note">Base oficial ESEO — jul/2026</span>
+            <span class="metric-note">Base completa — não varia com os filtros</span>
           </article>
           <article class="metric">
             <span class="metric-label">Resultados encontrados</span>
@@ -876,14 +880,14 @@
             <span class="metric-note">Atualizado conforme a pesquisa</span>
           </article>
           <article class="metric">
-            <span class="metric-label">Níveis disponíveis</span>
+            <span class="metric-label">Níveis no recorte</span>
             <strong class="metric-value" id="levelsMetric">0</strong>
-            <span class="metric-note">Na base oficial carregada</span>
+            <span class="metric-note">Conforme os filtros aplicados</span>
           </article>
           <article class="metric">
-            <span class="metric-label">Áreas tecnológicas</span>
+            <span class="metric-label">Áreas no recorte</span>
             <strong class="metric-value" id="areasMetric">0</strong>
-            <span class="metric-note">Na base oficial carregada</span>
+            <span class="metric-note">Conforme os filtros aplicados</span>
           </article>
         </section>
 
@@ -4015,8 +4019,7 @@
       fillSelect(elements.areaFilter, uniqueValues("area"));
       fillSelect(elements.formatFilter, uniqueValues("format"));
       fillSelect(elements.modelFilter, uniqueValues("model"));
-      elements.levelsMetric.textContent = uniqueValues("level").length;
-      elements.areasMetric.textContent = uniqueValues("area").length;
+      // As métricas de níveis e áreas são atualizadas em tempo real no render().
     }
 
     function matchesHours(course) {
@@ -4125,8 +4128,10 @@
       const visibleCourses = result.slice(0, state.visible);
 
       elements.courseGrid.innerHTML = visibleCourses.map(cardTemplate).join("");
-      elements.resultsCount.textContent = `${result.length} curso${result.length === 1 ? "" : "s"} na base oficial`;
+      elements.resultsCount.textContent = `${result.length} curso${result.length === 1 ? "" : "s"} na seleção atual`;
       elements.foundMetric.textContent = result.length;
+      elements.levelsMetric.textContent = new Set(result.map(course => course.level).filter(Boolean)).size;
+      elements.areasMetric.textContent = new Set(result.map(course => course.area).filter(Boolean)).size;
       elements.emptyState.style.display = result.length ? "none" : "block";
       elements.loadMore.style.display = result.length > state.visible ? "inline-flex" : "none";
 
