@@ -39,7 +39,7 @@ const slides = [
   },
   {
     imagem: "assistente-eseo.png",
-    posicao: "left center",
+    posicao: "center",
     tema: "light",
     variante: "assistente",
     selo: "Assistente virtual",
