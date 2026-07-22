@@ -8,7 +8,12 @@
   <style>
     :root {
       --navy: #0A2537;
+      --blue: #1D728F;
       --cyan: #0EB7D5;
+      --red: #E30613;
+      --black: #000000;
+      --gray: #878787;
+      --light: #F4F7F8;
       --white: #FFFFFF;
     }
 
@@ -17,48 +22,181 @@
     html,
     body {
       width: 100%;
-      min-height: 82px;
+      min-height: 250px;
       margin: 0;
-      display: grid;
-      place-items: center;
       background: transparent;
+      color: var(--navy);
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    .survey-link {
-      min-height: 50px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 0 22px;
-      border: 1px solid rgba(14, 183, 213, .86);
-      border-radius: 10px;
-      background: rgba(10, 37, 55, .92);
-      color: var(--white);
-      font-size: 13px;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: .035em;
-      text-decoration: none;
-      text-transform: uppercase;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, .13);
-      transition: background 180ms ease, color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    button { font: inherit; }
+
+    .feedback {
+      width: 100%;
+      padding: 16px clamp(14px, 2.8vw, 32px);
+      background: transparent;
     }
 
-    .survey-link:hover {
-      background: var(--cyan);
+    .feedback-card {
+      position: relative;
+      width: min(1180px, 100%);
+      min-height: 214px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(250px, .95fr) minmax(330px, 1.15fr) minmax(210px, .72fr);
+      align-items: center;
+      gap: clamp(22px, 3vw, 46px);
+      padding: clamp(24px, 3vw, 38px);
+      overflow: hidden;
+      border: 1px solid rgba(29, 114, 143, .22);
+      border-radius: 18px;
+      background: var(--white);
+      box-shadow: 0 18px 44px rgba(10, 37, 55, .13);
+    }
+
+    .feedback-card::before {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      content: "";
+      background: linear-gradient(180deg, var(--cyan), var(--blue) 58%, var(--red));
+    }
+
+    .intro__eyebrow {
+      margin: 0 0 9px;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .intro__title {
+      margin: 0 0 8px;
       color: var(--navy);
-      box-shadow: 0 13px 28px rgba(10, 37, 55, .2);
+      font-size: clamp(23px, 2.2vw, 34px);
+      line-height: 1.06;
+      letter-spacing: -.025em;
+    }
+
+    .intro__text {
+      margin: 0;
+      color: #596770;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .moods {
+      min-width: 0;
+    }
+
+    .moods__question {
+      margin: 0 0 14px;
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 750;
+      text-align: center;
+    }
+
+    .moods__group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .mood {
+      position: relative;
+      min-width: 0;
+      min-height: 96px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 4px;
+      padding: 9px 5px;
+      border: 1px solid #D8E1E5;
+      border-radius: 13px;
+      background: var(--light);
+      color: var(--navy);
+      cursor: pointer;
+      transition: border-color 170ms ease, background 170ms ease, color 170ms ease, transform 170ms ease;
+    }
+
+    .mood:hover,
+    .mood:focus-within {
+      border-color: var(--cyan);
+      background: #EAF9FC;
       transform: translateY(-2px);
     }
 
-    .survey-link:focus-visible {
+    .mood.is-selected {
+      border-color: var(--cyan);
+      background: var(--navy);
+      color: var(--white);
+      box-shadow: 0 0 0 3px rgba(14, 183, 213, .18);
+    }
+
+    .mood:focus-within,
+    .survey-button:focus-visible {
       outline: 3px solid var(--cyan);
       outline-offset: 3px;
     }
 
-    .survey-link svg {
+    .mood__input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .mood__face {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      font-size: 30px;
+      line-height: 1;
+      filter: saturate(.92);
+    }
+
+    .mood__label { font-size: 12px; font-weight: 800; }
+
+    .action-area {
+      min-width: 0;
+      padding-left: clamp(0px, 1.5vw, 20px);
+      border-left: 1px solid #E2E8EB;
+    }
+
+    .survey-button {
+      width: 100%;
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 17px;
+      border: 1px solid var(--cyan);
+      border-radius: 10px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: .025em;
+      cursor: pointer;
+      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+    }
+
+    .survey-button:hover {
+      border-color: var(--red);
+      background: var(--red);
+      transform: translateY(-2px);
+    }
+
+    .survey-button svg {
       width: 20px;
       height: 20px;
       fill: none;
@@ -68,22 +206,108 @@
       stroke-linejoin: round;
     }
 
+    .action-note {
+      min-height: 36px;
+      margin: 10px 2px 0;
+      color: #65727A;
+      font-size: 11.5px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    @media (max-width: 850px) {
+      html, body { min-height: 440px; }
+      .feedback-card { grid-template-columns: 1fr 1.2fr; }
+      .action-area {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: minmax(200px, 320px) 1fr;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 0 0;
+        border-top: 1px solid #E2E8EB;
+        border-left: 0;
+      }
+      .action-note { margin: 0; text-align: left; }
+    }
+
+    @media (max-width: 590px) {
+      html, body { min-height: 590px; }
+      .feedback-card { grid-template-columns: 1fr; }
+      .moods__group { gap: 7px; }
+      .action-area { grid-column: auto; grid-template-columns: 1fr; }
+      .action-note { text-align: center; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      .survey-link { transition: none; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
     }
   </style>
 </head>
 
 <body>
-  <a class="survey-link"
-     href="https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=3qZIQdENBE2kxXjjdOT21nGK6v4eNzNJg4WxJUmaEBNUOTFNNlI1V1RBMFJSNFNMNlBDRVpOSko0RC4u"
-     target="_blank"
-     rel="noopener noreferrer"
-     aria-label="Avaliar o Portal ESEO no formulário oficial. Abre em nova aba.">
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M21 15a4 4 0 0 1-4 4H8l-5 3 1.5-5A7 7 0 0 1 3 12a7 7 0 0 1 7-7h7a4 4 0 0 1 4 4Z"></path>
-    </svg>
-    Avaliar o Portal ESEO
-  </a>
+  <main class="feedback" aria-labelledby="feedbackTitle">
+    <section class="feedback-card">
+      <div class="intro">
+        <p class="intro__eyebrow">Sua opinião importa</p>
+        <h2 class="intro__title" id="feedbackTitle">Como você avalia o Portal ESEO?</h2>
+        <p class="intro__text">Leva menos de um minuto e ajuda a priorizar as próximas melhorias.</p>
+      </div>
+
+      <div class="moods">
+        <p class="moods__question" id="moodQuestion">Escolha uma opção:</p>
+        <div class="moods__group" role="radiogroup" aria-labelledby="moodQuestion">
+          <label class="mood">
+            <input class="mood__input" type="radio" name="portalMood" value="Bom">
+            <span class="mood__face" aria-hidden="true">🙂</span>
+            <span class="mood__label">Bom</span>
+          </label>
+          <label class="mood">
+            <input class="mood__input" type="radio" name="portalMood" value="Regular">
+            <span class="mood__face" aria-hidden="true">😐</span>
+            <span class="mood__label">Regular</span>
+          </label>
+          <label class="mood">
+            <input class="mood__input" type="radio" name="portalMood" value="Ruim">
+            <span class="mood__face" aria-hidden="true">🙁</span>
+            <span class="mood__label">Ruim</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="action-area">
+        <button class="survey-button" id="openSurvey" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 15a4 4 0 0 1-4 4H8l-5 3 1.5-5A7 7 0 0 1 3 12a7 7 0 0 1 7-7h7a4 4 0 0 1 4 4Z"></path>
+          </svg>
+          ENVIAR COMENTÁRIO
+        </button>
+        <p class="action-note" id="actionNote" aria-live="polite">A pesquisa oficial será aberta no Customer Voice, em nova guia.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const SURVEY_URL = "https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=3qZIQdENBE2kxXjjdOT21nGK6v4eNzNJg4WxJUmaEBNUOTFNNlI1V1RBMFJSNFNMNlBDRVpOSko0RC4u";
+      let selectedMood = "";
+      const moodInputs = Array.from(document.querySelectorAll(".mood__input"));
+      const note = document.getElementById("actionNote");
+
+      moodInputs.forEach(function (input) {
+        input.addEventListener("change", function () {
+          selectedMood = input.value;
+          moodInputs.forEach(function (item) {
+            item.closest(".mood").classList.toggle("is-selected", item.checked);
+          });
+          note.textContent = "Você marcou “" + selectedMood + "”. Confirme sua avaliação na pesquisa oficial.";
+        });
+      });
+
+      document.getElementById("openSurvey").addEventListener("click", function () {
+        window.open(SURVEY_URL, "_blank", "noopener,noreferrer");
+      });
+    }());
+  </script>
 </body>
 </html>
