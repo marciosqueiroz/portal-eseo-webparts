@@ -1,149 +1,317 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
-
-  <title>Menu do Portal ESEO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Menu superior e busca — Portal ESEO</title>
 
   <style>
     :root {
-      --preto: #000000;
-      --amarelo: #F7B900;
-      --branco: #FFFFFF;
+      --navy: #0A2537;
+      --cyan: #0EB7D5;
+      --white: #FFFFFF;
+      --muted: rgba(255, 255, 255, .72);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html,
     body {
+      width: 100%;
+      min-height: 92px;
       margin: 0;
+      overflow-x: hidden;
       background: transparent;
-      font-family: Arial, Helvetica, sans-serif;
-      overflow: hidden;
+      color: var(--white);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    button,
+    input { font: inherit; }
+
+    .nav-shell {
+      width: min(1320px, 100%);
+      min-height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(28px, 4vw, 72px);
+      margin: 0 auto;
+      padding: 12px clamp(18px, 3vw, 42px);
+      background: transparent;
     }
 
     .menu {
-      align-items: center;
-      background: var(--preto);
+      min-width: 0;
       display: flex;
-      justify-content: center;
-      min-height: 70px;
-      padding: 0 24px;
-      width: 100%;
-    }
-
-    .menu a {
-      color: var(--branco);
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      padding: 26px 30px 22px;
-      position: relative;
-      text-decoration: none;
-      text-transform: uppercase;
+      align-items: center;
+      gap: clamp(24px, 3.25vw, 54px);
       white-space: nowrap;
     }
 
-    /* Barra inferior: inicialmente invisível */
+    .menu__link {
+      position: relative;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 0 0;
+      color: var(--white);
+      font-size: clamp(13px, 1vw, 16px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: .01em;
+      text-decoration: none;
+      text-transform: uppercase;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .45);
+      transition: color 180ms ease;
+    }
 
-    .menu a::after {
-      background: transparent;
-      bottom: 7px;
-      content: "";
-      height: 4px;
-      left: 30px;
+    .menu__link::after {
       position: absolute;
-      right: 30px;
+      right: 50%;
+      bottom: 3px;
+      left: 50%;
+      height: 2px;
+      border-radius: 99px;
+      content: "";
+      background: var(--cyan);
+      transition: right 190ms ease, left 190ms ease;
     }
 
-    /* Página atual */
-
-    .menu a.ativo {
-      color: var(--amarelo);
+    .menu__link:hover,
+    .menu__link:focus-visible,
+    .menu__link.is-active {
+      color: var(--cyan);
     }
 
-    .menu a.ativo::after {
-      background: var(--amarelo);
+    /* A página atual fica colorida. O sublinhado aparece apenas com cursor ou teclado. */
+    .menu__link:hover::after,
+    .menu__link:focus-visible::after {
+      right: 0;
+      left: 0;
     }
 
-    /* Ao passar o cursor:
-       somente o texto muda de cor */
-
-    .menu a:hover {
-      color: var(--amarelo);
+    .portal-search {
+      width: clamp(260px, 27vw, 390px);
+      min-width: 240px;
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr) 34px;
+      align-items: center;
+      gap: 8px;
+      padding: 0 0 7px;
+      border-bottom: 2px solid var(--cyan);
+      background: transparent;
+      color: var(--cyan);
     }
 
-    /* Navegação pelo teclado */
-
-    .menu a:focus-visible {
-      color: var(--amarelo);
-      outline: 2px solid var(--amarelo);
-      outline-offset: -6px;
+    .portal-search__icon,
+    .portal-search__submit {
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: currentColor;
     }
 
-    /* Celular e telas menores */
+    .portal-search__icon {
+      width: 30px;
+      height: 34px;
+      pointer-events: none;
+    }
 
-    @media (max-width: 760px) {
+    .portal-search__submit {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .portal-search__submit:hover {
+      background: var(--cyan);
+      color: var(--navy);
+      transform: translateY(-1px);
+    }
+
+    .portal-search svg {
+      width: 23px;
+      height: 23px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .portal-search__input {
+      width: 100%;
+      min-width: 0;
+      height: 34px;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .015em;
+      text-transform: uppercase;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .45);
+    }
+
+    .portal-search__input::placeholder {
+      color: var(--muted);
+      opacity: 1;
+    }
+
+    .menu__link:focus-visible,
+    .portal-search__input:focus-visible,
+    .portal-search__submit:focus-visible {
+      border-radius: 5px;
+      outline: 3px solid var(--white);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 960px) {
+      .nav-shell { gap: 26px; padding-inline: 16px; }
+
+      .menu {
+        gap: 24px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .menu::-webkit-scrollbar { display: none; }
+      .menu__link { flex: none; font-size: 13px; }
+      .portal-search { width: 265px; }
+    }
+
+    @media (max-width: 720px) {
+      html,
+      body { min-height: 142px; }
+
+      .nav-shell {
+        min-height: 142px;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        gap: 12px;
+        padding-block: 13px;
+      }
+
       .menu {
         justify-content: flex-start;
-        overflow-x: auto;
-        padding: 0 8px;
+        min-height: 48px;
       }
 
-      .menu a {
-        flex: none;
-        font-size: 16px;
-        padding-left: 18px;
-        padding-right: 18px;
+      .portal-search {
+        width: 100%;
+        min-width: 0;
       }
+    }
 
-      .menu a::after {
-        left: 18px;
-        right: 18px;
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
       }
     }
   </style>
 </head>
 
 <body>
+  <header class="nav-shell">
+    <nav class="menu" aria-label="Navegação principal do Portal ESEO">
+      <a class="menu__link" data-page="home"
+         href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta"
+         target="_top">Home</a>
 
-  <nav
-    class="menu"
-    aria-label="Navegação principal do Portal ESEO"
-  >
+      <a class="menu__link" data-page="conheca"
+         href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx"
+         target="_top">Conheça a ESEO</a>
 
-    <a
-      class="ativo"
-      href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta"
-      target="_top"
-    >
-      Home
-    </a>
+      <a class="menu__link" data-page="oferta"
+         href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+         target="_top">Oferta de cursos online</a>
+    </nav>
 
-    <a
-      href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx"
-      target="_top"
-    >
-      Conheça a ESEO
-    </a>
+    <form class="portal-search" id="portalSearch" role="search">
+      <span class="portal-search__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-4-4"></path>
+        </svg>
+      </span>
 
-    <a
-      href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
-      target="_top"
-    >
-      Oferta de Cursos Online
-    </a>
+      <input class="portal-search__input" id="siteSearch" type="search" required
+             autocomplete="off" placeholder="Pesquisar no Portal ESEO"
+             aria-label="Pesquisar somente no Portal ESEO">
 
-  </nav>
+      <button class="portal-search__submit" type="submit" aria-label="Pesquisar no Portal ESEO">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m8 5 7 7-7 7"></path>
+        </svg>
+      </button>
+    </form>
+  </header>
 
+  <script>
+    (function () {
+      const PORTAL_BASE = "https://sesisenaisp.sharepoint.com/sites/ESEOConecta";
+      const pages = ["home", "conheca", "oferta"];
+      const links = Array.from(document.querySelectorAll("[data-page]"));
+      const params = new URLSearchParams(location.search);
+      const informedPage = (params.get("ativa") || "").toLowerCase();
+      const parentUrl = (document.referrer || "").toLowerCase();
+
+      let currentPage = pages.includes(informedPage) ? informedPage : "";
+
+      if (!currentPage) {
+        if (/what(?:%27|')?s-happening|oferta.*curso|cursos.*online/.test(parentUrl)) {
+          currentPage = "oferta";
+        } else if (/sobre-a-eseo|conhe(?:c|%c3%a7|ç)a.*eseo/.test(parentUrl)) {
+          currentPage = "conheca";
+        } else {
+          currentPage = "home";
+        }
+      }
+
+      links.forEach(function (link) {
+        const active = link.dataset.page === currentPage;
+        link.classList.toggle("is-active", active);
+
+        if (active) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
+      });
+
+      const form = document.getElementById("portalSearch");
+      const input = document.getElementById("siteSearch");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const term = input.value.trim();
+
+        if (!term) {
+          input.setCustomValidity("Digite o que deseja localizar no Portal ESEO.");
+          input.reportValidity();
+          return;
+        }
+
+        input.setCustomValidity("");
+
+        /* O filtro Path limita os resultados ao site ESEOConecta. */
+        const scopedQuery = term + ' Path:"' + PORTAL_BASE + '"';
+        const target = PORTAL_BASE + "/_layouts/15/search.aspx/siteall?q=" +
+          encodeURIComponent(scopedQuery);
+
+        window.open(target, "_top");
+      });
+
+      input.addEventListener("input", function () {
+        input.setCustomValidity("");
+      });
+    }());
+  </script>
 </body>
-
 </html>

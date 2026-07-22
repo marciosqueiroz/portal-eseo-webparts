@@ -1,143 +1,89 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pesquisa de satisfação — Portal ESEO</title>
 
-  <script src="https://mfpembedcdnwus2.azureedge.net/mfpembedcontwus2/Embed.js" type="text/javascript"></script>
-  <link rel="stylesheet" type="text/css" href="https://mfpembedcdnwus2.azureedge.net/mfpembedcontwus2/Embed.css">
-
   <style>
     :root {
-      --eseo-red: #970025;
-      --eseo-text: #17171a;
-      --eseo-muted: #5f626b;
-      --eseo-white: #ffffff;
+      --navy: #0A2537;
+      --cyan: #0EB7D5;
+      --white: #FFFFFF;
     }
 
     * { box-sizing: border-box; }
 
     html,
     body {
+      width: 100%;
+      min-height: 82px;
       margin: 0;
-      min-height: 100%;
+      display: grid;
+      place-items: center;
       background: transparent;
-      color: var(--eseo-text);
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    .feedback {
-      width: 100%;
-      background: var(--eseo-white);
-      padding: 44px clamp(22px, 4vw, 72px);
-    }
-
-    .feedback__inner {
-      width: min(1320px, 100%);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(290px, .8fr) minmax(420px, 1.2fr);
-      gap: clamp(34px, 6vw, 90px);
-      align-items: start;
-    }
-
-    .feedback__intro {
-      padding-top: 20px;
-    }
-
-    .feedback__eyebrow {
-      margin: 0 0 22px;
-      color: var(--eseo-red);
+    .survey-link {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 22px;
+      border: 1px solid rgba(14, 183, 213, .86);
+      border-radius: 10px;
+      background: rgba(10, 37, 55, .92);
+      color: var(--white);
       font-size: 13px;
-      line-height: 1.2;
       font-weight: 800;
-      letter-spacing: .19em;
+      line-height: 1;
+      letter-spacing: .035em;
+      text-decoration: none;
       text-transform: uppercase;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .13);
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
     }
 
-    .feedback__title {
-      max-width: 580px;
-      margin: 0 0 12px;
-      font-size: clamp(36px, 4vw, 62px);
-      line-height: .98;
-      font-weight: 400;
-      letter-spacing: -.045em;
+    .survey-link:hover {
+      background: var(--cyan);
+      color: var(--navy);
+      box-shadow: 0 13px 28px rgba(10, 37, 55, .2);
+      transform: translateY(-2px);
     }
 
-    .feedback__description {
-      max-width: 600px;
-      margin: 0;
-      color: var(--eseo-muted);
-      font-size: clamp(16px, 1.45vw, 20px);
-      line-height: 1.5;
+    .survey-link:focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
     }
 
-    .feedback__survey {
-      width: 100%;
-      min-width: 650px;
-      min-height: 1000px;
-      background: transparent;
-      overflow: hidden;
+    .survey-link svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
-    #surveyDiv {
-      width: 100%;
-      min-height: 1000px;
-      background: transparent;
-    }
-
-    @media (max-width: 820px) {
-      .feedback { padding: 32px 20px; }
-
-      .feedback__inner {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-
-      .feedback__intro { padding-top: 0; }
-      .feedback__survey { min-width: 0; }
+    @media (prefers-reduced-motion: reduce) {
+      .survey-link { transition: none; }
     }
   </style>
 </head>
+
 <body>
-  <main class="feedback" aria-labelledby="feedback-title">
-    <div class="feedback__inner">
-      <header class="feedback__intro">
-        <p class="feedback__eyebrow">Sua experiência importa</p>
-        <h1 class="feedback__title" id="feedback-title">Como está sendo usar o Portal ESEO?</h1>
-        <p class="feedback__description">Uma resposta rápida ajuda a equipe a priorizar as próximas melhorias.</p>
-      </header>
-
-      <section class="feedback__survey" aria-label="Pesquisa de satisfação do Portal ESEO">
-        <div id="surveyDiv"></div>
-      </section>
-    </div>
-  </main>
-
-  <script type="text/javascript">
-    function renderSurvey(parentElementId, FirstName, LastName, locale, companyname, Email) {
-      var se = new SurveyEmbed(
-        "3qZIQdENBE2kxXjjdOT21nGK6v4eNzNJg4WxJUmaEBNUOTFNNlI1V1RBMFJSNFNMNlBDRVpOSko0RC4u",
-        "https://customervoice.microsoft.com/",
-        "https://mfpembedcdnwus2.azureedge.net/mfpembedcontwus2/",
-        "true"
-      );
-
-      var context = {
-        "First Name": FirstName,
-        "Last Name": LastName,
-        "locale": locale,
-        "companyname": companyname,
-        "Email": Email
-      };
-
-      se.renderInline(parentElementId, context);
-    }
-
-    window.addEventListener("load", function () {
-      renderSurvey("surveyDiv", "", "", "pt-BR", "SENAI-SP", "");
-    });
-  </script>
+  <a class="survey-link"
+     href="https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=3qZIQdENBE2kxXjjdOT21nGK6v4eNzNJg4WxJUmaEBNUOTFNNlI1V1RBMFJSNFNMNlBDRVpOSko0RC4u"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Avaliar o Portal ESEO no formulário oficial. Abre em nova aba.">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M21 15a4 4 0 0 1-4 4H8l-5 3 1.5-5A7 7 0 0 1 3 12a7 7 0 0 1 7-7h7a4 4 0 0 1 4 4Z"></path>
+    </svg>
+    Avaliar o Portal ESEO
+  </a>
 </body>
 </html>

@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Acessos rápidos — Portal ESEO</title>
 
   <style>
     :root {
-      --eseo-black: #000000;
-      --eseo-charcoal: #151515;
-      --eseo-yellow: #ffc600;
+      --eseo-navy: #0A2537;
+      --eseo-blue: #1D728F;
+      --eseo-cyan: #0EB7D5;
+      --eseo-red: #E30613;
       --white: #ffffff;
-      --focus: #58c7ff;
+      --focus: #ffffff;
     }
 
     * {
@@ -21,7 +22,7 @@
     html,
     body {
       width: 100%;
-      min-height: 170px;
+      min-height: 190px;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
@@ -31,34 +32,35 @@
     }
 
     body.preview {
-      min-height: 170px;
+      min-height: 190px;
     }
 
     .quick-links {
       display: grid;
-      grid-template-columns: repeat(4, minmax(220px, 1fr));
+      grid-template-columns: repeat(4, minmax(230px, 1fr));
       align-content: center;
       gap: 16px;
       width: 100%;
-      max-width: 1180px;
-      min-height: 170px;
+      max-width: 1320px;
+      min-height: 190px;
       min-width: 0;
       margin: 0 auto;
-      padding: 30px 24px 46px;
+      padding: 22px 24px 42px;
     }
 
     .quick-link {
       position: relative;
-      min-height: 96px;
+      min-height: 132px;
       overflow: hidden;
       display: grid;
       grid-template-columns: 44px minmax(0, 1fr) 18px;
       align-items: center;
       gap: 11px;
-      padding: 13px 14px;
-      border: 1px solid rgba(255, 255, 255, 0.86);
+      padding: 18px 16px;
+      border: 1px solid rgba(255, 255, 255, .27);
       border-radius: 14px;
-      background: var(--eseo-black);
+      background:
+        linear-gradient(145deg, rgba(10, 37, 55, .27), rgba(3, 14, 24, .14));
       color: var(--white);
       text-decoration: none;
       cursor: pointer;
@@ -67,8 +69,11 @@
       transition:
         border-color 200ms ease,
         background 200ms ease,
-        transform 200ms ease;
-      box-shadow: none;
+        transform 200ms ease,
+        box-shadow 200ms ease;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     .quick-link::before {
@@ -77,47 +82,38 @@
       z-index: -2;
       content: "";
       background:
-        radial-gradient(circle at 18% 0%, rgba(255, 198, 0, 0.16), transparent 48%),
-        linear-gradient(135deg, var(--eseo-charcoal), var(--eseo-black));
+        radial-gradient(circle at 18% 0%, rgba(14, 183, 213, .18), transparent 52%),
+        linear-gradient(145deg, rgba(10, 37, 55, .38), rgba(3, 14, 24, .22));
       opacity: 0;
       transition: opacity 200ms ease;
     }
 
     .quick-link::after {
       position: absolute;
-      top: 0;
-      left: 18px;
-      width: 42px;
-      height: 3px;
-      border-radius: 0 0 4px 4px;
+      inset: 0;
+      border-radius: inherit;
       content: "";
-      background: var(--eseo-yellow);
-      opacity: 0;
-      transform: scaleX(0.35);
-      transform-origin: left;
-      transition:
-        opacity 200ms ease,
-        transform 200ms ease;
+      pointer-events: none;
+      box-shadow: inset 0 0 0 1px rgba(14, 183, 213, 0);
+      transition: box-shadow 200ms ease;
     }
 
     .quick-link:hover,
     .quick-link:focus-visible {
-      border-color: rgba(255, 198, 0, 0.88);
-      background: var(--eseo-black);
-      box-shadow: none;
+      border-color: var(--eseo-cyan);
+      background: rgba(10, 37, 55, .37);
+      box-shadow: 0 18px 38px rgba(0, 0, 0, .18), 0 0 24px rgba(14, 183, 213, .10);
       transform: translateY(-3px);
     }
 
     .quick-link:hover::before,
-    .quick-link:focus-visible::before,
-    .quick-link:hover::after,
-    .quick-link:focus-visible::after {
+    .quick-link:focus-visible::before {
       opacity: 1;
     }
 
     .quick-link:hover::after,
     .quick-link:focus-visible::after {
-      transform: scaleX(1);
+      box-shadow: inset 0 0 0 1px rgba(14, 183, 213, .42);
     }
 
     .quick-link:focus-visible {
@@ -130,9 +126,10 @@
       height: 42px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(255, 255, 255, 0.42);
+      border: 1px solid rgba(14, 183, 213, .65);
       border-radius: 11px;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(10, 37, 55, .22);
+      color: var(--eseo-cyan);
       transition:
         background 200ms ease,
         border-color 200ms ease,
@@ -142,8 +139,8 @@
 
     .quick-link:hover .quick-link__icon,
     .quick-link:focus-visible .quick-link__icon {
-      border-color: rgba(255, 198, 0, 0.76);
-      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--eseo-cyan);
+      background: rgba(14, 183, 213, .12);
       transform: scale(1.04);
     }
 
@@ -159,6 +156,9 @@
 
     .quick-link__content {
       min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .quick-link__title {
@@ -174,42 +174,16 @@
     }
 
     .quick-link__description {
-      position: absolute;
-      inset: 10px 14px;
-      z-index: 3;
-      display: grid;
-      place-items: center;
+      display: block;
       margin: 0;
-      color: inherit;
-      font-size: 12.5px;
-      font-weight: 700;
-      line-height: 1.28;
-      text-align: center;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(6px);
-      transition:
-        opacity 180ms ease,
-        transform 200ms ease;
-    }
-
-    .quick-link:hover .quick-link__icon,
-    .quick-link:focus-visible .quick-link__icon,
-    .quick-link:hover .quick-link__title,
-    .quick-link:focus-visible .quick-link__title,
-    .quick-link:hover .quick-link__arrow,
-    .quick-link:focus-visible .quick-link__arrow {
-      opacity: 0;
-    }
-
-    .quick-link:hover .quick-link__description,
-    .quick-link:focus-visible .quick-link__description {
-      opacity: 1;
-      transform: translateY(0);
+      color: rgba(255, 255, 255, .72);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.38;
     }
 
     .quick-link__arrow {
-      color: var(--eseo-yellow);
+      color: var(--eseo-cyan);
       font-size: 24px;
       font-weight: 300;
       line-height: 1;
@@ -226,8 +200,14 @@
     }
 
     @media (max-width: 980px) {
+      html,
+      body,
+      body.preview { min-height: 330px; }
+
       .quick-links {
+        grid-template-columns: repeat(2, minmax(230px, 1fr));
         gap: 10px;
+        min-height: 330px;
       }
 
       .quick-link {
@@ -258,12 +238,14 @@
     @media (max-width: 720px) {
       html,
       body {
-        overflow-x: auto;
+        min-height: 590px;
+        overflow-x: hidden;
       }
 
       .quick-links {
-        grid-template-columns: repeat(4, 190px);
-        min-width: max-content;
+        grid-template-columns: 1fr;
+        min-height: 590px;
+        min-width: 0;
         padding-inline: 18px;
       }
     }
