@@ -1,117 +1,802 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Carrossel do Portal ESEO — versão 3</title>
+  <meta name="color-scheme" content="light">
+  <title>Carrossel do Portal ESEO</title>
+
   <style>
-    :root { --accent: #ffb900; --height: 360px; }
-    * { box-sizing: border-box; }
-    html, body { width: 100%; margin: 0; background: transparent; font-family: "Segoe UI", Arial, sans-serif; }
-    body { padding: 0; }
-    .carousel { position: relative; width: 100%; height: var(--height); overflow: hidden; border-radius: 14px; background: #0b1726; box-shadow: 0 18px 45px rgba(0,0,0,.18); }
-    .viewport, .track { width: 100%; height: 100%; }
-    .track { position: relative; margin: 0; padding: 0; list-style: none; }
-    .slide { position: absolute; inset: 0; visibility: hidden; opacity: 0; transform: scale(1.015); transition: opacity .5s ease, transform .7s ease, visibility .5s; }
-    .slide.active { visibility: visible; opacity: 1; transform: scale(1); z-index: 1; }
-    .slide img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: var(--position, center); }
-    .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(3,10,18,.88) 0%, rgba(3,10,18,.68) 42%, rgba(3,10,18,.12) 78%); }
-    .slide.light::after { background: linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.84) 46%, rgba(255,255,255,.08) 78%); }
-    .content { position: absolute; z-index: 2; left: clamp(24px, 5vw, 72px); top: 50%; width: min(560px, 55%); color: #fff; transform: translateY(-50%); }
-    .light .content { color: #071a30; }
-    .slide.assistente { background: #fff; }
-    .slide.assistente img { width: 52%; object-fit: contain; object-position: left center; transform: scale(1.28); transform-origin: left center; }
-    .slide.assistente::after { background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.28) 45%, #fff 57%); }
-    .slide.assistente .content { left: auto; right: clamp(30px, 5vw, 72px); width: min(570px, 47%); }
-    .slide.boletim::after { background: linear-gradient(90deg, rgba(3,10,18,.88) 0%, rgba(3,10,18,.58) 30%, rgba(3,10,18,.08) 48%); }
-    .slide.boletim img { width: 112%; transform: translateX(9%); }
-    .slide.boletim .content { width: min(370px, 32%); }
-    .slide.boletim h2 { font-size: clamp(27px, 2.5vw, 39px); }
-    .tag { display: inline-flex; margin-bottom: 14px; padding: 6px 10px; border-radius: 4px; color: #fff; background: #8d0909; font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
-    h2 { max-width: 720px; margin: 0 0 17px; font-size: clamp(29px, 3.1vw, 48px); line-height: 1.04; letter-spacing: -.025em; text-transform: uppercase; }
-    p { max-width: 540px; margin: 0; font-size: clamp(15px, 1.25vw, 19px); line-height: 1.45; }
-    .cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; padding: 10px 15px; border: 1px solid rgba(255,255,255,.75); border-radius: 7px; color: inherit; background: rgba(255,255,255,.1); font-size: 14px; font-weight: 700; text-decoration: none; backdrop-filter: blur(8px); transition: background .18s ease, color .18s ease, transform .18s ease; }
-    .light .cta { border-color: rgba(7,26,48,.35); background: rgba(255,255,255,.7); }
-    .cta:hover, .cta:focus-visible { color: #071a30; background: #fff; transform: translateY(-2px); outline: 3px solid rgba(255,185,0,.55); outline-offset: 2px; }
-    .controls { position: absolute; z-index: 4; right: 22px; bottom: 18px; display: flex; align-items: center; gap: 12px; }
-    .arrow { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.65); border-radius: 50%; color: #fff; background: rgba(3,13,23,.52); cursor: pointer; backdrop-filter: blur(8px); }
-    .arrow:hover, .arrow:focus-visible { color: #071a30; background: var(--accent); outline: 2px solid #fff; }
-    .dots { display: flex; gap: 7px; padding: 9px 11px; border-radius: 20px; background: rgba(3,13,23,.52); backdrop-filter: blur(8px); }
-    .dot { width: 9px; height: 9px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.6); cursor: pointer; }
-    .dot.active { width: 24px; border-radius: 6px; background: var(--accent); }
-    .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); }
-    @media (max-width: 700px) {
-      :root { --height: 360px; }
-      .slide::after, .slide.light::after { background: linear-gradient(0deg, rgba(3,10,18,.94) 0%, rgba(3,10,18,.62) 58%, rgba(3,10,18,.12) 100%); }
-      .light .content { color: #fff; }
-      .content { left: 22px; right: 22px; top: auto; bottom: 74px; width: auto; transform: none; }
-      h2 { margin-bottom: 11px; font-size: clamp(26px, 8vw, 36px); }
-      p { font-size: 15px; display: -webkit-box; overflow: hidden; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-      .cta { margin-top: 14px; }
-      .controls { right: 14px; bottom: 14px; }
-      .arrow { width: 38px; height: 38px; }
-      .slide.assistente img { width: 100%; object-fit: cover; opacity: .38; transform: none; }
-      .slide.assistente::after { background: linear-gradient(0deg, rgba(3,10,18,.94) 0%, rgba(3,10,18,.46) 100%); }
-      .slide.assistente .content, .slide.boletim .content { left: 22px; right: 22px; top: auto; bottom: 74px; width: auto; }
-      .slide.boletim img { width: 100%; transform: none; }
+    :root {
+      --eseo-navy: #061523;
+      --eseo-navy-soft: #0b2638;
+      --eseo-red: #e30613;
+      --eseo-red-dark: #a70b14;
+      --eseo-white: #ffffff;
+      --eseo-focus: #72d6ff;
+      --carousel-height: clamp(390px, 29vw, 480px);
     }
-    @media (prefers-reduced-motion: reduce) { .slide, .cta { transition: none; } }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: transparent;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: var(--carousel-height);
+      min-height: 390px;
+      overflow: hidden;
+      border: 1px solid rgba(6, 21, 35, 0.12);
+      border-radius: 18px;
+      background: var(--eseo-navy);
+      box-shadow:
+        0 22px 55px rgba(6, 21, 35, 0.15),
+        0 3px 10px rgba(6, 21, 35, 0.08);
+      isolation: isolate;
+    }
+
+    .carousel__viewport,
+    .carousel__track {
+      width: 100%;
+      height: 100%;
+    }
+
+    .carousel__track {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .slide {
+      --image-position: center;
+      --slide-background: var(--eseo-navy);
+
+      position: absolute;
+      inset: 0;
+      visibility: hidden;
+      overflow: hidden;
+      background: var(--slide-background);
+      opacity: 0;
+      transform: scale(1.012);
+      transition:
+        opacity 520ms ease,
+        transform 760ms ease,
+        visibility 520ms;
+    }
+
+    .slide.is-active {
+      z-index: 1;
+      visibility: visible;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .slide__visual {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .slide__visual img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: var(--image-position);
+    }
+
+    .slide::after {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      content: "";
+      background:
+        linear-gradient(
+          90deg,
+          rgba(5, 17, 29, 0.96) 0%,
+          rgba(5, 17, 29, 0.88) 29%,
+          rgba(5, 17, 29, 0.58) 48%,
+          rgba(5, 17, 29, 0.14) 68%,
+          rgba(5, 17, 29, 0.02) 100%
+        );
+      pointer-events: none;
+    }
+
+    .slide--newsletter {
+      --slide-background: #df0715;
+    }
+
+    .slide--newsletter .slide__visual {
+      left: 41%;
+    }
+
+    .slide--newsletter .slide__visual img {
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .slide--newsletter::after {
+      background:
+        linear-gradient(
+          90deg,
+          rgba(5, 17, 29, 1) 0%,
+          rgba(5, 17, 29, 0.98) 25%,
+          rgba(5, 17, 29, 0.79) 38%,
+          rgba(5, 17, 29, 0.18) 52%,
+          rgba(5, 17, 29, 0) 68%
+        );
+    }
+
+    .slide__content {
+      position: absolute;
+      top: 50%;
+      left: clamp(28px, 5.2vw, 82px);
+      z-index: 2;
+      width: min(650px, 48%);
+      color: var(--eseo-white);
+      transform: translateY(-50%);
+    }
+
+    .slide--newsletter .slide__content {
+      width: min(430px, 34%);
+    }
+
+    .slide__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 17px;
+      padding: 7px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 5px;
+      background: rgba(227, 6, 19, 0.9);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.13);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .slide__tag::before {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      content: "";
+      background: currentColor;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.12);
+    }
+
+    .slide h2 {
+      max-width: 760px;
+      margin: 0 0 18px;
+      font-size: clamp(30px, 3.05vw, 50px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.02;
+      text-wrap: balance;
+      text-transform: uppercase;
+    }
+
+    .slide p {
+      max-width: 620px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(15px, 1.18vw, 19px);
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .slide__cta {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      gap: 14px;
+      margin-top: 25px;
+      padding: 11px 17px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 5px;
+      color: var(--eseo-white);
+      background: rgba(255, 255, 255, 0.055);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.045em;
+      line-height: 1.1;
+      text-decoration: none;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition:
+        border-color 180ms ease,
+        background 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
+    }
+
+    .slide__cta span {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 0;
+      transition: transform 180ms ease;
+    }
+
+    .slide__cta:hover,
+    .slide__cta:focus-visible {
+      border-color: var(--eseo-red);
+      background: var(--eseo-red);
+      box-shadow: 0 10px 24px rgba(166, 4, 16, 0.28);
+      outline: 3px solid rgba(114, 214, 255, 0.7);
+      outline-offset: 3px;
+      transform: translateY(-2px);
+    }
+
+    .slide__cta:hover span,
+    .slide__cta:focus-visible span {
+      transform: translateX(4px);
+    }
+
+    .carousel__controls {
+      position: absolute;
+      right: clamp(17px, 2.4vw, 34px);
+      bottom: clamp(16px, 2vw, 28px);
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .carousel__button {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.62);
+      border-radius: 50%;
+      color: var(--eseo-white);
+      background: rgba(4, 15, 25, 0.5);
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition:
+        border-color 180ms ease,
+        background 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
+    }
+
+    .carousel__button:hover,
+    .carousel__button:focus-visible {
+      border-color: var(--eseo-red);
+      background: var(--eseo-red);
+      box-shadow: 0 8px 18px rgba(6, 21, 35, 0.22);
+      outline: 3px solid rgba(114, 214, 255, 0.75);
+      outline-offset: 2px;
+      transform: translateY(-2px);
+    }
+
+    .carousel__button svg {
+      width: 19px;
+      height: 19px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+
+    .carousel__button--autoplay {
+      width: 36px;
+      height: 36px;
+      border-color: rgba(255, 255, 255, 0.36);
+    }
+
+    .carousel__button--autoplay svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .carousel__dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 24px;
+      background: rgba(4, 15, 25, 0.54);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .carousel__dot {
+      width: 9px;
+      height: 9px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.62);
+      cursor: pointer;
+      transition:
+        width 180ms ease,
+        background 180ms ease,
+        transform 180ms ease;
+    }
+
+    .carousel__dot:hover,
+    .carousel__dot:focus-visible {
+      background: var(--eseo-white);
+      outline: 3px solid rgba(114, 214, 255, 0.72);
+      outline-offset: 3px;
+      transform: scale(1.15);
+    }
+
+    .carousel__dot.is-active {
+      width: 26px;
+      background: var(--eseo-red);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 920px) {
+      :root {
+        --carousel-height: 440px;
+      }
+
+      .slide__content {
+        width: min(610px, 58%);
+      }
+
+      .slide--newsletter .slide__content {
+        width: min(390px, 42%);
+      }
+
+      .slide p {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+      }
+    }
+
+    @media (max-width: 700px) {
+      :root {
+        --carousel-height: 520px;
+      }
+
+      .carousel {
+        min-height: 520px;
+        border-radius: 14px;
+      }
+
+      .slide::after,
+      .slide--newsletter::after {
+        background:
+          linear-gradient(
+            0deg,
+            rgba(5, 17, 29, 0.98) 0%,
+            rgba(5, 17, 29, 0.92) 43%,
+            rgba(5, 17, 29, 0.35) 73%,
+            rgba(5, 17, 29, 0.04) 100%
+          );
+      }
+
+      .slide--newsletter .slide__visual {
+        inset: 0;
+      }
+
+      .slide--newsletter .slide__visual img {
+        object-fit: contain;
+        object-position: center top;
+      }
+
+      .slide__content,
+      .slide--newsletter .slide__content {
+        top: auto;
+        right: 22px;
+        bottom: 75px;
+        left: 22px;
+        width: auto;
+        transform: none;
+      }
+
+      .slide__tag {
+        margin-bottom: 12px;
+      }
+
+      .slide h2 {
+        margin-bottom: 12px;
+        font-size: clamp(27px, 8vw, 37px);
+      }
+
+      .slide p {
+        font-size: 15px;
+        -webkit-line-clamp: 3;
+      }
+
+      .slide__cta {
+        min-height: 44px;
+        margin-top: 16px;
+      }
+
+      .carousel__controls {
+        right: 13px;
+        bottom: 13px;
+      }
+
+      .carousel__button {
+        width: 39px;
+        height: 39px;
+      }
+
+      .carousel__button--autoplay {
+        width: 34px;
+        height: 34px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide,
+      .slide__cta,
+      .slide__cta span,
+      .carousel__button,
+      .carousel__dot {
+        transition: none;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <section class="carousel" id="carousel" aria-roledescription="carrossel" aria-label="Novidades do Portal ESEO">
-    <div class="viewport" aria-live="polite"><ul class="track" id="track"></ul></div>
-    <div class="controls">
-      <button class="arrow" id="prev" type="button" aria-label="Notícia anterior">&#10094;</button>
-      <div class="dots" id="dots" aria-label="Escolher notícia"></div>
-      <button class="arrow" id="next" type="button" aria-label="Próxima notícia">&#10095;</button>
+  <section
+    class="carousel"
+    id="eseoCarousel"
+    aria-label="Novidades do Portal ESEO"
+    aria-roledescription="carrossel"
+  >
+    <div class="carousel__viewport" aria-live="polite">
+      <ol class="carousel__track" id="eseoTrack"></ol>
     </div>
-    <span class="sr-only" id="status"></span>
+
+    <div class="carousel__controls">
+      <button
+        class="carousel__button carousel__button--autoplay"
+        id="eseoAutoplay"
+        type="button"
+        aria-label="Pausar rotação automática"
+        aria-pressed="false"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path class="autoplay-pause" d="M8 5v14M16 5v14"></path>
+        </svg>
+      </button>
+
+      <button
+        class="carousel__button"
+        id="eseoPrevious"
+        type="button"
+        aria-label="Notícia anterior"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+      </button>
+
+      <div
+        class="carousel__dots"
+        id="eseoDots"
+        role="group"
+        aria-label="Escolher notícia"
+      ></div>
+
+      <button
+        class="carousel__button"
+        id="eseoNext"
+        type="button"
+        aria-label="Próxima notícia"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m9 18 6-6-6-6"></path>
+        </svg>
+      </button>
+    </div>
+
+    <span class="sr-only" id="eseoStatus" aria-live="polite"></span>
   </section>
 
-  <script src="eseo-carrossel-config-v3.js"></script>
   <script>
-    const track = document.getElementById("track");
-    const dots = document.getElementById("dots");
-    const status = document.getElementById("status");
-    const carousel = document.getElementById("carousel");
-    let current = 0;
-    let timer;
+    /*
+      CARROSSEL PORTAL ESEO
+      Tudo está neste único HTML para evitar o bloqueio de arquivos .js pelo OneDrive.
+      O slide do robô foi removido.
+    */
+    const slides = [
+      {
+        image: "curso-desenvolvimento.jpg",
+        imagePosition: "center",
+        tag: "Nova oferta",
+        title: "Curso Técnico em Desenvolvimento de Sistemas — 1.200 horas",
+        description:
+          "O curso a distância foi reestruturado conforme o novo plano de curso e amplia as oportunidades de formação em uma das áreas mais demandadas pelo mercado.",
+        link:
+          "https://www.sp.senai.br/curso/tecnico-em-desenvolvimento-de-sistemas/108091",
+        cta: "Conheça o curso"
+      },
+      {
+        image: "rotulos-cosmeticos.jpg",
+        imagePosition: "center",
+        tag: "Nova oferta",
+        title: "Por Dentro dos Rótulos de Cosméticos — 10 horas",
+        description:
+          "Aprenda a interpretar rótulos, analisar ingredientes e compreender as informações obrigatórias dos cosméticos para realizar escolhas mais conscientes e seguras.",
+        link:
+          "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/Lists/Galeria%20de%20posts%20para%20redes%20sociais/DispForm.aspx?ID=3&e=PM0QON",
+        cta: "Acessar publicação"
+      },
+      {
+        image: "boletim-eseo.png",
+        imagePosition: "center",
+        variant: "newsletter",
+        tag: "Notícias",
+        title: "Conheça o Boletim ESEO",
+        description:
+          "Assine e receba periodicamente novidades, oportunidades e informações do mundo da educação a distância.",
+        link:
+          "https://outlook.office.com/newsletters/newsletters/eb0f379967babb4b816eae11c96c0d0322",
+        cta: "Assinar o boletim"
+      },
+      {
+        image: "conheca-eseo.jpg",
+        imagePosition: "center",
+        tag: "Identidade",
+        title: "Conheça a ESEO",
+        description:
+          "Conheça nossa história, identidade e estrutura — e entenda como a Escola SENAI de Educação Online evoluiu para transformar a educação a distância.",
+        link:
+          "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx",
+        cta: "Clique aqui e acesse"
+      }
+    ];
 
-    function slideMarkup(slide, index) {
-      const cta = slide.link ? `<a class="cta" href="${slide.link}" target="_blank" rel="noopener noreferrer">Saiba mais <span aria-hidden="true">→</span></a>` : "";
-      return `<li class="slide ${slide.tema === "light" ? "light" : ""} ${slide.variante || ""}" style="--position:${slide.posicao || "center"}" aria-hidden="${index !== 0}">
-        <img src="${slide.imagem}" alt="" loading="${index === 0 ? "eager" : "lazy"}">
-        <div class="content"><span class="tag">${slide.selo}</span><h2>${slide.titulo}</h2><p>${slide.texto}</p>${cta}</div>
-      </li>`;
+    const carousel = document.getElementById("eseoCarousel");
+    const track = document.getElementById("eseoTrack");
+    const dotsContainer = document.getElementById("eseoDots");
+    const previousButton = document.getElementById("eseoPrevious");
+    const nextButton = document.getElementById("eseoNext");
+    const autoplayButton = document.getElementById("eseoAutoplay");
+    const status = document.getElementById("eseoStatus");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const intervalMs = 8000;
+
+    let currentIndex = 0;
+    let autoplayTimer = null;
+    let autoplayPaused = reduceMotion;
+    let pointerStartX = null;
+
+    function slideTemplate(slide, index) {
+      const variantClass = slide.variant
+        ? ` slide--${slide.variant}`
+        : "";
+
+      return `
+        <li
+          class="slide${variantClass}"
+          style="--image-position: ${slide.imagePosition || "center"}"
+          aria-hidden="${index !== 0}"
+        >
+          <div class="slide__visual">
+            <img
+              src="${slide.image}"
+              alt=""
+              loading="${index === 0 ? "eager" : "lazy"}"
+              decoding="async"
+            >
+          </div>
+
+          <div class="slide__content">
+            <span class="slide__tag">${slide.tag}</span>
+            <h2>${slide.title}</h2>
+            <p>${slide.description}</p>
+            <a
+              class="slide__cta"
+              href="${slide.link}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="${slide.cta}: ${slide.title}. Abre em nova guia."
+            >
+              ${slide.cta}
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </li>
+      `;
     }
 
-    track.innerHTML = slides.map(slideMarkup).join("");
-    dots.innerHTML = slides.map((_, i) => `<button class="dot" type="button" aria-label="Ir para a notícia ${i + 1}"></button>`).join("");
-    const items = [...document.querySelectorAll(".slide")];
-    const dotButtons = [...document.querySelectorAll(".dot")];
+    track.innerHTML = slides.map(slideTemplate).join("");
+    dotsContainer.innerHTML = slides
+      .map(
+        (slide, index) => `
+          <button
+            class="carousel__dot"
+            type="button"
+            aria-label="Ir para ${slide.title}"
+            data-index="${index}"
+          ></button>
+        `
+      )
+      .join("");
 
-    function show(index, announce = true) {
-      current = (index + slides.length) % slides.length;
-      items.forEach((item, i) => { item.classList.toggle("active", i === current); item.setAttribute("aria-hidden", i !== current); });
-      dotButtons.forEach((dot, i) => { dot.classList.toggle("active", i === current); dot.setAttribute("aria-current", i === current ? "true" : "false"); });
-      if (announce) status.textContent = `Notícia ${current + 1} de ${slides.length}: ${slides[current].titulo}`;
+    const slideElements = [...track.querySelectorAll(".slide")];
+    const dotElements = [...dotsContainer.querySelectorAll(".carousel__dot")];
+
+    function showSlide(index, announce = true) {
+      currentIndex = (index + slides.length) % slides.length;
+
+      slideElements.forEach((slide, slideIndex) => {
+        const active = slideIndex === currentIndex;
+        slide.classList.toggle("is-active", active);
+        slide.setAttribute("aria-hidden", String(!active));
+      });
+
+      dotElements.forEach((dot, dotIndex) => {
+        const active = dotIndex === currentIndex;
+        dot.classList.toggle("is-active", active);
+
+        if (active) {
+          dot.setAttribute("aria-current", "true");
+        } else {
+          dot.removeAttribute("aria-current");
+        }
+      });
+
+      if (announce) {
+        status.textContent =
+          `Notícia ${currentIndex + 1} de ${slides.length}: ` +
+          slides[currentIndex].title;
+      }
     }
 
-    function restart() { clearInterval(timer); timer = setInterval(() => show(current + 1, false), 7000); }
-    document.getElementById("prev").addEventListener("click", () => { show(current - 1); restart(); });
-    document.getElementById("next").addEventListener("click", () => { show(current + 1); restart(); });
-    dotButtons.forEach((dot, i) => dot.addEventListener("click", () => { show(i); restart(); }));
-    carousel.addEventListener("mouseenter", () => clearInterval(timer));
-    carousel.addEventListener("mouseleave", restart);
-    carousel.addEventListener("focusin", () => clearInterval(timer));
-    carousel.addEventListener("focusout", restart);
-    carousel.addEventListener("keydown", event => {
-      if (event.key === "ArrowLeft") { show(current - 1); restart(); }
-      if (event.key === "ArrowRight") { show(current + 1); restart(); }
+    function stopAutoplay() {
+      window.clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+
+      if (autoplayPaused || reduceMotion) {
+        return;
+      }
+
+      autoplayTimer = window.setInterval(() => {
+        showSlide(currentIndex + 1, false);
+      }, intervalMs);
+    }
+
+    function restartAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    function updateAutoplayButton() {
+      const paused = autoplayPaused || reduceMotion;
+
+      autoplayButton.setAttribute("aria-pressed", String(paused));
+      autoplayButton.setAttribute(
+        "aria-label",
+        paused ? "Retomar rotação automática" : "Pausar rotação automática"
+      );
+
+      autoplayButton.innerHTML = paused
+        ? `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m8 5 11 7-11 7V5Z"></path>
+          </svg>
+        `
+        : `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 5v14M16 5v14"></path>
+          </svg>
+        `;
+    }
+
+    previousButton.addEventListener("click", () => {
+      showSlide(currentIndex - 1);
+      restartAutoplay();
     });
-    show(0, false);
-    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) restart();
+
+    nextButton.addEventListener("click", () => {
+      showSlide(currentIndex + 1);
+      restartAutoplay();
+    });
+
+    dotElements.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        showSlide(Number(dot.dataset.index));
+        restartAutoplay();
+      });
+    });
+
+    autoplayButton.addEventListener("click", () => {
+      autoplayPaused = !autoplayPaused;
+      updateAutoplayButton();
+      restartAutoplay();
+    });
+
+    carousel.addEventListener("mouseenter", stopAutoplay);
+    carousel.addEventListener("mouseleave", startAutoplay);
+    carousel.addEventListener("focusin", stopAutoplay);
+    carousel.addEventListener("focusout", startAutoplay);
+
+    carousel.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        showSlide(currentIndex - 1);
+        restartAutoplay();
+      }
+
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        showSlide(currentIndex + 1);
+        restartAutoplay();
+      }
+    });
+
+    carousel.addEventListener("pointerdown", (event) => {
+      pointerStartX = event.clientX;
+    });
+
+    carousel.addEventListener("pointerup", (event) => {
+      if (pointerStartX === null) {
+        return;
+      }
+
+      const distance = event.clientX - pointerStartX;
+      pointerStartX = null;
+
+      if (Math.abs(distance) < 50) {
+        return;
+      }
+
+      showSlide(currentIndex + (distance < 0 ? 1 : -1));
+      restartAutoplay();
+    });
+
+    carousel.addEventListener("pointercancel", () => {
+      pointerStartX = null;
+    });
+
+    showSlide(0, false);
+    updateAutoplayButton();
+    startAutoplay();
   </script>
 </body>
 </html>
