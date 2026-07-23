@@ -149,6 +149,45 @@
       height: 58px;
       display: block;
       object-fit: contain;
+      filter: grayscale(1) brightness(0);
+      transition: filter 220ms ease, transform 220ms ease;
+    }
+
+    .social__link:hover .social__icon img,
+    .social__link:focus-visible .social__icon img {
+      filter: none;
+      transform: scale(1.04);
+    }
+
+    .social__brand-icon {
+      width: 58px;
+      height: 58px;
+      display: block;
+      overflow: visible;
+      transition: transform 220ms ease;
+    }
+
+    .social__brand-icon .brand-default,
+    .social__brand-icon .brand-color {
+      transition: opacity 220ms ease;
+    }
+
+    .social__brand-icon .brand-default { opacity: 1; }
+    .social__brand-icon .brand-color { opacity: 0; }
+
+    .social__link:hover .social__brand-icon,
+    .social__link:focus-visible .social__brand-icon {
+      transform: scale(1.04);
+    }
+
+    .social__link:hover .social__brand-icon .brand-default,
+    .social__link:focus-visible .social__brand-icon .brand-default {
+      opacity: 0;
+    }
+
+    .social__link:hover .social__brand-icon .brand-color,
+    .social__link:focus-visible .social__brand-icon .brand-color {
+      opacity: 1;
     }
 
     .social__fallback {
@@ -193,6 +232,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: .01ms !important; }
+      .social__icon img,
+      .social__brand-icon,
+      .social__brand-icon .brand-default,
+      .social__brand-icon .brand-color { transition: none; }
     }
   </style>
 </head>
@@ -214,11 +257,25 @@
     <nav class="social" aria-label="Canais digitais do SENAI-SP">
       <a class="social__link" href="https://www.instagram.com/senai.sp" target="_blank" rel="noopener noreferrer" aria-label="Instagram do SENAI-SP. Abre em nova aba.">
         <span class="social__icon">
-          <img src="https://sesisenaisp.sharepoint.com/fb6271ea-690f-4d88-b7ea-c87586b37057" alt="">
-          <svg class="social__fallback" viewBox="0 0 58 58" aria-hidden="true" hidden>
-            <rect x="8" y="8" width="42" height="42" rx="13"></rect>
-            <circle cx="29" cy="29" r="10"></circle>
-            <circle cx="42" cy="16" r="2" fill="currentColor" stroke="none"></circle>
+          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="instagramGradientEseo" x1="6%" y1="94%" x2="94%" y2="6%">
+                <stop offset="0" stop-color="#FFD600"></stop>
+                <stop offset=".34" stop-color="#FF7A00"></stop>
+                <stop offset=".66" stop-color="#FF0169"></stop>
+                <stop offset="1" stop-color="#D300C5"></stop>
+              </linearGradient>
+            </defs>
+            <g class="brand-default" fill="none" stroke="#000000" stroke-width="6">
+              <rect x="7" y="7" width="50" height="50" rx="15"></rect>
+              <circle cx="32" cy="32" r="11"></circle>
+              <circle cx="48" cy="16" r="3" fill="#000000" stroke="none"></circle>
+            </g>
+            <g class="brand-color" fill="none" stroke="url(#instagramGradientEseo)" stroke-width="6">
+              <rect x="7" y="7" width="50" height="50" rx="15"></rect>
+              <circle cx="32" cy="32" r="11"></circle>
+              <circle cx="48" cy="16" r="3" fill="#D300C5" stroke="none"></circle>
+            </g>
           </svg>
         </span>
         <span class="social__label">Instagram</span>
@@ -226,10 +283,15 @@
 
       <a class="social__link" href="https://www.facebook.com/senaisaopaulo" target="_blank" rel="noopener noreferrer" aria-label="Facebook do SENAI-SP. Abre em nova aba.">
         <span class="social__icon">
-          <img src="https://sesisenaisp.sharepoint.com/2cfedf3d-80f9-4b04-a704-0b8f59425d07" alt="">
-          <svg class="social__fallback" viewBox="0 0 58 58" aria-hidden="true" hidden>
-            <circle cx="29" cy="29" r="22"></circle>
-            <path d="M32 49V31h7l1-8h-8v-4c0-3 1-5 5-5h4V7c-2-.3-4-.5-6-.5-8 0-13 5-13 13V23h-6v8h6v18"></path>
+          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <g class="brand-default">
+              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
+              <path d="M37.4 59V37.4h7.4l1.1-8.4h-8.5v-5.3c0-2.4.7-4.1 4.3-4.1h4.6v-7.5c-.8-.1-3.5-.3-6.7-.3-6.6 0-11.1 4-11.1 11.4V29H21v8.4h7.5V59Z" fill="#FFFFFF"></path>
+            </g>
+            <g class="brand-color">
+              <circle cx="32" cy="32" r="28" fill="#0866FF"></circle>
+              <path d="M37.4 59V37.4h7.4l1.1-8.4h-8.5v-5.3c0-2.4.7-4.1 4.3-4.1h4.6v-7.5c-.8-.1-3.5-.3-6.7-.3-6.6 0-11.1 4-11.1 11.4V29H21v8.4h7.5V59Z" fill="#FFFFFF"></path>
+            </g>
           </svg>
         </span>
         <span class="social__label">Facebook</span>
