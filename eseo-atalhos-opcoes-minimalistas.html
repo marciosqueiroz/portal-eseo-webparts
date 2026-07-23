@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opções minimalistas — Atalhos Portal ESEO</title>
+  <style>
+    :root {
+      --navy: #061923;
+      --navy-2: #0a2537;
+      --blue: #1d728f;
+      --cyan: #0eb7d5;
+      --white: #fff;
+      --muted: rgba(255,255,255,.72);
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 34px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-2));
+      color: var(--white);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+    main { width: min(1120px, 100%); margin: auto; }
+    h1 { margin: 0 0 8px; font-size: 28px; }
+    .lead { margin: 0 0 28px; color: var(--muted); }
+    .option {
+      margin-bottom: 22px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 12px;
+      background: rgba(255,255,255,.035);
+    }
+    .option-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .option h2 { margin: 0; font-size: 17px; }
+    .tag {
+      color: var(--cyan);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .links {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .link {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--white);
+      text-decoration: none;
+      cursor: default;
+    }
+    .link svg {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: var(--cyan);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .link span {
+      overflow: hidden;
+      font-size: 11px;
+      font-weight: 800;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .description {
+      min-height: 28px;
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+      opacity: 0;
+      transition: opacity .15s ease;
+    }
+    .description.visible { opacity: 1; }
+
+    /* 1 — faixa flutuante */
+    .option-a .link {
+      min-height: 62px;
+      padding: 10px 13px;
+      border-radius: 7px;
+      background: linear-gradient(125deg, rgba(6,25,35,.74), rgba(29,114,143,.38));
+      box-shadow: 0 9px 24px rgba(0,0,0,.23), 0 0 22px rgba(14,183,213,.10);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .option-a .link:hover {
+      box-shadow: 0 12px 28px rgba(0,0,0,.30), 0 0 26px rgba(14,183,213,.18);
+      transform: translateY(-2px);
+    }
+
+    /* 2 — menu do topo */
+    .option-b .links {
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,.13);
+      border-bottom: 1px solid rgba(255,255,255,.13);
+    }
+    .option-b .link {
+      position: relative;
+      min-height: 58px;
+      justify-content: center;
+      padding: 9px 12px;
+    }
+    .option-b .link::after {
+      position: absolute;
+      right: 50%;
+      bottom: -1px;
+      left: 50%;
+      height: 2px;
+      content: "";
+      background: var(--cyan);
+      transition: right .18s ease, left .18s ease;
+    }
+    .option-b .link:hover::after { right: 18px; left: 18px; }
+
+    /* 3 — ícones soltos */
+    .option-c .links { gap: 18px; }
+    .option-c .link {
+      min-height: 56px;
+      justify-content: center;
+      padding: 8px;
+      text-shadow: 0 2px 8px rgba(0,0,0,.7);
+      transition: color .18s ease, transform .18s ease;
+    }
+    .option-c .link svg {
+      filter: drop-shadow(0 0 10px rgba(14,183,213,.35));
+    }
+    .option-c .link:hover {
+      color: var(--cyan);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 18px; }
+      .links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Atalhos ESEO — três direções</h1>
+    <p class="lead">Passe o cursor: a explicação aparece fora dos botões.</p>
+
+    <section class="option option-a" data-option>
+      <div class="option-head"><h2>Opção 1 — faixa flutuante compacta</h2><span class="tag">Aplicada no arquivo oficial</span></div>
+      <div class="links"></div>
+      <p class="description"></p>
+    </section>
+
+    <section class="option option-b" data-option>
+      <div class="option-head"><h2>Opção 2 — mesma linguagem do menu superior</h2><span class="tag">A mais minimalista</span></div>
+      <div class="links"></div>
+      <p class="description"></p>
+    </section>
+
+    <section class="option option-c" data-option>
+      <div class="option-head"><h2>Opção 3 — ícones soltos</h2><span class="tag">A mais leve</span></div>
+      <div class="links"></div>
+      <p class="description"></p>
+    </section>
+  </main>
+
+  <template id="linksTemplate">
+    <a class="link" href="#" data-description="Consulte cursos, formatos e informações do catálogo EAD.">
+      <svg viewBox="0 0 24 24"><path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"/><path d="M6.5 10.5v4.2c2.9 2.2 8.1 2.2 11 0v-4.2"/></svg>
+      <span>Portfólio de cursos</span>
+    </a>
+    <a class="link" href="#" data-description="Peça a liberação de uma turma no SGSET.">
+      <svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2.5"/><path d="M8 9V6.5A4.5 4.5 0 0 1 16.2 4"/></svg>
+      <span>Liberar turma SGSET</span>
+    </a>
+    <a class="link" href="#" data-description="Solicite novos cursos e ofertas personalizadas.">
+      <svg viewBox="0 0 24 24"><path d="m12 3 2.65 5.37 5.93.86-4.29 4.18 1.01 5.91L12 16.53l-5.3 2.79 1.01-5.91-4.29-4.18 5.93-.86L12 3Z"/></svg>
+      <span>Soluções EAD</span>
+    </a>
+    <a class="link" href="#" data-description="Solicite uma ação da ESEO em parceria com a AQV.">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19v-1.4A4.6 4.6 0 0 1 8.1 13h1.8a4.6 4.6 0 0 1 4.6 4.6V19"/><circle cx="17" cy="9" r="2.3"/></svg>
+      <span>Parceria AQV ESEO</span>
+    </a>
+  </template>
+
+  <script>
+    (function () {
+      const template = document.getElementById("linksTemplate");
+
+      document.querySelectorAll("[data-option]").forEach(function (option) {
+        const links = option.querySelector(".links");
+        const description = option.querySelector(".description");
+        links.appendChild(template.content.cloneNode(true));
+
+        links.querySelectorAll(".link").forEach(function (link) {
+          link.addEventListener("click", function (event) { event.preventDefault(); });
+          link.addEventListener("mouseenter", function () {
+            description.textContent = link.dataset.description;
+            description.classList.add("visible");
+          });
+          link.addEventListener("mouseleave", function () {
+            description.classList.remove("visible");
+          });
+        });
+      });
+    }());
+  </script>
+</body>
+</html>
