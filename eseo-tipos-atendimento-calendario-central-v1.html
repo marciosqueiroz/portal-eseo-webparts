@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tipos de atendimento ESEO — calendários por atendimento</title>
+  <title>Tipos de cursos e atendimentos ESEO</title>
   <style>
     :root {
       --primary: #0a2537;
@@ -423,20 +423,233 @@
       h1 { font-size: 27px; }
       .summary { font-size: 14px; }
     }
+
+    /* ESEO — seleção primeiro, conteúdo sob demanda */
+    html, body { min-height: 650px; }
+    .app {
+      min-height: 650px;
+      padding: 8px;
+    }
+    .layout {
+      grid-template-columns: minmax(260px, 330px) minmax(0, 1fr);
+      gap: 0;
+      border-top: 1px solid rgba(10,37,55,.16);
+      border-bottom: 1px solid rgba(10,37,55,.16);
+    }
+    .sidebar {
+      padding: 20px 22px 24px 0;
+      border: 0;
+      border-right: 1px solid rgba(10,37,55,.16);
+      border-radius: 0;
+      background: transparent;
+      backdrop-filter: none;
+    }
+    .sidebar-title {
+      margin: 0 0 18px;
+      color: var(--secondary);
+      font-size: 10px;
+    }
+    .menu { gap: 0; }
+    .menu-button {
+      min-height: 61px;
+      grid-template-columns: 30px 1fr 18px;
+      gap: 10px;
+      padding: 11px 5px;
+      border-bottom: 1px solid rgba(10,37,55,.13);
+      color: var(--primary);
+      transition: color .18s ease, padding-left .18s ease, border-color .18s ease;
+    }
+    .menu-button:hover {
+      padding-left: 10px;
+      background: transparent;
+      color: var(--secondary);
+      transform: none;
+    }
+    .menu-button.active {
+      padding-left: 10px;
+      border-radius: 0;
+      border-bottom-color: var(--accent);
+      background: transparent;
+      color: var(--primary);
+      box-shadow: inset 3px 0 0 var(--accent);
+    }
+    .menu-number,
+    .menu-button.active .menu-number {
+      display: block;
+      width: auto;
+      height: auto;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: #83939f;
+      font-size: 10px;
+    }
+    .menu-button.active .menu-number { color: var(--accent); }
+    .menu-label { font-size: 11.5px; letter-spacing: .02em; }
+    .menu-arrow { font-size: 15px; }
+    .main { padding: 20px 0 0 28px; }
+    .selection-intro {
+      min-height: 430px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 650px;
+      padding: 40px 24px;
+    }
+    .selection-intro[hidden] { display: none; }
+    .selection-intro .intro-kicker {
+      margin: 0 0 11px;
+      color: var(--secondary);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .selection-intro h1 {
+      max-width: 560px;
+      font-size: clamp(30px, 4vw, 50px);
+    }
+    .selection-intro p {
+      max-width: 590px;
+      margin: 17px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .tabs {
+      min-height: 42px;
+      gap: 18px;
+      margin-bottom: 0;
+      border-bottom: 1px solid rgba(10,37,55,.16);
+    }
+    .tabs[hidden] { display: none; }
+    .tab {
+      min-height: 42px;
+      padding: 0 2px;
+      border: 0;
+      border-bottom: 2px solid transparent;
+      border-radius: 0;
+      background: transparent;
+      color: #5e6c77;
+    }
+    .tab:hover,
+    .tab.active {
+      border-color: var(--accent);
+      background: transparent;
+      color: var(--primary);
+      transform: none;
+    }
+    .panel {
+      overflow: visible;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+    .panel[hidden] { display: none; }
+    .panel-body {
+      min-height: 0;
+      padding: 30px 0 25px;
+    }
+    .content-grid {
+      gap: 22px;
+      margin-top: 26px;
+    }
+    .section { border-top-color: rgba(10,37,55,.16); }
+    .section li::before {
+      width: 5px;
+      height: 5px;
+      border-radius: 0;
+    }
+    .calendar-panel {
+      grid-template-columns: minmax(0, 1fr) auto;
+      padding: 18px 0;
+      border: 0;
+      border-top: 1px solid rgba(10,37,55,.16);
+      border-bottom: 1px solid rgba(10,37,55,.16);
+      border-radius: 0;
+      background: transparent;
+      color: var(--primary);
+      box-shadow: none;
+    }
+    .calendar-icon { display: none; }
+    .calendar-copy span { color: var(--secondary); }
+    .calendar-copy strong { color: var(--primary); }
+    .calendar-copy p { color: var(--muted); }
+    .calendar-button {
+      border-color: var(--primary);
+      border-radius: 5px;
+      background: transparent;
+      color: var(--primary);
+    }
+    .calendar-button:hover {
+      background: var(--primary);
+      color: var(--white);
+      transform: none;
+    }
+    .panel-footer {
+      min-height: 76px;
+      padding: 16px 0;
+      border-top: 1px solid rgba(10,37,55,.16);
+      background: transparent;
+      color: var(--primary);
+    }
+    .document-label span { color: var(--secondary); }
+    .document-label strong { color: var(--primary); }
+    .review-note { color: var(--muted); }
+    .document-button {
+      border-color: var(--primary);
+      border-radius: 5px;
+      background: var(--primary);
+      color: var(--white);
+    }
+    .document-button.disabled {
+      border-color: rgba(10,37,55,.22);
+      background: transparent;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1040px) {
+      html, body, .app { min-height: 900px; }
+      .layout { grid-template-columns: 1fr; }
+      .sidebar {
+        padding: 16px 0 20px;
+        border-right: 0;
+        border-bottom: 1px solid rgba(10,37,55,.16);
+      }
+      .menu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .menu-button { min-height: 56px; grid-template-columns: 28px 1fr 14px; }
+      .menu-arrow { display: block; }
+      .main { padding: 18px 0 0; }
+      .selection-intro { min-height: 310px; padding: 35px 6px; }
+    }
+    @media (max-width: 620px) {
+      .menu { grid-template-columns: 1fr; }
+      .selection-intro { min-height: 260px; }
+      .calendar-panel { grid-template-columns: 1fr; }
+      .calendar-button { width: 100%; }
+    }
   </style>
 </head>
 <body>
   <main class="app">
     <div class="layout">
       <aside class="sidebar">
-        <p class="sidebar-title">Tipos de atendimento</p>
+        <p class="sidebar-title">Tipos de cursos e atendimentos</p>
         <nav class="menu" id="menu"></nav>
       </aside>
 
       <section class="main">
-        <div class="tabs" id="tabs" aria-label="Opções do atendimento"></div>
+        <section class="selection-intro" id="selectionIntro">
+          <p class="intro-kicker">Mapa de ofertas ESEO</p>
+          <h1>Escolha o tipo de curso que deseja consultar.</h1>
+          <p>As informações de funcionamento, responsabilidades, documentos e calendário aparecem somente depois da seleção.</p>
+        </section>
 
-        <article class="panel">
+        <div class="tabs" id="tabs" aria-label="Opções do atendimento" hidden></div>
+
+        <article class="panel" id="detailsPanel" hidden>
           <div class="panel-body">
             <p class="kicker" id="kicker"></p>
             <h1 id="title"></h1>
@@ -492,6 +705,8 @@
 
     const menu = document.getElementById("menu");
     const tabs = document.getElementById("tabs");
+    const selectionIntro = document.getElementById("selectionIntro");
+    const detailsPanel = document.getElementById("detailsPanel");
 
     const elements = {
       kicker: document.getElementById("kicker"),
@@ -508,7 +723,7 @@
       calendarButton: document.getElementById("calendarButton")
     };
 
-    let currentGroup = 0;
+    let currentGroup = -1;
     let currentTab = 0;
 
     function renderMenu() {
@@ -530,6 +745,11 @@
     }
 
     function renderTabs() {
+      if (currentGroup < 0) {
+        tabs.innerHTML = "";
+        return;
+      }
+
       const group = DATA[currentGroup];
 
       tabs.innerHTML = group.tabs.map((tab, index) => `
@@ -552,6 +772,8 @@
     }
 
     function renderPanel() {
+      if (currentGroup < 0) return;
+
       const item = DATA[currentGroup].tabs[currentTab];
 
       elements.kicker.textContent = item.k;
@@ -584,6 +806,11 @@
 
     function render() {
       renderMenu();
+      const hasSelection = currentGroup >= 0;
+      selectionIntro.hidden = hasSelection;
+      tabs.hidden = !hasSelection;
+      detailsPanel.hidden = !hasSelection;
+      if (!hasSelection) return;
       renderTabs();
       renderPanel();
     }

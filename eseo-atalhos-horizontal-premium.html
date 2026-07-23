@@ -3,89 +3,142 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Atalhos minimalistas — Portal ESEO</title>
+  <title>Atalhos premium — Portal ESEO</title>
 
   <style>
     :root {
       --eseo-navy: #061923;
       --eseo-blue: #1d728f;
       --eseo-cyan: #0eb7d5;
+      --eseo-red: #e30613;
       --eseo-white: #ffffff;
-      --eseo-muted: rgba(255,255,255,.80);
+      --eseo-muted: #d6e1e6;
       --eseo-focus: #79d9ff;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html,
     body {
       width: 100%;
-      min-height: 116px;
+      min-height: 150px;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
       background: transparent !important;
+      background-color: rgba(0, 0, 0, 0) !important;
+      color-scheme: normal;
       color: var(--eseo-white);
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    body { padding: 8px 7px 4px; }
-
-    .quick-area {
-      width: min(100%, 1480px);
-      margin: 0 auto;
+    body {
+      padding: 11px 8px 14px;
     }
 
     .quick-links {
-      width: min(100%, 920px);
+      width: min(100%, 1480px);
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin-left: auto;
+      gap: clamp(12px, 1.3vw, 20px);
+      margin: 0 auto;
     }
 
     .quick-link {
+      position: relative;
       min-width: 0;
-      min-height: 64px;
-      display: grid;
-      grid-template-columns: 27px minmax(0, 1fr);
-      align-items: center;
-      gap: 10px;
-      padding: 10px 13px;
+      min-height: 126px;
+      display: block;
+      overflow: hidden;
       border: 0;
-      border-radius: 7px;
+      border-radius: 14px;
       background:
         linear-gradient(
-          125deg,
-          rgba(6,25,35,.78),
-          rgba(29,114,143,.40)
+          145deg,
+          rgba(4, 19, 29, 0.77),
+          rgba(10, 37, 55, 0.52)
         );
       box-shadow:
-        0 9px 24px rgba(3,20,31,.26),
-        0 0 21px rgba(29,114,143,.12);
+        0 15px 34px rgba(0, 0, 0, 0.22),
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
       color: var(--eseo-white);
       text-decoration: none;
-      text-shadow: 0 2px 7px rgba(0,0,0,.66);
-      backdrop-filter: blur(10px) saturate(112%);
-      -webkit-backdrop-filter: blur(10px) saturate(112%);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72);
+      isolation: isolate;
+      -webkit-tap-highlight-color: transparent;
+      backdrop-filter: blur(12px) saturate(120%);
+      -webkit-backdrop-filter: blur(12px) saturate(120%);
       transition:
-        background 180ms ease,
-        box-shadow 180ms ease,
-        transform 180ms ease;
+        background 220ms ease,
+        box-shadow 220ms ease,
+        transform 220ms ease;
+    }
+
+    /* Faixa luminosa: substitui a borda tradicional. */
+    .quick-link::after {
+      position: absolute;
+      top: 17px;
+      bottom: 17px;
+      left: 0;
+      z-index: 3;
+      width: 4px;
+      border-radius: 0 99px 99px 0;
+      content: "";
+      background: linear-gradient(
+        180deg,
+        var(--eseo-cyan) 0%,
+        #55d8ea 55%,
+        var(--eseo-red) 100%
+      );
+      box-shadow: 3px 0 15px rgba(14, 183, 213, 0.36);
+      opacity: 0.82;
+      transform: scaleY(0.58);
+      transition:
+        opacity 220ms ease,
+        transform 220ms ease;
+    }
+
+    .quick-link::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      background:
+        radial-gradient(
+          circle at 18% 0,
+          rgba(14, 183, 213, 0.3),
+          transparent 46%
+        ),
+        linear-gradient(
+          135deg,
+          rgba(6, 25, 35, 0.91),
+          rgba(29, 114, 143, 0.58)
+        );
+      opacity: 0;
+      transition: opacity 220ms ease;
     }
 
     .quick-link:hover,
     .quick-link:focus-visible {
-      background:
-        linear-gradient(
-          125deg,
-          rgba(6,25,35,.92),
-          rgba(29,114,143,.68)
-        );
       box-shadow:
-        0 12px 29px rgba(3,20,31,.32),
-        0 0 26px rgba(14,183,213,.19);
-      transform: translateY(-2px);
+        0 22px 46px rgba(0, 0, 0, 0.3),
+        0 7px 18px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .quick-link:hover::before,
+    .quick-link:focus-visible::before {
+      opacity: 1;
+    }
+
+    .quick-link:hover::after,
+    .quick-link:focus-visible::after {
+      opacity: 1;
+      transform: scaleY(1);
     }
 
     .quick-link:focus-visible {
@@ -93,24 +146,36 @@
       outline-offset: 3px;
     }
 
-    .quick-link__icon {
-      width: 27px;
-      height: 27px;
-      display: grid;
-      place-items: center;
-      color: var(--eseo-cyan);
-      transition: color 180ms ease, transform 180ms ease;
+    .quick-link__front {
+      position: absolute;
+      inset: 14px 18px 15px;
+      z-index: 2;
+      pointer-events: none;
     }
 
-    .quick-link:hover .quick-link__icon,
-    .quick-link:focus-visible .quick-link__icon {
-      color: var(--eseo-white);
-      transform: scale(1.07);
+    .quick-link__icon {
+      position: absolute;
+      top: 3px;
+      left: 50%;
+      width: 47px;
+      height: 47px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.085);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 20px rgba(0, 0, 0, 0.13);
+      transform: translateX(-50%);
+      transition:
+        background 220ms ease,
+        opacity 180ms ease,
+        transform 220ms ease;
     }
 
     .quick-link__icon svg {
-      width: 25px;
-      height: 25px;
+      width: 27px;
+      height: 27px;
       fill: none;
       stroke: currentColor;
       stroke-linecap: round;
@@ -119,84 +184,145 @@
     }
 
     .quick-link__title {
+      position: absolute;
+      right: 0;
+      bottom: 1px;
+      left: 0;
+      display: block;
       overflow: hidden;
-      font-size: clamp(10.5px, .82vw, 13px);
+      color: var(--eseo-white);
+      font-size: clamp(13px, 0.95vw, 16px);
       font-weight: 850;
-      letter-spacing: .012em;
+      letter-spacing: 0.012em;
       line-height: 1.15;
+      text-align: center;
       text-overflow: ellipsis;
       text-transform: uppercase;
       white-space: nowrap;
     }
 
-    .quick-description {
-      width: min(100%, 920px);
-      min-height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 8px;
-      margin: 4px 0 0 auto;
-      padding: 0 5px;
+    .quick-link__description {
+      position: absolute;
+      top: 25px;
+      right: 23px;
+      left: 23px;
+      z-index: 4;
+      display: grid;
+      place-items: center;
       color: var(--eseo-muted);
-      font-size: 11.5px;
-      line-height: 1.25;
-      text-align: right;
-      text-shadow: 0 2px 8px rgba(0,0,0,.82);
+      font-size: clamp(12px, 0.82vw, 14px);
+      font-weight: 650;
+      line-height: 1.28;
+      text-align: center;
       opacity: 0;
-      transform: translateY(-3px);
-      transition: opacity 160ms ease, transform 180ms ease;
+      pointer-events: none;
+      transform: translateY(7px);
+      transition:
+        opacity 180ms ease,
+        transform 220ms ease;
     }
 
-    .quick-description.is-visible {
+    .quick-link__description span {
+      display: block;
+    }
+
+    .quick-link__description strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #67e1f3;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .quick-link:hover .quick-link__icon,
+    .quick-link:focus-visible .quick-link__icon {
+      background: rgba(255, 255, 255, 0.04);
+      opacity: 0.12;
+      transform: translate(-50%, -8px) scale(0.86);
+    }
+
+    .quick-link:hover .quick-link__description,
+    .quick-link:focus-visible .quick-link__description {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .quick-description__label {
-      color: var(--eseo-cyan);
-      font-size: 9.5px;
-      font-weight: 900;
-      letter-spacing: .10em;
-      text-transform: uppercase;
-      white-space: nowrap;
+    .quick-link__arrow {
+      position: absolute;
+      top: 13px;
+      right: 13px;
+      z-index: 5;
+      width: 29px;
+      height: 29px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.075);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 17px;
+      font-weight: 350;
+      line-height: 1;
+      transition:
+        background 220ms ease,
+        color 220ms ease,
+        transform 220ms ease;
     }
 
-    @media (max-width: 700px) {
-      html, body { min-height: 178px; }
-      .quick-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .quick-link { min-height: 57px; }
-      .quick-description {
-        justify-content: center;
-        min-height: 30px;
-        text-align: center;
+    .quick-link:hover .quick-link__arrow,
+    .quick-link:focus-visible .quick-link__arrow {
+      background: var(--eseo-cyan);
+      color: var(--eseo-navy);
+      transform: translate(2px, -2px);
+    }
+
+    @media (max-width: 900px) {
+      html,
+      body {
+        min-height: 282px;
+      }
+
+      .quick-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-    @media (max-width: 390px) {
-      html, body { min-height: 298px; }
-      .quick-links { grid-template-columns: 1fr; }
-      .quick-description { align-items: flex-start; }
+    @media (max-width: 480px) {
+      html,
+      body {
+        min-height: 550px;
+      }
+
+      .quick-links {
+        grid-template-columns: 1fr;
+      }
+
+      .quick-link__title {
+        font-size: 14px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition-duration: .01ms !important; }
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
 
 <body>
-  <section class="quick-area">
-    <nav class="quick-links" aria-label="Atalhos do Portal ESEO">
-      <a
-        class="quick-link"
-        href="https://app.powerbi.com/view?r=eyJrIjoiYzk1MzhjNWQtYTZlMy00ZmY4LWFiM2MtZGMxZjRlMzJiNDA3IiwidCI6IjQxNDhhNmRlLTBkZDEtNGQwNC1hNGM1LTc4ZTM3NGU0ZjZkNiIsImMiOjR9&amp;pageName=ReportSection811927fa7d0805d7a097"
-        target="_blank"
-        rel="noopener noreferrer"
-        data-label="Explore"
-        data-description="Consulte cursos, formatos e informações do catálogo EAD."
-        aria-describedby="quickDescription"
-      >
+  <nav class="quick-links" aria-label="Atalhos do Portal ESEO">
+    <a
+      class="quick-link"
+      href="https://app.powerbi.com/view?r=eyJrIjoiYzk1MzhjNWQtYTZlMy00ZmY4LWFiM2MtZGMxZjRlMzJiNDA3IiwidCI6IjQxNDhhNmRlLTBkZDEtNGQwNC1hNGM1LTc4ZTM3NGU0ZjZkNiIsImMiOjR9&amp;pageName=ReportSection811927fa7d0805d7a097"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Portfólio de cursos. Explore cursos, formatos e informações do catálogo EAD. Abre em nova guia."
+    >
+      <span class="quick-link__front">
         <span class="quick-link__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24">
             <path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"></path>
@@ -205,17 +331,21 @@
           </svg>
         </span>
         <span class="quick-link__title">Portfólio de cursos</span>
-      </a>
+      </span>
+      <span class="quick-link__description">
+        <span><strong>Explore</strong>Cursos, formatos e catálogo EAD.</span>
+      </span>
+      <span class="quick-link__arrow" aria-hidden="true">↗</span>
+    </a>
 
-      <a
-        class="quick-link"
-        href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u"
-        target="_blank"
-        rel="noopener noreferrer"
-        data-label="Solicite"
-        data-description="Peça a liberação de uma turma no SGSET."
-        aria-describedby="quickDescription"
-      >
+    <a
+      class="quick-link"
+      href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Liberar turma SGSET. Solicite a liberação da turma no SGSET. Abre em nova guia."
+    >
+      <span class="quick-link__front">
         <span class="quick-link__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24">
             <rect x="4" y="9" width="16" height="11" rx="2.5"></rect>
@@ -223,34 +353,42 @@
           </svg>
         </span>
         <span class="quick-link__title">Liberar turma SGSET</span>
-      </a>
+      </span>
+      <span class="quick-link__description">
+        <span><strong>Solicite</strong>Liberação de turma no SGSET.</span>
+      </span>
+      <span class="quick-link__arrow" aria-hidden="true">↗</span>
+    </a>
 
-      <a
-        class="quick-link"
-        href="https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br"
-        target="_blank"
-        rel="noopener noreferrer"
-        data-label="Construa"
-        data-description="Solicite novos cursos e ofertas personalizadas."
-        aria-describedby="quickDescription"
-      >
+    <a
+      class="quick-link"
+      href="https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Soluções EAD. Solicite novos cursos ou ofertas personalizadas. Abre em nova guia."
+    >
+      <span class="quick-link__front">
         <span class="quick-link__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24">
             <path d="m12 3 2.65 5.37 5.93.86-4.29 4.18 1.01 5.91L12 16.53l-5.3 2.79 1.01-5.91-4.29-4.18 5.93-.86L12 3Z"></path>
           </svg>
         </span>
         <span class="quick-link__title">Soluções EAD</span>
-      </a>
+      </span>
+      <span class="quick-link__description">
+        <span><strong>Construa</strong>Novos cursos e ofertas personalizadas.</span>
+      </span>
+      <span class="quick-link__arrow" aria-hidden="true">↗</span>
+    </a>
 
-      <a
-        class="quick-link"
-        href="https://outlook.office.com/mail/deeplink/compose?to=rantonio%40sp.senai.br"
-        target="_blank"
-        rel="noopener noreferrer"
-        data-label="Conecte"
-        data-description="Solicite uma ação da ESEO em parceria com a AQV."
-        aria-describedby="quickDescription"
-      >
+    <a
+      class="quick-link"
+      href="https://outlook.office.com/mail/deeplink/compose?to=rantonio%40sp.senai.br"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Parceria AQV ESEO. Solicite uma ação em parceria com a AQV. Abre em nova guia."
+    >
+      <span class="quick-link__front">
         <span class="quick-link__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24">
             <circle cx="9" cy="8" r="3"></circle>
@@ -260,42 +398,12 @@
           </svg>
         </span>
         <span class="quick-link__title">Parceria AQV ESEO</span>
-      </a>
-    </nav>
-
-    <p class="quick-description" id="quickDescription" aria-live="polite">
-      <span class="quick-description__label" id="descriptionLabel"></span>
-      <span id="descriptionText"></span>
-    </p>
-  </section>
-
-  <script>
-    (function () {
-      const links = Array.from(document.querySelectorAll(".quick-link"));
-      const description = document.getElementById("quickDescription");
-      const label = document.getElementById("descriptionLabel");
-      const text = document.getElementById("descriptionText");
-
-      function show(link) {
-        label.textContent = link.dataset.label;
-        text.textContent = link.dataset.description;
-        description.classList.add("is-visible");
-      }
-
-      function hide() {
-        if (document.activeElement && document.activeElement.classList.contains("quick-link")) return;
-        description.classList.remove("is-visible");
-      }
-
-      links.forEach(function (link) {
-        link.addEventListener("mouseenter", function () { show(link); });
-        link.addEventListener("focus", function () { show(link); });
-        link.addEventListener("mouseleave", hide);
-        link.addEventListener("blur", function () {
-          window.setTimeout(hide, 0);
-        });
-      });
-    }());
-  </script>
+      </span>
+      <span class="quick-link__description">
+        <span><strong>Conecte</strong>Ações da ESEO em parceria com a AQV.</span>
+      </span>
+      <span class="quick-link__arrow" aria-hidden="true">↗</span>
+    </a>
+  </nav>
 </body>
 </html>

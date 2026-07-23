@@ -366,84 +366,6 @@
       }
     }
 
-    /* Busca compacta: começa como lupa e se expande no hover ou foco. */
-    .search-wrap {
-      width: 52px;
-      min-width: 52px;
-      margin-left: auto;
-      transition: width 240ms cubic-bezier(.2,.8,.2,1);
-    }
-
-    .search-wrap:hover,
-    .search-wrap:focus-within {
-      width: clamp(350px, 34vw, 520px);
-    }
-
-    .portal-search {
-      min-height: 52px;
-      grid-template-columns: 44px minmax(0, 1fr) 34px;
-      gap: 0;
-      padding: 0 8px 0 3px;
-      overflow: hidden;
-      box-shadow:
-        0 10px 28px rgba(0,0,0,.24),
-        0 0 22px rgba(14,183,213,.10),
-        inset 0 1px 0 rgba(255,255,255,.14);
-    }
-
-    .portal-search::after {
-      right: 18px;
-      bottom: 3px;
-      left: 18px;
-      height: 2px;
-      opacity: 0;
-      transform: scaleX(.18);
-      transition: opacity 180ms ease, transform 230ms ease;
-    }
-
-    .search-wrap:hover .portal-search::after,
-    .search-wrap:focus-within .portal-search::after {
-      opacity: 1;
-      transform: scaleX(1);
-    }
-
-    .portal-search__leading {
-      width: 44px;
-      height: 44px;
-    }
-
-    .portal-search__input {
-      height: 38px;
-      opacity: 1;
-      transform: translateX(0);
-      transition: opacity 150ms ease, transform 210ms ease;
-    }
-
-    .search-wrap:not(:hover):not(:focus-within) .portal-search__input {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateX(8px);
-    }
-
-    .search-wrap:not(:hover):not(:focus-within) .portal-search__clear {
-      display: none;
-    }
-
-    @media (max-width: 790px) {
-      .search-wrap {
-        width: 52px;
-        min-width: 52px;
-        align-self: flex-end;
-      }
-
-      .search-wrap:hover,
-      .search-wrap:focus-within {
-        width: 100%;
-      }
-
-      .portal-search { min-height: 52px; }
-    }
-
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -489,8 +411,7 @@
       >
         <button
           class="portal-search__leading"
-          id="searchToggle"
-          type="button"
+          type="submit"
           aria-label="Pesquisar no Portal ESEO"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -637,16 +558,6 @@
       const form = document.getElementById("portalSearch");
       const input = document.getElementById("siteSearch");
       const clearButton = document.getElementById("clearSearch");
-      const searchToggle = document.getElementById("searchToggle");
-
-      searchToggle.addEventListener("click", function () {
-        if (document.activeElement === input && input.value.trim()) {
-          form.requestSubmit();
-          return;
-        }
-
-        input.focus();
-      });
 
       function normalize(value) {
         return value
