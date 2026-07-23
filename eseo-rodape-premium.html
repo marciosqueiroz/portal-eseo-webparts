@@ -299,10 +299,17 @@
 
       <a class="social__link" href="https://www.sp.senai.br/" target="_blank" rel="noopener noreferrer" aria-label="Site do SENAI-SP. Abre em nova aba.">
         <span class="social__icon">
-          <img src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SiteAssets/SitePages/OrganizationHome(1)/3757252865-eseo-icone-site-senai.svg" alt="">
-          <svg class="social__fallback" viewBox="0 0 58 58" aria-hidden="true" hidden>
-            <circle cx="29" cy="29" r="22"></circle>
-            <path d="M7 29h44M29 7c8 8 12 15 12 22S37 43 29 51M29 7c-8 8-12 15-12 22s4 14 12 22"></path>
+          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <g class="brand-default">
+              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
+              <circle cx="32" cy="32" r="18" fill="none" stroke="#FFFFFF" stroke-width="3"></circle>
+              <path d="M14 32h36M32 14c6 6 9 12 9 18s-3 12-9 18M32 14c-6 6-9 12-9 18s3 12 9 18" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-width="3"></path>
+            </g>
+            <g class="brand-color">
+              <circle cx="32" cy="32" r="28" fill="#1D728F"></circle>
+              <circle cx="32" cy="32" r="18" fill="none" stroke="#FFFFFF" stroke-width="3"></circle>
+              <path d="M14 32h36M32 14c6 6 9 12 9 18s-3 12-9 18M32 14c-6 6-9 12-9 18s3 12 9 18" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-width="3"></path>
+            </g>
           </svg>
         </span>
         <span class="social__label">Site SENAI</span>
@@ -310,25 +317,22 @@
 
       <a class="social__link" href="https://ead.sp.senai.br/" target="_blank" rel="noopener noreferrer" aria-label="Portal Online do SENAI-SP. Abre em nova aba.">
         <span class="social__icon">
-          <img src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SiteAssets/SitePages/OrganizationHome(1)/3828674439-eseo-icone-ava.svg" alt="">
-          <svg class="social__fallback" viewBox="0 0 58 58" aria-hidden="true" hidden>
-            <rect x="7" y="8" width="44" height="35" rx="8"></rect>
-            <path d="M18 22 29 16l11 6-11 6-11-6Zm4 4v7c4 3 10 3 14 0v-7M23 50h12M29 43v7"></path>
+          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <g class="brand-default">
+              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
+              <rect x="14" y="13" width="36" height="30" rx="6" fill="none" stroke="#FFFFFF" stroke-width="3"></rect>
+              <path d="m21 25 11-6 11 6-11 6-11-6Zm4 5v6c4 3 10 3 14 0v-6M25 50h14M32 43v7" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+            </g>
+            <g class="brand-color">
+              <circle cx="32" cy="32" r="28" fill="#E30613"></circle>
+              <rect x="14" y="13" width="36" height="30" rx="6" fill="none" stroke="#FFFFFF" stroke-width="3"></rect>
+              <path d="m21 25 11-6 11 6-11 6-11-6Zm4 5v6c4 3 10 3 14 0v-6M25 50h14M32 43v7" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+            </g>
           </svg>
         </span>
         <span class="social__label">Portal Online</span>
       </a>
     </nav>
   </footer>
-
-  <script>
-    document.querySelectorAll(".social__icon img").forEach(function (image) {
-      image.addEventListener("error", function () {
-        image.hidden = true;
-        const fallback = image.nextElementSibling;
-        if (fallback) fallback.hidden = false;
-      });
-    });
-  </script>
 </body>
 </html>

@@ -3,17 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
-  <title>Atalhos transparentes — Portal ESEO</title>
+  <title>Atalhos premium — Portal ESEO</title>
 
   <style>
     :root {
       --eseo-navy: #061923;
-      --eseo-navy-soft: #0a2537;
+      --eseo-blue: #1d728f;
       --eseo-cyan: #0eb7d5;
       --eseo-red: #e30613;
       --eseo-white: #ffffff;
-      --eseo-muted: #c1d0d7;
+      --eseo-muted: #d6e1e6;
       --eseo-focus: #79d9ff;
     }
 
@@ -24,54 +23,82 @@
     html,
     body {
       width: 100%;
-      min-height: 100%;
+      min-height: 150px;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      background: transparent;
+      background: transparent !important;
+      background-color: rgba(0, 0, 0, 0) !important;
+      color-scheme: normal;
       color: var(--eseo-white);
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
     body {
-      padding: 6px;
-    }
-
-    body.preview {
-      background:
-        linear-gradient(120deg, rgba(0, 0, 0, 0.78), rgba(94, 0, 13, 0.84)),
-        #0a2537;
+      padding: 11px 8px 14px;
     }
 
     .quick-links {
       width: min(100%, 1480px);
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: clamp(10px, 1.2vw, 18px);
+      gap: clamp(12px, 1.3vw, 20px);
       margin: 0 auto;
     }
 
     .quick-link {
       position: relative;
       min-width: 0;
-      min-height: 118px;
-      display: grid;
-      place-items: center;
+      min-height: 126px;
+      display: block;
       overflow: hidden;
-      padding: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.46);
-      border-radius: 4px;
-      background: transparent;
+      border: 0;
+      border-radius: 14px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(4, 19, 29, 0.77),
+          rgba(10, 37, 55, 0.52)
+        );
+      box-shadow:
+        0 15px 34px rgba(0, 0, 0, 0.22),
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
       color: var(--eseo-white);
-      text-align: center;
       text-decoration: none;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.82);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.72);
       isolation: isolate;
       -webkit-tap-highlight-color: transparent;
+      backdrop-filter: blur(12px) saturate(120%);
+      -webkit-backdrop-filter: blur(12px) saturate(120%);
       transition:
-        border-color 180ms ease,
-        box-shadow 180ms ease,
-        transform 180ms ease;
+        background 220ms ease,
+        box-shadow 220ms ease,
+        transform 220ms ease;
+    }
+
+    /* Faixa luminosa: substitui a borda tradicional. */
+    .quick-link::after {
+      position: absolute;
+      top: 17px;
+      bottom: 17px;
+      left: 0;
+      z-index: 3;
+      width: 4px;
+      border-radius: 0 99px 99px 0;
+      content: "";
+      background: linear-gradient(
+        180deg,
+        var(--eseo-cyan) 0%,
+        #55d8ea 55%,
+        var(--eseo-red) 100%
+      );
+      box-shadow: 3px 0 15px rgba(14, 183, 213, 0.36);
+      opacity: 0.82;
+      transform: scaleY(0.58);
+      transition:
+        opacity 220ms ease,
+        transform 220ms ease;
     }
 
     .quick-link::before {
@@ -82,46 +109,25 @@
       background:
         radial-gradient(
           circle at 18% 0,
-          rgba(14, 183, 213, 0.22),
-          transparent 45%
+          rgba(14, 183, 213, 0.3),
+          transparent 46%
         ),
         linear-gradient(
-          140deg,
-          rgba(6, 25, 35, 0.97),
-          rgba(10, 37, 55, 0.92)
+          135deg,
+          rgba(6, 25, 35, 0.91),
+          rgba(29, 114, 143, 0.58)
         );
       opacity: 0;
-      transition: opacity 200ms ease;
-    }
-
-    .quick-link::after {
-      position: absolute;
-      right: 18%;
-      bottom: 0;
-      left: 18%;
-      height: 3px;
-      border-radius: 99px 99px 0 0;
-      content: "";
-      background: linear-gradient(
-        90deg,
-        var(--eseo-cyan),
-        #55d8ec 58%,
-        var(--eseo-red)
-      );
-      opacity: 0.88;
-      transform: scaleX(0.42);
-      transition:
-        opacity 180ms ease,
-        transform 220ms ease;
+      transition: opacity 220ms ease;
     }
 
     .quick-link:hover,
     .quick-link:focus-visible {
-      border-color: rgba(14, 183, 213, 0.9);
       box-shadow:
-        0 14px 30px rgba(0, 0, 0, 0.22),
-        0 0 0 1px rgba(14, 183, 213, 0.13);
-      transform: translateY(-3px);
+        0 22px 46px rgba(0, 0, 0, 0.3),
+        0 7px 18px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
     }
 
     .quick-link:hover::before,
@@ -132,7 +138,7 @@
     .quick-link:hover::after,
     .quick-link:focus-visible::after {
       opacity: 1;
-      transform: scaleX(1);
+      transform: scaleY(1);
     }
 
     .quick-link:focus-visible {
@@ -141,38 +147,30 @@
     }
 
     .quick-link__front {
-      min-width: 0;
-      display: grid;
-      place-items: center;
-      gap: 9px;
-      opacity: 1;
-      transform: translateY(0);
-      transition:
-        opacity 160ms ease,
-        transform 200ms ease;
+      position: absolute;
+      inset: 14px 18px 15px;
+      z-index: 2;
+      pointer-events: none;
     }
 
     .quick-link__icon {
-      width: 46px;
-      height: 46px;
+      position: absolute;
+      top: 3px;
+      left: 50%;
+      width: 47px;
+      height: 47px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(255, 255, 255, 0.48);
-      border-radius: 4px;
-      background: transparent;
-      color: var(--eseo-white);
-      filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.46));
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.085);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 8px 20px rgba(0, 0, 0, 0.13);
+      transform: translateX(-50%);
       transition:
-        border-color 180ms ease,
-        color 180ms ease,
-        transform 180ms ease;
-    }
-
-    .quick-link:hover .quick-link__icon,
-    .quick-link:focus-visible .quick-link__icon {
-      border-color: var(--eseo-cyan);
-      color: var(--eseo-cyan);
-      transform: scale(1.04);
+        background 220ms ease,
+        opacity 180ms ease,
+        transform 220ms ease;
     }
 
     .quick-link__icon svg {
@@ -182,53 +180,67 @@
       stroke: currentColor;
       stroke-linecap: round;
       stroke-linejoin: round;
-      stroke-width: 1.9;
+      stroke-width: 1.85;
     }
 
     .quick-link__title {
-      max-width: 100%;
+      position: absolute;
+      right: 0;
+      bottom: 1px;
+      left: 0;
+      display: block;
       overflow: hidden;
       color: var(--eseo-white);
-      font-size: clamp(11.5px, 1vw, 14px);
+      font-size: clamp(13px, 0.95vw, 16px);
       font-weight: 850;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.012em;
       line-height: 1.15;
-      text-overflow: clip;
+      text-align: center;
+      text-overflow: ellipsis;
       text-transform: uppercase;
       white-space: nowrap;
     }
 
     .quick-link__description {
       position: absolute;
-      inset: 16px 22px;
+      top: 25px;
+      right: 23px;
+      left: 23px;
+      z-index: 4;
       display: grid;
       place-items: center;
-      margin: 0;
-      color: var(--eseo-white);
-      font-size: clamp(12px, 1vw, 14px);
+      color: var(--eseo-muted);
+      font-size: clamp(12px, 0.82vw, 14px);
       font-weight: 650;
-      line-height: 1.35;
+      line-height: 1.28;
+      text-align: center;
       opacity: 0;
       pointer-events: none;
       transform: translateY(7px);
       transition:
-        opacity 170ms ease,
-        transform 210ms ease;
+        opacity 180ms ease,
+        transform 220ms ease;
+    }
+
+    .quick-link__description span {
+      display: block;
     }
 
     .quick-link__description strong {
       display: block;
-      margin-bottom: 5px;
-      color: var(--eseo-cyan);
+      margin-bottom: 3px;
+      color: #67e1f3;
       font-size: 11px;
-      letter-spacing: 0.13em;
+      font-weight: 900;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
     }
 
-    .quick-link:hover .quick-link__front,
-    .quick-link:focus-visible .quick-link__front {
-      opacity: 0;
-      transform: translateY(-7px);
+    .quick-link:hover .quick-link__icon,
+    .quick-link:focus-visible .quick-link__icon {
+      background: rgba(255, 255, 255, 0.04);
+      opacity: 0.12;
+      transform: translate(-50%, -8px) scale(0.86);
     }
 
     .quick-link:hover .quick-link__description,
@@ -239,48 +251,63 @@
 
     .quick-link__arrow {
       position: absolute;
-      top: 11px;
-      right: 12px;
-      color: rgba(255, 255, 255, 0.75);
-      font-size: 19px;
-      font-weight: 300;
+      top: 13px;
+      right: 13px;
+      z-index: 5;
+      width: 29px;
+      height: 29px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.075);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 17px;
+      font-weight: 350;
       line-height: 1;
       transition:
-        color 180ms ease,
-        transform 180ms ease;
+        background 220ms ease,
+        color 220ms ease,
+        transform 220ms ease;
     }
 
     .quick-link:hover .quick-link__arrow,
     .quick-link:focus-visible .quick-link__arrow {
-      color: var(--eseo-cyan);
+      background: var(--eseo-cyan);
+      color: var(--eseo-navy);
       transform: translate(2px, -2px);
     }
 
-    @media (max-width: 760px) {
+    @media (max-width: 900px) {
+      html,
+      body {
+        min-height: 282px;
+      }
+
       .quick-links {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-
-      .quick-link {
-        min-height: 112px;
-      }
     }
 
-    @media (max-width: 390px) {
+    @media (max-width: 480px) {
+      html,
+      body {
+        min-height: 550px;
+      }
+
       .quick-links {
         grid-template-columns: 1fr;
+      }
+
+      .quick-link__title {
+        font-size: 14px;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .quick-link,
-      .quick-link::before,
-      .quick-link::after,
-      .quick-link__front,
-      .quick-link__icon,
-      .quick-link__description,
-      .quick-link__arrow {
-        transition: none;
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
@@ -378,11 +405,5 @@
       <span class="quick-link__arrow" aria-hidden="true">↗</span>
     </a>
   </nav>
-
-  <script>
-    if (new URLSearchParams(window.location.search).get("preview") === "1") {
-      document.body.classList.add("preview");
-    }
-  </script>
 </body>
 </html>
