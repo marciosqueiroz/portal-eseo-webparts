@@ -1,636 +1,335 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Linha do tempo ESEO — distribuição equidistante</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nossa história — ESEO</title>
   <style>
     :root {
-      --eseo-primary: #0a2537;
-      --eseo-secondary: #1d728f;
-      --eseo-accent: #0eb7d5;
+      --navy: #0a2537;
+      --cyan: #0eb7d5;
+      --red: #970025;
       --white: #ffffff;
-      --ink: #101826;
-      --muted: #60707d;
-      --focus: #ffcb05;
-      --start: #7a1f5c;
+      --line: #d6e4ea;
+      --muted: #61717c;
     }
 
     * { box-sizing: border-box; }
 
-    html, body {
+    html,
+    body {
       width: 100%;
-      min-height: 390px;
+      height: 100%;
       margin: 0;
-      padding: 0;
       overflow: hidden;
       background: transparent;
-      color: var(--ink);
+      color: var(--navy);
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    button { font: inherit; }
-
     .timeline {
       width: 100%;
-      max-width: 1450px;
-      min-height: 390px;
+      height: 100%;
+      min-height: 440px;
+      padding: 34px clamp(28px, 3vw, 58px) 28px;
+      background: var(--white);
+    }
+
+    .track {
+      position: relative;
+      height: 158px;
       margin: 0 auto;
-      padding: 14px 16px 14px;
-      overflow: hidden;
+    }
+
+    .track__line {
+      position: absolute;
+      right: 1.5%;
+      bottom: 35px;
+      left: 1.5%;
+      height: 5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--navy), var(--cyan));
+    }
+
+    .point,
+    .terminal {
+      position: absolute;
+      bottom: 17px;
+      left: var(--x);
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border: 0;
       background: transparent;
+      transform: translateX(-50%);
     }
 
-    .story-card {
-      width: min(620px, calc(100% - 24px));
-      min-height: 128px;
-      margin: 0 auto;
-      padding: 16px 19px 15px;
-      border: 1px solid rgba(29,114,143,.22);
-      border-top: 4px solid var(--eseo-accent);
-      border-radius: 16px;
-      background: rgba(255,255,255,.72);
-      box-shadow: 0 12px 26px rgba(10,37,55,.08);
-      backdrop-filter: blur(10px);
-      transition: opacity .16s ease, transform .16s ease;
+    .point { cursor: pointer; }
+
+    .point__dot,
+    .terminal__dot {
+      position: absolute;
+      inset: 7px;
+      display: grid;
+      place-items: center;
+      border: 4px solid var(--white);
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 0 3px #1c819b;
+      transition: inset 180ms ease, background 180ms ease, box-shadow 180ms ease;
     }
 
-    .story-card.changing {
-      opacity: .45;
-      transform: translateY(3px);
+    .point:hover .point__dot,
+    .point:focus-visible .point__dot,
+    .point.is-active .point__dot {
+      inset: 3px;
+      background: var(--navy);
+      box-shadow: 0 0 0 3px var(--navy), 0 7px 18px rgba(10, 37, 55, .2);
     }
 
-    .story-meta {
+    .point:focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 5px;
+      border-radius: 50%;
+    }
+
+    .point__year,
+    .terminal__label {
+      position: absolute;
+      left: 50%;
+      bottom: 52px;
+      min-width: 66px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--white);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.05;
+      text-align: center;
+      white-space: nowrap;
+      transform: translateX(-50%);
+      transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .point:hover .point__year,
+    .point:focus-visible .point__year,
+    .point.is-active .point__year {
+      border-color: var(--cyan);
+      color: #007f9e;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    .terminal__dot {
+      inset: 3px;
+      background: var(--red);
+      box-shadow: 0 0 0 3px var(--red);
+    }
+
+    .terminal--end .terminal__dot {
+      background: var(--cyan);
+      color: var(--navy);
+      box-shadow: 0 0 0 3px var(--navy);
+      font-size: 19px;
+      font-weight: 900;
+    }
+
+    .terminal__label {
+      border-color: rgba(151, 0, 37, .24);
+      color: var(--red);
+    }
+
+    .terminal--end .terminal__label {
+      border-color: rgba(14, 183, 213, .36);
+      color: var(--navy);
+    }
+
+    .story {
+      width: min(1040px, 100%);
+      min-height: 190px;
+      margin: 4px auto 0;
+      padding: 28px 36px 26px 42px;
+      border-top: 4px solid var(--cyan);
+      background: #f8fbfc;
+      box-shadow: 0 18px 38px rgba(10, 37, 55, .07);
+    }
+
+    .story__meta {
       display: flex;
       align-items: center;
-      gap: 9px;
-      margin-bottom: 7px;
+      gap: 13px;
+      margin-bottom: 11px;
     }
 
-    .story-sequence {
-      color: var(--eseo-secondary);
-      font-size: 10px;
-      font-weight: 950;
-      letter-spacing: .12em;
-    }
-
-    .story-year {
-      display: inline-flex;
-      min-height: 26px;
-      align-items: center;
-      padding: 0 10px;
-      border-radius: 999px;
-      background: var(--eseo-primary);
-      color: var(--white);
+    .story__sequence {
+      color: #087f9c;
       font-size: 12px;
-      font-weight: 950;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
     }
 
-    .story-title {
-      margin: 0;
-      color: var(--eseo-primary);
-      font-size: clamp(19px, 2.1vw, 25px);
-      line-height: 1.12;
+    .story__year {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--navy);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .story h2 {
+      margin: 0 0 9px;
+      color: var(--navy);
+      font-size: clamp(26px, 2.4vw, 38px);
+      line-height: 1.08;
       letter-spacing: -.025em;
     }
 
-    .story-description {
-      margin: 8px 0 0;
+    .story p {
+      max-width: 950px;
+      margin: 0;
       color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.48;
+      font-size: clamp(15px, 1.25vw, 18px);
+      line-height: 1.55;
     }
 
-    .line-zone {
-      position: relative;
-      height: 156px;
-      margin-top: 8px;
-    }
-
-    .timeline-line {
-      position: absolute;
-      top: 78px;
-      left: 4.0000%;
-      right: 4.0000%;
-      height: 4px;
-      border-radius: 999px;
-      background:
-        linear-gradient(
-          90deg,
-          var(--eseo-primary),
-          var(--eseo-secondary) 52%,
-          var(--eseo-accent)
-        );
-      box-shadow: 0 0 0 6px rgba(14,183,213,.08);
-    }
-
-    .timeline-point {
-      position: absolute;
-      top: 78px;
-      left: var(--x);
-      z-index: 4;
-      width: 27px;
-      height: 27px;
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-      background: transparent;
-      cursor: pointer;
-      transform: translate(-50%, -50%);
-    }
-
-    .timeline-point .dot {
-      position: absolute;
-      inset: 4px;
-      border: 3px solid var(--white);
-      border-radius: 50%;
-      background: var(--eseo-secondary);
-      box-shadow:
-        0 0 0 3px var(--eseo-secondary),
-        0 7px 14px rgba(10,37,55,.17);
-      transition: inset .15s ease, background .15s ease, box-shadow .15s ease, transform .15s ease;
-    }
-
-    .timeline-point:hover .dot,
-    .timeline-point:focus-visible .dot,
-    .timeline-point.active .dot {
-      inset: 1px;
-      background: var(--eseo-accent);
-      box-shadow:
-        0 0 0 3px var(--eseo-primary),
-        0 9px 18px rgba(10,37,55,.22);
-      transform: scale(1.03);
-    }
-
-    .timeline-point.active .dot {
-      background: var(--eseo-primary);
-    }
-
-    .timeline-point:focus-visible {
-      outline: 3px solid var(--focus);
-      outline-offset: 6px;
-    }
-
-    .year-label {
-      position: absolute;
-      left: 50%;
-      min-width: 52px;
-      padding: 4px 5px;
-      border: 1px solid rgba(29,114,143,.20);
-      border-radius: 8px;
-      background: rgba(255,255,255,.82);
-      color: var(--eseo-primary);
-      font-size: 9.8px;
-      font-weight: 900;
-      line-height: 1.05;
-      text-align: center;
-      white-space: normal;
-      box-shadow: 0 5px 12px rgba(10,37,55,.06);
-      transform: translateX(-50%);
-      transition: color .15s ease, border-color .15s ease, background .15s ease;
-    }
-
-    .timeline-point.above .year-label { bottom: 27px; }
-    .timeline-point.below .year-label { top: 27px; }
-
-    .timeline-point:hover .year-label,
-    .timeline-point:focus-visible .year-label,
-    .timeline-point.active .year-label {
-      border-color: var(--eseo-accent);
-      background: var(--eseo-primary);
-      color: var(--white);
-    }
-
-    .terminal {
-      position: absolute;
-      top: 78px;
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
-    .terminal.start { left: 4.0000%; }
-    .terminal.end { left: 96.0000%; }
-
-    .terminal-dot,
-    .terminal-arrow {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      border: 3px solid var(--white);
-      border-radius: 50%;
-      box-shadow: 0 0 0 3px currentColor, 0 7px 14px rgba(10,37,55,.16);
-    }
-
-    .terminal-dot {
-      color: var(--start);
-      background: var(--start);
-    }
-
-    .terminal-arrow {
-      color: var(--eseo-accent);
-      background: var(--eseo-accent);
-      color: var(--eseo-primary);
-      font-size: 15px;
-      font-weight: 950;
-    }
-
-    .terminal-label {
-      position: absolute;
-      min-width: 52px;
-      padding: 4px 5px;
-      border-radius: 8px;
-      background: rgba(255,255,255,.82);
-      font-size: 9.5px;
-      font-weight: 900;
-      text-align: center;
-      box-shadow: 0 5px 12px rgba(10,37,55,.06);
-    }
-
-    .terminal.start .terminal-label {
-      bottom: 27px;
-      color: var(--start);
-      border: 1px solid rgba(122,31,92,.22);
-    }
-
-    .terminal.end .terminal-label {
-      top: 27px;
-      color: var(--eseo-primary);
-      border: 1px solid rgba(14,183,213,.25);
-    }
-
-    .instruction {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      margin: 2px 0 0;
-      color: #72808c;
-      font-size: 10.5px;
+    .hint {
+      margin: 17px 0 0;
+      color: #70808a;
+      font-size: 12px;
       font-weight: 650;
       text-align: center;
     }
 
-    .instruction::before {
-      width: 6px;
-      height: 6px;
+    .hint::before {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin: 0 8px 1px 0;
       border-radius: 50%;
-      background: var(--eseo-accent);
+      background: var(--cyan);
       content: "";
     }
 
     @media (max-width: 900px) {
-      .timeline {
-        padding-inline: 8px;
-      }
-
-      .story-card {
-        width: min(600px, calc(100% - 8px));
-      }
-
-      .year-label,
-      .terminal-label {
-        min-width: 46px;
-        font-size: 8.8px;
-      }
-    }
-
-    @media (max-width: 650px) {
-      html, body, .timeline {
-        min-height: 380px;
-      }
-
-      .timeline {
-        padding: 10px 6px 12px;
-      }
-
-      .story-card {
-        min-height: 154px;
-        padding: 15px;
-      }
-
-      .story-title { font-size: 20px; }
-      .story-description { font-size: 12.3px; }
-
-      .line-zone {
-        height: 140px;
-      }
-
-      .timeline-line,
-      .timeline-point,
-      .terminal {
-        top: 70px;
-      }
-
-      .timeline-point {
-        width: 22px;
-        height: 22px;
-      }
-
-      .timeline-point .dot {
-        inset: 4px;
-        border-width: 2px;
-        box-shadow: 0 0 0 2px var(--eseo-secondary);
-      }
-
-      .timeline-point:hover .dot,
-      .timeline-point:focus-visible .dot,
-      .timeline-point.active .dot {
-        inset: 1px;
-        box-shadow: 0 0 0 2px var(--eseo-primary);
-      }
-
-      .year-label {
-        display: none;
-      }
-
-      .timeline-point.active .year-label {
-        display: block;
-        top: 25px;
-        bottom: auto;
-        min-width: 52px;
-      }
-
-      .terminal-label {
-        display: none;
-      }
-
-      .terminal-dot,
-      .terminal-arrow {
-        width: 20px;
-        height: 20px;
-        border-width: 2px;
-      }
-
-      .instruction {
-        margin-top: 0;
-        font-size: 9.5px;
-      }
+      .timeline { padding-inline: 20px; overflow-x: auto; }
+      .track, .story, .hint { min-width: 1050px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .story-card,
-      .timeline-point .dot,
-      .year-label {
-        transition: none;
-      }
+      *, *::before, *::after { transition: none !important; }
     }
   </style>
 </head>
-
 <body>
   <section class="timeline" aria-label="Linha do tempo da Escola SENAI de Educação Online">
-    <article class="story-card" id="storyCard" aria-live="polite">
-      <div class="story-meta">
-        <span class="story-sequence" id="storySequence">MARCO 01 DE 11</span>
-        <span class="story-year" id="storyYear">1979</span>
-      </div>
-      <h2 class="story-title" id="storyTitle">O primeiro marco: Desenho Técnico-Mecânico</h2>
-      <p class="story-description" id="storyDescription">
-        Lançamento do curso de Leitura e Interpretação de Desenho Técnico-Mecânico,
-        combinando módulos impressos com salas equipadas com televisores.
-      </p>
-    </article>
+    <div class="track" id="track">
+      <div class="track__line" aria-hidden="true"></div>
 
-    <div class="line-zone">
-      <div class="timeline-line" aria-hidden="true"></div>
+      <span class="terminal terminal--start" style="--x:1.5%;" aria-hidden="true">
+        <span class="terminal__dot"></span>
+        <span class="terminal__label">INÍCIO</span>
+      </span>
 
-      <div class="terminal start" aria-hidden="true">
-        <span class="terminal-dot"></span>
-        <span class="terminal-label">INÍCIO</span>
-      </div>
-
-      
-        <button
-          class="timeline-point above active"
-          type="button"
-          style="--x:11.6667%;"
-          data-index="0"
-          data-year="1979"
-          data-title="O primeiro marco: Desenho Técnico-Mecânico"
-          data-description="Lançamento do curso de Leitura e Interpretação de Desenho Técnico-Mecânico, combinando módulos impressos com salas equipadas com televisores."
-          aria-label="1979: O primeiro marco: Desenho Técnico-Mecânico"
-          aria-pressed="true"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">1979</span>
-        </button>
-        <button
-          class="timeline-point below"
-          type="button"
-          style="--x:19.3333%;"
-          data-index="1"
-          data-year="1990"
-          data-title="Expansão do modelo híbrido"
-          data-description="Consolidação do catálogo e expansão do modelo baseado em materiais impressos e videoaulas."
-          aria-label="1990: Expansão do modelo híbrido"
-          aria-pressed="false"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">1990</span>
-        </button>
-        <button
-          class="timeline-point above"
-          type="button"
-          style="--x:27.0000%;"
-          data-index="2"
-          data-year="1995"
-          data-title="A era do Telecurso 2000"
-          data-description="O SENAI-SP participa do desenvolvimento do Telecurso 2000 Profissionalizante em Mecânica, experiência marcante da Educação a Distância."
-          aria-label="1995: A era do Telecurso 2000"
-          aria-pressed="false"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">1995</span>
-        </button>
-        <button
-          class="timeline-point below"
-          type="button"
-          style="--x:34.6667%;"
-          data-index="3"
-          data-year="2007"
-          data-title="Nascimento do Centro de EaD"
-          data-description="Criação do grupo que daria origem ao Centro SENAI de Educação a Distância e início da transição para recursos digitais."
-          aria-label="2007: Nascimento do Centro de EaD"
-          aria-pressed="false"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">2007</span>
-        </button>
-        <button
-          class="timeline-point above"
-          type="button"
-          style="--x:42.3333%;"
-          data-index="4"
-          data-year="2010"
-          data-title="Pioneirismo no ensino superior"
-          data-description="O curso de Tecnologia de Produção Gráfica passa a ofertar unidades curriculares a distância, introduzindo o modelo híbrido na graduação."
-          aria-label="2010: Pioneirismo no ensino superior"
-          aria-pressed="false"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">2010</span>
-        </button>
-        <button
-          class="timeline-point below"
-          type="button"
-          style="--x:50.0000%;"
-          data-index="5"
-          data-year="2010–2017"
-          data-title="A virada digital e a escala"
-          data-description="A cultura digital se consolida e o SENAI-SP alcança 1,5 milhão de alunos em cursos a distância ao longo de pouco mais de dez anos."
-          aria-label="2010–2017: A virada digital e a escala"
-          aria-pressed="false"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">2010–2017</span>
-        </button>
-        <button
-          class="timeline-point above"
-          type="button"
-          style="--x:57.6667%;"
-          data-index="6"
-          data-year="2017"
-          data-title="Primeiro curso técnico semipresencial"
-          data-description="A primeira oferta é implantada em Santos e rapidamente se expande para sete cursos e 19 turmas."
-          aria-label="2017: Primeiro curso técnico semipresencial"
-          aria-pressed="false"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">2017</span>
-        </button>
-        <button
-          class="timeline-point below"
-          type="button"
-          style="--x:65.3333%;"
-          data-index="7"
-          data-year="2019"
-          data-title="Expansão para a pós-graduação"
-          data-description="A especialização em Inovação e Competitividade Industrial abre caminho para novas ofertas digitais no ensino superior."
-          aria-label="2019: Expansão para a pós-graduação"
-          aria-pressed="false"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">2019</span>
-        </button>
-        <button
-          class="timeline-point above"
-          type="button"
-          style="--x:73.0000%;"
-          data-index="8"
-          data-year="2020"
-          data-title="Aceleração durante a pandemia"
-          data-description="O SENAI-SP amplia rapidamente as soluções online e registra mais de 800 mil matrículas em diferentes tipos de cursos."
-          aria-label="2020: Aceleração durante a pandemia"
-          aria-pressed="false"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">2020</span>
-        </button>
-        <button
-          class="timeline-point below"
-          type="button"
-          style="--x:80.6667%;"
-          data-index="9"
-          data-year="2022"
-          data-title="Consolidação da ESEO"
-          data-description="A estrutura de EaD passa a ser oficialmente nomeada Escola SENAI de Educação Online e amplia sua atuação em soluções educacionais digitais."
-          aria-label="2022: Consolidação da ESEO"
-          aria-pressed="false"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">2022</span>
-        </button>
-        <button
-          class="timeline-point above"
-          type="button"
-          style="--x:88.3333%;"
-          data-index="10"
-          data-year="2025"
-          data-title="Novo marco regulatório"
-          data-description="O Decreto nº 12.456/2025 redefine formatos, exigências presenciais, infraestrutura e critérios de qualidade no Ensino Superior."
-          aria-label="2025: Novo marco regulatório"
-          aria-pressed="false"
-        >
-          <span class="dot" aria-hidden="true"></span>
-          <span class="year-label">2025</span>
-        </button>
-
-      <div class="terminal end" aria-hidden="true">
-        <span class="terminal-arrow">→</span>
-        <span class="terminal-label">CONTINUA</span>
-      </div>
+      <span class="terminal terminal--end" style="--x:98.5%;" aria-hidden="true">
+        <span class="terminal__dot">→</span>
+        <span class="terminal__label">CONTINUA</span>
+      </span>
     </div>
 
-    <p class="instruction">Passe o cursor pelas datas, clique ou use as setas do teclado.</p>
+    <article class="story" id="story" aria-live="polite">
+      <div class="story__meta">
+        <span class="story__sequence" id="storySequence">Marco 01 de 11</span>
+        <span class="story__year" id="storyYear">1979</span>
+      </div>
+      <h2 id="storyTitle">O primeiro marco: Desenho Técnico-Mecânico</h2>
+      <p id="storyDescription">Lançamento do curso de Leitura e Interpretação de Desenho Técnico-Mecânico, combinando módulos impressos com salas equipadas com televisores.</p>
+    </article>
+
+    <p class="hint">Passe o cursor pelas datas, clique ou use as setas do teclado.</p>
   </section>
 
   <script>
-    (() => {
-      const points = [...document.querySelectorAll(".timeline-point")];
-      const storyCard = document.getElementById("storyCard");
-      const storySequence = document.getElementById("storySequence");
-      const storyYear = document.getElementById("storyYear");
-      const storyTitle = document.getElementById("storyTitle");
-      const storyDescription = document.getElementById("storyDescription");
+    (function () {
+      const events = [
+        ["1979", "O primeiro marco: Desenho Técnico-Mecânico", "Lançamento do curso de Leitura e Interpretação de Desenho Técnico-Mecânico, combinando módulos impressos com salas equipadas com televisores."],
+        ["1990", "Expansão do modelo híbrido", "Consolidação do catálogo e expansão do modelo baseado em materiais impressos e videoaulas."],
+        ["1995", "A era do Telecurso 2000", "O SENAI-SP participa do desenvolvimento do Telecurso 2000 Profissionalizante em Mecânica, experiência marcante da Educação a Distância."],
+        ["2007", "Nascimento do Centro de EaD", "Criação do grupo que daria origem ao Centro SENAI de Educação a Distância e início da transição para recursos digitais."],
+        ["2010", "Pioneirismo no ensino superior", "O curso de Tecnologia de Produção Gráfica passa a ofertar unidades curriculares a distância, introduzindo o modelo híbrido na graduação."],
+        ["2010–2017", "A virada digital e a escala", "A cultura digital se consolida e o SENAI-SP alcança 1,5 milhão de alunos em cursos a distância ao longo de pouco mais de dez anos."],
+        ["2017", "Primeiro curso técnico semipresencial", "A primeira oferta é implantada em Santos e rapidamente se expande para sete cursos e 19 turmas."],
+        ["2019", "Expansão para a pós-graduação", "A especialização em Inovação e Competitividade Industrial abre caminho para novas ofertas digitais no ensino superior."],
+        ["2020", "Aceleração durante a pandemia", "O SENAI-SP amplia rapidamente as soluções online e registra mais de 800 mil matrículas em diferentes tipos de cursos."],
+        ["2022", "Consolidação da ESEO", "A estrutura de EaD passa a ser oficialmente nomeada Escola SENAI de Educação Online e amplia sua atuação em soluções educacionais digitais."],
+        ["2025", "Novo marco regulatório", "O Decreto nº 12.456/2025 redefine formatos, exigências presenciais, infraestrutura e critérios de qualidade no Ensino Superior."]
+      ];
+
+      const track = document.getElementById("track");
+      const sequence = document.getElementById("storySequence");
+      const year = document.getElementById("storyYear");
+      const title = document.getElementById("storyTitle");
+      const description = document.getElementById("storyDescription");
       let activeIndex = 0;
 
-      function activate(index, moveFocus = false) {
-        activeIndex = Math.max(0, Math.min(points.length - 1, index));
-        const point = points[activeIndex];
-
-        storyCard.classList.add("changing");
-
-        window.setTimeout(() => {
-          storySequence.textContent = `MARCO ${String(activeIndex + 1).padStart(2, "0")} DE ${points.length}`;
-          storyYear.textContent = point.dataset.year;
-          storyTitle.textContent = point.dataset.title;
-          storyDescription.textContent = point.dataset.description;
-          storyCard.classList.remove("changing");
-        }, 65);
-
-        points.forEach((item, itemIndex) => {
-          const isActive = itemIndex === activeIndex;
-          item.classList.toggle("active", isActive);
-          item.setAttribute("aria-pressed", String(isActive));
-        });
-
-        if (moveFocus) point.focus();
-      }
-
-      points.forEach((point, index) => {
-        point.addEventListener("mouseenter", () => activate(index));
-        point.addEventListener("focus", () => activate(index));
-        point.addEventListener("click", () => activate(index, true));
+      events.forEach(function (event, index) {
+        const point = document.createElement("button");
+        const x = 6.2 + (index * (87.6 / (events.length - 1)));
+        point.className = "point" + (index === 0 ? " is-active" : "");
+        point.type = "button";
+        point.style.setProperty("--x", x + "%");
+        point.dataset.index = index;
+        point.setAttribute("aria-label", event[0] + ": " + event[1]);
+        point.setAttribute("aria-pressed", index === 0 ? "true" : "false");
+        point.innerHTML =
+          '<span class="point__dot" aria-hidden="true"></span>' +
+          '<span class="point__year">' + event[0] + '</span>';
+        track.appendChild(point);
       });
 
-      document.addEventListener("keydown", event => {
-        if (!document.activeElement.classList.contains("timeline-point")) return;
+      const points = [...track.querySelectorAll(".point")];
 
+      function activate(index, focus) {
+        activeIndex = (index + events.length) % events.length;
+        const event = events[activeIndex];
+
+        points.forEach(function (point, pointIndex) {
+          const active = pointIndex === activeIndex;
+          point.classList.toggle("is-active", active);
+          point.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+
+        sequence.textContent = "Marco " + String(activeIndex + 1).padStart(2, "0") + " de " + events.length;
+        year.textContent = event[0];
+        title.textContent = event[1];
+        description.textContent = event[2];
+        if (focus) points[activeIndex].focus();
+      }
+
+      points.forEach(function (point, index) {
+        point.addEventListener("mouseenter", function () { activate(index, false); });
+        point.addEventListener("focus", function () { activate(index, false); });
+        point.addEventListener("click", function () { activate(index, true); });
+      });
+
+      track.addEventListener("keydown", function (event) {
         if (event.key === "ArrowRight") {
           event.preventDefault();
           activate(activeIndex + 1, true);
         }
-
         if (event.key === "ArrowLeft") {
           event.preventDefault();
           activate(activeIndex - 1, true);
         }
-
         if (event.key === "Home") {
           event.preventDefault();
           activate(0, true);
         }
-
         if (event.key === "End") {
           event.preventDefault();
-          activate(points.length - 1, true);
+          activate(events.length - 1, true);
         }
       });
     })();

@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Catálogo Inteligente de Cursos EAD — ESEO | Paleta Oficial</title>
+  <title>Portfólio de cursos — ESEO</title>
   <style>
     :root {
-      --accent: #0eb7d5;
-      --secondary: #1d728f;
-      --primary: #0a2537;
-      --ink: #101826;
-      --muted: #60707d;
-      --line: #d8e3e8;
-      --soft: #f2f2f2;
+      --red: #ed1c24;
+      --red-dark: #b80016;
+      --navy: #002b5c;
+      --ink: #121826;
+      --muted: #697386;
+      --line: #dce2ea;
+      --soft: #f4f6f9;
       --white: #ffffff;
       --focus: #ffbf00;
       --shadow: 0 15px 42px rgba(18, 24, 38, .10);
@@ -24,8 +24,7 @@
       width: 100%;
       min-height: 100%;
       margin: 0;
-      overflow-x: hidden;
-      background: transparent !important;
+      background: transparent;
       color: var(--ink);
       font-family: "Segoe UI", Arial, sans-serif;
     }
@@ -37,8 +36,6 @@
       width: min(1440px, 100%);
       margin: 0 auto;
       padding: 18px;
-      overflow-x: hidden;
-      background: transparent;
     }
 
     .shell {
@@ -70,7 +67,7 @@
       bottom: -150px;
       width: 420px;
       height: 420px;
-      border: 56px solid rgba(14,183,213,.20);
+      border: 56px solid rgba(237,28,36,.20);
       border-radius: 50%;
       content: "";
       pointer-events: none;
@@ -99,7 +96,7 @@
 
     .eyebrow {
       margin: 0 0 5px;
-      color: #0eb7d5;
+      color: #ff858a;
       font-size: 12px;
       font-weight: 900;
       letter-spacing: .13em;
@@ -173,8 +170,8 @@
     }
 
     .search-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(14,183,213,.11);
+      border-color: var(--red);
+      box-shadow: 0 0 0 4px rgba(237,28,36,.11);
     }
 
     .clear-search {
@@ -197,19 +194,18 @@
     .primary-action {
       min-height: 56px;
       padding: 0 20px;
-      border: 1px solid var(--accent);
+      border: 1px solid var(--red);
       border-radius: 15px;
-      background: var(--accent);
-      color: var(--primary);
+      background: var(--red);
+      color: #fff;
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 10px 22px rgba(14,183,213,.20);
+      box-shadow: 0 10px 22px rgba(237,28,36,.20);
       transition: transform .18s ease, background .18s ease;
     }
 
     .primary-action:hover {
-      background: var(--secondary);
-      color: var(--white);
+      background: var(--red-dark);
       transform: translateY(-2px);
     }
 
@@ -258,7 +254,7 @@
       cursor: pointer;
     }
 
-    .reset-button:hover { border-color: var(--accent); color: var(--accent); }
+    .reset-button:hover { border-color: var(--red); color: var(--red); }
 
     .quick-chips {
       display: flex;
@@ -292,9 +288,9 @@
 
     .chip:hover,
     .chip.active {
-      border-color: var(--accent);
-      background: rgba(14,183,213,.07);
-      color: var(--secondary);
+      border-color: var(--red);
+      background: rgba(237,28,36,.07);
+      color: var(--red-dark);
     }
 
     .metrics {
@@ -321,7 +317,7 @@
       width: 90px;
       height: 90px;
       border-radius: 50%;
-      background: rgba(14,183,213,.08);
+      background: rgba(237,28,36,.08);
       content: "";
     }
 
@@ -400,7 +396,7 @@
     }
 
     .course-card:hover {
-      border-color: rgba(14,183,213,.55);
+      border-color: rgba(237,28,36,.55);
       box-shadow: 0 13px 28px rgba(18,24,38,.09);
       transform: translateY(-3px);
     }
@@ -418,8 +414,8 @@
       min-height: 28px;
       padding: 0 10px;
       border-radius: 999px;
-      background: rgba(10,37,55,.08);
-      color: var(--primary);
+      background: rgba(0,43,92,.08);
+      color: var(--navy);
       font-size: 10px;
       font-weight: 900;
       letter-spacing: .035em;
@@ -439,9 +435,9 @@
     }
 
     .favorite-button.active {
-      border-color: var(--accent);
-      background: rgba(14,183,213,.14);
-      color: var(--primary);
+      border-color: #f6c20f;
+      background: #fff9dc;
+      color: #b17800;
     }
 
     .course-title {
@@ -494,12 +490,12 @@
     }
 
     .details-button {
-      border: 1px solid var(--primary);
-      background: var(--primary);
+      border: 1px solid var(--navy);
+      background: var(--navy);
       color: #fff;
     }
 
-    .details-button:hover { background: #061a28; }
+    .details-button:hover { background: #001f43; }
 
     .sgset-button {
       padding: 0 12px;
@@ -508,7 +504,7 @@
       color: #3e4755;
     }
 
-    .sgset-button:hover { border-color: var(--accent); color: var(--accent); }
+    .sgset-button:hover { border-color: var(--red); color: var(--red); }
 
     .empty-state {
       display: none;
@@ -548,7 +544,7 @@
       cursor: pointer;
     }
 
-    .load-more:hover { border-color: var(--accent); color: var(--accent); }
+    .load-more:hover { border-color: var(--red); color: var(--red); }
 
     .drawer-backdrop {
       position: fixed;
@@ -589,7 +585,7 @@
 
     .drawer-kicker {
       margin: 0;
-      color: var(--accent);
+      color: var(--red);
       font-size: 11px;
       font-weight: 900;
       letter-spacing: .09em;
@@ -686,9 +682,9 @@
     }
 
     .drawer-primary {
-      border: 1px solid var(--accent);
-      background: var(--accent);
-      color: var(--primary);
+      border: 1px solid var(--red);
+      background: var(--red);
+      color: #fff;
     }
 
     .drawer-secondary {
@@ -740,10 +736,142 @@
 
     .course-code{margin:3px 0 0;color:#9aa3b0;font-size:10px;font-weight:700;letter-spacing:.04em;}
     .oferta-badge{display:inline-flex;align-items:center;gap:4px;min-height:22px;padding:0 8px;border-radius:999px;font-size:10px;font-weight:800;}
-    .oferta-ready{background:rgba(14,183,213,.16);color:#0a2537;}
-    .oferta-info{background:rgba(29,114,143,.12);color:#1d728f;}
+    .oferta-ready{background:#d1fae5;color:#065f46;}
+    .oferta-info{background:#fef3c7;color:#92400e;}
     .pending-text{color:#c0c7d0;font-style:italic;font-size:13px;}
     .drawer-hours-detail{color:#9aa3b0;font-size:11px;margin-top:2px;}
+
+    /* Versão minimalista para uso incorporado no Portal ESEO */
+    :root {
+      --navy: #0a2537;
+      --cyan: #0eb7d5;
+      --focus: #0eb7d5;
+    }
+
+    .catalog {
+      width: min(1380px, 100%);
+      padding: 10px 18px 18px;
+    }
+
+    .hero {
+      display: block;
+      min-height: 0;
+      padding: 8px 2px 18px;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      color: var(--navy);
+    }
+
+    .hero::after,
+    .brand,
+    .eyebrow,
+    .metrics,
+    .quick-chips,
+    .prototype-note {
+      display: none;
+    }
+
+    h1 {
+      font-size: clamp(24px, 2.2vw, 34px);
+      line-height: 1.1;
+      letter-spacing: -.03em;
+    }
+
+    .hero-text {
+      max-width: 860px;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .workspace { padding: 16px 0 0; }
+
+    .search-panel {
+      margin: 0;
+      padding: 0 0 18px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .search-input {
+      min-height: 48px;
+      border: 1px solid #cfd9df;
+      border-radius: 8px;
+      background: rgba(255,255,255,.9);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .search-input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(14,183,213,.12);
+    }
+
+    .primary-action {
+      min-height: 48px;
+      border-color: var(--navy);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--navy);
+      box-shadow: none;
+    }
+
+    .primary-action:hover {
+      background: var(--navy);
+      color: #fff;
+      transform: none;
+    }
+
+    .filters {
+      grid-template-columns: repeat(5, minmax(145px, 1fr)) auto;
+      margin-top: 14px;
+    }
+
+    .filter-select,
+    .reset-button,
+    .sort-select {
+      border-radius: 7px;
+      background: rgba(255,255,255,.9);
+    }
+
+    .results-toolbar { margin: 18px 0 12px; }
+
+    .course-grid { gap: 10px; }
+
+    .course-card {
+      min-height: 224px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.94);
+    }
+
+    .course-card:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 9px 22px rgba(10,37,55,.08);
+      transform: translateY(-2px);
+    }
+
+    .level-badge {
+      border-radius: 5px;
+      background: rgba(10,37,55,.07);
+    }
+
+    .details-button {
+      border-color: var(--navy);
+      background: var(--navy);
+    }
+
+    .empty-state {
+      padding: 34px 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: transparent;
+    }
+
+    .drawer { background: #fff; }
 
     :focus-visible {
       outline: 3px solid var(--focus);
@@ -802,8 +930,8 @@
         </div>
         <div class="hero-content">
           <p class="eyebrow">Portal ESEO</p>
-          <h1 id="pageTitle">Encontre o curso certo, sem caça ao tesouro.</h1>
-          <p class="hero-text">Pesquise pelo nome, área ou palavra-chave. Depois, compare carga horária, formato e nível antes de acessar o curso no SGSET.</p>
+          <h1 id="pageTitle">Portfólio de cursos</h1>
+          <p class="hero-text">Selecione um critério para consultar a base oficial. Os cursos salvos permanecem disponíveis neste navegador.</p>
         </div>
       </header>
 
@@ -820,12 +948,12 @@
                 id="searchInput"
                 type="search"
                 autocomplete="off"
-                placeholder="Ex.: logística, técnico, recursos humanos, inteligência artificial..."
+                placeholder="Pesquisar por curso, área ou palavra-chave"
                 aria-label="Pesquisar cursos"
               />
               <button class="clear-search" id="clearSearch" type="button" aria-label="Limpar pesquisa">×</button>
             </div>
-            <button class="primary-action" id="favoritesOnly" type="button">☆ Meus favoritos</button>
+            <button class="primary-action" id="favoritesOnly" type="button">Cursos salvos</button>
           </div>
 
           <div class="filters">
@@ -870,9 +998,9 @@
 
         <section class="metrics" aria-label="Indicadores do catálogo">
           <article class="metric">
-            <span class="metric-label">Total do portfólio</span>
+            <span class="metric-label">Portfólio institucional</span>
             <strong class="metric-value">156</strong>
-            <span class="metric-note">Base completa — não varia com os filtros</span>
+            <span class="metric-note">Base oficial ESEO — jul/2026</span>
           </article>
           <article class="metric">
             <span class="metric-label">Resultados encontrados</span>
@@ -880,20 +1008,20 @@
             <span class="metric-note">Atualizado conforme a pesquisa</span>
           </article>
           <article class="metric">
-            <span class="metric-label">Níveis no recorte</span>
+            <span class="metric-label">Níveis disponíveis</span>
             <strong class="metric-value" id="levelsMetric">0</strong>
-            <span class="metric-note">Conforme os filtros aplicados</span>
+            <span class="metric-note">Na base oficial carregada</span>
           </article>
           <article class="metric">
-            <span class="metric-label">Áreas no recorte</span>
+            <span class="metric-label">Áreas tecnológicas</span>
             <strong class="metric-value" id="areasMetric">0</strong>
-            <span class="metric-note">Conforme os filtros aplicados</span>
+            <span class="metric-note">Na base oficial carregada</span>
           </article>
         </section>
 
-        <div class="results-toolbar">
+        <div class="results-toolbar" id="resultsToolbar">
           <div>
-            <h2 class="results-title">Cursos encontrados</h2>
+            <h2 class="results-title" id="resultsTitle">Cursos encontrados</h2>
             <span class="results-count" id="resultsCount" aria-live="polite"></span>
           </div>
           <select class="sort-select" id="sortSelect" aria-label="Ordenar resultados">
@@ -907,15 +1035,15 @@
         <section class="course-grid" id="courseGrid" aria-label="Lista de cursos"></section>
 
         <div class="empty-state" id="emptyState">
-          <strong>Nenhum curso apareceu.</strong>
-          <span>Tente remover um filtro ou pesquisar com uma palavra mais ampla.</span>
+          <strong>Selecione um critério para consultar o portfólio.</strong>
+          <span>A base já está carregada. Os resultados aparecem após a sua escolha.</span>
         </div>
 
         <div class="load-more-wrap">
           <button class="load-more" id="loadMore" type="button">Mostrar mais cursos</button>
         </div>
 
-        <p class="prototype-note">📋 Base oficial — 156 cursos ativos (jul/2026). Campos "Pendente" serão preenchidos após levantamento no SGSET. O botão SGSET requer acesso à rede SENAI-SP ou VPN.</p>
+        <p class="prototype-note">Base oficial — 156 cursos ativos (jul/2026). Campos pendentes serão preenchidos após levantamento no SGSET. O acesso ao SGSET requer rede SENAI-SP ou VPN.</p>
       </div>
     </section>
   </main>
@@ -956,7 +1084,7 @@
       <button class="drawer-primary" id="drawerSgset" type="button">Acessar no SGSET</button>
       <button class="drawer-secondary" id="copyCourse" type="button">Copiar nome do curso</button>
     </div>
-    <p class="drawer-note">🔒 O link SGSET requer acesso à rede intranet SENAI-SP. Use dentro da unidade ou via VPN.</p>
+    <p class="drawer-note">O link SGSET requer acesso à rede intranet SENAI-SP ou VPN.</p>
   </aside>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -3940,6 +4068,24 @@
   }
 ];
     const PAGE_SIZE = 12;
+    const FAVORITES_KEY = "eseo-catalogo-cursos-salvos-v1";
+
+    function loadFavoriteIds() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
+        return Array.isArray(saved) ? saved.map(Number).filter(Number.isFinite) : [];
+      } catch (_) {
+        return [];
+      }
+    }
+
+    function saveFavoriteIds(favorites) {
+      try {
+        localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favorites]));
+      } catch (_) {
+        /* O catálogo continua funcionando mesmo quando o navegador bloqueia o armazenamento. */
+      }
+    }
 
     const state = {
       search: "",
@@ -3952,7 +4098,7 @@
       favoritesOnly: false,
       visible: PAGE_SIZE,
       selected: null,
-      favorites: new Set()
+      favorites: new Set(loadFavoriteIds())
     };
 
     const elements = {
@@ -3966,8 +4112,12 @@
       resetFilters: document.getElementById("resetFilters"),
       favoritesOnly: document.getElementById("favoritesOnly"),
       sortSelect: document.getElementById("sortSelect"),
+      resultsToolbar: document.getElementById("resultsToolbar"),
+      resultsTitle: document.getElementById("resultsTitle"),
       courseGrid: document.getElementById("courseGrid"),
       emptyState: document.getElementById("emptyState"),
+      emptyTitle: document.querySelector("#emptyState strong"),
+      emptyText: document.querySelector("#emptyState span"),
       loadMore: document.getElementById("loadMore"),
       resultsCount: document.getElementById("resultsCount"),
       foundMetric: document.getElementById("foundMetric"),
@@ -4019,7 +4169,8 @@
       fillSelect(elements.areaFilter, uniqueValues("area"));
       fillSelect(elements.formatFilter, uniqueValues("format"));
       fillSelect(elements.modelFilter, uniqueValues("model"));
-      // As métricas de níveis e áreas são atualizadas em tempo real no render().
+      elements.levelsMetric.textContent = uniqueValues("level").length;
+      elements.areasMetric.textContent = uniqueValues("area").length;
     }
 
     function matchesHours(course) {
@@ -4047,8 +4198,20 @@
       return score;
     }
 
+    function hasActiveCriteria() {
+      return Boolean(
+        state.search ||
+        state.level ||
+        state.area ||
+        state.format ||
+        state.model ||
+        state.hours
+      );
+    }
+
     function filteredCourses() {
       const query = normalize(state.search);
+      const initialOnlySaved = !hasActiveCriteria() && !state.favoritesOnly;
 
       const result = COURSES.filter(course => {
         const haystack = normalize([
@@ -4061,7 +4224,8 @@
           course.description
         ].join(" "));
 
-        return (!query || haystack.includes(query)) &&
+        return (!initialOnlySaved || state.favorites.has(course.id)) &&
+          (!query || haystack.includes(query)) &&
           (!state.level || course.level === state.level) &&
           (!state.area || course.area === state.area) &&
           (!state.format || course.format === state.format) &&
@@ -4126,12 +4290,27 @@
     function render() {
       const result = filteredCourses();
       const visibleCourses = result.slice(0, state.visible);
+      const initialView = !hasActiveCriteria() && !state.favoritesOnly;
 
       elements.courseGrid.innerHTML = visibleCourses.map(cardTemplate).join("");
-      elements.resultsCount.textContent = `${result.length} curso${result.length === 1 ? "" : "s"} na seleção atual`;
+      elements.resultsTitle.textContent = initialView ? "Cursos salvos" : "Cursos encontrados";
+      elements.resultsCount.textContent = initialView
+        ? `${result.length} curso${result.length === 1 ? "" : "s"} salvo${result.length === 1 ? "" : "s"} neste navegador`
+        : `${result.length} curso${result.length === 1 ? "" : "s"} na base oficial`;
       elements.foundMetric.textContent = result.length;
-      elements.levelsMetric.textContent = new Set(result.map(course => course.level).filter(Boolean)).size;
-      elements.areasMetric.textContent = new Set(result.map(course => course.area).filter(Boolean)).size;
+      elements.resultsToolbar.style.display = result.length ? "flex" : "none";
+
+      if (initialView) {
+        elements.emptyTitle.textContent = "Selecione um critério para consultar o portfólio.";
+        elements.emptyText.textContent = "A base já está carregada. Quando você salvar cursos, eles aparecerão aqui ao abrir a página.";
+      } else if (state.favoritesOnly && !result.length) {
+        elements.emptyTitle.textContent = "Nenhum curso salvo.";
+        elements.emptyText.textContent = "Use a estrela nos resultados para manter cursos disponíveis nesta tela.";
+      } else {
+        elements.emptyTitle.textContent = "Nenhum curso encontrado.";
+        elements.emptyText.textContent = "Revise os critérios selecionados ou limpe os filtros.";
+      }
+
       elements.emptyState.style.display = result.length ? "none" : "block";
       elements.loadMore.style.display = result.length > state.visible ? "inline-flex" : "none";
 
@@ -4151,7 +4330,8 @@
     function toggleFavorite(id) {
       if (state.favorites.has(id)) state.favorites.delete(id);
       else state.favorites.add(id);
-      /* favorites only in memory */
+      saveFavoriteIds(state.favorites);
+      showToast(state.favorites.has(id) ? "Curso salvo neste navegador." : "Curso removido dos salvos.");
       render();
     }
 
@@ -4275,7 +4455,7 @@
       elements.formatFilter.value = "";
       elements.modelFilter.value = "";
       elements.hoursFilter.value = "";
-      elements.favoritesOnly.textContent = "☆ Meus favoritos";
+      elements.favoritesOnly.textContent = "Cursos salvos";
       elements.favoritesOnly.setAttribute("aria-pressed", "false");
       document.querySelectorAll(".chip").forEach(chip => chip.classList.remove("active"));
       render();
@@ -4283,7 +4463,7 @@
 
     elements.favoritesOnly.addEventListener("click", () => {
       state.favoritesOnly = !state.favoritesOnly;
-      elements.favoritesOnly.textContent = state.favoritesOnly ? "★ Mostrando favoritos" : "☆ Meus favoritos";
+      elements.favoritesOnly.textContent = state.favoritesOnly ? "Exibindo salvos" : "Cursos salvos";
       elements.favoritesOnly.setAttribute("aria-pressed", String(state.favoritesOnly));
       resetVisible();
     });
