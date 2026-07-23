@@ -3,162 +3,232 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Convite para pesquisa — Portal ESEO</title>
+  <title>Pesquisa de satisfação — Portal ESEO</title>
 
   <style>
     :root {
       --eseo-navy: #061923;
       --eseo-navy-soft: #0a2537;
+      --eseo-blue: #1d728f;
       --eseo-cyan: #0eb7d5;
       --eseo-red: #e30613;
       --eseo-white: #ffffff;
-      --eseo-muted: #d5e0e4;
+      --eseo-muted: rgba(255,255,255,.76);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html,
     body {
       width: 100%;
-      min-height: 100%;
+      min-height: 720px;
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: transparent;
-      color: var(--eseo-white);
+      background: transparent !important;
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    body {
-      padding: 8px;
-    }
+    body { padding: 8px; }
 
-    body.preview {
-      background:
-        linear-gradient(115deg, #0a2537, #610010 72%, #940719);
-    }
-
-    .survey-invite {
+    .survey-shell {
       position: relative;
       width: min(100%, 1480px);
-      min-height: 164px;
-      display: flex;
-      align-items: center;
+      min-height: 700px;
+      display: grid;
+      grid-template-columns: minmax(300px, .72fr) minmax(620px, 1.28fr);
       margin: 0 auto;
       overflow: hidden;
-      padding: 30px clamp(28px, 5vw, 76px);
-      border: 1px solid rgba(255, 255, 255, 0.32);
-      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 18px;
       background:
-        radial-gradient(
-          circle at 94% -80%,
-          rgba(227, 6, 19, 0.2),
-          transparent 45%
-        ),
         linear-gradient(
-          112deg,
-          rgba(6, 25, 35, 0.76) 0%,
-          rgba(10, 37, 55, 0.6) 58%,
-          rgba(62, 14, 25, 0.48) 100%
+          118deg,
+          rgba(6,25,35,.94) 0%,
+          rgba(10,37,55,.88) 42%,
+          rgba(29,114,143,.42) 100%
         );
       box-shadow:
-        0 18px 44px rgba(0, 0, 0, 0.16),
-        inset 0 1px 0 rgba(255, 255, 255, 0.09);
-      backdrop-filter: blur(12px) saturate(120%);
-      -webkit-backdrop-filter: blur(12px) saturate(120%);
-      isolation: isolate;
+        0 22px 56px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.10);
+      backdrop-filter: blur(12px) saturate(115%);
+      -webkit-backdrop-filter: blur(12px) saturate(115%);
     }
 
-    .survey-invite::before {
+    .survey-shell::before {
       position: absolute;
       top: 0;
-      bottom: 0;
+      right: 0;
       left: 0;
-      width: 5px;
+      z-index: 3;
+      height: 3px;
       content: "";
       background: linear-gradient(
-        180deg,
+        90deg,
         var(--eseo-cyan),
+        rgba(255,255,255,.60) 62%,
         var(--eseo-red)
       );
     }
 
-    .survey-invite::after {
-      position: absolute;
-      right: -145px;
-      bottom: -205px;
-      z-index: -1;
-      width: 420px;
-      height: 420px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 50%;
-      content: "";
-      box-shadow:
-        0 0 0 58px rgba(255, 255, 255, 0.022),
-        0 0 0 116px rgba(255, 255, 255, 0.014);
-    }
-
     .survey-copy {
-      max-width: 950px;
+      position: relative;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(38px, 5vw, 72px);
+      color: var(--eseo-white);
     }
 
-    .survey-title {
-      margin: 0;
-      color: var(--eseo-white);
-      font-size: clamp(30px, 3.3vw, 50px);
-      font-weight: 760;
-      letter-spacing: -0.045em;
-      line-height: 1;
-      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.46);
+    .survey-copy::after {
+      position: absolute;
+      top: 12%;
+      right: 0;
+      bottom: 12%;
+      width: 1px;
+      content: "";
+      background: linear-gradient(
+        transparent,
+        rgba(14,183,213,.68),
+        transparent
+      );
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--eseo-cyan);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .15em;
       text-transform: uppercase;
     }
 
-    .survey-text {
-      margin: 16px 0 0;
-      color: var(--eseo-muted);
-      font-size: clamp(15px, 1.4vw, 19px);
-      font-weight: 450;
-      line-height: 1.4;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.42);
+    h1 {
+      max-width: 470px;
+      margin: 0;
+      font-size: clamp(38px, 4.6vw, 64px);
+      font-weight: 760;
+      letter-spacing: -.045em;
+      line-height: .98;
     }
 
-    @media (max-width: 620px) {
-      body {
-        padding: 0;
-      }
+    .survey-text {
+      max-width: 500px;
+      margin: 22px 0 0;
+      color: var(--eseo-muted);
+      font-size: clamp(16px, 1.35vw, 19px);
+      line-height: 1.5;
+    }
 
-      .survey-invite {
-        min-height: 180px;
-        padding: 28px 24px;
-        border-radius: 0;
-      }
+    .survey-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px 18px;
+      margin-top: 30px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.13);
+      color: rgba(255,255,255,.66);
+      font-size: 12px;
+      font-weight: 650;
+    }
 
-      .survey-title {
-        font-size: clamp(28px, 8vw, 38px);
+    .survey-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .survey-meta span::before {
+      width: 5px;
+      height: 5px;
+      background: var(--eseo-cyan);
+      content: "";
+    }
+
+    .form-column {
+      min-width: 0;
+      display: grid;
+      place-items: center;
+      padding: 28px clamp(22px, 3vw, 44px);
+    }
+
+    .form-frame {
+      position: relative;
+      width: min(100%, 760px);
+      height: 640px;
+      overflow: hidden;
+      border-radius: 10px;
+      background: var(--eseo-white);
+      box-shadow: 0 20px 46px rgba(0,0,0,.24);
+    }
+
+    /*
+      O iframe fica alguns pixels mais largo que a moldura.
+      Assim, o trilho interno do Customer Voice permanece funcional,
+      mas é recortado para fora da área visível.
+    */
+    .customer-voice {
+      width: calc(100% + 26px);
+      height: 900px;
+      display: block;
+      margin: 0;
+      border: 0;
+      background: var(--eseo-white);
+    }
+
+    @media (max-width: 960px) {
+      html, body { min-height: 1020px; overflow-y: auto; }
+      .survey-shell { grid-template-columns: 1fr; }
+      .survey-copy { padding: 40px 34px; }
+      .survey-copy::after {
+        top: auto;
+        right: 8%;
+        bottom: 0;
+        left: 8%;
+        width: auto;
+        height: 1px;
       }
+      .form-column { padding: 25px 18px 30px; }
+    }
+
+    @media (max-width: 560px) {
+      body { padding: 0; }
+      .survey-shell { border-radius: 0; }
+      .survey-copy { padding: 34px 24px; }
+      .form-column { padding-inline: 8px; }
+      .form-frame { height: 660px; border-radius: 5px; }
     }
   </style>
 </head>
 
 <body>
-  <section class="survey-invite" aria-labelledby="surveyInviteTitle">
-    <div class="survey-copy">
-      <h1 class="survey-title" id="surveyInviteTitle">
-        Ajude a melhorar o Portal ESEO
-      </h1>
+  <main class="survey-shell">
+    <section class="survey-copy" aria-labelledby="surveyTitle">
+      <p class="eyebrow">Pesquisa de satisfação</p>
+      <h1 id="surveyTitle">Ajude a melhorar o Portal ESEO</h1>
       <p class="survey-text">
         Sua experiência ajuda a equipe a priorizar as próximas melhorias.
         Responder leva menos de um minuto.
       </p>
-    </div>
-  </section>
+      <div class="survey-meta" aria-label="Informações sobre a pesquisa">
+        <span>2 perguntas</span>
+        <span>Resposta rápida</span>
+      </div>
+    </section>
 
-  <script>
-    if (new URLSearchParams(window.location.search).get("preview") === "1") {
-      document.body.classList.add("preview");
-    }
-  </script>
+    <section class="form-column" aria-label="Formulário da pesquisa">
+      <div class="form-frame">
+        <iframe
+          class="customer-voice"
+          src="https://customervoice.microsoft.com/Pages/ResponsePage.aspx?id=3qZIQdENBE2kxXjjdOT21nGK6v4eNzNJg4WxJUmaEBNURUJXUktUU1dURFhLQlQxQlk4TkQ1SUJWSy4u&amp;vt=4148a6de-0dd1-4d04-a4c5-78e374e4f6d6_01756980-baf9-4d06-9884-98e1e51b9f0d_639204221260000000_NAM_Hash_6A8KCoy17K6bNMywD4ndFG2MohSBy3ZfGhIUIFSRw%3D&amp;lang=pt-br&amp;embed=true&amp;compact=true"
+          title="Pesquisa de satisfação do Portal ESEO"
+          frameborder="0"
+          scrolling="yes"
+          loading="eager"
+        ></iframe>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
