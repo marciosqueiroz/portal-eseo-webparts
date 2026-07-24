@@ -12,7 +12,6 @@
       --white: #ffffff;
       --line: #d6e4ea;
       --muted: #61717c;
-      --focus: #ffcb05;
     }
 
     * { box-sizing: border-box; }
@@ -20,117 +19,110 @@
     html,
     body {
       width: 100%;
-      min-height: 100%;
+      height: 100%;
       margin: 0;
+      overflow: hidden;
       background: transparent;
       color: var(--navy);
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    body { padding: 10px; }
-
     .timeline {
       width: 100%;
-      min-height: 455px;
-      padding: 26px clamp(20px,3vw,50px) 24px;
-      overflow: hidden;
-      border: 1px solid rgba(10,37,55,.08);
-      border-radius: 18px;
-      background: rgba(255,255,255,.96);
-    }
-
-    .track-scroll {
-      width: 100%;
-      overflow-x: auto;
-      padding: 3px 0 14px;
-      scrollbar-color: #8db9c7 #edf4f6;
-      scrollbar-width: thin;
+      height: 100%;
+      min-height: 440px;
+      padding: 34px clamp(28px, 3vw, 58px) 28px;
+      background: var(--white);
     }
 
     .track {
       position: relative;
-      min-width: 1260px;
-      height: 150px;
-      display: grid;
-      grid-template-columns: 72px repeat(12,minmax(88px,1fr)) 82px;
-      align-items: end;
-      gap: 0;
+      height: 158px;
+      margin: 0 auto;
     }
 
-    .track::before {
+    .track__line {
       position: absolute;
-      right: 38px;
-      bottom: 33px;
-      left: 36px;
+      right: 1.5%;
+      bottom: 35px;
+      left: 1.5%;
       height: 5px;
       border-radius: 999px;
-      background: linear-gradient(90deg,var(--navy),var(--cyan));
-      content: "";
+      background: linear-gradient(90deg, var(--navy), var(--cyan));
     }
 
-    .terminal,
-    .point {
-      position: relative;
-      z-index: 1;
-      height: 118px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      flex-direction: column;
+    .point,
+    .terminal {
+      position: absolute;
+      bottom: 17px;
+      left: var(--x);
+      width: 38px;
+      height: 38px;
       padding: 0;
       border: 0;
       background: transparent;
+      transform: translateX(-50%);
     }
 
     .point { cursor: pointer; }
 
-    .year,
-    .terminal__label {
-      min-width: 70px;
-      margin-bottom: 20px;
-      padding: 6px 8px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      background: var(--white);
-      color: var(--navy);
-      font-size: 11.5px;
-      font-weight: 900;
-      line-height: 1.05;
-      text-align: center;
-      white-space: nowrap;
-      transition: transform .18s ease, border-color .18s ease, color .18s ease;
-    }
-
-    .dot,
+    .point__dot,
     .terminal__dot {
-      width: 28px;
-      height: 28px;
+      position: absolute;
+      inset: 7px;
       display: grid;
       place-items: center;
       border: 4px solid var(--white);
       border-radius: 50%;
       background: var(--cyan);
       box-shadow: 0 0 0 3px #1c819b;
-      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+      transition: inset 180ms ease, background 180ms ease, box-shadow 180ms ease;
     }
 
-    .point:hover .year,
-    .point:focus-visible .year,
-    .point.is-active .year {
+    .point:hover .point__dot,
+    .point:focus-visible .point__dot,
+    .point.is-active .point__dot {
+      inset: 3px;
+      background: var(--navy);
+      box-shadow: 0 0 0 3px var(--navy), 0 7px 18px rgba(10, 37, 55, .2);
+    }
+
+    .point:focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 5px;
+      border-radius: 50%;
+    }
+
+    .point__year,
+    .terminal__label {
+      position: absolute;
+      left: 50%;
+      bottom: 52px;
+      min-width: 66px;
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--white);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 850;
+      line-height: 1.05;
+      text-align: center;
+      white-space: nowrap;
+      transform: translateX(-50%);
+      transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .point:hover .point__year,
+    .point:focus-visible .point__year,
+    .point.is-active .point__year {
       border-color: var(--cyan);
       color: #007f9e;
-      transform: translateY(-4px);
-    }
-
-    .point:hover .dot,
-    .point:focus-visible .dot,
-    .point.is-active .dot {
-      background: var(--navy);
-      box-shadow: 0 0 0 3px var(--navy),0 7px 18px rgba(10,37,55,.18);
-      transform: scale(1.13);
+      transform: translateX(-50%) translateY(-4px);
     }
 
     .terminal__dot {
+      inset: 3px;
       background: var(--red);
       box-shadow: 0 0 0 3px var(--red);
     }
@@ -139,43 +131,42 @@
       background: var(--cyan);
       color: var(--navy);
       box-shadow: 0 0 0 3px var(--navy);
-      font-size: 17px;
+      font-size: 19px;
       font-weight: 900;
     }
 
     .terminal__label {
-      border-color: rgba(151,0,37,.24);
+      border-color: rgba(151, 0, 37, .24);
       color: var(--red);
     }
 
     .terminal--end .terminal__label {
-      border-color: rgba(14,183,213,.36);
+      border-color: rgba(14, 183, 213, .36);
       color: var(--navy);
     }
 
     .story {
-      width: min(1080px,100%);
-      min-height: 185px;
-      margin: 8px auto 0;
-      padding: 27px 35px 25px 40px;
+      width: min(1040px, 100%);
+      min-height: 190px;
+      margin: 4px auto 0;
+      padding: 28px 36px 26px 42px;
       border-top: 4px solid var(--cyan);
-      border-radius: 0 0 14px 14px;
       background: #f8fbfc;
-      box-shadow: 0 16px 34px rgba(10,37,55,.065);
+      box-shadow: 0 18px 38px rgba(10, 37, 55, .07);
     }
 
     .story__meta {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
+      gap: 13px;
+      margin-bottom: 11px;
     }
 
     .story__sequence {
       color: #087f9c;
-      font-size: 11px;
-      font-weight: 950;
-      letter-spacing: .15em;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .16em;
       text-transform: uppercase;
     }
 
@@ -185,36 +176,46 @@
       background: var(--navy);
       color: var(--white);
       font-size: 13px;
-      font-weight: 900;
+      font-weight: 850;
     }
 
     .story h2 {
       margin: 0 0 9px;
       color: var(--navy);
-      font-size: clamp(25px,2.3vw,37px);
+      font-size: clamp(26px, 2.4vw, 38px);
       line-height: 1.08;
       letter-spacing: -.025em;
     }
 
     .story p {
-      max-width: 980px;
+      max-width: 950px;
       margin: 0;
       color: var(--muted);
-      font-size: clamp(14px,1.15vw,17px);
+      font-size: clamp(15px, 1.25vw, 18px);
       line-height: 1.55;
     }
 
     .hint {
-      margin: 15px 0 0;
+      margin: 17px 0 0;
       color: #70808a;
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 650;
       text-align: center;
     }
 
-    :focus-visible {
-      outline: 3px solid var(--focus);
-      outline-offset: 3px;
+    .hint::before {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin: 0 8px 1px 0;
+      border-radius: 50%;
+      background: var(--cyan);
+      content: "";
+    }
+
+    @media (max-width: 900px) {
+      .timeline { padding-inline: 20px; overflow-x: auto; }
+      .track, .story, .hint { min-width: 1050px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -224,18 +225,23 @@
 </head>
 <body>
   <section class="timeline" aria-label="Linha do tempo da Escola SENAI de Educação Online">
-    <div class="track-scroll" aria-label="Marcos históricos — role horizontal">
-      <div class="track" id="track">
-        <span class="terminal terminal--start" aria-hidden="true">
-          <span class="terminal__label">INÍCIO</span>
-          <span class="terminal__dot"></span>
-        </span>
-      </div>
+    <div class="track" id="track">
+      <div class="track__line" aria-hidden="true"></div>
+
+      <span class="terminal terminal--start" style="--x:1.5%;" aria-hidden="true">
+        <span class="terminal__dot"></span>
+        <span class="terminal__label">INÍCIO</span>
+      </span>
+
+      <span class="terminal terminal--end" style="--x:98.5%;" aria-hidden="true">
+        <span class="terminal__dot">→</span>
+        <span class="terminal__label">CONTINUA</span>
+      </span>
     </div>
 
     <article class="story" id="story" aria-live="polite">
       <div class="story__meta">
-        <span class="story__sequence" id="storySequence">Marco 01 de 12</span>
+        <span class="story__sequence" id="storySequence">Marco 01 de 11</span>
         <span class="story__year" id="storyYear">1979</span>
       </div>
       <h2 id="storyTitle">O primeiro marco: Desenho Técnico-Mecânico</h2>
@@ -246,7 +252,7 @@
   </section>
 
   <script>
-    (() => {
+    (function () {
       const events = [
         ["1979", "O primeiro marco: Desenho Técnico-Mecânico", "Lançamento do curso de Leitura e Interpretação de Desenho Técnico-Mecânico, combinando módulos impressos com salas equipadas com televisores."],
         ["1990", "Expansão do modelo híbrido", "Consolidação do catálogo e expansão do modelo baseado em materiais impressos e videoaulas."],
@@ -258,8 +264,7 @@
         ["2019", "Expansão para a pós-graduação", "A especialização em Inovação e Competitividade Industrial abre caminho para novas ofertas digitais no ensino superior."],
         ["2020", "Aceleração durante a pandemia", "O SENAI-SP amplia rapidamente as soluções online e registra mais de 800 mil matrículas em diferentes tipos de cursos."],
         ["2022", "Consolidação da ESEO", "A estrutura de EaD passa a ser oficialmente nomeada Escola SENAI de Educação Online e amplia sua atuação em soluções educacionais digitais."],
-        ["2025", "Novo marco regulatório", "O Decreto nº 12.456/2025 redefine formatos, exigências presenciais, infraestrutura e critérios de qualidade no Ensino Superior."],
-        ["2026", "Portal ESEO e nova jornada digital", "A ESEO avança na organização de conteúdos, autosserviços, orientações e soluções digitais para facilitar a experiência das escolas e dos usuários."]
+        ["2025", "Novo marco regulatório", "O Decreto nº 12.456/2025 redefine formatos, exigências presenciais, infraestrutura e critérios de qualidade no Ensino Superior."]
       ];
 
       const track = document.getElementById("track");
@@ -269,67 +274,67 @@
       const description = document.getElementById("storyDescription");
       let activeIndex = 0;
 
-      events.forEach((event, index) => {
+      events.forEach(function (event, index) {
         const point = document.createElement("button");
-        point.type = "button";
+        /*
+          INÍCIO + 11 marcos + CONTINUA = 13 posições.
+          Cada item ocupa exatamente um dos 12 intervalos iguais da linha.
+        */
+        const first = 1.5;
+        const last = 98.5;
+        const interval = (last - first) / (events.length + 1);
+        const x = first + (interval * (index + 1));
         point.className = "point" + (index === 0 ? " is-active" : "");
+        point.type = "button";
+        point.style.setProperty("--x", x + "%");
         point.dataset.index = index;
-        point.setAttribute("aria-label", `${event[0]}: ${event[1]}`);
+        point.setAttribute("aria-label", event[0] + ": " + event[1]);
         point.setAttribute("aria-pressed", index === 0 ? "true" : "false");
         point.innerHTML =
-          `<span class="year">${event[0]}</span>` +
-          '<span class="dot" aria-hidden="true"></span>';
+          '<span class="point__dot" aria-hidden="true"></span>' +
+          '<span class="point__year">' + event[0] + '</span>';
         track.appendChild(point);
       });
 
-      const end = document.createElement("span");
-      end.className = "terminal terminal--end";
-      end.setAttribute("aria-hidden", "true");
-      end.innerHTML =
-        '<span class="terminal__label">CONTINUA</span>' +
-        '<span class="terminal__dot">→</span>';
-      track.appendChild(end);
-
       const points = [...track.querySelectorAll(".point")];
 
-      function activate(index, focus = false) {
+      function activate(index, focus) {
         activeIndex = (index + events.length) % events.length;
         const event = events[activeIndex];
 
-        points.forEach((point, pointIndex) => {
+        points.forEach(function (point, pointIndex) {
           const active = pointIndex === activeIndex;
           point.classList.toggle("is-active", active);
-          point.setAttribute("aria-pressed", String(active));
+          point.setAttribute("aria-pressed", active ? "true" : "false");
         });
 
-        sequence.textContent = `Marco ${String(activeIndex + 1).padStart(2,"0")} de ${events.length}`;
+        sequence.textContent = "Marco " + String(activeIndex + 1).padStart(2, "0") + " de " + events.length;
         year.textContent = event[0];
         title.textContent = event[1];
         description.textContent = event[2];
-
-        if (focus) {
-          points[activeIndex].focus();
-          points[activeIndex].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-        }
+        if (focus) points[activeIndex].focus();
       }
 
-      points.forEach((point, index) => {
-        point.addEventListener("mouseenter", () => activate(index));
-        point.addEventListener("focus", () => activate(index));
-        point.addEventListener("click", () => activate(index, true));
+      points.forEach(function (point, index) {
+        point.addEventListener("mouseenter", function () { activate(index, false); });
+        point.addEventListener("focus", function () { activate(index, false); });
+        point.addEventListener("click", function () { activate(index, true); });
       });
 
-      track.addEventListener("keydown", event => {
+      track.addEventListener("keydown", function (event) {
         if (event.key === "ArrowRight") {
           event.preventDefault();
           activate(activeIndex + 1, true);
-        } else if (event.key === "ArrowLeft") {
+        }
+        if (event.key === "ArrowLeft") {
           event.preventDefault();
           activate(activeIndex - 1, true);
-        } else if (event.key === "Home") {
+        }
+        if (event.key === "Home") {
           event.preventDefault();
           activate(0, true);
-        } else if (event.key === "End") {
+        }
+        if (event.key === "End") {
           event.preventDefault();
           activate(events.length - 1, true);
         }
