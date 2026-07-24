@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Frentes da oferta de cursos online</title>
+  <style>
+    :root {
+      --navy: #061923;
+      --navy-2: #0a2537;
+      --blue: #1d728f;
+      --cyan: #0eb7d5;
+      --cyan-soft: #72ddeb;
+      --white: #ffffff;
+      --muted: rgba(255,255,255,.86);
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: transparent;
+      font-family: "Aptos", "Segoe UI Variable", "Segoe UI", Arial, sans-serif;
+    }
+
+    body { padding: 8px 10px; }
+
+    .frentes {
+      width: min(1140px, 100%);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0 auto;
+    }
+
+    .frente {
+      position: relative;
+      min-width: 0;
+      height: 350px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 15px;
+      background:
+        linear-gradient(135deg, rgba(6,25,35,.97), rgba(29,114,143,.58));
+      color: var(--white);
+      box-shadow:
+        0 10px 24px rgba(0,0,0,.20),
+        0 0 22px rgba(14,183,213,.06);
+      cursor: pointer;
+      transition:
+        transform .18s ease,
+        border-color .18s ease,
+        background .18s ease,
+        box-shadow .18s ease;
+    }
+
+    .frente::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 4px;
+      border-radius: 0 999px 999px 0;
+      background: var(--cyan);
+      content: "";
+      transition: width .20s ease;
+    }
+
+    .frente:hover,
+    .frente:focus-visible {
+      border-color: rgba(14,183,213,.88);
+      background:
+        linear-gradient(135deg, rgba(6,25,35,.99), rgba(29,114,143,.80));
+      box-shadow:
+        0 16px 32px rgba(0,0,0,.27),
+        0 0 26px rgba(14,183,213,.13);
+      transform: translateY(-3px);
+      outline: none;
+    }
+
+    .frente:hover::before,
+    .frente:focus-visible::before {
+      width: 100%;
+    }
+
+    .frente-front,
+    .frente-back {
+      position: absolute;
+      inset: 0;
+      transition:
+        opacity .20s ease,
+        transform .22s ease;
+    }
+
+    .frente-front {
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 12px;
+      padding: 34px 28px;
+      text-align: center;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .frente-back {
+      padding: 28px 28px 24px;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .frente:hover .frente-front,
+    .frente:focus-visible .frente-front {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+
+    .frente:hover .frente-back,
+    .frente:focus-visible .frente-back {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .frente-icon {
+      width: 68px;
+      height: 68px;
+      display: grid;
+      place-items: center;
+      color: var(--cyan-soft);
+    }
+
+    .frente-icon svg {
+      width: 54px;
+      height: 54px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .frente-number {
+      color: var(--cyan-soft);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .frente-title {
+      max-width: 320px;
+      margin: 0;
+      color: var(--white);
+      font-size: 24px;
+      font-weight: 850;
+      line-height: 1.14;
+      letter-spacing: .005em;
+      text-transform: uppercase;
+    }
+
+    .frente-back .frente-title {
+      margin-bottom: 18px;
+      font-size: 20px;
+    }
+
+    .frente-list {
+      display: grid;
+      gap: 11px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .frente-list li {
+      position: relative;
+      padding-left: 14px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 550;
+      line-height: 1.28;
+    }
+
+    .frente:nth-child(3) .frente-list {
+      gap: 9px;
+    }
+
+    .frente:nth-child(3) .frente-list li {
+      font-size: 13.6px;
+      line-height: 1.31;
+    }
+
+    .frente-list li::before {
+      position: absolute;
+      top: .48em;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: var(--cyan);
+      content: "";
+      transform: rotate(45deg);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      html, body { overflow: auto; }
+      .frentes { grid-template-columns: 1fr; }
+      .frente { height: 350px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="frentes" aria-label="Frentes da oferta de cursos online">
+
+    <article class="frente" tabindex="0">
+      <div class="frente-front">
+        <span class="frente-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/>
+            <path d="m3 6 6-3 6 5 6-5"/>
+          </svg>
+        </span>
+        <span class="frente-number">Frente 01</span>
+        <h2 class="frente-title">Diferenciais que geram valor</h2>
+      </div>
+
+      <div class="frente-back">
+        <h2 class="frente-title">Diferenciais que geram valor</h2>
+        <ul class="frente-list">
+          <li>Atendimento integrado às demandas da indústria, das empresas, da comunidade e das Unidades SENAI-SP.</li>
+          <li>Ampliação do acesso à educação profissional, com impacto na receita e na gratuidade.</li>
+          <li>Flexibilidade de formatos: autoinstrucional, colaborativo, semipresencial, híbrido e in company.</li>
+          <li>Escalabilidade com rapidez, melhor aproveitamento de recursos e padronização da experiência educacional.</li>
+          <li>Atendimento a diferentes públicos e regiões do estado.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="frente" tabindex="0">
+      <div class="frente-front">
+        <span class="frente-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 12h4l3-7 4 14 3-7h4"/>
+            <circle cx="12" cy="12" r="10"/>
+          </svg>
+        </span>
+        <span class="frente-number">Frente 02</span>
+        <h2 class="frente-title">Apoio estratégico às escolas</h2>
+      </div>
+
+      <div class="frente-back">
+        <h2 class="frente-title">Apoio estratégico às escolas</h2>
+        <ul class="frente-list">
+          <li>Estruturação da oferta, desde a análise da demanda até a operação do curso.</li>
+          <li>Consultoria para definição da modalidade, do modelo educacional, do escopo e da viabilidade técnica.</li>
+          <li>Formação, onboarding e suporte contínuo para tutores e monitores.</li>
+          <li>Operação centralizada de monitoria, acompanhamento e emissão de relatórios.</li>
+          <li>Decisões orientadas por indicadores e compartilhamento de boas práticas entre as Unidades SENAI-SP.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="frente" tabindex="0">
+      <div class="frente-front">
+        <span class="frente-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3v18M3 12h18"/>
+            <circle cx="12" cy="12" r="9"/>
+            <path d="m7.5 16.5 9-9"/>
+          </svg>
+        </span>
+        <span class="frente-number">Frente 03</span>
+        <h2 class="frente-title">Soluções que impulsionam resultados</h2>
+      </div>
+
+      <div class="frente-back">
+        <h2 class="frente-title">Soluções que impulsionam resultados</h2>
+        <ul class="frente-list">
+          <li>Desenvolvimento e adaptação de cursos alinhados às demandas do mercado e da indústria.</li>
+          <li>Escalabilidade das ofertas com qualidade pedagógica e identidade institucional.</li>
+          <li>Integração entre teoria online e prática presencial em laboratórios especializados.</li>
+          <li>Trilhas de aprendizagem adequadas a diferentes perfis profissionais.</li>
+          <li>Maior engajamento e retenção por meio de tutoria, monitoria e acompanhamento contínuo.</li>
+          <li>Atualização ágil dos conteúdos e formação orientada à aplicação prática das competências.</li>
+        </ul>
+      </div>
+    </article>
+
+  </main>
+</body>
+</html>
