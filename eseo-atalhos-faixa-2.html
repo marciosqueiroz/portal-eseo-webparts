@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faixa 2 — Atalhos minimalistas ESEO</title>
+  <style>
+    :root {
+      --navy: #0a2537;
+      --cyan: #0eb7d5;
+      --white: #ffffff;
+      --muted: rgba(255,255,255,.78);
+      --line: rgba(255,255,255,.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: transparent;
+      color: var(--white);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body { padding: 8px 10px 0; }
+
+    .shortcuts {
+      width: min(1080px, 100%);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      margin: 0 auto;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .shortcut-item {
+      min-width: 0;
+      min-height: 126px;
+      text-align: center;
+    }
+
+    .shortcut-link {
+      position: relative;
+      min-height: 66px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 14px;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .shortcut-link::after {
+      position: absolute;
+      right: 50%;
+      bottom: -1px;
+      left: 50%;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--cyan);
+      content: "";
+      transition: right .18s ease, left .18s ease;
+    }
+
+    .shortcut-link:hover::after,
+    .shortcut-link:focus-visible::after {
+      right: 20px;
+      left: 20px;
+    }
+
+    .shortcut-icon {
+      flex: 0 0 auto;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      color: var(--cyan);
+      transition: color .16s ease;
+    }
+
+    .shortcut-link:hover .shortcut-icon,
+    .shortcut-link:focus-visible .shortcut-icon {
+      color: var(--white);
+    }
+
+    .shortcut-icon svg {
+      width: 27px;
+      height: 27px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .shortcut-title {
+      min-width: 0;
+      color: inherit;
+      font-size: 14px;
+      font-weight: 850;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .shortcut-description {
+      min-height: 43px;
+      margin: 9px 7px 0;
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 600;
+      line-height: 1.3;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(-5px);
+      transition: opacity .16s ease, transform .18s ease;
+    }
+
+    .shortcut-item:hover .shortcut-description,
+    .shortcut-item:focus-within .shortcut-description {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 850px) {
+      html, body { overflow: auto; }
+      .shortcuts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 480px) {
+      .shortcuts { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="shortcuts" aria-label="Atalhos principais do Portal ESEO">
+    
+        <div class="shortcut-item">
+          <a
+            class="shortcut-link"
+            href="https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-describedby="description-1"
+          >
+            <span class="shortcut-icon"><svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"/>
+          <path d="M6.5 10.5v4.2c2.9 2.2 8.1 2.2 11 0v-4.2"/>
+        </svg></span>
+            <strong class="shortcut-title">Portfólio de cursos</strong>
+          </a>
+          <p class="shortcut-description" id="description-1">
+            Consulte cursos, formatos e informações do catálogo EAD.
+          </p>
+        </div>
+
+        <div class="shortcut-item">
+          <a
+            class="shortcut-link"
+            href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-describedby="description-2"
+          >
+            <span class="shortcut-icon"><svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="4" y="9" width="16" height="11" rx="2.5"/>
+          <path d="M8 9V6.5A4.5 4.5 0 0 1 16.2 4"/>
+          <path d="m10 14 2 2 4-4"/>
+        </svg></span>
+            <strong class="shortcut-title">Liberar turma SGSET</strong>
+          </a>
+          <p class="shortcut-description" id="description-2">
+            Peça a conferência e a liberação de uma turma no SGSET.
+          </p>
+        </div>
+
+        <div class="shortcut-item">
+          <a
+            class="shortcut-link"
+            href="https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-describedby="description-3"
+          >
+            <span class="shortcut-icon"><svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m12 3 2.65 5.37 5.93.86-4.29 4.18 1.01 5.91L12 16.53l-5.3 2.79 1.01-5.91-4.29-4.18 5.93-.86L12 3Z"/>
+        </svg></span>
+            <strong class="shortcut-title">Soluções EAD</strong>
+          </a>
+          <p class="shortcut-description" id="description-3">
+            Solicite novos cursos, ofertas personalizadas ou uma nova solução educacional.
+          </p>
+        </div>
+
+        <div class="shortcut-item">
+          <a
+            class="shortcut-link"
+            href="https://outlook.office.com/mail/deeplink/compose?to=rantonio%40sp.senai.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-describedby="description-4"
+          >
+            <span class="shortcut-icon"><svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="9" cy="8" r="3"/>
+          <path d="M3.5 19v-1.4A4.6 4.6 0 0 1 8.1 13h1.8a4.6 4.6 0 0 1 4.6 4.6V19"/>
+          <circle cx="17" cy="9" r="2.3"/>
+        </svg></span>
+            <strong class="shortcut-title">Parceria AQV ESEO</strong>
+          </a>
+          <p class="shortcut-description" id="description-4">
+            Solicite uma ação da ESEO em parceria com a AQV da sua unidade.
+          </p>
+        </div>
+  </nav>
+</body>
+</html>
