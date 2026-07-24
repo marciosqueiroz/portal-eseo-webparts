@@ -7,9 +7,10 @@
   <style>
     :root {
       --navy: #0a2537;
-      --cyan: #00c7e6;
-      --yellow: #ffbf00;
+      --cyan: #0eb7d5;
+      --red: #ed1c24;
       --white: #ffffff;
+      --ink: #102b3a;
     }
 
     * { box-sizing: border-box; }
@@ -24,109 +25,83 @@
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    body { padding: 0; }
-
-    .portal-header {
+    .header {
       width: 100%;
-      min-height: 76px;
+      min-height: 84px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
-      padding: 0 clamp(18px, 3vw, 48px);
-      border: 0;
-      background: transparent !important;
-      box-shadow: none !important;
+      gap: 32px;
+      padding: 0 clamp(22px, 3.2vw, 56px);
+      background: transparent;
     }
 
-    .portal-nav {
+    .nav {
       min-width: 0;
       display: flex;
       align-items: center;
-      gap: clamp(24px, 3.7vw, 62px);
-      border: 0;
-      background: transparent !important;
+      gap: clamp(30px, 4vw, 72px);
     }
 
-    .portal-nav a {
+    .nav a {
       position: relative;
       display: inline-flex;
       align-items: center;
-      min-height: 46px;
-      padding: 0;
-      border: 0;
-      background: transparent !important;
+      min-height: 52px;
       color: var(--white);
-      font-size: clamp(13px, .98vw, 16px);
-      font-weight: 900;
-      letter-spacing: .018em;
+      font-size: clamp(16px, 1.15vw, 19px);
+      font-weight: 800;
       line-height: 1;
+      letter-spacing: .012em;
       text-decoration: none;
-      text-shadow:
-        0 2px 5px rgba(0,0,0,.72),
-        0 0 1px rgba(0,0,0,.85);
-      text-transform: uppercase;
+      text-shadow: 0 2px 8px rgba(0,0,0,.42);
       white-space: nowrap;
-      transition: color .16s ease, transform .16s ease;
+      transition: color .16s ease;
     }
 
-    .portal-nav a::after {
+    .nav a::after {
       position: absolute;
       right: 0;
-      bottom: 2px;
+      bottom: 4px;
       left: 0;
       height: 3px;
       border-radius: 999px;
       background: var(--cyan);
       content: "";
       opacity: 0;
-      transform: scaleX(.28);
+      transform: scaleX(.35);
       transform-origin: center;
       transition: opacity .16s ease, transform .16s ease;
     }
 
-    .portal-nav a:hover,
-    .portal-nav a:focus-visible {
+    .nav a:hover,
+    .nav a:focus-visible {
       color: var(--cyan);
-      transform: translateY(-1px);
     }
 
-    .portal-nav a:hover::after,
-    .portal-nav a:focus-visible::after {
+    .nav a:hover::after,
+    .nav a:focus-visible::after {
       opacity: 1;
       transform: scaleX(1);
     }
 
-    /* Página atual: amarelo forte, sem sublinhado permanente. */
-    .portal-nav a[aria-current="page"] {
-      color: var(--yellow);
-      text-shadow:
-        0 2px 5px rgba(0,0,0,.72),
-        0 0 8px rgba(255,191,0,.18);
+    .nav a[aria-current="page"] {
+      color: var(--red);
     }
 
-    .portal-nav a[aria-current="page"]::after {
+    .nav a[aria-current="page"]::after {
       opacity: 0;
-      transform: scaleX(.28);
     }
 
-    .portal-nav a[aria-current="page"]:hover::after,
-    .portal-nav a[aria-current="page"]:focus-visible::after {
-      opacity: 1;
-      transform: scaleX(1);
-    }
-
-    .search-anchor {
+    .search-host {
       position: relative;
-      z-index: 100;
+      z-index: 50;
       flex: 0 0 52px;
       width: 52px;
       height: 52px;
-      border: 0;
-      background: transparent !important;
     }
 
-    .search-shell {
+    .search-box {
       position: absolute;
       top: 0;
       right: 0;
@@ -138,19 +113,13 @@
       border: 2px solid var(--navy);
       border-radius: 999px;
       background: var(--white);
-      box-shadow: 0 10px 24px rgba(0,0,0,.20);
-      transition:
-        width .30s cubic-bezier(.2,.8,.2,1),
-        border-color .16s ease,
-        box-shadow .16s ease;
+      box-shadow: 0 8px 22px rgba(0,0,0,.18);
+      transition: width .28s cubic-bezier(.2,.8,.2,1), border-color .16s ease;
     }
 
-    .search-anchor.is-open .search-shell {
-      width: min(460px, 42vw);
+    .search-host.is-open .search-box {
+      width: min(440px, 42vw);
       border-color: var(--cyan);
-      box-shadow:
-        0 13px 30px rgba(0,0,0,.24),
-        0 0 0 3px rgba(0,199,230,.13);
     }
 
     .search-input {
@@ -160,158 +129,133 @@
       padding: 0;
       border: 0;
       outline: 0;
-      background: transparent !important;
-      color: var(--navy);
-      font-size: 15px;
-      font-weight: 700;
+      background: transparent;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 600;
       opacity: 0;
       pointer-events: none;
-      transition:
-        width .25s ease,
-        padding .25s ease,
-        opacity .12s ease;
+      transition: width .22s ease, padding .22s ease, opacity .12s ease;
     }
 
-    .search-anchor.is-open .search-input {
-      width: calc(100% - 88px);
-      padding: 0 7px 0 18px;
+    .search-host.is-open .search-input {
+      width: calc(100% - 50px);
+      padding: 0 14px 0 18px;
       opacity: 1;
       pointer-events: auto;
     }
 
     .search-input::placeholder {
-      color: #435a68;
+      color: #647983;
       opacity: 1;
     }
 
-    .search-input::-webkit-search-cancel-button { display: none; }
-
-    .clear-button {
-      width: 36px;
-      height: 36px;
+    .search-input::-webkit-search-cancel-button {
       display: none;
-      flex: 0 0 36px;
-      place-items: center;
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-      background: transparent !important;
-      color: #365260;
-      font-size: 22px;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    .clear-button.is-visible { display: grid; }
-
-    .clear-button:hover,
-    .clear-button:focus-visible {
-      color: var(--cyan);
     }
 
     .search-button {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       display: grid;
-      flex: 0 0 50px;
+      flex: 0 0 48px;
       place-items: center;
       padding: 0;
       border: 0;
       border-radius: 50%;
-      background: transparent !important;
+      background: transparent;
       color: var(--navy);
       cursor: pointer;
-      transition: color .16s ease, transform .16s ease;
+      transition: color .15s ease, background .15s ease;
     }
 
     .search-button:hover,
     .search-button:focus-visible {
-      color: var(--cyan);
-      transform: scale(1.06);
+      color: var(--white);
+      background: var(--navy);
     }
 
     .search-button svg {
-      width: 23px;
-      height: 23px;
+      width: 22px;
+      height: 22px;
       fill: none;
       stroke: currentColor;
-      stroke-width: 2.35;
+      stroke-width: 2.25;
       stroke-linecap: round;
     }
 
-    /* Duas sugestões compactas para caber no iframe do menu. */
-    .suggestions {
+    .results {
       position: absolute;
-      top: 58px;
+      top: 60px;
       right: 0;
-      width: min(460px, 88vw);
+      width: min(440px, 88vw);
       display: none;
-      padding: 2px 0;
-      border: 0;
-      background: transparent !important;
-      box-shadow: none !important;
+      padding-top: 3px;
+      background: transparent;
     }
 
-    .suggestions.is-visible { display: block; }
+    .results.visible {
+      display: block;
+    }
 
-    .suggestion {
+    .result-item {
       width: 100%;
       display: grid;
-      grid-template-columns: 32px minmax(0,1fr);
+      grid-template-columns: 34px minmax(0, 1fr);
       align-items: center;
-      gap: 9px;
-      margin: 2px 0;
-      padding: 7px 9px;
+      gap: 10px;
+      margin: 3px 0;
+      padding: 9px 11px;
       border: 1px solid rgba(255,255,255,.20);
-      border-radius: 8px;
-      background: rgba(10,37,55,.92) !important;
+      border-radius: 9px;
+      background: rgba(10,37,55,.96);
       color: var(--white);
       text-align: left;
       cursor: pointer;
-      transition: background .15s ease, transform .15s ease, border-color .15s ease;
     }
 
-    .suggestion:hover,
-    .suggestion.is-active {
+    .result-item:hover,
+    .result-item:focus-visible,
+    .result-item.active {
       border-color: var(--cyan);
-      background: var(--navy) !important;
-      transform: translateX(-2px);
+      background: #123f52;
     }
 
-    .suggestion-icon {
-      width: 31px;
-      height: 31px;
+    .result-icon {
+      width: 32px;
+      height: 32px;
       display: grid;
       place-items: center;
-      border: 1px solid var(--cyan);
+      border: 1px solid rgba(14,183,213,.62);
       border-radius: 8px;
       color: var(--cyan);
       font-size: 12px;
-      font-weight: 950;
+      font-weight: 900;
     }
 
-    .suggestion strong {
+    .result-item strong {
       display: block;
       color: var(--white);
-      font-size: 12.5px;
-      font-weight: 850;
-      line-height: 1.15;
+      font-size: 14px;
+      font-weight: 750;
+      line-height: 1.2;
     }
 
-    .suggestion small {
+    .result-item small {
       display: block;
       margin-top: 2px;
-      color: #d9f8fc;
-      font-size: 10.5px;
+      color: rgba(255,255,255,.72);
+      font-size: 12px;
       line-height: 1.2;
     }
 
     .no-result {
-      padding: 8px 10px;
+      padding: 10px 12px;
+      border-left: 3px solid var(--red);
       border-radius: 8px;
-      background: rgba(10,37,55,.94) !important;
+      background: rgba(10,37,55,.96);
       color: var(--white);
-      font-size: 11.5px;
+      font-size: 13px;
       line-height: 1.35;
     }
 
@@ -328,68 +272,74 @@
     }
 
     :focus-visible {
-      outline: 3px solid var(--yellow);
+      outline: 3px solid var(--cyan);
       outline-offset: 3px;
     }
 
-    @media (max-width: 920px) {
-      .portal-header {
-        gap: 12px;
+    @media (max-width: 900px) {
+      .header {
+        gap: 16px;
         padding-inline: 14px;
       }
 
-      .portal-nav {
-        gap: 18px;
+      .nav {
+        gap: 20px;
         overflow-x: auto;
         scrollbar-width: none;
       }
 
-      .portal-nav::-webkit-scrollbar { display: none; }
+      .nav::-webkit-scrollbar { display: none; }
 
-      .portal-nav a { font-size: 12px; }
+      .nav a {
+        font-size: 14px;
+      }
 
-      .search-anchor.is-open .search-shell {
-        width: min(380px, 46vw);
+      .search-host.is-open .search-box {
+        width: min(360px, 44vw);
       }
     }
 
-    @media (max-width: 650px) {
-      .portal-header {
-        gap: 10px;
-        padding-inline: 10px;
+    @media (max-width: 620px) {
+      .header {
+        min-height: 144px;
+        align-items: flex-start;
+        padding-top: 12px;
       }
 
-      .portal-nav {
-        gap: 14px;
+      .nav {
+        gap: 15px;
       }
 
-      .portal-nav a {
-        font-size: 11px;
+      .nav a {
+        font-size: 12px;
       }
 
-      .search-anchor {
-        flex-basis: 48px;
-        width: 48px;
-        height: 48px;
+      .search-host {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        width: auto;
+        height: 50px;
       }
 
-      .search-shell {
-        width: 48px;
-        height: 48px;
+      .search-box,
+      .search-host.is-open .search-box {
+        width: 100%;
+        height: 50px;
       }
 
-      .search-anchor.is-open .search-shell {
-        width: min(340px, calc(100vw - 20px));
+      .search-input,
+      .search-host.is-open .search-input {
+        width: calc(100% - 48px);
+        padding: 0 14px 0 18px;
+        opacity: 1;
+        pointer-events: auto;
       }
 
-      .search-button {
-        width: 46px;
-        height: 46px;
-        flex-basis: 46px;
-      }
-
-      .suggestions {
-        width: min(340px, calc(100vw - 20px));
+      .results {
+        width: 100%;
+        top: 56px;
       }
     }
 
@@ -402,10 +352,9 @@
     }
   </style>
 </head>
-
 <body>
-  <header class="portal-header">
-    <nav class="portal-nav" aria-label="Navegação principal do Portal ESEO">
+  <header class="header">
+    <nav class="nav" aria-label="Navegação principal do Portal ESEO">
       <a
         data-page="home"
         href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta"
@@ -428,67 +377,50 @@
       >Oferta de cursos online</a>
     </nav>
 
-    <div class="search-anchor" id="searchAnchor">
-      <form class="search-shell" id="portalSearch" role="search" autocomplete="off">
-        <label class="sr-only" for="siteSearch">
+    <div class="search-host" id="searchHost">
+      <form class="search-box" id="searchForm" role="search" autocomplete="off">
+        <label class="sr-only" for="searchInput">
           Pesquisar somente no Portal ESEO
         </label>
 
         <input
           class="search-input"
-          id="siteSearch"
+          id="searchInput"
           type="search"
           placeholder="Pesquisar no Portal ESEO"
-          aria-autocomplete="list"
-          aria-controls="searchSuggestions"
+          aria-controls="results"
           aria-expanded="false"
         >
 
         <button
-          class="clear-button"
-          id="clearSearch"
-          type="button"
-          aria-label="Limpar pesquisa"
-        >×</button>
-
-        <button
           class="search-button"
-          id="searchButton"
           type="submit"
-          aria-label="Abrir ou executar pesquisa no Portal ESEO"
+          aria-label="Abrir ou executar pesquisa"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="10.8" cy="10.8" r="6.8"></circle>
-            <path d="m16 16 4.2 4.2"></path>
+            <circle cx="10.7" cy="10.7" r="6.8"></circle>
+            <path d="m16 16 4.1 4.1"></path>
           </svg>
         </button>
       </form>
 
-      <div
-        class="suggestions"
-        id="searchSuggestions"
-        role="listbox"
-        aria-label="Sugestões do Portal ESEO"
-      ></div>
+      <div class="results" id="results" role="listbox"></div>
     </div>
   </header>
 
   <script>
     (() => {
-      const PORTAL =
-        "https://sesisenaisp.sharepoint.com/sites/ESEOConecta";
-
-      const anchor = document.getElementById("searchAnchor");
-      const form = document.getElementById("portalSearch");
-      const input = document.getElementById("siteSearch");
-      const clearButton = document.getElementById("clearSearch");
-      const suggestions = document.getElementById("searchSuggestions");
+      const PORTAL = "https://sesisenaisp.sharepoint.com/sites/ESEOConecta";
+      const host = document.getElementById("searchHost");
+      const form = document.getElementById("searchForm");
+      const input = document.getElementById("searchInput");
+      const resultsBox = document.getElementById("results");
 
       const params = new URLSearchParams(location.search);
       const informedPage = (params.get("ativa") || "").toLowerCase();
       const referrer = (document.referrer || "").toLowerCase();
 
-      let results = [];
+      let matches = [];
       let activeIndex = -1;
       let closeTimer;
 
@@ -502,7 +434,7 @@
         },
         {
           title: "Conheça a ESEO",
-          subtitle: "História, identidade, proposta e estrutura",
+          subtitle: "História, proposta e estrutura",
           icon: "E",
           url: PORTAL + "/SitePages/Sobre-a-ESEO.aspx",
           keywords: "história identidade missão valores proposta estrutura"
@@ -515,43 +447,20 @@
           keywords: "oferta cursos catálogo portfolio modelos orientações"
         },
         {
-          title: "Portfólio de cursos",
-          subtitle: "Cursos, formatos, modelos e carga horária",
-          icon: "P",
-          url: PORTAL + "/SitePages/What's-happening.aspx#portfolio",
-          keywords: "portfolio catálogo cursos sgset autoinstrucional"
-        },
-        {
-          title: "Tipos de atendimento",
-          subtitle: "Orientações para as unidades",
-          icon: "T",
-          url: PORTAL + "/SitePages/What's-happening.aspx#tipos",
-          keywords: "tipos atendimento autoinstrucional técnico superior aprendizagem"
+          title: "Catálogo inteligente de cursos",
+          subtitle: "Filtros, formatos e carga horária",
+          icon: "C",
+          url: "https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html",
+          keywords: "catálogo portfolio cursos sgset autoinstrucional técnico superior"
         },
         {
           title: "Proposta Pedagógica da ESEO",
-          subtitle: "Documento institucional — CFP 1.50",
-          icon: "D",
+          subtitle: "Documento institucional",
+          icon: "P",
           url:
             PORTAL +
             "/Documentos%20Compartilhados/Documentos%20da%20p%C3%A1gina%20ESEO/Proposta%20pedag%C3%B3gica%201.50.pdf?web=1",
-          keywords: "proposta pedagógica documento 1.50 cfp"
-        },
-        {
-          title: "Cronograma de processos seletivos",
-          subtitle: "Documento institucional vigente",
-          icon: "C",
-          url:
-            "https://sesisenaisp.sharepoint.com/sites/intranet/Atos%20Formais/CO-GED-56-2026.pdf",
-          keywords: "cronograma processo seletivo seleção matrícula técnico superior"
-        },
-        {
-          title: "Soluções EAD",
-          subtitle: "Personalização ou nova solução",
-          icon: "S",
-          url:
-            "mailto:eadempresas@sp.senai.br?subject=D%C3%BAvidas%20sobre%20solu%C3%A7%C3%B5es%20e%20ofertas%20EAD",
-          keywords: "soluções ead personalizado sob medida dúvidas oferta"
+          keywords: "proposta pedagógica documento 1.50"
         }
       ];
 
@@ -561,7 +470,7 @@
           .replace(/[\u0300-\u036f]/g, "")
           .toLowerCase();
 
-      function currentPage() {
+      function resolveCurrentPage() {
         if (["home", "conheca", "oferta"].includes(informedPage)) {
           return informedPage;
         }
@@ -571,18 +480,15 @@
         if (
           referrer.includes("what%27s-happening") ||
           referrer.includes("what's-happening")
-        ) {
-          return "oferta";
-        }
+        ) return "oferta";
 
-        /* Sem parâmetro e sem referência confiável: nenhum item fica ativo. */
         return "";
       }
 
-      const activePage = currentPage();
+      const currentPage = resolveCurrentPage();
 
       document.querySelectorAll("[data-page]").forEach(link => {
-        if (activePage && link.dataset.page === activePage) {
+        if (currentPage && link.dataset.page === currentPage) {
           link.setAttribute("aria-current", "page");
         } else {
           link.removeAttribute("aria-current");
@@ -591,68 +497,60 @@
 
       function openSearch(focusInput = true) {
         clearTimeout(closeTimer);
-        anchor.classList.add("is-open");
+        host.classList.add("is-open");
 
-        if (focusInput) {
-          window.setTimeout(() => {
-            input.focus({ preventScroll: true });
-          }, 90);
+        if (focusInput && window.innerWidth > 620) {
+          setTimeout(() => input.focus({ preventScroll: true }), 80);
         }
 
-        if (input.value.trim()) renderSuggestions(input.value);
+        if (input.value.trim()) renderResults(input.value);
       }
 
-      function closeSearch(force = false) {
+      function closeSearch() {
         clearTimeout(closeTimer);
 
-        closeTimer = window.setTimeout(() => {
-          if (!force && anchor.matches(":hover")) return;
+        closeTimer = setTimeout(() => {
+          if (host.matches(":hover") || host.contains(document.activeElement)) {
+            return;
+          }
 
-          input.blur();
-          anchor.classList.remove("is-open");
-          suggestions.classList.remove("is-visible");
+          host.classList.remove("is-open");
+          resultsBox.classList.remove("visible");
           input.setAttribute("aria-expanded", "false");
           activeIndex = -1;
-        }, 150);
+        }, 170);
       }
 
-      function updateClearButton() {
-        clearButton.classList.toggle("is-visible", Boolean(input.value));
-      }
-
-      function renderSuggestions(value) {
+      function renderResults(value) {
         const query = normalize(value.trim());
-        updateClearButton();
 
         if (!query) {
-          results = [];
+          matches = [];
           activeIndex = -1;
-          suggestions.innerHTML = "";
-          suggestions.classList.remove("is-visible");
+          resultsBox.innerHTML = "";
+          resultsBox.classList.remove("visible");
           input.setAttribute("aria-expanded", "false");
           return;
         }
 
-        results = ITEMS
-          .filter(item => {
-            const searchable = normalize(
-              `${item.title} ${item.subtitle} ${item.keywords}`
-            );
-            return searchable.includes(query);
-          })
-          .slice(0, 2);
+        matches = ITEMS
+          .filter(item =>
+            normalize(`${item.title} ${item.subtitle} ${item.keywords}`)
+              .includes(query)
+          )
+          .slice(0, 3);
 
-        activeIndex = results.length ? 0 : -1;
+        activeIndex = matches.length ? 0 : -1;
 
-        suggestions.innerHTML = results.length
-          ? results.map((item, index) => `
+        resultsBox.innerHTML = matches.length
+          ? matches.map((item, index) => `
               <button
-                class="suggestion ${index === 0 ? "is-active" : ""}"
+                class="result-item ${index === 0 ? "active" : ""}"
                 type="button"
                 role="option"
                 data-index="${index}"
               >
-                <span class="suggestion-icon" aria-hidden="true">${item.icon}</span>
+                <span class="result-icon" aria-hidden="true">${item.icon}</span>
                 <span>
                   <strong>${item.title}</strong>
                   <small>${item.subtitle}</small>
@@ -665,10 +563,10 @@
               </div>
             `;
 
-        suggestions.classList.add("is-visible");
+        resultsBox.classList.add("visible");
         input.setAttribute("aria-expanded", "true");
 
-        suggestions.querySelectorAll("[data-index]").forEach(button => {
+        resultsBox.querySelectorAll("[data-index]").forEach(button => {
           button.addEventListener("mouseenter", () => {
             setActive(Number(button.dataset.index));
           });
@@ -680,28 +578,22 @@
       }
 
       function setActive(index) {
-        if (!results.length) return;
+        if (!matches.length) return;
 
-        activeIndex = (index + results.length) % results.length;
+        activeIndex = (index + matches.length) % matches.length;
 
-        suggestions.querySelectorAll(".suggestion").forEach((item, itemIndex) => {
-          item.classList.toggle("is-active", itemIndex === activeIndex);
+        resultsBox.querySelectorAll(".result-item").forEach((item, itemIndex) => {
+          item.classList.toggle("active", itemIndex === activeIndex);
         });
       }
 
       function openItem(index) {
-        const item = results[index];
+        const item = matches[index];
         if (!item) return;
-
-        if (item.url.startsWith("mailto:")) {
-          window.location.href = item.url;
-          return;
-        }
-
         window.open(item.url, "_blank", "noopener,noreferrer");
       }
 
-      function searchOnlyPortal(term) {
+      function searchPortal(term) {
         const destination =
           PORTAL +
           "/_layouts/15/search.aspx/siteall?q=" +
@@ -710,18 +602,13 @@
         window.open(destination, "_blank", "noopener,noreferrer");
       }
 
-      anchor.addEventListener("pointerenter", () => openSearch(true));
-      anchor.addEventListener("pointerleave", () => closeSearch(true));
-
-      anchor.addEventListener("focusin", () => openSearch(false));
-      anchor.addEventListener("focusout", () => {
-        window.setTimeout(() => {
-          if (!anchor.contains(document.activeElement)) closeSearch(true);
-        }, 0);
-      });
+      host.addEventListener("pointerenter", () => openSearch(true));
+      host.addEventListener("pointerleave", closeSearch);
+      host.addEventListener("focusin", () => openSearch(false));
+      host.addEventListener("focusout", () => setTimeout(closeSearch, 0));
 
       input.addEventListener("input", event => {
-        renderSuggestions(event.target.value);
+        renderResults(event.target.value);
       });
 
       input.addEventListener("keydown", event => {
@@ -733,20 +620,15 @@
           setActive(activeIndex - 1);
         } else if (event.key === "Escape") {
           event.preventDefault();
-          closeSearch(true);
+          input.blur();
+          closeSearch();
         }
-      });
-
-      clearButton.addEventListener("click", () => {
-        input.value = "";
-        renderSuggestions("");
-        input.focus();
       });
 
       form.addEventListener("submit", event => {
         event.preventDefault();
 
-        if (!anchor.classList.contains("is-open")) {
+        if (!host.classList.contains("is-open")) {
           openSearch(true);
           return;
         }
@@ -758,10 +640,10 @@
           return;
         }
 
-        if (results.length && activeIndex >= 0) {
+        if (matches.length && activeIndex >= 0) {
           openItem(activeIndex);
         } else {
-          searchOnlyPortal(term);
+          searchPortal(term);
         }
       });
     })();
