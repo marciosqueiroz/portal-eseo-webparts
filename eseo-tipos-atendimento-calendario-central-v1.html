@@ -1,782 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tipos de atendimento ESEO — orientações às unidades</title>
-  <style>
-    :root {
-      --primary: #0a2537;
-      --secondary: #1d728f;
-      --accent: #0eb7d5;
-      --white: #ffffff;
-      --ink: #17202b;
-      --muted: #62717e;
-      --line: #d8e3e8;
-      --focus: #ffcb05;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tipos de atendimento ESEO — orientações às unidades</title>
+<style>
+:root{--primary:#0a2537;--secondary:#1d728f;--accent:#0eb7d5;--white:#fff;--ink:#17202b;--muted:#62717e;--line:#d8e3e8;--focus:#ffcb05}
+*{box-sizing:border-box}html,body{width:100%;min-height:780px;margin:0;padding:0;overflow-x:hidden;background:transparent!important;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}button,a{font:inherit}.app{width:min(1480px,100%);min-height:780px;margin:0 auto;padding:12px}.guide{margin:0 0 18px;padding:16px 19px;border-left:4px solid var(--accent);border-radius:0 12px 12px 0;background:rgba(244,250,251,.92)}.guide strong{display:block;margin-bottom:4px;color:var(--primary);font-size:14px;font-weight:950}.guide p{margin:0;color:#526672;font-size:13px;line-height:1.5}.layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;align-items:start}.sidebar{padding:10px 12px 14px;border:1px solid rgba(29,114,143,.13);border-radius:17px;background:transparent}.sidebar-title{margin:5px 8px 10px;color:var(--secondary);font-size:10px;font-weight:950;letter-spacing:.14em;text-transform:uppercase}.menu{display:grid;gap:3px}.group{border-bottom:1px solid rgba(29,114,143,.13)}.group:last-child{border-bottom:0}.group-button{width:100%;min-height:58px;display:grid;grid-template-columns:42px minmax(0,1fr) 20px;align-items:center;gap:10px;padding:8px 7px;border:0;background:transparent;color:var(--primary);text-align:left;cursor:pointer}.group-button:hover,.group-button:focus-visible{color:var(--secondary)}.menu-number{width:42px;height:35px;display:grid;place-items:center;border:1px solid var(--accent);border-radius:8px;color:var(--secondary);font-size:11px;font-weight:950}.menu-label{font-size:12px;font-weight:900;line-height:1.22}.chevron{color:var(--secondary);font-size:19px;font-weight:900;transition:transform .18s ease}.group.open .chevron{transform:rotate(90deg)}.submenu{display:none;padding:0 0 9px 52px}.group.open .submenu{display:grid;gap:3px}.sub-button{width:100%;min-height:38px;padding:7px 10px;border:0;border-left:2px solid #d7e4e9;background:transparent;color:#536773;font-size:11px;font-weight:800;text-align:left;cursor:pointer;transition:border-color .16s ease,color .16s ease,background .16s ease}.sub-button:hover,.sub-button:focus-visible{border-left-color:var(--accent);color:var(--primary);background:rgba(14,183,213,.05)}.sub-button.active{border-left-color:var(--accent);color:var(--primary);background:rgba(14,183,213,.09)}.main{min-width:0}.panel{overflow:hidden;border:1px solid rgba(29,114,143,.19);border-top:5px solid var(--accent);border-radius:18px;background:rgba(255,255,255,.88)}.panel-body{min-height:610px;padding:30px 34px 25px}.title-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:20px}.kicker{margin:0 0 8px;color:var(--secondary);font-size:10px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;color:var(--primary);font-size:clamp(28px,3vw,43px);line-height:1.04;letter-spacing:-.04em}.summary{max-width:980px;margin:14px 0 0;color:var(--muted);font-size:15px;line-height:1.58}.manual-topic{min-width:166px;min-height:64px;display:grid;grid-template-columns:45px minmax(0,1fr);align-items:center;gap:11px;padding:9px 12px;border:1px solid rgba(14,183,213,.34);border-radius:12px;background:#f4fafb;color:var(--primary);text-decoration:none}.manual-topic.is-pending{opacity:.82;cursor:default}.manual-topic__icon{width:43px;height:43px;display:grid;place-items:center;border-radius:10px;background:var(--primary);color:#fff}.manual-topic__icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.manual-topic strong{display:block;font-size:11px;font-weight:950;line-height:1.2;text-transform:uppercase}.manual-topic small{display:block;margin-top:4px;color:#667985;font-size:10px;line-height:1.25}.content-grid{display:grid;grid-template-columns:.86fr 1fr 1fr;gap:23px;margin-top:27px}.section{padding-top:13px;border-top:1px solid rgba(29,114,143,.19)}.section-title{margin:0 0 11px;color:var(--primary);font-size:11px;font-weight:950;letter-spacing:.045em;text-transform:uppercase}.section ul{display:grid;gap:10px;margin:0;padding:0;list-style:none}.section li{position:relative;padding-left:18px;color:#33424e;font-size:12.5px;line-height:1.45}.section li::before{position:absolute;top:.52em;left:0;width:7px;height:7px;border-radius:50%;background:var(--accent);content:""}.footer-access{display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,430px);align-items:center;gap:24px;margin-top:30px;padding:22px;border:1px solid rgba(14,183,213,.27);border-radius:16px;background:linear-gradient(135deg,rgba(23,82,104,.98),rgba(29,114,143,.94))}.footer-copy span{display:block;margin-bottom:5px;color:#91e9f3;font-size:10px;font-weight:950;letter-spacing:.11em;text-transform:uppercase}.footer-copy strong{display:block;color:#fff;font-size:17px;line-height:1.3}.footer-copy small{display:block;margin-top:6px;color:#e0eef2;font-size:11.5px;line-height:1.48}.footer-actions{display:grid;gap:10px}.footer-button{min-height:57px;display:inline-flex;align-items:center;justify-content:center;padding:0 24px;border:1px solid var(--accent);border-radius:12px;background:#fff;color:var(--primary);font-size:14px;font-weight:950;line-height:1.2;text-align:center;text-decoration:none}.footer-button:hover,.footer-button:focus-visible{border-color:#fff;background:#f4fafb}:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.empty-state{
+  min-height:610px;
+  display:grid;
+  place-items:center;
+  padding:46px 30px;
+  text-align:center;
+}
+.empty-state[hidden],
+.panel-body[hidden]{
+  display:none !important;
+}
+.empty-state__inner{
+  max-width:560px;
+}
+.empty-state__icon{
+  width:72px;
+  height:72px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 20px;
+  border:1px solid rgba(14,183,213,.34);
+  border-radius:18px;
+  background:rgba(14,183,213,.06);
+  color:var(--secondary);
+}
+.empty-state__icon svg{
+  width:36px;
+  height:36px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.empty-state h2{
+  margin:0;
+  color:var(--primary);
+  font-size:28px;
+  font-weight:950;
+  letter-spacing:-.03em;
+}
+.empty-state p{
+  max-width:520px;
+  margin:11px auto 0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
+}
 
-    * { box-sizing: border-box; }
-
-    html,
-    body {
-      width: 100%;
-      min-height: 760px;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-      background: transparent !important;
-      color: var(--ink);
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
-
-    button, a { font: inherit; }
-
-    .app {
-      width: min(1480px,100%);
-      min-height: 760px;
-      margin: 0 auto;
-      padding: 12px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 305px minmax(0,1fr);
-      gap: 20px;
-      align-items: stretch;
-    }
-
-    .sidebar {
-      padding: 13px;
-      border: 1px solid rgba(29,114,143,.17);
-      border-radius: 17px;
-      background: rgba(242,247,249,.76);
-    }
-
-    .sidebar-title {
-      margin: 5px 8px 12px;
-      color: var(--secondary);
-      font-size: 10px;
-      font-weight: 950;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    .menu { display: grid; gap: 4px; }
-
-    .menu-button {
-      width: 100%;
-      min-height: 64px;
-      display: grid;
-      grid-template-columns: 42px minmax(0,1fr) 18px;
-      align-items: center;
-      gap: 11px;
-      padding: 9px 10px;
-      border: 0;
-      border-bottom: 1px solid rgba(29,114,143,.13);
-      background: transparent;
-      color: var(--primary);
-      text-align: left;
-      cursor: pointer;
-      transition: transform .18s ease, background .18s ease;
-    }
-
-    .menu-button:hover,
-    .menu-button:focus-visible {
-      background: rgba(255,255,255,.58);
-      transform: translateX(2px);
-    }
-
-    .menu-button.active {
-      border-bottom-color: transparent;
-      border-radius: 12px;
-      background: var(--primary);
-      color: var(--white);
-      box-shadow: 0 10px 22px rgba(10,37,55,.14);
-    }
-
-    .menu-number {
-      display: grid;
-      place-items: center;
-      width: 42px;
-      height: 35px;
-      border: 1px solid var(--accent);
-      border-radius: 8px;
-      color: var(--secondary);
-      font-size: 11px;
-      font-weight: 950;
-    }
-
-    .menu-button.active .menu-number {
-      background: var(--accent);
-      color: var(--primary);
-    }
-
-    .menu-label {
-      font-size: 12px;
-      font-weight: 900;
-      line-height: 1.22;
-    }
-
-    .menu-arrow {
-      color: var(--accent);
-      font-size: 18px;
-      font-weight: 950;
-    }
-
-    .main { min-width: 0; }
-
-    .tabs {
-      min-height: 48px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .tab {
-      min-height: 40px;
-      padding: 0 15px;
-      border: 1px solid #cdd9df;
-      border-radius: 999px;
-      background: rgba(255,255,255,.78);
-      color: var(--primary);
-      font-size: 11px;
-      font-weight: 900;
-      cursor: pointer;
-      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-    }
-
-    .tab:hover,
-    .tab:focus-visible {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(10,37,55,.07);
-    }
-
-    .tab.active {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: var(--primary);
-    }
-
-    .panel {
-      overflow: hidden;
-      border: 1px solid rgba(29,114,143,.19);
-      border-top: 5px solid var(--accent);
-      border-radius: 18px;
-      background: rgba(255,255,255,.84);
-    }
-
-    .panel-body {
-      min-height: 610px;
-      padding: 30px 34px 25px;
-    }
-
-    .kicker {
-      margin: 0 0 8px;
-      color: var(--secondary);
-      font-size: 10px;
-      font-weight: 950;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      margin: 0;
-      color: var(--primary);
-      font-size: clamp(28px,3vw,43px);
-      line-height: 1.04;
-      letter-spacing: -.04em;
-    }
-
-    .summary {
-      max-width: 980px;
-      margin: 14px 0 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.58;
-    }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: .86fr 1fr 1fr;
-      gap: 23px;
-      margin-top: 27px;
-    }
-
-    .section {
-      padding-top: 13px;
-      border-top: 1px solid rgba(29,114,143,.19);
-    }
-
-    .section-title {
-      margin: 0 0 11px;
-      color: var(--primary);
-      font-size: 11px;
-      font-weight: 950;
-      letter-spacing: .045em;
-      text-transform: uppercase;
-    }
-
-    .section ul {
-      display: grid;
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .section li {
-      position: relative;
-      padding-left: 18px;
-      color: #33424e;
-      font-size: 12.5px;
-      line-height: 1.45;
-    }
-
-    .section li::before {
-      position: absolute;
-      top: .52em;
-      left: 0;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      content: "";
-    }
-
-    .footer-access {
-      display: grid;
-      grid-template-columns: minmax(0,1fr) minmax(310px,430px);
-      align-items: center;
-      gap: 24px;
-      margin-top: 30px;
-      padding: 22px;
-      border: 1px solid rgba(14,183,213,.27);
-      border-radius: 16px;
-      background:
-        radial-gradient(circle at 96% 0, rgba(14,183,213,.14), transparent 40%),
-        linear-gradient(135deg, rgba(10,37,55,.99), rgba(17,69,89,.99));
-    }
-
-    .footer-copy span {
-      display: block;
-      margin-bottom: 5px;
-      color: #71e1f2;
-      font-size: 10px;
-      font-weight: 950;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-
-    .footer-copy strong {
-      display: block;
-      color: var(--white);
-      font-size: 17px;
-      line-height: 1.3;
-    }
-
-    .footer-copy small {
-      display: block;
-      margin-top: 6px;
-      color: #d7e7ec;
-      font-size: 11.5px;
-      line-height: 1.48;
-    }
-
-    .footer-actions { display: grid; gap: 10px; }
-
-    .footer-button {
-      min-height: 57px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 24px;
-      border: 1px solid var(--accent);
-      border-radius: 12px;
-      background: var(--accent);
-      color: var(--primary);
-      font-size: 15px;
-      font-weight: 950;
-      line-height: 1.2;
-      text-align: center;
-      text-decoration: none;
-      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-    }
-
-    .footer-button:hover,
-    .footer-button:focus-visible {
-      transform: translateY(-3px);
-      box-shadow:
-        0 15px 32px rgba(14,183,213,.18),
-        0 0 0 5px rgba(14,183,213,.08);
-      filter: brightness(1.03);
-    }
-
-    .footer-button.manual {
-      display: none;
-      border-color: rgba(255,255,255,.32);
-      background: rgba(255,255,255,.08);
-      color: var(--white);
-    }
-
-    .footer-button.manual.is-visible { display: inline-flex; }
-
-
-    .title-row{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) auto;
-      align-items:start;
-      gap:20px;
-    }
-
-    .manual-topic{
-      min-width:166px;
-      min-height:64px;
-      display:grid;
-      grid-template-columns:45px minmax(0,1fr);
-      align-items:center;
-      gap:11px;
-      padding:9px 12px;
-      border:1px solid rgba(14,183,213,.34);
-      border-radius:12px;
-      background:#f4fafb;
-      color:var(--primary);
-      text-align:left;
-      text-decoration:none;
-      cursor:pointer;
-      transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
-    }
-
-    .manual-topic:hover,
-    .manual-topic:focus-visible{
-      border-color:var(--accent);
-      transform:translateY(-2px);
-      box-shadow:0 11px 24px rgba(10,37,55,.09);
-    }
-
-    .manual-topic.is-pending{
-      cursor:default;
-      opacity:.82;
-    }
-
-    .manual-topic.is-pending:hover{
-      transform:none;
-      box-shadow:none;
-    }
-
-    .manual-topic__icon{
-      width:43px;
-      height:43px;
-      display:grid;
-      place-items:center;
-      border-radius:10px;
-      background:var(--primary);
-      color:#fff;
-    }
-
-    .manual-topic__icon svg{
-      width:23px;
-      height:23px;
-      fill:none;
-      stroke:currentColor;
-      stroke-width:1.8;
-      stroke-linecap:round;
-      stroke-linejoin:round;
-    }
-
-    .manual-topic strong{
-      display:block;
-      font-size:11px;
-      font-weight:950;
-      line-height:1.2;
-      text-transform:uppercase;
-    }
-
-    .manual-topic small{
-      display:block;
-      margin-top:4px;
-      color:#667985;
-      font-size:10px;
-      line-height:1.25;
-    }
-
-    :focus-visible {
-      outline: 3px solid var(--focus);
-      outline-offset: 3px;
-    }
-
-    @media (max-width: 1080px) {
-      .content-grid { grid-template-columns: 1fr 1fr; }
-      .content-grid .section:first-child { grid-column: 1/-1; }
-    }
-
-    @media (max-width: 960px) {
-      .layout { grid-template-columns: 1fr; }
-      .menu { grid-template-columns: repeat(4,minmax(0,1fr)); }
-      .menu-button { min-height: 74px; grid-template-columns: 35px 1fr; }
-      .menu-arrow { display: none; }
-      .menu-number { width: 35px; height: 32px; }
-    }
-
-    @media (max-width: 720px) {
-      .app { padding: 7px; }
-      .menu { grid-template-columns: repeat(2,minmax(0,1fr)); }
-      .panel-body { padding: 25px 20px 22px; }
-      .content-grid,
-      .footer-access { grid-template-columns: 1fr; }
-      .content-grid .section:first-child { grid-column: auto; }
-    }
-
-    @media (max-width: 480px) {
-      .menu { grid-template-columns: 1fr; }
-      .tabs { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 3px; }
-      .tab { flex: 0 0 auto; }
-    }
-  </style>
+@media(max-width:1080px){.content-grid{grid-template-columns:1fr 1fr}.content-grid .section:first-child{grid-column:1/-1}}@media(max-width:960px){.layout{grid-template-columns:1fr}.sidebar{background:rgba(244,250,251,.65)}}@media(max-width:720px){.app{padding:7px}.panel-body{padding:25px 20px 22px}.content-grid,.footer-access,.title-row{grid-template-columns:1fr}.content-grid .section:first-child{grid-column:auto}.manual-topic{max-width:190px}}
+</style>
 </head>
 <body>
-  <main class="app">
-    <div class="layout">
-      <aside class="sidebar">
-        <p class="sidebar-title">Tipos de atendimento</p>
-        <nav class="menu" id="menu"></nav>
-      </aside>
+<main class="app">
+<section class="guide" aria-label="Como consultar as orientações"><strong>Como consultar</strong><p>Escolha um tipo de atendimento. Quando houver mais de uma modalidade, abra a opção na coluna à esquerda e selecione o subassunto. As orientações, responsabilidades e documentos correspondentes serão apresentados ao lado.</p></section>
+<div class="layout">
+<aside class="sidebar"><p class="sidebar-title">Tipos de atendimento</p><nav class="menu" id="menu" aria-label="Tipos e modalidades"></nav></aside>
+<section class="main"><article class="panel">
+<div class="empty-state" id="emptyState">
+  <div class="empty-state__inner">
+    <span class="empty-state__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path d="M4 6h16M4 12h10M4 18h7"/>
+        <path d="m17 15 3 3 3-3"/>
+      </svg>
+    </span>
+    <h2>Selecione um tipo de atendimento</h2>
+    <p>Abra uma categoria na coluna à esquerda e escolha o subassunto desejado. As orientações, responsabilidades e documentos correspondentes serão apresentados aqui.</p>
+  </div>
+</div>
+<div class="panel-body" id="panelBody" hidden><div class="title-row"><div><p class="kicker" id="kicker"></p><h1 id="title"></h1></div><a class="manual-topic is-pending" id="manualTopic" href="#" aria-disabled="true"><span class="manual-topic__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h6"/></svg></span><span><strong>Manual técnico</strong><small id="manualTopicStatus">Em curadoria</small></span></a></div><p class="summary" id="summary"></p><div class="content-grid"><section class="section"><h2 class="section-title">Como funciona</h2><ul id="flowList"></ul></section><section class="section"><h2 class="section-title">Responsabilidades da escola</h2><ul id="schoolList"></ul></section><section class="section"><h2 class="section-title">Responsabilidades da ESEO</h2><ul id="eseoList"></ul></section></div><div class="footer-access"><div class="footer-copy"><span>Acesso institucional</span><strong>Cronograma dos Processos Seletivos do SENAI-SP</strong><small>Consulte o documento oficial para verificar os períodos, etapas e prazos vigentes. Quando houver manual específico da modalidade, o acesso ficará disponível no ícone acima.</small></div><div class="footer-actions"><a class="footer-button" href="https://sesisenaisp.sharepoint.com/sites/intranet/Atos%20Formais/CO-GED-56-2026.pdf" target="_blank" rel="noopener noreferrer">Acessar cronograma de processos seletivos ↗</a></div></div></div></article></section>
+</div>
+</main>
+<script>
+const DATA=[
+{n:"01",m:"AUTOINSTRUCIONAIS",tabs:[{l:"Autoinstrucional — Escola",k:"FIC · MATRÍCULA PELOS CANAIS DA ESCOLA",t:"AUTOINSTRUCIONAL — ESCOLA",s:"Oferta gratuita ao público em geral. A escola inclui o curso em sua carteira e cria os agrupamentos; a ESEO orienta, confere e libera a oferta.",f:["Selecionar o curso e organizar a oferta.","Criar os agrupamentos no SGSET2.","Encaminhar para conferência e liberação."],e:["Inserir o curso na carteira da escola.","Criar agrupamentos conforme a orientação vigente.","Manter os registros e a documentação acadêmica."],o:["Definir cursos e período de inscrição.","Enviar a orientação semestral.","Conferir e liberar os agrupamentos."],manualUrl:""},{l:"CAITEC e Novo Ensino Médio",k:"MATRÍCULA AUTOMÁTICA · ITINERÁRIO FORMATIVO",t:"CAITEC E NOVO ENSINO MÉDIO",s:"Atendimento com matrícula automática por termo para estudantes vinculados ao itinerário de formação técnica e profissional.",f:["Definir cursos e regras de associação.","Preparar matrizes e agrupamentos.","Validar a carga e acompanhar os resultados."],e:["Manter corretos os dados acadêmicos dos estudantes.","Acompanhar a participação e orientar os estudantes.","Comunicar inconsistências identificadas."],o:["Coordenar os cursos de cada termo.","Validar regras, matrizes e cargas.","Articular as áreas técnicas envolvidas."],manualUrl:""}]},
+{n:"02",m:"INICIAÇÃO E APERFEIÇOAMENTO",tabs:[{l:"Iniciação Profissional",k:"FORMAÇÃO INICIAL E CONTINUADA",t:"INICIAÇÃO PROFISSIONAL",s:"Cursos que introduzem o estudante ao mundo do trabalho e desenvolvem capacidades básicas em diferentes áreas profissionais.",f:["Apresentar conceitos essenciais.","Realizar atividades no AVA.","Certificar conforme os critérios da oferta."],e:["Divulgar e orientar o público.","Organizar a oferta conforme a carteira.","Acompanhar registros e demandas administrativas."],o:["Disponibilizar os cursos no AVA.","Orientar a implantação.","Apoiar a escola na operação digital."],manualUrl:""},{l:"Aperfeiçoamento Profissional",k:"ATUALIZAÇÃO E COMPLEMENTAÇÃO PROFISSIONAL",t:"APERFEIÇOAMENTO PROFISSIONAL",s:"Cursos destinados à atualização, ampliação ou complementação de competências já adquiridas na formação profissional ou no trabalho.",f:["Partir de conhecimentos ou experiências anteriores.","Adotar formato online ou combinado.","Avaliar conforme o plano de curso."],e:["Verificar público, requisitos e aderência.","Organizar a turma e os recursos.","Acompanhar os registros acadêmicos."],o:["Orientar o modelo educacional.","Preparar o ambiente virtual.","Acompanhar qualidade e melhorias."],manualUrl:""}]},
+{n:"03",m:"QUALIFICAÇÃO PROFISSIONAL",tabs:[{l:"Qualificação Profissional",k:"FORMAÇÃO PARA O EXERCÍCIO PROFISSIONAL",t:"QUALIFICAÇÃO PROFISSIONAL",s:"Cursos com carga horária igual ou superior a 160 horas, destinados à preparação para o exercício de uma profissão.",f:["Analisar plano, perfil e demanda.","Integrar teoria e prática.","Definir acompanhamento e momentos presenciais."],e:["Apresentar a demanda e garantir condições locais.","Disponibilizar equipe e infraestrutura.","Realizar registros e acompanhar a turma."],o:["Analisar a viabilidade da oferta.","Preparar AVA, materiais e recursos.","Apoiar o acompanhamento pedagógico."],manualUrl:""},{l:"EJA Profissionalizante",k:"EDUCAÇÃO DE JOVENS E ADULTOS · QUALIFICAÇÃO PROFISSIONAL",t:"EJA PROFISSIONALIZANTE",s:"Atendimento que integra a Educação de Jovens e Adultos à formação profissional, articulando a conclusão da educação básica ao desenvolvimento de competências para o trabalho.",f:["Confirmar público, percurso formativo e requisitos de ingresso.","Integrar componentes da educação básica e da qualificação profissional.","Acompanhar a trajetória do estudante de forma articulada."],e:["Organizar matrículas, equipe, infraestrutura e atendimento local.","Acompanhar frequência, registros e permanência dos estudantes.","Articular as áreas responsáveis pela educação básica e profissional."],o:["Orientar o modelo educacional e a implantação do percurso.","Preparar os componentes e recursos no ambiente virtual.","Apoiar as equipes no acompanhamento pedagógico da oferta."],manualUrl:""}]},
+{n:"04",m:"APRENDIZAGEM PROFISSIONAL",tabs:[{l:"Aprendizagem com atividades EaD",k:"OFERTA CONDICIONADA A CRITÉRIOS LEGAIS",t:"APRENDIZAGEM PROFISSIONAL COM ATIVIDADES EAD",s:"A Aprendizagem Profissional pode incluir atividades a distância ou ser ofertada em modelo híbrido, respeitando critérios legais, pedagógicos e de infraestrutura.",f:["Analisar curso, público e autorizações.","Integrar atividades presenciais e a distância.","Acompanhar estudantes e evidências."],e:["Garantir estrutura e acompanhamento local.","Cumprir critérios de matrícula e frequência.","Articular empresas e parceiros quando aplicável."],o:["Apoiar a estruturação do modelo.","Preparar o AVA e orientar as equipes.","Acompanhar qualidade e aderência."],manualUrl:""}]},
+{n:"05",m:"MODELO HÍBRIDO — ECONOMIA 4.0",tabs:[{l:"Economia 4.0",k:"MODELO HÍBRIDO · PÚBLICO 18+",t:"MODELO HÍBRIDO — ECONOMIA 4.0",s:"Atendimento destinado a pessoas com 18 anos ou mais e Ensino Médio completo. Combina atividades online e presenciais conforme os critérios institucionais do modelo.",f:["Confirmar o público elegível e os requisitos do programa.","Organizar de forma integrada as atividades online e presenciais.","Garantir acompanhamento, registros e infraestrutura."],e:["Validar idade, escolaridade e requisitos de ingresso.","Garantir estrutura e realização das atividades presenciais.","Acompanhar os estudantes e manter os registros da oferta."],o:["Orientar a implantação do modelo híbrido.","Configurar o ambiente virtual e apoiar as equipes.","Acompanhar resultados e aderência às diretrizes."],manualUrl:""}]},
+{n:"06",m:"CURSOS TÉCNICOS",tabs:[{l:"Presencial com UCs a distância",k:"CURSO PRESENCIAL · COMPONENTES CURRICULARES EAD",t:"TÉCNICO PRESENCIAL COM UCs A DISTÂNCIA",s:"Curso presencial que incorpora unidades curriculares ou atividades a distância conforme o plano de curso e as diretrizes institucionais.",f:["Integrar as UCs ao calendário.","Realizar conteúdos e atividades no AVA.","Acompanhar estudantes e docentes."],e:["Organizar calendário, docentes e registros.","Orientar a rotina presencial e digital.","Garantir integração entre as UCs."],o:["Disponibilizar componentes no AVA.","Orientar docentes e equipes.","Apoiar o acompanhamento."],manualUrl:""},{l:"Técnico Semipresencial",k:"OFERTA HÍBRIDA · AUTORIZAÇÃO E INFRAESTRUTURA",t:"TÉCNICO SEMIPRESENCIAL",s:"Oferta que combina atividades no AVA com práticas e encontros presenciais, garantindo integração entre teoria, prática e acompanhamento educacional.",f:["Analisar autorização, demanda e infraestrutura.","Organizar atividades online e presenciais.","Acompanhar a turma de forma integrada."],e:["Disponibilizar infraestrutura e docentes.","Organizar momentos presenciais e registros.","Acompanhar estudantes."],o:["Analisar a implantação.","Configurar a oferta no AVA.","Apoiar tutoria, monitoria e indicadores."],manualUrl:""}]},
+{n:"07",m:"SUPERIOR",tabs:[{l:"Graduação",k:"EDUCAÇÃO SUPERIOR",t:"GRADUAÇÃO",s:"Cursos superiores de tecnologia que podem combinar atividades presenciais, síncronas e assíncronas conforme o projeto pedagógico.",f:["Planejar UCs e atividades digitais.","Garantir acompanhamento docente.","Cumprir registros e avaliações."],e:["Organizar docentes, calendário e atividades.","Acompanhar estudantes e registros.","Articular necessidades com a ESEO."],o:["Disponibilizar componentes digitais.","Apoiar mediação e uso do AVA.","Acompanhar a oferta."],manualUrl:""},{l:"Pós-graduação",k:"ESPECIALIZAÇÃO PROFISSIONAL",t:"PÓS-GRADUAÇÃO",s:"Cursos de especialização lato sensu voltados ao aprofundamento e à atualização de conhecimentos relacionados à indústria, tecnologia, gestão e inovação.",f:["Definir atividades online, síncronas e presenciais.","Garantir acompanhamento acadêmico.","Seguir as diretrizes do Centro Universitário."],e:["Organizar docentes e calendário.","Realizar registros acadêmicos.","Articular a operação."],o:["Preparar AVA e recursos digitais.","Apoiar tutoria e monitoria.","Analisar resultados."],manualUrl:""}]},
+{n:"08",m:"PROGRAMAS ESPECÍFICOS",tabs:[{l:"Programas e cursos específicos",k:"ATENDIMENTOS COM FLUXO PRÓPRIO",t:"PROGRAMAS ESPECÍFICOS",s:"Algumas ofertas possuem público, inscrição, parceiros e procedimentos próprios. Por isso, são apresentadas separadamente dos tipos gerais de curso.",f:["Libras: disciplina optativa online.","Power BI: curso semipresencial.","PEMSEP, ProEducador e cursos corporativos: fluxos próprios."],e:["Consultar a orientação vigente.","Verificar público, requisitos e prazos.","Seguir o fluxo específico."],o:["Manter orientações atualizadas.","Articular áreas e parceiros.","Centralizar orientações vigentes."],manualUrl:""}]}
+];
+const menu=document.getElementById("menu"),el={
+kicker:document.getElementById("kicker"),
+title:document.getElementById("title"),
+summary:document.getElementById("summary"),
+flow:document.getElementById("flowList"),
+school:document.getElementById("schoolList"),
+eseo:document.getElementById("eseoList"),
+manual:document.getElementById("manualTopic"),
+manualStatus:document.getElementById("manualTopicStatus"),
+emptyState:document.getElementById("emptyState"),
+panelBody:document.getElementById("panelBody")
+};
+let groupIndex=-1,tabIndex=-1,openGroup=-1;function listHtml(items){return items.map(x=>`<li>${x}</li>`).join("")}function renderMenu(){menu.innerHTML=DATA.map((group,gi)=>{const open=gi===openGroup;return `<div class="group ${open?"open":""}"><button class="group-button" type="button" data-group="${gi}" aria-expanded="${open}"><span class="menu-number">${group.n}</span><span class="menu-label">${group.m}</span><span class="chevron" aria-hidden="true">›</span></button><div class="submenu">${group.tabs.map((tab,ti)=>`<button class="sub-button ${groupIndex>=0&&gi===groupIndex&&ti===tabIndex?"active":""}" type="button" data-group="${gi}" data-tab="${ti}">${tab.l}</button>`).join("")}</div></div>`}).join("");menu.querySelectorAll(".group-button").forEach(btn=>btn.addEventListener("click",()=>{const gi=Number(btn.dataset.group);openGroup=openGroup===gi?-1:gi;renderMenu()}));menu.querySelectorAll(".sub-button").forEach(btn=>btn.addEventListener("click",()=>{groupIndex=Number(btn.dataset.group);tabIndex=Number(btn.dataset.tab);openGroup=groupIndex;render()}))}function renderPanel(){
+  if(groupIndex<0||tabIndex<0){
+    el.emptyState.hidden=false;
+    el.panelBody.hidden=true;
+    return;
+  }
 
-      <section class="main">
-        <div class="tabs" id="tabs" aria-label="Opções do atendimento"></div>
+  const group=DATA[groupIndex];
+  const item=group&&group.tabs?group.tabs[tabIndex]:null;
 
-        <article class="panel">
-          <div class="panel-body">
-            <div class="title-row">
-              <div>
-                <p class="kicker" id="kicker"></p>
-                <h1 id="title"></h1>
-              </div>
+  if(!item){
+    el.emptyState.hidden=false;
+    el.panelBody.hidden=true;
+    return;
+  }
 
-              <a class="manual-topic is-pending" id="manualTopic" href="#" aria-disabled="true">
-                <span class="manual-topic__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M6 3h8l4 4v14H6z"/>
-                    <path d="M14 3v5h5"/>
-                    <path d="M9 13h6"/>
-                    <path d="M9 17h6"/>
-                  </svg>
-                </span>
-                <span>
-                  <strong>Manual técnico</strong>
-                  <small id="manualTopicStatus">Em curadoria</small>
-                </span>
-              </a>
-            </div>
-            <p class="summary" id="summary"></p>
+  el.emptyState.hidden=true;
+  el.panelBody.hidden=false;
 
-            <div class="content-grid">
-              <section class="section">
-                <h2 class="section-title">Como funciona</h2>
-                <ul id="flowList"></ul>
-              </section>
+  el.kicker.textContent=item.k;
+  el.title.textContent=item.t;
+  el.summary.textContent=item.s;
+  el.flow.innerHTML=listHtml(item.f);
+  el.school.innerHTML=listHtml(item.e);
+  el.eseo.innerHTML=listHtml(item.o);
 
-              <section class="section">
-                <h2 class="section-title">Responsabilidades da escola</h2>
-                <ul id="schoolList"></ul>
-              </section>
-
-              <section class="section">
-                <h2 class="section-title">Responsabilidades da ESEO</h2>
-                <ul id="eseoList"></ul>
-              </section>
-            </div>
-
-            <div class="footer-access">
-              <div class="footer-copy">
-                <span>Acessos institucionais</span>
-                <strong>Processo seletivo e documentos técnicos</strong>
-                <small>
-                  O cronograma oficial está disponível. O botão do manual técnico aparece automaticamente
-                  quando o link validado for incluído na configuração da modalidade.
-                </small>
-              </div>
-
-              <div class="footer-actions">
-                <a
-                  class="footer-button"
-                  href="https://sesisenaisp.sharepoint.com/sites/intranet/Atos%20Formais/CO-GED-56-2026.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Acessar cronograma de processos seletivos ↗
-                </a>
-                <a
-                  class="footer-button manual"
-                  id="manualButton"
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Acessar manual técnico ↗
-                </a>
-              </div>
-            </div>
-          </div>
-        </article>
-      </section>
-    </div>
-  </main>
-
-  <script>
-    /*
-      PENDÊNCIA DO MÁRCIO:
-      após a curadoria, inserir os links dos manuais no campo "manualUrl"
-      de cada modalidade. Enquanto estiver vazio, o botão não aparece.
-    */
-    const DATA = [
-      {
-        n: "01",
-        m: "AUTOINSTRUCIONAIS",
-        tabs: [
-          {
-            l: "Autoinstrucional — Escola",
-            k: "FIC · MATRÍCULA PELOS CANAIS DA ESCOLA",
-            t: "AUTOINSTRUCIONAL — ESCOLA",
-            s: "Oferta gratuita ao público em geral. A escola inclui o curso em sua carteira e cria os agrupamentos; a ESEO orienta, confere e libera a oferta.",
-            f: ["Selecionar o curso e organizar a oferta.", "Criar os agrupamentos no SGSET2.", "Encaminhar para conferência e liberação."],
-            e: ["Inserir o curso na carteira da escola.", "Criar agrupamentos conforme a orientação vigente.", "Manter os registros e a documentação acadêmica."],
-            o: ["Definir cursos e período de inscrição.", "Enviar a orientação semestral.", "Conferir e liberar os agrupamentos."],
-            manualUrl: ""
-          },
-          {
-            l: "CAITEC e Novo Ensino Médio",
-            k: "MATRÍCULA AUTOMÁTICA · ITINERÁRIO FORMATIVO",
-            t: "CAITEC E NOVO ENSINO MÉDIO",
-            s: "Atendimento com matrícula automática por termo para estudantes de cursos técnicos e de aprendizagem vinculados ao itinerário de formação técnica e profissional.",
-            f: ["Definir cursos e regras de associação.", "Preparar matrizes e agrupamentos.", "Validar a carga e acompanhar os resultados."],
-            e: ["Manter corretos os dados acadêmicos dos estudantes.", "Acompanhar a participação e orientar os estudantes.", "Comunicar inconsistências identificadas."],
-            o: ["Coordenar os cursos de cada termo.", "Validar regras, matrizes e cargas.", "Articular as áreas técnicas envolvidas."],
-            manualUrl: ""
-          }
-        ]
-      },
-      {
-        n: "02",
-        m: "INICIAÇÃO E APERFEIÇOAMENTO",
-        tabs: [
-          {
-            l: "Iniciação Profissional",
-            k: "FORMAÇÃO INICIAL E CONTINUADA",
-            t: "INICIAÇÃO PROFISSIONAL",
-            s: "Cursos que introduzem o estudante ao mundo do trabalho e desenvolvem capacidades básicas em diferentes áreas profissionais.",
-            f: ["Apresentar conceitos essenciais.", "Realizar atividades no AVA.", "Certificar conforme os critérios da oferta."],
-            e: ["Divulgar e orientar o público.", "Organizar a oferta conforme a carteira.", "Acompanhar registros e demandas administrativas."],
-            o: ["Disponibilizar os cursos no AVA.", "Orientar a implantação.", "Apoiar a escola na operação digital."],
-            manualUrl: ""
-          },
-          {
-            l: "Aperfeiçoamento Profissional",
-            k: "ATUALIZAÇÃO E COMPLEMENTAÇÃO PROFISSIONAL",
-            t: "APERFEIÇOAMENTO PROFISSIONAL",
-            s: "Cursos destinados à atualização, ampliação ou complementação de competências já adquiridas na formação profissional ou no trabalho.",
-            f: ["Partir de conhecimentos ou experiências anteriores.", "Adotar formato online ou combinado.", "Avaliar conforme o plano de curso."],
-            e: ["Verificar público, requisitos e aderência.", "Organizar a turma e os recursos.", "Acompanhar os registros acadêmicos."],
-            o: ["Orientar o modelo educacional.", "Preparar o ambiente virtual.", "Acompanhar qualidade e melhorias."],
-            manualUrl: ""
-          }
-        ]
-      },
-      {
-        n: "03",
-        m: "QUALIFICAÇÃO PROFISSIONAL",
-        tabs: [{
-          l: "Qualificação Profissional",
-          k: "FORMAÇÃO PARA O EXERCÍCIO PROFISSIONAL",
-          t: "QUALIFICAÇÃO PROFISSIONAL",
-          s: "Cursos com carga horária igual ou superior a 160 horas, destinados à preparação para o exercício de uma profissão.",
-          f: ["Analisar plano, perfil e demanda.", "Integrar teoria e prática.", "Definir acompanhamento e momentos presenciais."],
-          e: ["Apresentar a demanda e garantir condições locais.", "Disponibilizar equipe e infraestrutura.", "Realizar registros e acompanhar a turma."],
-          o: ["Analisar a viabilidade da oferta.", "Preparar AVA, materiais e recursos.", "Apoiar o acompanhamento pedagógico."],
-          manualUrl: ""
-        }]
-      },
-      {
-        n: "04",
-        m: "APRENDIZAGEM PROFISSIONAL",
-        tabs: [{
-          l: "Aprendizagem com atividades EaD",
-          k: "OFERTA CONDICIONADA A CRITÉRIOS LEGAIS",
-          t: "APRENDIZAGEM PROFISSIONAL COM ATIVIDADES EAD",
-          s: "A Aprendizagem Profissional pode incluir atividades a distância ou ser ofertada em modelo híbrido, respeitando critérios legais, pedagógicos e de infraestrutura.",
-          f: ["Analisar curso, público e autorizações.", "Integrar atividades presenciais e a distância.", "Acompanhar estudantes e evidências."],
-          e: ["Garantir estrutura e acompanhamento local.", "Cumprir critérios de matrícula e frequência.", "Articular empresas e parceiros quando aplicável."],
-          o: ["Apoiar a estruturação do modelo.", "Preparar o AVA e orientar as equipes.", "Acompanhar qualidade e aderência."],
-          manualUrl: ""
-        }]
-      },
-      {
-        n: "05",
-        m: "CURSOS TÉCNICOS",
-        tabs: [
-          {
-            l: "Presencial com UCs a distância",
-            k: "CURSO PRESENCIAL · COMPONENTES CURRICULARES EAD",
-            t: "TÉCNICO PRESENCIAL COM UCs A DISTÂNCIA",
-            s: "Curso presencial que incorpora unidades curriculares ou atividades a distância conforme o plano de curso e as diretrizes institucionais.",
-            f: ["Integrar as UCs ao calendário.", "Realizar conteúdos e atividades no AVA.", "Acompanhar estudantes e docentes."],
-            e: ["Organizar calendário, docentes e registros.", "Orientar a rotina presencial e digital.", "Garantir integração entre as UCs."],
-            o: ["Disponibilizar componentes no AVA.", "Orientar docentes e equipes.", "Apoiar o acompanhamento."],
-            manualUrl: ""
-          },
-          {
-            l: "Técnico Semipresencial",
-            k: "OFERTA HÍBRIDA · AUTORIZAÇÃO E INFRAESTRUTURA",
-            t: "TÉCNICO SEMIPRESENCIAL",
-            s: "Oferta que combina atividades no AVA com práticas e encontros presenciais, garantindo integração entre teoria, prática e acompanhamento educacional.",
-            f: ["Analisar autorização, demanda e infraestrutura.", "Organizar atividades online e presenciais.", "Acompanhar a turma de forma integrada."],
-            e: ["Disponibilizar infraestrutura e docentes.", "Organizar momentos presenciais e registros.", "Acompanhar estudantes."],
-            o: ["Analisar a implantação.", "Configurar a oferta no AVA.", "Apoiar tutoria, monitoria e indicadores."],
-            manualUrl: ""
-          }
-        ]
-      },
-      {
-        n: "06",
-        m: "SUPERIOR",
-        tabs: [
-          {
-            l: "Graduação",
-            k: "EDUCAÇÃO SUPERIOR",
-            t: "GRADUAÇÃO",
-            s: "Cursos superiores de tecnologia que podem combinar atividades presenciais, síncronas e assíncronas conforme o projeto pedagógico.",
-            f: ["Planejar UCs e atividades digitais.", "Garantir acompanhamento docente.", "Cumprir registros e avaliações."],
-            e: ["Organizar docentes, calendário e atividades.", "Acompanhar estudantes e registros.", "Articular necessidades com a ESEO."],
-            o: ["Disponibilizar componentes digitais.", "Apoiar mediação e uso do AVA.", "Acompanhar a oferta."],
-            manualUrl: ""
-          },
-          {
-            l: "Pós-graduação",
-            k: "ESPECIALIZAÇÃO PROFISSIONAL",
-            t: "PÓS-GRADUAÇÃO",
-            s: "Cursos de especialização lato sensu voltados ao aprofundamento e à atualização de conhecimentos relacionados à indústria, tecnologia, gestão e inovação.",
-            f: ["Definir atividades online, síncronas e presenciais.", "Garantir acompanhamento acadêmico.", "Seguir as diretrizes do Centro Universitário."],
-            e: ["Organizar docentes e calendário.", "Realizar registros acadêmicos.", "Articular a operação."],
-            o: ["Preparar AVA e recursos digitais.", "Apoiar tutoria e monitoria.", "Analisar resultados."],
-            manualUrl: ""
-          }
-        ]
-      },
-      {
-        n: "07",
-        m: "PROGRAMAS ESPECÍFICOS",
-        tabs: [{
-          l: "Programas e cursos específicos",
-          k: "ATENDIMENTOS COM FLUXO PRÓPRIO",
-          t: "PROGRAMAS ESPECÍFICOS",
-          s: "Algumas ofertas possuem público, inscrição, parceiros e procedimentos próprios. Por isso, são apresentadas separadamente dos tipos gerais de curso.",
-          f: ["Libras: disciplina optativa online.", "Power BI: curso semipresencial.", "PEMSEP, ProEducador e cursos corporativos: fluxos próprios."],
-          e: ["Consultar a orientação vigente.", "Verificar público, requisitos e prazos.", "Seguir o fluxo específico."],
-          o: ["Manter orientações atualizadas.", "Articular áreas e parceiros.", "Centralizar calendários vigentes."],
-          manualUrl: ""
-        }]
-      }
-    ];
-
-    const menu = document.getElementById("menu");
-    const tabs = document.getElementById("tabs");
-    const kicker = document.getElementById("kicker");
-    const title = document.getElementById("title");
-    const summary = document.getElementById("summary");
-    const flowList = document.getElementById("flowList");
-    const schoolList = document.getElementById("schoolList");
-    const eseoList = document.getElementById("eseoList");
-    const manualButton = document.getElementById("manualButton");
-    const manualTopic = document.getElementById("manualTopic");
-    const manualTopicStatus = document.getElementById("manualTopicStatus");
-
-    let groupIndex = 0;
-    let tabIndex = 0;
-
-    function listHtml(items) {
-      return items.map(item => `<li>${item}</li>`).join("");
-    }
-
-    function renderMenu() {
-      menu.innerHTML = DATA.map((group, index) => `
-        <button class="menu-button ${index === groupIndex ? "active" : ""}" type="button" data-group="${index}">
-          <span class="menu-number">${group.n}</span>
-          <span class="menu-label">${group.m}</span>
-          <span class="menu-arrow" aria-hidden="true">›</span>
-        </button>
-      `).join("");
-
-      menu.querySelectorAll("[data-group]").forEach(button => {
-        button.addEventListener("click", () => {
-          groupIndex = Number(button.dataset.group);
-          tabIndex = 0;
-          render();
-        });
-      });
-    }
-
-    function renderTabs() {
-      const group = DATA[groupIndex];
-      tabs.innerHTML = group.tabs.map((tab, index) => `
-        <button class="tab ${index === tabIndex ? "active" : ""}" type="button" data-tab="${index}">
-          ${tab.l}
-        </button>
-      `).join("");
-
-      tabs.querySelectorAll("[data-tab]").forEach(button => {
-        button.addEventListener("click", () => {
-          tabIndex = Number(button.dataset.tab);
-          render();
-        });
-      });
-    }
-
-    function renderPanel() {
-      const item = DATA[groupIndex].tabs[tabIndex];
-      kicker.textContent = item.k;
-      title.textContent = item.t;
-      summary.textContent = item.s;
-      flowList.innerHTML = listHtml(item.f);
-      schoolList.innerHTML = listHtml(item.e);
-      eseoList.innerHTML = listHtml(item.o);
-
-      if (item.manualUrl) {
-        manualButton.href = item.manualUrl;
-        manualButton.classList.add("is-visible");
-
-        manualTopic.href = item.manualUrl;
-        manualTopic.target = "_blank";
-        manualTopic.rel = "noopener noreferrer";
-        manualTopic.classList.remove("is-pending");
-        manualTopic.removeAttribute("aria-disabled");
-        manualTopicStatus.textContent = "Acessar documento";
-      } else {
-        manualButton.removeAttribute("href");
-        manualButton.classList.remove("is-visible");
-
-        manualTopic.href = "#";
-        manualTopic.removeAttribute("target");
-        manualTopic.removeAttribute("rel");
-        manualTopic.classList.add("is-pending");
-        manualTopic.setAttribute("aria-disabled", "true");
-        manualTopicStatus.textContent = "Em curadoria";
-      }
-    }
-
-    function render() {
-      renderMenu();
-      renderTabs();
-      renderPanel();
-    }
-
-    manualTopic.addEventListener("click", event => {
-      if (manualTopic.classList.contains("is-pending")) event.preventDefault();
-    });
-
-    render();
-  </script>
+  if(item.manualUrl){
+    el.manual.href=item.manualUrl;
+    el.manual.target="_blank";
+    el.manual.rel="noopener noreferrer";
+    el.manual.classList.remove("is-pending");
+    el.manual.removeAttribute("aria-disabled");
+    el.manualStatus.textContent="Acessar documento";
+  }else{
+    el.manual.href="#";
+    el.manual.removeAttribute("target");
+    el.manual.removeAttribute("rel");
+    el.manual.classList.add("is-pending");
+    el.manual.setAttribute("aria-disabled","true");
+    el.manualStatus.textContent="Em curadoria";
+  }
+}el.manual.addEventListener("click",e=>{if(el.manual.classList.contains("is-pending"))e.preventDefault()});function render(){renderMenu();renderPanel()}render();
+</script>
 </body>
 </html>
