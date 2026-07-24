@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atalhos premium — Portal ESEO</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atalhos minimalistas — Portal ESEO</title>
+
   <style>
     :root {
-      --navy: #0a2537;
-      --navy-deep: #061923;
-      --navy-soft: #123f52;
-      --cyan: #0eb7d5;
-      --cyan-light: #72e5f6;
-      --white: #ffffff;
-      --muted: #d6e4e9;
-      --focus: #ffcb05;
+      --eseo-navy: #061923;
+      --eseo-blue: #1d728f;
+      --eseo-cyan: #0eb7d5;
+      --eseo-white: #ffffff;
+      --eseo-muted: rgba(255,255,255,.80);
+      --eseo-focus: #79d9ff;
     }
 
     * { box-sizing: border-box; }
@@ -21,235 +20,282 @@
     html,
     body {
       width: 100%;
-      min-height: 100%;
+      min-height: 116px;
       margin: 0;
-      overflow: hidden;
-      background: transparent;
+      padding: 0;
+      overflow-x: hidden;
+      background: transparent !important;
+      color: var(--eseo-white);
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    body { padding: 8px; }
+    body { padding: 8px 7px 4px; }
 
-    .shortcuts {
-      width: 100%;
-      min-height: 148px;
+    .quick-area {
+      width: min(100%, 1480px);
+      margin: 0 auto;
+    }
+
+    .quick-links {
+      width: min(100%, 920px);
       display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
+      margin-left: auto;
     }
 
-    .shortcut {
-      position: relative;
+    .quick-link {
       min-width: 0;
-      min-height: 142px;
+      min-height: 64px;
       display: grid;
-      grid-template-columns: 54px minmax(0,1fr) 24px;
+      grid-template-columns: 27px minmax(0, 1fr);
       align-items: center;
-      gap: 14px;
-      padding: 18px 20px;
-      overflow: hidden;
-      border: 1px solid rgba(114,229,246,.16);
-      border-radius: 14px;
-      color: var(--white);
-      text-decoration: none;
+      gap: 10px;
+      padding: 10px 13px;
+      border: 0;
+      border-radius: 7px;
       background:
-        radial-gradient(circle at 15% 0%, rgba(14,183,213,.17), transparent 34%),
-        linear-gradient(145deg, var(--navy-deep), var(--navy-soft));
+        linear-gradient(
+          125deg,
+          rgba(6,25,35,.78),
+          rgba(29,114,143,.40)
+        );
       box-shadow:
-        0 12px 25px rgba(6,25,35,.13),
-        inset 0 1px 0 rgba(255,255,255,.06);
+        0 9px 24px rgba(3,20,31,.26),
+        0 0 21px rgba(29,114,143,.12);
+      color: var(--eseo-white);
+      text-decoration: none;
+      text-shadow: 0 2px 7px rgba(0,0,0,.66);
+      backdrop-filter: blur(10px) saturate(112%);
+      -webkit-backdrop-filter: blur(10px) saturate(112%);
       transition:
-        transform .2s ease,
-        border-color .2s ease,
-        box-shadow .2s ease;
+        background 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
     }
 
-    .shortcut::before {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(112deg, transparent 28%, rgba(255,255,255,.10) 45%, transparent 62%);
-      content: "";
-      pointer-events: none;
-      transform: translateX(-140%);
-      transition: transform .55s ease;
-    }
-
-    .shortcut::after {
-      position: absolute;
-      right: 14px;
-      bottom: 12px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--cyan-light);
-      box-shadow: 0 0 14px rgba(114,229,246,.70);
-      content: "";
-      opacity: .5;
-    }
-
-    .shortcut:hover,
-    .shortcut:focus-visible {
-      border-color: rgba(14,183,213,.76);
-      transform: translateY(-5px);
+    .quick-link:hover,
+    .quick-link:focus-visible {
+      background:
+        linear-gradient(
+          125deg,
+          rgba(6,25,35,.92),
+          rgba(29,114,143,.68)
+        );
       box-shadow:
-        0 19px 38px rgba(6,25,35,.23),
-        0 0 0 1px rgba(14,183,213,.10),
-        0 0 25px rgba(14,183,213,.08);
+        0 12px 29px rgba(3,20,31,.32),
+        0 0 26px rgba(14,183,213,.19);
+      transform: translateY(-2px);
     }
 
-    .shortcut:hover::before,
-    .shortcut:focus-visible::before { transform: translateX(140%); }
-
-    .shortcut__icon {
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(114,229,246,.54);
-      border-radius: 12px;
-      color: var(--cyan-light);
-      background: rgba(14,183,213,.08);
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    .shortcut:hover .shortcut__icon,
-    .shortcut:focus-visible .shortcut__icon {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 0 21px rgba(14,183,213,.14);
-    }
-
-    .shortcut__icon svg {
-      width: 27px;
-      height: 27px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.75;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .shortcut__copy { min-width: 0; }
-
-    .shortcut__title {
-      display: block;
-      color: var(--white);
-      font-size: clamp(13px, .95vw, 16px);
-      font-weight: 900;
-      line-height: 1.18;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-    }
-
-    .shortcut__description {
-      display: block;
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: clamp(11px, .78vw, 13px);
-      font-weight: 580;
-      line-height: 1.35;
-    }
-
-    .shortcut__arrow {
-      align-self: start;
-      margin-top: 7px;
-      color: var(--cyan-light);
-      font-size: 22px;
-      line-height: 1;
-      transition: transform .2s ease;
-    }
-
-    .shortcut:hover .shortcut__arrow,
-    .shortcut:focus-visible .shortcut__arrow { transform: translate(3px,-3px); }
-
-    :focus-visible {
-      outline: 3px solid var(--focus);
+    .quick-link:focus-visible {
+      outline: 3px solid var(--eseo-focus);
       outline-offset: 3px;
     }
 
-    @media (max-width: 980px) {
-      html, body { overflow: auto; }
-      .shortcuts { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .quick-link__icon {
+      width: 27px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      color: var(--eseo-cyan);
+      transition: color 180ms ease, transform 180ms ease;
     }
 
-    @media (max-width: 560px) {
-      .shortcuts { grid-template-columns: 1fr; }
-      .shortcut { min-height: 126px; }
+    .quick-link:hover .quick-link__icon,
+    .quick-link:focus-visible .quick-link__icon {
+      color: var(--eseo-white);
+      transform: scale(1.07);
+    }
+
+    .quick-link__icon svg {
+      width: 25px;
+      height: 25px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.85;
+    }
+
+    .quick-link__title {
+      overflow: hidden;
+      font-size: clamp(10.5px, .82vw, 13px);
+      font-weight: 850;
+      letter-spacing: .012em;
+      line-height: 1.15;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .quick-description {
+      width: min(100%, 920px);
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      margin: 4px 0 0 auto;
+      padding: 0 5px;
+      color: var(--eseo-muted);
+      font-size: 11.5px;
+      line-height: 1.25;
+      text-align: right;
+      text-shadow: 0 2px 8px rgba(0,0,0,.82);
+      opacity: 0;
+      transform: translateY(-3px);
+      transition: opacity 160ms ease, transform 180ms ease;
+    }
+
+    .quick-description.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .quick-description__label {
+      color: var(--eseo-cyan);
+      font-size: 9.5px;
+      font-weight: 900;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 700px) {
+      html, body { min-height: 178px; }
+      .quick-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .quick-link { min-height: 57px; }
+      .quick-description {
+        justify-content: center;
+        min-height: 30px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 390px) {
+      html, body { min-height: 298px; }
+      .quick-links { grid-template-columns: 1fr; }
+      .quick-description { align-items: flex-start; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition: none !important; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
     }
   </style>
 </head>
+
 <body>
-  <nav class="shortcuts" aria-label="Atalhos principais do Portal ESEO">
-    <a
-      class="shortcut"
-      href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx#portfolio"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Portfólio de cursos. Consulte cursos, formatos de oferta e informações do catálogo EAD. Abre em nova guia."
-    >
-      <span class="shortcut__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"/><path d="M6.5 10.5v4.2c2.9 2.2 8.1 2.2 11 0v-4.2"/><path d="M21 8.5v5"/></svg>
-      </span>
-      <span class="shortcut__copy">
-        <strong class="shortcut__title">Portfólio de cursos</strong>
-        <span class="shortcut__description">Consulte cursos, formatos de oferta e informações do catálogo EAD.</span>
-      </span>
-      <span class="shortcut__arrow" aria-hidden="true">↗</span>
-    </a>
+  <section class="quick-area">
+    <nav class="quick-links" aria-label="Atalhos do Portal ESEO">
+      <a
+        class="quick-link"
+        href="https://app.powerbi.com/view?r=eyJrIjoiYzk1MzhjNWQtYTZlMy00ZmY4LWFiM2MtZGMxZjRlMzJiNDA3IiwidCI6IjQxNDhhNmRlLTBkZDEtNGQwNC1hNGM1LTc4ZTM3NGU0ZjZkNiIsImMiOjR9&amp;pageName=ReportSection811927fa7d0805d7a097"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-label="Explore"
+        data-description="Consulte cursos, formatos e informações do catálogo EAD."
+        aria-describedby="quickDescription"
+      >
+        <span class="quick-link__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"></path>
+            <path d="M6.5 10.5v4.2c2.9 2.2 8.1 2.2 11 0v-4.2"></path>
+            <path d="M21 8.5v5"></path>
+          </svg>
+        </span>
+        <span class="quick-link__title">Portfólio de cursos</span>
+      </a>
 
-    <a
-      class="shortcut"
-      href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Liberar turma SGSET. Solicitar liberação de turma no SGSET. Abre em nova guia."
-    >
-      <span class="shortcut__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2.5"/><path d="M8 9V6.5A4.5 4.5 0 0 1 16.2 4"/></svg>
-      </span>
-      <span class="shortcut__copy">
-        <strong class="shortcut__title">Liberar turma SGSET</strong>
-        <span class="shortcut__description">Solicitar liberação de turma no SGSET.</span>
-      </span>
-      <span class="shortcut__arrow" aria-hidden="true">↗</span>
-    </a>
+      <a
+        class="quick-link"
+        href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-label="Solicite"
+        data-description="Peça a liberação de uma turma no SGSET."
+        aria-describedby="quickDescription"
+      >
+        <span class="quick-link__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <rect x="4" y="9" width="16" height="11" rx="2.5"></rect>
+            <path d="M8 9V6.5A4.5 4.5 0 0 1 16.2 4"></path>
+          </svg>
+        </span>
+        <span class="quick-link__title">Liberar turma SGSET</span>
+      </a>
 
-    <a
-      class="shortcut"
-      href="https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Soluções EAD. Solicite avaliação de novos cursos ou personalização de ofertas existentes. Abre em nova guia."
-    >
-      <span class="shortcut__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="m12 3 2.65 5.37 5.93.86-4.29 4.18 1.01 5.91L12 16.53l-5.3 2.79 1.01-5.91-4.29-4.18 5.93-.86L12 3Z"/></svg>
-      </span>
-      <span class="shortcut__copy">
-        <strong class="shortcut__title">Soluções EAD</strong>
-        <span class="shortcut__description">Solicite avaliação de novos cursos ou personalização de ofertas existentes.</span>
-      </span>
-      <span class="shortcut__arrow" aria-hidden="true">↗</span>
-    </a>
+      <a
+        class="quick-link"
+        href="https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-label="Construa"
+        data-description="Solicite novos cursos e ofertas personalizadas."
+        aria-describedby="quickDescription"
+      >
+        <span class="quick-link__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="m12 3 2.65 5.37 5.93.86-4.29 4.18 1.01 5.91L12 16.53l-5.3 2.79 1.01-5.91-4.29-4.18 5.93-.86L12 3Z"></path>
+          </svg>
+        </span>
+        <span class="quick-link__title">Soluções EAD</span>
+      </a>
 
-    <a
-      class="shortcut"
-      href="https://outlook.office.com/mail/deeplink/compose?to=rantonio%40sp.senai.br"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Parceria AQV ESEO. Solicite a parceria da ESEO para ações relacionadas à AQV. Abre em nova guia."
-    >
-      <span class="shortcut__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19v-1.4A4.6 4.6 0 0 1 8.1 13h1.8a4.6 4.6 0 0 1 4.6 4.6V19"/><circle cx="17" cy="9" r="2.3"/><path d="M16.3 14.1h1.2A3.5 3.5 0 0 1 21 17.6V19"/></svg>
-      </span>
-      <span class="shortcut__copy">
-        <strong class="shortcut__title">Parceria AQV ESEO</strong>
-        <span class="shortcut__description">Solicite a parceria da ESEO para ações relacionadas à AQV.</span>
-      </span>
-      <span class="shortcut__arrow" aria-hidden="true">↗</span>
-    </a>
-  </nav>
+      <a
+        class="quick-link"
+        href="https://outlook.office.com/mail/deeplink/compose?to=rantonio%40sp.senai.br"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-label="Conecte"
+        data-description="Solicite uma ação da ESEO em parceria com a AQV."
+        aria-describedby="quickDescription"
+      >
+        <span class="quick-link__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <circle cx="9" cy="8" r="3"></circle>
+            <path d="M3.5 19v-1.4A4.6 4.6 0 0 1 8.1 13h1.8a4.6 4.6 0 0 1 4.6 4.6V19"></path>
+            <circle cx="17" cy="9" r="2.3"></circle>
+            <path d="M16.3 14.1h1.2A3.5 3.5 0 0 1 21 17.6V19"></path>
+          </svg>
+        </span>
+        <span class="quick-link__title">Parceria AQV ESEO</span>
+      </a>
+    </nav>
+
+    <p class="quick-description" id="quickDescription" aria-live="polite">
+      <span class="quick-description__label" id="descriptionLabel"></span>
+      <span id="descriptionText"></span>
+    </p>
+  </section>
+
+  <script>
+    (function () {
+      const links = Array.from(document.querySelectorAll(".quick-link"));
+      const description = document.getElementById("quickDescription");
+      const label = document.getElementById("descriptionLabel");
+      const text = document.getElementById("descriptionText");
+
+      function show(link) {
+        label.textContent = link.dataset.label;
+        text.textContent = link.dataset.description;
+        description.classList.add("is-visible");
+      }
+
+      function hide() {
+        if (document.activeElement && document.activeElement.classList.contains("quick-link")) return;
+        description.classList.remove("is-visible");
+      }
+
+      links.forEach(function (link) {
+        link.addEventListener("mouseenter", function () { show(link); });
+        link.addEventListener("focus", function () { show(link); });
+        link.addEventListener("mouseleave", hide);
+        link.addEventListener("blur", function () {
+          window.setTimeout(hide, 0);
+        });
+      });
+    }());
+  </script>
 </body>
 </html>
