@@ -1,739 +1,628 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menu superior e busca — Portal ESEO</title>
-
   <style>
     :root {
-      --eseo-navy: #061923;
-      --eseo-navy-soft: #173543;
-      --eseo-cyan: #0eb7d5;
-      --eseo-red: #e30613;
-      --eseo-white: #ffffff;
-      --eseo-muted: rgba(255, 255, 255, 0.78);
-      --eseo-focus: #79d9ff;
+      --navy:  #0a2537;
+      --cyan:  #0eb7d5;
+      --red:   #e30613;
+      --white: #ffffff;
+      --line:  rgba(220, 229, 234, 0.45);
+      --muted: #5e6c75;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
-    body {
+    /* ✅ TRANSPARENTE + SEM BARRA DE ROLAGEM */
+    html, body {
       width: 100%;
-      min-height: 108px;
+      height: 100%;
       margin: 0;
-      overflow-x: hidden;
-      background: transparent !important;
-      background-color: rgba(0, 0, 0, 0) !important;
-      color-scheme: normal;
-      color: var(--eseo-white);
+      overflow: hidden;
+      scrollbar-width: none;          /* Firefox */
+      background: transparent;
       font-family: "Segoe UI", Arial, sans-serif;
     }
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar { display: none; } /* Chrome / Edge / Safari */
 
-    button,
-    input {
-      font: inherit;
-    }
-
-    .nav-shell {
-      width: min(1500px, 100%);
-      min-height: 108px;
+    .header {
+      width: 100%;
+      height: 100%;
+      min-height: 92px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: clamp(30px, 4vw, 70px);
-      margin: 0 auto;
-      padding: 14px clamp(22px, 3.2vw, 50px);
+      gap: 28px;
+      padding: 0 clamp(24px, 3.2vw, 64px);
+      border-bottom: 1px solid var(--line);
       background: transparent;
+      overflow: visible; /* garante que o travessão não seja cortado */
     }
 
+    /* ── MENU ─────────────────────────────────────────────── */
     .menu {
-      min-width: 0;
+      display: flex;
+      align-items: stretch;
+      gap: clamp(28px, 4vw, 72px);
+      height: 100%;
+      overflow: visible; /* ✅ TRAVESSÃO NÃO CORTA em nenhuma largura */
+    }
+
+    .menu a {
+      position: relative;
       display: flex;
       align-items: center;
-      gap: clamp(28px, 3.1vw, 54px);
-      white-space: nowrap;
-    }
-
-    .menu__link {
-      position: relative;
-      min-height: 52px;
-      display: inline-flex;
-      align-items: center;
-      padding: 3px 0 0;
-      color: var(--eseo-white);
-      font-size: clamp(15px, 1.1vw, 18px);
-      font-weight: 850;
-      letter-spacing: 0.01em;
-      line-height: 1.15;
+      color: var(--navy);
+      font-size: clamp(14px, 1.05vw, 18px);
+      font-weight: 800;
+      letter-spacing: .015em;
       text-decoration: none;
-      text-shadow:
-        0 2px 5px rgba(0, 0, 0, 0.75),
-        0 0 18px rgba(0, 0, 0, 0.42);
       text-transform: uppercase;
+      white-space: nowrap;
       transition: color 180ms ease;
     }
 
-    .menu__link::after {
+    /* ✅ TRAVESSÃO (underline) ao passar o mouse — RESTAURADO E GARANTIDO */
+    .menu a::after {
       position: absolute;
-      right: 50%;
-      bottom: 3px;
-      left: 50%;
-      height: 3px;
-      border-radius: 99px;
-      content: "";
-      background: var(--eseo-cyan);
-      transition:
-        right 190ms ease,
-        left 190ms ease;
-    }
-
-    .menu__link:hover,
-    .menu__link:focus-visible,
-    .menu__link.is-active {
-      color: var(--eseo-cyan);
-    }
-
-    /* A página atual fica colorida. O sublinhado surge apenas no hover/foco. */
-    .menu__link:hover::after,
-    .menu__link:focus-visible::after {
       right: 0;
+      bottom: 0;
       left: 0;
-    }
-
-    .search-wrap {
-      position: relative;
-      width: clamp(390px, 34vw, 540px);
-      min-width: 360px;
-    }
-
-    .portal-search {
-      position: relative;
-      width: 100%;
-      min-height: 60px;
-      display: grid;
-      grid-template-columns: 34px minmax(0, 1fr) 34px;
-      align-items: center;
-      gap: 10px;
-      padding: 7px 14px 7px 12px;
-      overflow: visible;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      background:
-        linear-gradient(
-          112deg,
-          rgba(3, 15, 24, 0.88) 0%,
-          rgba(10, 37, 55, 0.8) 52%,
-          rgba(29, 114, 143, 0.58) 100%
-        ) padding-box,
-        linear-gradient(
-          96deg,
-          var(--eseo-cyan) 0%,
-          rgba(255, 255, 255, 0.46) 58%,
-          var(--eseo-red) 100%
-        ) border-box;
-      box-shadow:
-        0 14px 34px rgba(0, 0, 0, 0.24),
-        inset 0 1px 0 rgba(255, 255, 255, 0.14);
-      color: var(--eseo-white);
-      backdrop-filter: blur(14px) saturate(125%);
-      -webkit-backdrop-filter: blur(14px) saturate(125%);
-      transition:
-        box-shadow 180ms ease,
-        transform 180ms ease;
-    }
-
-    .portal-search::after {
-      position: absolute;
-      right: 24px;
-      bottom: 4px;
-      left: 24px;
-      height: 3px;
-      border-radius: 99px;
+      height: 4px;
+      border-radius: 4px 4px 0 0;
+      background: var(--cyan);
       content: "";
-      background: linear-gradient(
-        90deg,
-        var(--eseo-cyan),
-        #48d3e9 56%,
-        var(--eseo-red)
-      );
-      box-shadow:
-        0 2px 14px rgba(14, 183, 213, 0.42),
-        0 0 16px rgba(227, 6, 19, 0.13);
-      opacity: 1;
-    }
-
-    .portal-search:focus-within {
-      box-shadow:
-        0 18px 42px rgba(0, 0, 0, 0.3),
-        0 0 0 3px rgba(14, 183, 213, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.18);
-      transform: translateY(-1px);
-    }
-
-    .portal-search__leading,
-    .portal-search__clear {
-      display: grid;
-      place-items: center;
-      padding: 0;
-      border: 0;
-      border-radius: 50%;
-      background: transparent;
-      color: currentColor;
-    }
-
-    .portal-search__leading {
-      width: 34px;
-      height: 34px;
-      color: var(--eseo-cyan);
-      cursor: pointer;
-      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.72));
-      transition:
-        background 180ms ease,
-        color 180ms ease,
-        transform 180ms ease;
-    }
-
-    .portal-search__leading:hover,
-    .portal-search__leading:focus-visible {
-      background: rgba(14, 183, 213, 0.14);
-      color: #72e5f8;
-      transform: scale(1.04);
-    }
-
-    .portal-search__clear {
-      width: 34px;
-      height: 34px;
-      color: rgba(255, 255, 255, 0.78);
-      cursor: pointer;
       opacity: 0;
-      pointer-events: none;
-      transform: scale(0.78);
-      transition:
-        background 180ms ease,
-        color 180ms ease,
-        opacity 150ms ease,
-        transform 180ms ease;
+      transform: scaleX(.3);
+      transition: opacity 180ms ease, transform 180ms ease;
     }
 
-    .portal-search__clear.is-visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: scale(1);
-    }
+    .menu a:hover,
+    .menu a:focus-visible,
+    .menu a[aria-current="page"] { color: #007f9e; }
 
-    .portal-search__clear:hover {
-      background: rgba(255, 255, 255, 0.12);
-      color: var(--eseo-white);
-    }
-
-    .portal-search svg {
-      width: 22px;
-      height: 22px;
-      fill: none;
-      stroke: currentColor;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-width: 2;
-    }
-
-    .portal-search__clear svg {
-      width: 19px;
-      height: 19px;
-    }
-
-    .portal-search__input {
-      width: 100%;
-      min-width: 0;
-      height: 40px;
-      padding: 0;
-      border: 0;
-      outline: 0;
-      background: transparent;
-      color: var(--eseo-white);
-      caret-color: var(--eseo-cyan);
-      font-size: clamp(15px, 1.1vw, 18px);
-      font-weight: 700;
-      letter-spacing: 0.005em;
-      line-height: 1.2;
-      text-shadow: 0 2px 7px rgba(0, 0, 0, 0.75);
-    }
-
-    .portal-search__input::placeholder {
-      color: rgba(255, 255, 255, 0.92);
-      opacity: 1;
-    }
-
-    .search-hint {
-      position: absolute;
-      top: calc(100% + 7px);
-      right: 18px;
-      color: rgba(255, 255, 255, 0.82);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      opacity: 0;
-      pointer-events: none;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
-      transform: translateY(-3px);
-      transition:
-        opacity 180ms ease,
-        transform 180ms ease;
-    }
-
-    .search-wrap:focus-within .search-hint {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .menu__link:focus-visible,
-    .portal-search__leading:focus-visible,
-    .portal-search__clear:focus-visible,
-    .portal-search__input:focus-visible {
-      outline: 3px solid var(--eseo-focus);
-      outline-offset: 3px;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      margin: -1px;
-      padding: 0;
-      overflow: hidden;
-      border: 0;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-    }
-
-    @media (max-width: 1100px) {
-      .nav-shell {
-        gap: 25px;
-        padding-inline: 17px;
-      }
-
-      .menu {
-        gap: 24px;
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-
-      .menu::-webkit-scrollbar {
-        display: none;
-      }
-
-      .menu__link {
-        flex: none;
-        font-size: 13px;
-      }
-
-      .search-wrap {
-        width: 340px;
-        min-width: 310px;
-      }
-    }
-
-    @media (max-width: 790px) {
-      html,
-      body {
-        min-height: 174px;
-      }
-
-      .nav-shell {
-        min-height: 174px;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: center;
-        gap: 11px;
-        padding-block: 12px 25px;
-      }
-
-      .menu {
-        min-height: 48px;
-        justify-content: flex-start;
-      }
-
-      .search-wrap {
-        width: 100%;
-        min-width: 0;
-      }
-
-      .portal-search {
-        min-height: 55px;
-      }
-    }
-
-    /* Busca compacta: começa como lupa e se expande no hover ou foco. */
-    .search-wrap {
-      width: 52px;
-      min-width: 52px;
-      margin-left: auto;
-      transition: width 240ms cubic-bezier(.2,.8,.2,1);
-    }
-
-    .search-wrap:hover,
-    .search-wrap:focus-within {
-      width: clamp(350px, 34vw, 520px);
-    }
-
-    .portal-search {
-      min-height: 52px;
-      grid-template-columns: 44px minmax(0, 1fr) 34px;
-      gap: 0;
-      padding: 0 8px 0 3px;
-      overflow: hidden;
-      box-shadow:
-        0 10px 28px rgba(0,0,0,.24),
-        0 0 22px rgba(14,183,213,.10),
-        inset 0 1px 0 rgba(255,255,255,.14);
-    }
-
-    .portal-search::after {
-      right: 18px;
-      bottom: 3px;
-      left: 18px;
-      height: 2px;
-      opacity: 0;
-      transform: scaleX(.18);
-      transition: opacity 180ms ease, transform 230ms ease;
-    }
-
-    .search-wrap:hover .portal-search::after,
-    .search-wrap:focus-within .portal-search::after {
+    .menu a:hover::after,
+    .menu a:focus-visible::after,
+    .menu a[aria-current="page"]::after {
       opacity: 1;
       transform: scaleX(1);
     }
 
-    .portal-search__leading {
-      width: 44px;
-      height: 44px;
+    /* ── SEARCH ───────────────────────────────────────────── */
+    .search-wrap {
+      position: relative;
+      flex: 0 0 auto;
     }
 
-    .portal-search__input {
-      height: 38px;
-      opacity: 1;
-      transform: translateX(0);
-      transition: opacity 150ms ease, transform 210ms ease;
+    .search {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      overflow: hidden;
+      border: 1px solid var(--navy);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 8px 22px rgba(10, 37, 55, .08);
+      transition: width 260ms cubic-bezier(.2, .8, .2, 1),
+                  border-color 180ms ease,
+                  box-shadow 180ms ease;
     }
 
-    .search-wrap:not(:hover):not(:focus-within) .portal-search__input {
+    .search.is-open,
+    .search:focus-within {
+      width: min(380px, 31vw);
+      border-color: var(--cyan);
+      box-shadow: 0 10px 26px rgba(10, 37, 55, .12);
+    }
+
+    .search__input {
+      width: 0;
+      min-width: 0;
+      height: 48px;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--navy);
+      font: 650 15px/1 "Segoe UI", Arial, sans-serif;
       opacity: 0;
       pointer-events: none;
-      transform: translateX(8px);
+      transition: width 220ms ease, padding 220ms ease, opacity 140ms ease;
     }
 
-    .search-wrap:not(:hover):not(:focus-within) .portal-search__clear {
+    .search.is-open .search__input,
+    .search:focus-within .search__input {
+      width: calc(100% - 52px);
+      padding: 0 4px 0 20px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .search__input::placeholder { color: #74818a; }
+
+    .search__button {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 48px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--navy);
+      cursor: pointer;
+      transition: background 180ms ease, color 180ms ease;
+    }
+
+    .search__button:hover,
+    .search__button:focus-visible {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    .search__button:focus-visible,
+    .menu a:focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    .search svg {
+      width: 23px;
+      height: 23px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+    }
+
+    /* ── DROPDOWN AUTOCOMPLETE ────────────────────────────── */
+    /* position:fixed escapa do overflow:hidden do body/iframe */
+    .suggestions {
+      position: fixed;
+      z-index: 99999;
+      background: var(--white);
+      border: 1.5px solid var(--cyan);
+      border-radius: 14px;
+      box-shadow: 0 14px 40px rgba(10, 37, 55, .18);
+      list-style: none;
+      margin: 0;
+      padding: 5px 0;
       display: none;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--cyan) transparent;
+      animation: sugg-in 150ms ease;
+    }
+    .suggestions.visible { display: block; }
+
+    @keyframes sugg-in {
+      from { opacity: 0; transform: translateY(-5px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 790px) {
-      .search-wrap {
-        width: 52px;
-        min-width: 52px;
-        align-self: flex-end;
-      }
+    .sug-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 15px;
+      font-size: 13.5px;
+      color: var(--navy);
+      cursor: pointer;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: "Segoe UI", Arial, sans-serif;
+      transition: background 100ms ease;
+    }
+    .sug-item:hover,
+    .sug-item.active { background: #e8f9fc; color: #007f9e; }
 
-      .search-wrap:hover,
-      .search-wrap:focus-within {
-        width: 100%;
-      }
+    .sug-item svg {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+      fill: none;
+      stroke: var(--cyan);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+    }
 
-      .portal-search { min-height: 52px; }
+    .sug-label {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sug-tag {
+      font-size: 10px;
+      color: var(--muted);
+      background: #eef3f6;
+      border-radius: 99px;
+      padding: 2px 8px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .sug-footer {
+      padding: 7px 15px 5px;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid #edf3f6;
+      margin-top: 4px;
+      text-align: center;
+    }
+
+    /* ── ACESSIBILIDADE ───────────────────────────────────── */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ── RESPONSIVO ───────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .header { gap: 14px; padding: 0 16px; }
+      .menu   { gap: 18px; /* sem overflow:hidden — mantém o travessão */ }
+      .menu a { font-size: 12px; }
+      .search.is-open,
+      .search:focus-within { width: min(300px, 45vw); }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-      }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
     }
   </style>
 </head>
-
 <body>
-  <header class="nav-shell">
+  <header class="header">
+
+    <!-- NAVEGAÇÃO -->
     <nav class="menu" aria-label="Navegação principal do Portal ESEO">
-      <a
-        class="menu__link"
-        data-page="home"
-        href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta"
-        target="_top"
-      >Home</a>
-
-      <a
-        class="menu__link"
-        data-page="conheca"
-        href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx"
-        target="_top"
-      >Conheça a ESEO</a>
-
-      <a
-        class="menu__link"
-        data-page="oferta"
-        href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
-        target="_top"
-      >Oferta de cursos online</a>
+      <a data-page="home"
+         href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta"
+         target="_blank" rel="noopener noreferrer">Home</a>
+      <a data-page="conheca"
+         href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx"
+         target="_blank" rel="noopener noreferrer">Conheça a ESEO</a>
+      <a data-page="oferta"
+         href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+         target="_blank" rel="noopener noreferrer">Oferta de cursos online</a>
     </nav>
 
+    <!-- BUSCA COM AUTOCOMPLETE -->
     <div class="search-wrap">
-      <form
-        class="portal-search"
-        id="portalSearch"
-        role="search"
-        autocomplete="off"
-      >
-        <button
-          class="portal-search__leading"
-          id="searchToggle"
-          type="button"
-          aria-label="Pesquisar no Portal ESEO"
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="10.5" cy="10.5" r="6.5"></circle>
-            <path d="m19.5 19.5-4.4-4.4"></path>
-          </svg>
-        </button>
-
-        <label class="sr-only" for="siteSearch">
-          Pesquisar somente no Portal ESEO
-        </label>
-
+      <form class="search" id="portalSearch" role="search">
+        <label class="sr-only" for="siteSearch">Pesquisar no Portal ESEO</label>
         <input
-          class="portal-search__input"
+          class="search__input"
           id="siteSearch"
-          name="q"
           type="search"
-          list="eseoSuggestions"
-          placeholder="Pesquisar no Portal ESEO"
-          aria-describedby="searchHint"
           autocomplete="off"
-          spellcheck="true"
-          required
+          spellcheck="false"
+          placeholder="Pesquisar no Portal ESEO"
+          aria-autocomplete="list"
+          aria-controls="sugg"
+          aria-expanded="false"
+          role="combobox"
         >
-
-        <button
-          class="portal-search__clear"
-          id="clearSearch"
-          type="button"
-          aria-label="Limpar pesquisa"
-        >
+        <button class="search__button" type="submit" aria-label="Abrir pesquisa no Portal ESEO">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 6l12 12M18 6 6 18"></path>
+            <circle cx="10.8" cy="10.8" r="6.8"></circle>
+            <path d="m16 16 4.2 4.2"></path>
           </svg>
         </button>
-
-        <datalist id="eseoSuggestions">
-          <option value="Home do Portal ESEO">Página inicial</option>
-          <option value="Conheça a ESEO">História, identidade e estrutura</option>
-          <option value="Oferta de cursos online">Cursos e possibilidades de oferta</option>
-          <option value="Portfólio de cursos">Catálogo completo de cursos EAD</option>
-          <option value="Liberar turma SGSET">Solicitação de liberação de turma</option>
-          <option value="Soluções EAD">Cursos novos e ofertas personalizadas</option>
-          <option value="Parceria AQV ESEO">Apoio da ESEO para ações AQV</option>
-          <option value="Boletim ESEO">Novidades da educação a distância</option>
-          <option value="Catálogo de cursos">Cursos disponíveis no portal</option>
-          <option value="Orientações às unidades">Fluxos, papéis e documentos</option>
-          <option value="Proposta pedagógica">Proposta Pedagógica da ESEO</option>
-          <option value="Calendários">Calendários vigentes</option>
-          <option value="Tutoria e monitoria">Atuação da equipe CTM</option>
-          <option value="Cursos autoinstrucionais">Oferta autoinstrucional</option>
-          <option value="Atendimento ESEO">Canais de suporte e atendimento</option>
-        </datalist>
       </form>
-
-      <span class="search-hint" id="searchHint">
-        Escolha uma sugestão ou pesquise em todo o portal
-      </span>
+      <ul class="suggestions" id="sugg" role="listbox" aria-label="Sugestões do Portal ESEO"></ul>
     </div>
+
   </header>
 
   <script>
-    (function () {
-      const PORTAL_BASE =
-        "https://sesisenaisp.sharepoint.com/sites/ESEOConecta";
+  (function () {
+    'use strict';
 
-      const DIRECT_DESTINATIONS = [
-        {
-          value: "Home do Portal ESEO",
-          url: PORTAL_BASE,
-          target: "_top"
-        },
-        {
-          value: "Conheça a ESEO",
-          url: PORTAL_BASE + "/SitePages/Sobre-a-ESEO.aspx",
-          target: "_top"
-        },
-        {
-          value: "Oferta de cursos online",
-          url: PORTAL_BASE + "/SitePages/What's-happening.aspx",
-          target: "_top"
-        },
-        {
-          value: "Portfólio de cursos",
-          url:
-            "https://app.powerbi.com/view?r=eyJrIjoiYzk1MzhjNWQtYTZlMy00ZmY4LWFiM2MtZGMxZjRlMzJiNDA3IiwidCI6IjQxNDhhNmRlLTBkZDEtNGQwNC1hNGM1LTc4ZTM3NGU0ZjZkNiIsImMiOjR9&pageName=ReportSection811927fa7d0805d7a097",
-          target: "_blank"
-        },
-        {
-          value: "Liberar turma SGSET",
-          url:
-            "https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u",
-          target: "_blank"
-        },
-        {
-          value: "Soluções EAD",
-          url:
-            "https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br",
-          target: "_blank"
-        },
-        {
-          value: "Parceria AQV ESEO",
-          url:
-            "https://outlook.office.com/mail/deeplink/compose?to=rantonio%40sp.senai.br",
-          target: "_blank"
-        },
-        {
-          value: "Boletim ESEO",
-          url:
-            "https://outlook.office.com/newsletters/newsletters/eb0f379967babb4b816eae11c96c0d0322",
-          target: "_blank"
-        }
-      ];
+    var PORTAL = 'https://sesisenaisp.sharepoint.com/sites/ESEOConecta';
 
-      const pages = ["home", "conheca", "oferta"];
-      const links = Array.from(document.querySelectorAll("[data-page]"));
-      const params = new URLSearchParams(window.location.search);
-      const informedPage = (params.get("ativa") || "").toLowerCase();
-      const parentUrl = (document.referrer || "").toLowerCase();
+    /* ── BASE DE CONTEÚDO DO PORTAL ESEO ──────────────────────────
+       Filtra instantaneamente (sem API, funciona de qualquer origem).
+       Quando embutido no SharePoint, a busca live substitui esses
+       resultados com dados reais do site.
+    ─────────────────────────────────────────────────────────────── */
+    var DB = [
+      // Páginas principais
+      { t:'Home — Portal ESEO',                           u:PORTAL,                                                             k:'Página'      },
+      { t:'Sobre a ESEO',                                 u:PORTAL+'/SitePages/Sobre-a-ESEO.aspx',                              k:'Página'      },
+      { t:'Oferta de Cursos Online',                      u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Página'      },
 
-      let currentPage = pages.includes(informedPage) ? informedPage : "";
+      // Monitoria e Tutoria
+      { t:'Monitoria e Tutoria',                          u:PORTAL,                                                             k:'Página'      },
+      { t:'Guia do Tutor — Sou tutor novo e agora',       u:PORTAL,                                                             k:'Documento'   },
+      { t:'Manual do Monitor',                            u:PORTAL,                                                             k:'Documento'   },
+      { t:'Regulamento de Tutoria',                       u:PORTAL,                                                             k:'Documento'   },
+      { t:'Onboarding de Docentes EAD',                   u:PORTAL,                                                             k:'Documento'   },
+      { t:'Base de Conhecimento — Monitores e Tutores',   u:PORTAL,                                                             k:'Documento'   },
+      { t:'Relatório de Desempenho — Tutores',            u:PORTAL,                                                             k:'Relatório'   },
 
-      if (!currentPage) {
-        if (/what(?:%27|')?s-happening|oferta.*curso|cursos.*online/.test(parentUrl)) {
-          currentPage = "oferta";
-        } else if (/sobre-a-eseo|conhe(?:c|%c3%a7|ç)a.*eseo/.test(parentUrl)) {
-          currentPage = "conheca";
-        } else {
-          currentPage = "home";
-        }
+      // Cursos Técnicos
+      { t:'Cursos Técnicos — Catálogo ESEO',              u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Catálogo'    },
+      { t:'Curso Técnico em Administração',               u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Contabilidade',               u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Informática',                 u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Logística',                   u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Marketing',                   u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Recursos Humanos',            u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Segurança do Trabalho',       u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Desenvolvimento de Sistemas', u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Eletrotécnica',               u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Mecânica Industrial',         u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Automação Industrial',        u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Design Gráfico',              u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Redes de Computadores',       u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'Curso Técnico em Qualidade',                   u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+
+      // Cursos FIC
+      { t:'Cursos FIC — Formação Inicial e Continuada',   u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Catálogo'    },
+      { t:'FIC — Programação Web',                        u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'FIC — Excel do Básico ao Avançado',            u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'FIC — Excel para Deficientes Visuais',         u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'FIC — Gestão de Projetos',                     u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'FIC — Inteligência Artificial Aplicada',       u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'FIC — Marketing Digital',                      u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+      { t:'FIC — Empreendedorismo',                       u:PORTAL+"/SitePages/What's-happening.aspx",                          k:'Curso'       },
+
+      // EJA
+      { t:'EJA Profissionalizante — ESEO',                u:PORTAL,                                                             k:'Programa'    },
+      { t:'EJA — Educação de Jovens e Adultos',           u:PORTAL,                                                             k:'Programa'    },
+      { t:'Material EJA — Monitores e Tutores',           u:PORTAL,                                                             k:'Documento'   },
+
+      // Programas e Processos
+      { t:'Programa Dimensão 360',                        u:PORTAL,                                                             k:'Programa'    },
+      { t:'AQV — Avaliação de Qualidade e Validação',     u:PORTAL,                                                             k:'Processo'    },
+      { t:'Fluxo de Desenvolvimento de Cursos',           u:PORTAL,                                                             k:'Processo'    },
+      { t:'Formulário de Solicitação de Curso',           u:PORTAL,                                                             k:'Formulário'  },
+
+      // Calendários e Informativos
+      { t:'Calendário Acadêmico',                         u:PORTAL,                                                             k:'Calendário'  },
+      { t:'Cronograma de Lançamento de Cursos',           u:PORTAL,                                                             k:'Calendário'  },
+      { t:'Boletim ESEO — Newsletter',                    u:PORTAL,                                                             k:'Informativo' },
+
+      // Acesso e Suporte
+      { t:'Acesso ao AVA — Ambiente Virtual',             u:PORTAL,                                                             k:'Acesso'      },
+      { t:'Fale Conosco — Central de Atendimento ESEO',   u:PORTAL,                                                             k:'Contato'     },
+      { t:'Acessibilidade — Recursos para alunos',        u:PORTAL,                                                             k:'Página'      },
+      { t:'Política de Privacidade da ESEO',              u:PORTAL,                                                             k:'Documento'   },
+    ];
+
+    /* ── Elementos ── */
+    var form  = document.getElementById('portalSearch');
+    var input = document.getElementById('siteSearch');
+    var btn   = form.querySelector('.search__button');
+    var sugg  = document.getElementById('sugg');
+    var links = [].slice.call(document.querySelectorAll('[data-page]'));
+
+    /* ── Página ativa ── */
+    var params = new URLSearchParams(location.search);
+    var info   = (params.get('ativa') || '').toLowerCase();
+    var ref    = (document.referrer || '').toLowerCase();
+    var cur    = ['home','conheca','oferta'].indexOf(info) > -1 ? info
+               : ref.indexOf('sobre-a-eseo') > -1 ? 'conheca'
+               : (ref.indexOf("what%27s-happening") > -1 || ref.indexOf("what's-happening") > -1) ? 'oferta'
+               : 'home';
+    links.forEach(function (l) {
+      if (l.dataset.page === cur) l.setAttribute('aria-current', 'page');
+    });
+
+    /* ── Normaliza string para busca sem acento ── */
+    function norm(s) {
+      return String(s).toLowerCase()
+             .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    /* ── Posiciona dropdown via fixed (funciona dentro de iframe) ── */
+    function position() {
+      var r = form.getBoundingClientRect();
+      var below = window.innerHeight - r.bottom - 10;
+      var above = r.top - 10;
+
+      if (below >= 80 || below >= above) {
+        sugg.style.top    = (r.bottom + 8) + 'px';
+        sugg.style.bottom = 'auto';
+        sugg.style.maxHeight = Math.max(below - 4, 80) + 'px';
+      } else {
+        sugg.style.bottom = (window.innerHeight - r.top + 8) + 'px';
+        sugg.style.top    = 'auto';
+        sugg.style.maxHeight = Math.max(above - 4, 80) + 'px';
       }
 
-      links.forEach(function (link) {
-        const active = link.dataset.page === currentPage;
-        link.classList.toggle("is-active", active);
+      sugg.style.right = (window.innerWidth - r.right) + 'px';
+      sugg.style.width = Math.max(r.width, 260) + 'px';
+    }
 
-        if (active) {
-          link.setAttribute("aria-current", "page");
-        } else {
-          link.removeAttribute("aria-current");
-        }
-      });
+    /* ── Estado ── */
+    var activeIdx = -1;
+    var debounce  = null;
 
-      const form = document.getElementById("portalSearch");
-      const input = document.getElementById("siteSearch");
-      const clearButton = document.getElementById("clearSearch");
-      const searchToggle = document.getElementById("searchToggle");
+    /* ── Esconde dropdown ── */
+    function hide() {
+      sugg.classList.remove('visible');
+      sugg.innerHTML = '';
+      input.setAttribute('aria-expanded', 'false');
+      activeIdx = -1;
+    }
 
-      searchToggle.addEventListener("click", function () {
-        if (document.activeElement === input && input.value.trim()) {
-          form.requestSubmit();
-          return;
-        }
+    /* ── Abre campo de busca ── */
+    function openSearch() {
+      form.classList.add('is-open');
+      btn.setAttribute('aria-label', 'Pesquisar no Portal ESEO');
+      setTimeout(function () { input.focus(); }, 180);
+    }
 
-        input.focus();
-      });
+    /* ── Fecha campo de busca ── */
+    function closeSearch() {
+      form.classList.remove('is-open');
+      btn.setAttribute('aria-label', 'Abrir pesquisa no Portal ESEO');
+      hide();
+    }
 
-      function normalize(value) {
-        return value
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .trim()
-          .toLowerCase();
-      }
-
-      const destinations = new Map(
-        DIRECT_DESTINATIONS.map(function (item) {
-          return [normalize(item.value), item];
-        })
+    /* ── Abre busca completa no SharePoint ── */
+    function doSearch(term) {
+      if (!term) return;
+      var q = term + ' Path:"' + PORTAL + '"';
+      window.open(
+        PORTAL + '/_layouts/15/search.aspx/siteall?q=' + encodeURIComponent(q),
+        '_blank', 'noopener,noreferrer'
       );
+    }
 
-      function scopedSearchUrl(term) {
-        const scopedQuery = term + ' Path:"' + PORTAL_BASE + '"';
+    /* ── Renderiza lista de sugestões ── */
+    function render(items) {
+      sugg.innerHTML = '';
+      activeIdx = -1;
 
-        return (
-          PORTAL_BASE +
-          "/_layouts/15/search.aspx/siteall?q=" +
-          encodeURIComponent(scopedQuery)
-        );
+      if (!items.length) { hide(); return; }
+
+      position();
+
+      items.forEach(function (item, i) {
+        var li = document.createElement('li');
+        li.setAttribute('role', 'option');
+        li.id = 'si' + i;
+        li.className = 'sug-item';
+        li.innerHTML =
+          '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+            '<circle cx="10.8" cy="10.8" r="6.8"/>' +
+            '<path d="m16 16 4.2 4.2"/>' +
+          '</svg>' +
+          '<span class="sug-label">' + item.t.replace(/</g,'&lt;') + '</span>' +
+          '<span class="sug-tag">'   + item.k + '</span>';
+
+        li.addEventListener('mousedown', function (e) {
+          e.preventDefault();
+          window.open(item.u, '_blank', 'noopener,noreferrer');
+          hide();
+        });
+
+        sugg.appendChild(li);
+      });
+
+      var ft = document.createElement('li');
+      ft.setAttribute('role', 'presentation');
+      ft.className = 'sug-footer';
+      ft.textContent = '🔒 Conteúdo restrito ao Portal ESEO';
+      sugg.appendChild(ft);
+
+      sugg.classList.add('visible');
+      input.setAttribute('aria-expanded', 'true');
+    }
+
+    /* ── Busca: estática (instantânea) + live SP quando autenticado ── */
+    function search(term) {
+      if (!term || term.length < 2) { hide(); return; }
+
+      /* 1) Resultado imediato da base estática */
+      var q    = norm(term);
+      var hits = DB.filter(function (d) { return norm(d.t).indexOf(q) > -1; }).slice(0, 8);
+      render(hits);
+
+      /* 2) Tenta busca live no SP (funciona somente dentro do SharePoint com sessão ativa) */
+      var kw  = encodeURIComponent("'" + term + "* Path:" + PORTAL + "'");
+      var sel = encodeURIComponent('Title,Path');
+      fetch(
+        PORTAL + '/_api/search/query?querytext=' + kw +
+          '&rowlimit=8&selectproperties=' + sel + '&trimduplicates=true',
+        { credentials: 'include', headers: { Accept: 'application/json;odata=verbose' } }
+      )
+      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function (data) {
+        var rows = (((((data||{}).d||{}).query||{}).PrimaryQueryResult||{})
+                       .RelevantResults||{}).Table||{}).Rows||{}).results || [];
+        var live = rows.map(function (row) {
+          var title='', path='';
+          ((row.Cells||{}).results||[]).forEach(function (c) {
+            if (c.Key==='Title') title = c.Value||'';
+            if (c.Key==='Path')  path  = c.Value||'';
+          });
+          var k = path.indexOf('/SitePages/')>-1 ? 'Página'
+                : /\.pdf$/i.test(path)  ? 'PDF'
+                : /\.docx?$/i.test(path)? 'Word'
+                : /\.xlsx?$/i.test(path)? 'Excel'
+                : 'Documento';
+          return { t: title || path.split('/').pop(), u: path, k: k };
+        }).filter(function (i) { return i.t && i.u; });
+
+        if (live.length) render(live); /* substitui resultado estático pelos dados reais */
+      })
+      .catch(function () { /* silencia CORS/erro — mantém resultado estático */ });
+    }
+
+    /* ── Navegação por teclado ── */
+    function setActive() {
+      var items = sugg.querySelectorAll('.sug-item');
+      [].forEach.call(items, function (el, i) {
+        el.classList.toggle('active', i === activeIdx);
+      });
+      if (activeIdx >= 0) input.setAttribute('aria-activedescendant','si'+activeIdx);
+      else                input.removeAttribute('aria-activedescendant');
+    }
+
+    input.addEventListener('keydown', function (e) {
+      var items = sugg.querySelectorAll('.sug-item');
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeIdx = Math.min(activeIdx + 1, items.length - 1);
+        setActive();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeIdx = Math.max(activeIdx - 1, -1);
+        setActive();
+      } else if (e.key === 'Enter' && activeIdx >= 0) {
+        e.preventDefault();
+        items[activeIdx].dispatchEvent(new MouseEvent('mousedown'));
+      } else if (e.key === 'Escape') {
+        if (input.value) { input.value = ''; hide(); }
+        else             { closeSearch(); btn.focus(); }
       }
+    });
 
-      function openDestination(destination) {
-        if (destination.target === "_blank") {
-          window.open(destination.url, "_blank", "noopener,noreferrer");
-          return;
-        }
+    /* ── Input com debounce ── */
+    input.addEventListener('input', function () {
+      clearTimeout(debounce);
+      var term = input.value.trim();
+      if (!term) { hide(); return; }
+      debounce = setTimeout(function () { search(term); }, 200);
+    });
 
-        window.open(destination.url, "_top");
-      }
+    /* ── Submit ── */
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.classList.contains('is-open')) { openSearch(); return; }
+      var term = input.value.trim();
+      if (!term) { input.focus(); return; }
+      hide();
+      doSearch(term);
+    });
 
-      function updateClearButton() {
-        clearButton.classList.toggle(
-          "is-visible",
-          input.value.trim().length > 0
-        );
-      }
+    /* ── Clique fora fecha o dropdown ── */
+    document.addEventListener('pointerdown', function (e) {
+      var wrap = document.querySelector('.search-wrap');
+      if (wrap && wrap.contains(e.target)) return;
+      if (!input.value.trim()) closeSearch();
+      else hide();
+    });
 
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const term = input.value.trim();
-
-        if (!term) {
-          input.setCustomValidity(
-            "Digite o que deseja localizar no Portal ESEO."
-          );
-          input.reportValidity();
-          return;
-        }
-
-        input.setCustomValidity("");
-
-        const directDestination = destinations.get(normalize(term));
-
-        if (directDestination) {
-          openDestination(directDestination);
-          return;
-        }
-
-        window.open(scopedSearchUrl(term), "_top");
-      });
-
-      clearButton.addEventListener("click", function () {
-        input.value = "";
-        input.setCustomValidity("");
-        updateClearButton();
-        input.focus();
-      });
-
-      input.addEventListener("input", function () {
-        input.setCustomValidity("");
-        updateClearButton();
-      });
-
-      input.addEventListener("keydown", function (event) {
-        if (event.key === "Escape" && input.value) {
-          input.value = "";
-          updateClearButton();
-        }
-      });
-
-      updateClearButton();
-    }());
+  })();
   </script>
 </body>
 </html>
