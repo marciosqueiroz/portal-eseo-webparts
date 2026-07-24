@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modelos de atendimento — ESEO</title>
+  <style>
+    :root {
+      --navy: #0a2537;
+      --navy-deep: #061923;
+      --navy-soft: #123f52;
+      --cyan: #0eb7d5;
+      --cyan-light: #65e0f2;
+      --red: #e30613;
+      --white: #ffffff;
+      --ink: #153142;
+      --muted: #60717c;
+      --line: #d7e4e9;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      background: transparent;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      padding: 12px;
+      color: var(--ink);
+    }
+
+    .experience {
+      position: relative;
+      width: min(100%, 1480px);
+      margin: 0 auto;
+      padding: clamp(18px, 2.2vw, 34px);
+      overflow: hidden;
+      border: 1px solid rgba(10, 37, 55, .12);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 88% 0, rgba(14, 183, 213, .10), transparent 35%),
+        linear-gradient(145deg, rgba(255, 255, 255, .98), rgba(244, 249, 251, .96));
+      box-shadow: 0 18px 46px rgba(10, 37, 55, .12);
+      isolation: isolate;
+    }
+
+    .experience::before {
+      position: absolute;
+      top: -120px;
+      right: -80px;
+      width: 260px;
+      height: 260px;
+      border: 1px solid rgba(14, 183, 213, .18);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 38px rgba(14, 183, 213, .035),
+        0 0 0 76px rgba(14, 183, 213, .025);
+      content: "";
+      pointer-events: none;
+    }
+
+    .heading {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 520px);
+      align-items: end;
+      gap: 28px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 8px;
+      color: #007e9c;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 24px;
+      height: 3px;
+      border-radius: 99px;
+      background: var(--cyan);
+      content: "";
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(28px, 3.2vw, 48px);
+      font-weight: 900;
+      line-height: .98;
+      letter-spacing: -.045em;
+    }
+
+    .intro {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(13px, 1.12vw, 16px);
+      line-height: 1.55;
+    }
+
+    .models {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(12px, 1.4vw, 20px);
+    }
+
+    .model-card {
+      --x: 50%;
+      --y: 0%;
+      position: relative;
+      min-height: 335px;
+      padding: 23px 22px 21px;
+      overflow: hidden;
+      border: 1px solid rgba(73, 165, 191, .25);
+      border-radius: 16px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at var(--x) var(--y), rgba(64, 218, 241, .24), transparent 34%),
+        linear-gradient(145deg, var(--navy-deep), var(--navy-soft));
+      box-shadow:
+        0 16px 30px rgba(6, 25, 35, .17),
+        inset 0 1px 0 rgba(255, 255, 255, .08);
+      outline: none;
+      transform: translateY(18px);
+      opacity: 0;
+      animation: cardReveal 620ms cubic-bezier(.18, .8, .2, 1) forwards;
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .model-card:nth-child(2) { animation-delay: 110ms; }
+    .model-card:nth-child(3) { animation-delay: 220ms; }
+
+    .model-card::before {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        112deg,
+        transparent 27%,
+        rgba(255, 255, 255, .16) 45%,
+        transparent 62%
+      );
+      content: "";
+      pointer-events: none;
+      transform: translateX(-135%);
+    }
+
+    .model-card::after {
+      position: absolute;
+      right: 17px;
+      bottom: 15px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan-light);
+      box-shadow:
+        -25px -11px 0 -2px rgba(101, 224, 242, .72),
+        -9px -31px 0 -3px rgba(101, 224, 242, .58),
+        0 0 18px rgba(101, 224, 242, .80);
+      content: "";
+      opacity: .58;
+      pointer-events: none;
+      animation: sparkle 2.8s ease-in-out infinite;
+    }
+
+    .model-card:hover,
+    .model-card:focus-visible {
+      border-color: rgba(14, 183, 213, .82);
+      box-shadow:
+        0 22px 42px rgba(6, 25, 35, .24),
+        0 0 0 1px rgba(14, 183, 213, .12),
+        inset 0 1px 0 rgba(255, 255, 255, .12);
+      transform: translateY(-7px);
+    }
+
+    .model-card:hover::before,
+    .model-card:focus-visible::before {
+      animation: starSweep 760ms cubic-bezier(.2, .75, .2, 1);
+    }
+
+    .model-card:focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(14, 183, 213, .46);
+      border-radius: 14px;
+      color: var(--cyan-light);
+      background: rgba(14, 183, 213, .09);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .10);
+    }
+
+    .icon svg {
+      width: 28px;
+      height: 28px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .number {
+      color: rgba(255, 255, 255, .28);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .14em;
+    }
+
+    .category {
+      margin: 0 0 5px;
+      color: var(--cyan-light);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .model-card h2 {
+      margin: 0 0 11px;
+      color: var(--white);
+      font-size: clamp(20px, 1.6vw, 26px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -.025em;
+      text-transform: uppercase;
+    }
+
+    .definition {
+      min-height: 48px;
+      margin: 0 0 17px;
+      color: #d7e6eb;
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.42;
+    }
+
+    .model-card ul {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .model-card li {
+      position: relative;
+      padding-left: 17px;
+      color: #f1f7f9;
+      font-size: 12px;
+      line-height: 1.38;
+    }
+
+    .model-card li::before {
+      position: absolute;
+      top: .54em;
+      left: 1px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 9px rgba(14, 183, 213, .68);
+      content: "";
+    }
+
+    .actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 20px;
+      padding-top: 19px;
+      border-top: 1px solid rgba(10, 37, 55, .10);
+    }
+
+    .action {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 11px 17px;
+      border: 1px solid var(--navy);
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--navy);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .035em;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: 0 9px 20px rgba(10, 37, 55, .16);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .action.secondary {
+      border-color: var(--cyan);
+      color: var(--navy);
+      background: var(--white);
+    }
+
+    .action:hover,
+    .action:focus-visible {
+      border-color: var(--cyan);
+      background: #006f89;
+      color: var(--white);
+      outline: none;
+      transform: translateY(-2px);
+    }
+
+    .action:focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    @keyframes cardReveal {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes starSweep {
+      from { transform: translateX(-135%); }
+      to { transform: translateX(135%); }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: .32; transform: scale(.88) rotate(0deg); }
+      50% { opacity: .86; transform: scale(1.18) rotate(45deg); }
+    }
+
+    @media (max-width: 940px) {
+      .heading { grid-template-columns: 1fr; gap: 10px; }
+      .models { grid-template-columns: 1fr; }
+      .model-card { min-height: 0; }
+      .definition { min-height: 0; }
+    }
+
+    @media (max-width: 560px) {
+      body { padding: 7px; }
+      .experience { padding: 17px 13px; border-radius: 15px; }
+      .model-card { padding: 20px 17px; }
+      .actions { align-items: stretch; flex-direction: column; }
+      .action { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="experience">
+    <header class="heading">
+      <div>
+        <p class="eyebrow">Modelos de atendimento</p>
+        <h1>Da demanda à solução certa</h1>
+      </div>
+      <p class="intro">
+        Identifique o caminho mais adequado: utilizar um curso disponível,
+        adaptar uma solução existente ou desenvolver uma nova solução educacional.
+      </p>
+    </header>
+
+    <section class="models" aria-label="Modelos de atendimento da ESEO">
+      <article class="model-card" tabindex="0">
+        <div class="card-top">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"></path><path d="M4 5.5v16M8 7h8M8 11h8"></path></svg>
+          </span>
+          <span class="number">01</span>
+        </div>
+        <p class="category">Oferta disponível</p>
+        <h2>Curso de prateleira</h2>
+        <p class="definition">A solução já existe no catálogo e pode entrar rapidamente no planejamento da escola.</p>
+        <ul>
+          <li>Conteúdo, carga horária e formato já definidos.</li>
+          <li>Não exige desenvolvimento ou adaptação do curso.</li>
+          <li>É a melhor escolha quando prazo e agilidade são prioridade.</li>
+        </ul>
+      </article>
+
+      <article class="model-card" tabindex="0">
+        <div class="card-top">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M7 14v6"></path><circle cx="16" cy="7" r="2"></circle><circle cx="8" cy="17" r="2"></circle></svg>
+          </span>
+          <span class="number">02</span>
+        </div>
+        <p class="category">Adaptação de solução existente</p>
+        <h2>Personalizado</h2>
+        <p class="definition">O curso já existe, mas precisa de ajustes para atender melhor ao público ou ao contexto da demanda.</p>
+        <ul>
+          <li>Parte de um curso já disponível no catálogo.</li>
+          <li>Pode envolver ajustes de conteúdo, exemplos, carga horária ou formato.</li>
+          <li>A ESEO analisa a viabilidade e os impactos antes da confirmação.</li>
+        </ul>
+      </article>
+
+      <article class="model-card" tabindex="0">
+        <div class="card-top">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="4"></circle><path d="m12 12 8-8M16 4h4v4"></path></svg>
+          </span>
+          <span class="number">03</span>
+        </div>
+        <p class="category">Nova solução educacional</p>
+        <h2>Sob medida</h2>
+        <p class="definition">A necessidade ainda não é atendida pelo catálogo e exige uma solução desenvolvida especificamente para ela.</p>
+        <ul>
+          <li>Começa pelo diagnóstico da necessidade e do público.</li>
+          <li>Conteúdo, formato e experiência são estruturados a partir do desafio.</li>
+          <li>Exige definição de escopo, validações e prazo de desenvolvimento.</li>
+        </ul>
+      </article>
+    </section>
+
+    <nav class="actions" aria-label="Próximos passos">
+      <a
+        class="action"
+        href="https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Consultar o catálogo de cursos <span aria-hidden="true">↗</span>
+      </a>
+      <a
+        class="action secondary"
+        href="https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br&amp;subject=Solicita%C3%A7%C3%A3o%20-%20Solu%C3%A7%C3%B5es%20EAD"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Conversar com Soluções EAD <span aria-hidden="true">↗</span>
+      </a>
+    </nav>
+  </main>
+
+  <script>
+    document.querySelectorAll(".model-card").forEach(function (card) {
+      card.addEventListener("pointermove", function (event) {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--x", ((event.clientX - rect.left) / rect.width * 100) + "%");
+        card.style.setProperty("--y", ((event.clientY - rect.top) / rect.height * 100) + "%");
+      });
+
+      card.addEventListener("pointerleave", function () {
+        card.style.setProperty("--x", "50%");
+        card.style.setProperty("--y", "0%");
+      });
+    });
+  </script>
+</body>
+</html>

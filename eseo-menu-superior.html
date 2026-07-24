@@ -7,12 +7,11 @@
   <style>
     :root {
       --navy: #0a2537;
-      --navy-soft: #123f52;
       --cyan: #0eb7d5;
+      --red: #e30613;
       --white: #ffffff;
-      --muted: #61717c;
-      --line: #d9e4e9;
-      --focus: #ffcb05;
+      --line: #dce5ea;
+      --muted: #5e6c75;
     }
 
     * { box-sizing: border-box; }
@@ -22,70 +21,63 @@
       width: 100%;
       height: 100%;
       margin: 0;
-      overflow: visible;
-      background: transparent;
+      overflow: hidden;
+      background: var(--white);
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
-    body { padding: 3px 6px 18px; }
-
     .header {
-      position: relative;
       width: 100%;
-      min-height: 86px;
+      height: 100%;
+      min-height: 92px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
-      padding: 0 clamp(20px, 3vw, 52px);
-      border: 1px solid rgba(10,37,55,.08);
-      border-radius: 15px;
-      background: rgba(255,255,255,.97);
-      box-shadow: 0 10px 28px rgba(10,37,55,.07);
+      gap: 28px;
+      padding: 0 clamp(24px, 3.2vw, 64px);
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
     }
 
     .menu {
-      min-width: 0;
-      min-height: 84px;
       display: flex;
       align-items: stretch;
-      gap: clamp(24px, 3.8vw, 68px);
+      gap: clamp(28px, 4vw, 72px);
+      height: 100%;
     }
 
     .menu a {
       position: relative;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       color: var(--navy);
-      font-size: clamp(13px, .98vw, 17px);
-      font-weight: 850;
-      letter-spacing: .018em;
+      font-size: clamp(14px, 1.05vw, 18px);
+      font-weight: 800;
+      letter-spacing: .015em;
       text-decoration: none;
       text-transform: uppercase;
       white-space: nowrap;
-      transition: color .18s ease, transform .18s ease;
+      transition: color 180ms ease;
     }
 
     .menu a::after {
       position: absolute;
       right: 0;
-      bottom: 17px;
+      bottom: 0;
       left: 0;
-      height: 3px;
-      border-radius: 999px;
+      height: 4px;
+      border-radius: 4px 4px 0 0;
       background: var(--cyan);
       content: "";
       opacity: 0;
-      transform: scaleX(.25);
-      transform-origin: center;
-      transition: opacity .18s ease, transform .18s ease;
+      transform: scaleX(.3);
+      transition: opacity 180ms ease, transform 180ms ease;
     }
 
     .menu a:hover,
     .menu a:focus-visible,
     .menu a[aria-current="page"] {
-      color: #007e9c;
-      transform: translateY(-1px);
+      color: #007f9e;
     }
 
     .menu a:hover::after,
@@ -95,84 +87,80 @@
       transform: scaleX(1);
     }
 
-    .search-area {
-      position: relative;
-      z-index: 20;
-      flex: 0 0 auto;
-    }
-
     .search {
-      width: 52px;
-      min-height: 52px;
+      width: 50px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      flex: 0 0 auto;
       overflow: hidden;
-      border: 1px solid rgba(10,37,55,.65);
+      border: 1px solid var(--navy);
       border-radius: 999px;
       background: var(--white);
-      transition:
-        width .28s cubic-bezier(.2,.8,.2,1),
-        border-color .18s ease,
-        box-shadow .18s ease;
+      box-shadow: 0 8px 22px rgba(10, 37, 55, .08);
+      transition: width 260ms cubic-bezier(.2, .8, .2, 1),
+                  border-color 180ms ease,
+                  box-shadow 180ms ease;
     }
 
     .search.is-open,
     .search:focus-within {
-      width: min(430px, 36vw);
+      width: min(380px, 31vw);
       border-color: var(--cyan);
-      box-shadow:
-        0 12px 30px rgba(10,37,55,.11),
-        0 0 0 4px rgba(14,183,213,.07);
+      box-shadow: 0 10px 26px rgba(10, 37, 55, .12);
     }
 
     .search__input {
       width: 0;
       min-width: 0;
-      height: 50px;
+      height: 48px;
       padding: 0;
       border: 0;
       outline: 0;
       background: transparent;
       color: var(--navy);
-      font-size: 15px;
-      font-weight: 650;
+      font: 650 15px/1 "Segoe UI", Arial, sans-serif;
       opacity: 0;
       pointer-events: none;
-      transition: width .24s ease, padding .24s ease, opacity .14s ease;
+      transition: width 220ms ease, padding 220ms ease, opacity 140ms ease;
     }
 
     .search.is-open .search__input,
     .search:focus-within .search__input {
       width: calc(100% - 52px);
-      padding: 0 8px 0 20px;
+      padding: 0 4px 0 20px;
       opacity: 1;
       pointer-events: auto;
     }
 
-    .search__input::placeholder { color: #74828b; }
+    .search__input::placeholder { color: #74818a; }
 
     .search__button {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       display: grid;
-      flex: 0 0 50px;
       place-items: center;
+      flex: 0 0 48px;
       padding: 0;
       border: 0;
       border-radius: 50%;
       background: transparent;
       color: var(--navy);
       cursor: pointer;
-      transition: transform .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
+      transition: background 180ms ease, color 180ms ease;
     }
 
     .search__button:hover,
     .search__button:focus-visible {
       background: var(--navy);
       color: var(--white);
-      transform: scale(1.03);
-      box-shadow: 0 0 20px rgba(14,183,213,.15);
+    }
+
+    .search__button:focus-visible,
+    .menu a:focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
     }
 
     .search svg {
@@ -180,85 +168,8 @@
       height: 23px;
       fill: none;
       stroke: currentColor;
-      stroke-width: 2.15;
+      stroke-width: 2.2;
       stroke-linecap: round;
-    }
-
-    .suggestions {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      width: min(430px, 85vw);
-      max-height: 345px;
-      display: none;
-      overflow-y: auto;
-      padding: 8px;
-      border: 1px solid rgba(10,37,55,.12);
-      border-radius: 14px;
-      background: rgba(255,255,255,.99);
-      box-shadow: 0 22px 50px rgba(10,37,55,.18);
-    }
-
-    .suggestions.is-visible { display: block; }
-
-    .suggestion {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 38px minmax(0,1fr) 18px;
-      align-items: center;
-      gap: 10px;
-      padding: 11px 12px;
-      border: 0;
-      border-radius: 10px;
-      background: transparent;
-      color: var(--navy);
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .suggestion:hover,
-    .suggestion.is-active {
-      background: #eef9fb;
-    }
-
-    .suggestion__icon {
-      width: 36px;
-      height: 36px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(14,183,213,.28);
-      border-radius: 9px;
-      background: rgba(14,183,213,.08);
-      color: #007f9e;
-      font-size: 16px;
-      font-weight: 900;
-    }
-
-    .suggestion strong {
-      display: block;
-      font-size: 13px;
-      font-weight: 850;
-      line-height: 1.22;
-    }
-
-    .suggestion small {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.25;
-    }
-
-    .suggestion__arrow {
-      color: #84939c;
-      font-size: 18px;
-    }
-
-    .no-result {
-      padding: 13px 14px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.45;
     }
 
     .sr-only {
@@ -268,36 +179,17 @@
       padding: 0;
       margin: -1px;
       overflow: hidden;
-      clip: rect(0,0,0,0);
+      clip: rect(0, 0, 0, 0);
       white-space: nowrap;
       border: 0;
     }
 
-    :focus-visible {
-      outline: 3px solid var(--focus);
-      outline-offset: 3px;
-    }
-
-    @media (max-width: 920px) {
-      .header { gap: 12px; padding: 0 15px; }
-      .menu { gap: 18px; overflow-x: auto; scrollbar-width: none; }
-      .menu::-webkit-scrollbar { display: none; }
+    @media (max-width: 820px) {
+      .header { gap: 14px; padding: 0 16px; }
+      .menu { gap: 18px; overflow: hidden; }
       .menu a { font-size: 12px; }
       .search.is-open,
-      .search:focus-within { width: min(330px, 42vw); }
-    }
-
-    @media (max-width: 650px) {
-      body { padding-inline: 2px; }
-      .header { align-items: flex-start; min-height: 145px; padding-top: 12px; }
-      .menu { min-height: 62px; gap: 15px; }
-      .menu a::after { bottom: 8px; }
-      .search-area { position: absolute; right: 12px; bottom: 12px; left: 12px; }
-      .search,
-      .search.is-open,
-      .search:focus-within { width: 100%; }
-      .search__input { width: calc(100% - 52px); padding: 0 8px 0 18px; opacity: 1; pointer-events: auto; }
-      .suggestions { width: 100%; }
+      .search:focus-within { width: min(300px, 45vw); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -308,251 +200,107 @@
 <body>
   <header class="header">
     <nav class="menu" aria-label="Navegação principal do Portal ESEO">
-      <a data-page="home" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta" target="_blank" rel="noopener noreferrer">Home</a>
-      <a data-page="conheca" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx" target="_blank" rel="noopener noreferrer">Conheça a ESEO</a>
-      <a data-page="oferta" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx" target="_blank" rel="noopener noreferrer">Oferta de cursos online</a>
+      <a
+        data-page="home"
+        href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Home</a>
+      <a
+        data-page="conheca"
+        href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Conheça a ESEO</a>
+      <a
+        data-page="oferta"
+        href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Oferta de cursos online</a>
     </nav>
 
-    <div class="search-area">
-      <form class="search" id="portalSearch" role="search" autocomplete="on">
-        <label class="sr-only" for="siteSearch">Pesquisar no Portal ESEO</label>
-        <input
-          class="search__input"
-          id="siteSearch"
-          type="search"
-          name="q"
-          placeholder="O que você procura no Portal ESEO?"
-          aria-autocomplete="list"
-          aria-controls="searchSuggestions"
-          aria-expanded="false"
-        >
-        <button class="search__button" type="submit" aria-label="Abrir pesquisa no Portal ESEO">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="10.8" cy="10.8" r="6.8"></circle>
-            <path d="m16 16 4.2 4.2"></path>
-          </svg>
-        </button>
-      </form>
-      <div class="suggestions" id="searchSuggestions" role="listbox" aria-label="Sugestões do Portal ESEO"></div>
-    </div>
+    <form class="search" id="portalSearch" role="search">
+      <label class="sr-only" for="siteSearch">Pesquisar no Portal ESEO</label>
+      <input
+        class="search__input"
+        id="siteSearch"
+        type="search"
+        autocomplete="off"
+        placeholder="Pesquisar no Portal ESEO"
+      >
+      <button class="search__button" type="submit" aria-label="Abrir pesquisa no Portal ESEO">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="10.8" cy="10.8" r="6.8"></circle>
+          <path d="m16 16 4.2 4.2"></path>
+        </svg>
+      </button>
+    </form>
   </header>
 
   <script>
-    (() => {
+    (function () {
       const PORTAL_BASE = "https://sesisenaisp.sharepoint.com/sites/ESEOConecta";
+      const params = new URLSearchParams(location.search);
+      const informedPage = (params.get("ativa") || "").toLowerCase();
+      const referrer = (document.referrer || "").toLowerCase();
       const links = [...document.querySelectorAll("[data-page]")];
       const form = document.getElementById("portalSearch");
       const input = document.getElementById("siteSearch");
       const button = form.querySelector(".search__button");
-      const suggestionsBox = document.getElementById("searchSuggestions");
-      const params = new URLSearchParams(location.search);
-      const informedPage = (params.get("ativa") || "").toLowerCase();
-      const referrer = (document.referrer || "").toLowerCase();
 
-      const ITEMS = [
-        {
-          title: "Home do Portal ESEO",
-          subtitle: "Página inicial",
-          icon: "⌂",
-          url: "https://sesisenaisp.sharepoint.com/sites/ESEOConecta",
-          keywords: "home início inicial portal eseo"
-        },
-        {
-          title: "Conheça a ESEO",
-          subtitle: "História, identidade, proposta e estrutura",
-          icon: "E",
-          url: "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx",
-          keywords: "história nossa historia missão valores identidade proposta pedagógica equipe"
-        },
-        {
-          title: "Oferta de cursos online",
-          subtitle: "Portfólio, tipos de atendimento e orientações",
-          icon: "O",
-          url: "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
-          keywords: "oferta cursos catálogo catalogo portfolio portfólio curso"
-        },
-        {
-          title: "Portfólio de cursos",
-          subtitle: "Pesquisar cursos, formatos, modelos e carga horária",
-          icon: "P",
-          url: "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx#portfolio",
-          keywords: "portfolio portfólio catálogo catalogo cursos busca sgset autoinstrucional"
-        },
-        {
-          title: "Cronograma dos processos seletivos",
-          subtitle: "Documento oficial do SENAI-SP",
-          icon: "C",
-          url: "https://sesisenaisp.sharepoint.com/sites/intranet/Atos%20Formais/CO-GED-56-2026.pdf",
-          keywords: "cronograma processo seletivo técnico superior matrícula datas"
-        },
-        {
-          title: "Proposta Pedagógica da ESEO",
-          subtitle: "Documento institucional — CFP 1.50",
-          icon: "D",
-          url: "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/Documentos%20Compartilhados/Documentos%20da%20p%C3%A1gina%20ESEO/Proposta%20pedag%C3%B3gica%201.50.pdf?web=1",
-          keywords: "proposta pedagógica pedagogica documento 1.50 cfp"
-        },
-        {
-          title: "Liberar turma no SGSET",
-          subtitle: "Solicitação de liberação de turma",
-          icon: "L",
-          url: "https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u",
-          keywords: "liberar liberação turma sgset forms"
-        },
-        {
-          title: "Soluções EAD",
-          subtitle: "Novos cursos e ofertas personalizadas",
-          icon: "S",
-          url: "https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br",
-          keywords: "soluções ead dani personalizado personalização novo curso empresa"
+      let currentPage = ["home", "conheca", "oferta"].includes(informedPage)
+        ? informedPage
+        : referrer.includes("sobre-a-eseo")
+          ? "conheca"
+          : referrer.includes("what%27s-happening") || referrer.includes("what's-happening")
+            ? "oferta"
+            : "home";
+
+      links.forEach(function (link) {
+        if (link.dataset.page === currentPage) {
+          link.setAttribute("aria-current", "page");
         }
-      ];
-
-      let filtered = ITEMS.slice(0, 6);
-      let activeIndex = -1;
-
-      function normalize(value) {
-        return String(value || "")
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase();
-      }
-
-      function detectPage() {
-        if (["home", "conheca", "oferta"].includes(informedPage)) return informedPage;
-        if (referrer.includes("sobre-a-eseo")) return "conheca";
-        if (referrer.includes("what%27s-happening") || referrer.includes("what's-happening")) return "oferta";
-        return "home";
-      }
-
-      links.forEach(link => {
-        if (link.dataset.page === detectPage()) link.setAttribute("aria-current", "page");
       });
 
       function openSearch() {
         form.classList.add("is-open");
-        input.setAttribute("aria-expanded", "true");
-        window.setTimeout(() => input.focus(), 120);
-        renderSuggestions(input.value);
+        button.setAttribute("aria-label", "Pesquisar no Portal ESEO");
+        window.setTimeout(function () { input.focus(); }, 180);
       }
 
-      function closeSearch() {
-        suggestionsBox.classList.remove("is-visible");
-        input.setAttribute("aria-expanded", "false");
-        activeIndex = -1;
-        if (!input.value.trim() && window.innerWidth > 650) {
-          form.classList.remove("is-open");
-          button.setAttribute("aria-label", "Abrir pesquisa no Portal ESEO");
-        }
-      }
-
-      function renderSuggestions(value) {
-        const query = normalize(value.trim());
-        filtered = ITEMS.filter(item => {
-          const haystack = normalize(`${item.title} ${item.subtitle} ${item.keywords}`);
-          return !query || haystack.includes(query);
-        }).slice(0, 7);
-
-        activeIndex = filtered.length ? 0 : -1;
-
-        if (!filtered.length) {
-          suggestionsBox.innerHTML =
-            '<div class="no-result">Nenhum atalho direto encontrado. Pressione Enter para pesquisar essa expressão em todo o Portal ESEO.</div>';
-        } else {
-          suggestionsBox.innerHTML = filtered.map((item, index) => `
-            <button
-              class="suggestion ${index === activeIndex ? "is-active" : ""}"
-              type="button"
-              role="option"
-              aria-selected="${index === activeIndex}"
-              data-index="${index}"
-            >
-              <span class="suggestion__icon" aria-hidden="true">${item.icon}</span>
-              <span>
-                <strong>${item.title}</strong>
-                <small>${item.subtitle}</small>
-              </span>
-              <span class="suggestion__arrow" aria-hidden="true">↗</span>
-            </button>
-          `).join("");
-        }
-
-        suggestionsBox.classList.add("is-visible");
-        input.setAttribute("aria-expanded", "true");
-
-        suggestionsBox.querySelectorAll(".suggestion").forEach(option => {
-          option.addEventListener("mouseenter", () => setActive(Number(option.dataset.index)));
-          option.addEventListener("click", () => openItem(Number(option.dataset.index)));
-        });
-      }
-
-      function setActive(index) {
-        if (!filtered.length) return;
-        activeIndex = (index + filtered.length) % filtered.length;
-        suggestionsBox.querySelectorAll(".suggestion").forEach((item, itemIndex) => {
-          const active = itemIndex === activeIndex;
-          item.classList.toggle("is-active", active);
-          item.setAttribute("aria-selected", String(active));
-          if (active) item.scrollIntoView({ block: "nearest" });
-        });
-      }
-
-      function openItem(index) {
-        const item = filtered[index];
-        if (!item) return;
-        window.open(item.url, "_blank", "noopener,noreferrer");
-      }
-
-      function searchPortal(term) {
-        const scopedQuery = `${term} Path:"${PORTAL_BASE}"`;
-        const destination =
-          `${PORTAL_BASE}/_layouts/15/search.aspx/siteall?q=${encodeURIComponent(scopedQuery)}`;
-        window.open(destination, "_blank", "noopener,noreferrer");
-      }
-
-      form.addEventListener("submit", event => {
+      form.addEventListener("submit", function (event) {
         event.preventDefault();
-
-        if (!form.classList.contains("is-open") && window.innerWidth > 650) {
+        if (!form.classList.contains("is-open")) {
           openSearch();
           return;
         }
 
         const term = input.value.trim();
         if (!term) {
-          openSearch();
+          input.focus();
           return;
         }
 
-        if (filtered.length && activeIndex >= 0) openItem(activeIndex);
-        else searchPortal(term);
+        const scopedQuery = term + ' Path:"' + PORTAL_BASE + '"';
+        const destination =
+          PORTAL_BASE + "/_layouts/15/search.aspx/siteall?q=" +
+          encodeURIComponent(scopedQuery);
+        window.open(destination, "_blank", "noopener,noreferrer");
       });
 
-      input.addEventListener("input", () => renderSuggestions(input.value));
-      input.addEventListener("focus", () => {
-        form.classList.add("is-open");
-        renderSuggestions(input.value);
-      });
-
-      input.addEventListener("keydown", event => {
-        if (event.key === "ArrowDown") {
-          event.preventDefault();
-          setActive(activeIndex + 1);
-        } else if (event.key === "ArrowUp") {
-          event.preventDefault();
-          setActive(activeIndex - 1);
-        } else if (event.key === "Escape") {
-          closeSearch();
-          button.focus();
+      document.addEventListener("pointerdown", function (event) {
+        if (!form.contains(event.target) && !input.value.trim()) {
+          form.classList.remove("is-open");
+          button.setAttribute("aria-label", "Abrir pesquisa no Portal ESEO");
         }
       });
 
-      button.addEventListener("click", () => {
-        if (!form.classList.contains("is-open")) openSearch();
-      });
-
-      document.addEventListener("pointerdown", event => {
-        if (!form.contains(event.target) && !suggestionsBox.contains(event.target)) closeSearch();
+      input.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !input.value) {
+          form.classList.remove("is-open");
+          button.focus();
+        }
       });
     })();
   </script>
