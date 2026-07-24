@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu superior — Portal ESEO</title>
+  <style>
+    :root {
+      --navy: #0a2537;
+      --cyan: #00c7e6;
+      --yellow: #ffbf00;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow: visible;
+      background: transparent !important;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body { padding: 0; }
+
+    .portal-header {
+      width: 100%;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 clamp(18px, 3vw, 48px);
+      border: 0;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .portal-nav {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: clamp(24px, 3.7vw, 62px);
+      border: 0;
+      background: transparent !important;
+    }
+
+    .portal-nav a {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0;
+      border: 0;
+      background: transparent !important;
+      color: var(--white);
+      font-size: clamp(13px, .98vw, 16px);
+      font-weight: 900;
+      letter-spacing: .018em;
+      line-height: 1;
+      text-decoration: none;
+      text-shadow:
+        0 2px 5px rgba(0,0,0,.72),
+        0 0 1px rgba(0,0,0,.85);
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: color .16s ease, transform .16s ease;
+    }
+
+    .portal-nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: 2px;
+      left: 0;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--cyan);
+      content: "";
+      opacity: 0;
+      transform: scaleX(.28);
+      transform-origin: center;
+      transition: opacity .16s ease, transform .16s ease;
+    }
+
+    .portal-nav a:hover,
+    .portal-nav a:focus-visible {
+      color: var(--cyan);
+      transform: translateY(-1px);
+    }
+
+    .portal-nav a:hover::after,
+    .portal-nav a:focus-visible::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    /* Página atual: amarelo forte, sem sublinhado permanente. */
+    .portal-nav a[aria-current="page"] {
+      color: var(--yellow);
+      text-shadow:
+        0 2px 5px rgba(0,0,0,.72),
+        0 0 8px rgba(255,191,0,.18);
+    }
+
+    .portal-nav a[aria-current="page"]::after {
+      opacity: 0;
+      transform: scaleX(.28);
+    }
+
+    .portal-nav a[aria-current="page"]:hover::after,
+    .portal-nav a[aria-current="page"]:focus-visible::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .search-anchor {
+      position: relative;
+      z-index: 100;
+      flex: 0 0 52px;
+      width: 52px;
+      height: 52px;
+      border: 0;
+      background: transparent !important;
+    }
+
+    .search-shell {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border: 2px solid var(--navy);
+      border-radius: 999px;
+      background: var(--white);
+      box-shadow: 0 10px 24px rgba(0,0,0,.20);
+      transition:
+        width .30s cubic-bezier(.2,.8,.2,1),
+        border-color .16s ease,
+        box-shadow .16s ease;
+    }
+
+    .search-anchor.is-open .search-shell {
+      width: min(460px, 42vw);
+      border-color: var(--cyan);
+      box-shadow:
+        0 13px 30px rgba(0,0,0,.24),
+        0 0 0 3px rgba(0,199,230,.13);
+    }
+
+    .search-input {
+      width: 0;
+      min-width: 0;
+      height: 48px;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      background: transparent !important;
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        width .25s ease,
+        padding .25s ease,
+        opacity .12s ease;
+    }
+
+    .search-anchor.is-open .search-input {
+      width: calc(100% - 88px);
+      padding: 0 7px 0 18px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .search-input::placeholder {
+      color: #435a68;
+      opacity: 1;
+    }
+
+    .search-input::-webkit-search-cancel-button { display: none; }
+
+    .clear-button {
+      width: 36px;
+      height: 36px;
+      display: none;
+      flex: 0 0 36px;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent !important;
+      color: #365260;
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .clear-button.is-visible { display: grid; }
+
+    .clear-button:hover,
+    .clear-button:focus-visible {
+      color: var(--cyan);
+    }
+
+    .search-button {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      flex: 0 0 50px;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent !important;
+      color: var(--navy);
+      cursor: pointer;
+      transition: color .16s ease, transform .16s ease;
+    }
+
+    .search-button:hover,
+    .search-button:focus-visible {
+      color: var(--cyan);
+      transform: scale(1.06);
+    }
+
+    .search-button svg {
+      width: 23px;
+      height: 23px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.35;
+      stroke-linecap: round;
+    }
+
+    /* Duas sugestões compactas para caber no iframe do menu. */
+    .suggestions {
+      position: absolute;
+      top: 58px;
+      right: 0;
+      width: min(460px, 88vw);
+      display: none;
+      padding: 2px 0;
+      border: 0;
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+
+    .suggestions.is-visible { display: block; }
+
+    .suggestion {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 32px minmax(0,1fr);
+      align-items: center;
+      gap: 9px;
+      margin: 2px 0;
+      padding: 7px 9px;
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 8px;
+      background: rgba(10,37,55,.92) !important;
+      color: var(--white);
+      text-align: left;
+      cursor: pointer;
+      transition: background .15s ease, transform .15s ease, border-color .15s ease;
+    }
+
+    .suggestion:hover,
+    .suggestion.is-active {
+      border-color: var(--cyan);
+      background: var(--navy) !important;
+      transform: translateX(-2px);
+    }
+
+    .suggestion-icon {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--cyan);
+      border-radius: 8px;
+      color: var(--cyan);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .suggestion strong {
+      display: block;
+      color: var(--white);
+      font-size: 12.5px;
+      font-weight: 850;
+      line-height: 1.15;
+    }
+
+    .suggestion small {
+      display: block;
+      margin-top: 2px;
+      color: #d9f8fc;
+      font-size: 10.5px;
+      line-height: 1.2;
+    }
+
+    .no-result {
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: rgba(10,37,55,.94) !important;
+      color: var(--white);
+      font-size: 11.5px;
+      line-height: 1.35;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 920px) {
+      .portal-header {
+        gap: 12px;
+        padding-inline: 14px;
+      }
+
+      .portal-nav {
+        gap: 18px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .portal-nav::-webkit-scrollbar { display: none; }
+
+      .portal-nav a { font-size: 12px; }
+
+      .search-anchor.is-open .search-shell {
+        width: min(380px, 46vw);
+      }
+    }
+
+    @media (max-width: 650px) {
+      .portal-header {
+        gap: 10px;
+        padding-inline: 10px;
+      }
+
+      .portal-nav {
+        gap: 14px;
+      }
+
+      .portal-nav a {
+        font-size: 11px;
+      }
+
+      .search-anchor {
+        flex-basis: 48px;
+        width: 48px;
+        height: 48px;
+      }
+
+      .search-shell {
+        width: 48px;
+        height: 48px;
+      }
+
+      .search-anchor.is-open .search-shell {
+        width: min(340px, calc(100vw - 20px));
+      }
+
+      .search-button {
+        width: 46px;
+        height: 46px;
+        flex-basis: 46px;
+      }
+
+      .suggestions {
+        width: min(340px, calc(100vw - 20px));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="portal-header">
+    <nav class="portal-nav" aria-label="Navegação principal do Portal ESEO">
+      <a
+        data-page="home"
+        href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Home</a>
+
+      <a
+        data-page="conheca"
+        href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Conheça a ESEO</a>
+
+      <a
+        data-page="oferta"
+        href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Oferta de cursos online</a>
+    </nav>
+
+    <div class="search-anchor" id="searchAnchor">
+      <form class="search-shell" id="portalSearch" role="search" autocomplete="off">
+        <label class="sr-only" for="siteSearch">
+          Pesquisar somente no Portal ESEO
+        </label>
+
+        <input
+          class="search-input"
+          id="siteSearch"
+          type="search"
+          placeholder="Pesquisar no Portal ESEO"
+          aria-autocomplete="list"
+          aria-controls="searchSuggestions"
+          aria-expanded="false"
+        >
+
+        <button
+          class="clear-button"
+          id="clearSearch"
+          type="button"
+          aria-label="Limpar pesquisa"
+        >×</button>
+
+        <button
+          class="search-button"
+          id="searchButton"
+          type="submit"
+          aria-label="Abrir ou executar pesquisa no Portal ESEO"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10.8" cy="10.8" r="6.8"></circle>
+            <path d="m16 16 4.2 4.2"></path>
+          </svg>
+        </button>
+      </form>
+
+      <div
+        class="suggestions"
+        id="searchSuggestions"
+        role="listbox"
+        aria-label="Sugestões do Portal ESEO"
+      ></div>
+    </div>
+  </header>
+
+  <script>
+    (() => {
+      const PORTAL =
+        "https://sesisenaisp.sharepoint.com/sites/ESEOConecta";
+
+      const anchor = document.getElementById("searchAnchor");
+      const form = document.getElementById("portalSearch");
+      const input = document.getElementById("siteSearch");
+      const clearButton = document.getElementById("clearSearch");
+      const suggestions = document.getElementById("searchSuggestions");
+
+      const params = new URLSearchParams(location.search);
+      const informedPage = (params.get("ativa") || "").toLowerCase();
+      const referrer = (document.referrer || "").toLowerCase();
+
+      let results = [];
+      let activeIndex = -1;
+      let closeTimer;
+
+      const ITEMS = [
+        {
+          title: "Home do Portal ESEO",
+          subtitle: "Página inicial",
+          icon: "H",
+          url: PORTAL,
+          keywords: "home início inicial portal eseo"
+        },
+        {
+          title: "Conheça a ESEO",
+          subtitle: "História, identidade, proposta e estrutura",
+          icon: "E",
+          url: PORTAL + "/SitePages/Sobre-a-ESEO.aspx",
+          keywords: "história identidade missão valores proposta estrutura"
+        },
+        {
+          title: "Oferta de cursos online",
+          subtitle: "Portfólio, modelos e orientações",
+          icon: "O",
+          url: PORTAL + "/SitePages/What's-happening.aspx",
+          keywords: "oferta cursos catálogo portfolio modelos orientações"
+        },
+        {
+          title: "Portfólio de cursos",
+          subtitle: "Cursos, formatos, modelos e carga horária",
+          icon: "P",
+          url: PORTAL + "/SitePages/What's-happening.aspx#portfolio",
+          keywords: "portfolio catálogo cursos sgset autoinstrucional"
+        },
+        {
+          title: "Tipos de atendimento",
+          subtitle: "Orientações para as unidades",
+          icon: "T",
+          url: PORTAL + "/SitePages/What's-happening.aspx#tipos",
+          keywords: "tipos atendimento autoinstrucional técnico superior aprendizagem"
+        },
+        {
+          title: "Proposta Pedagógica da ESEO",
+          subtitle: "Documento institucional — CFP 1.50",
+          icon: "D",
+          url:
+            PORTAL +
+            "/Documentos%20Compartilhados/Documentos%20da%20p%C3%A1gina%20ESEO/Proposta%20pedag%C3%B3gica%201.50.pdf?web=1",
+          keywords: "proposta pedagógica documento 1.50 cfp"
+        },
+        {
+          title: "Cronograma de processos seletivos",
+          subtitle: "Documento institucional vigente",
+          icon: "C",
+          url:
+            "https://sesisenaisp.sharepoint.com/sites/intranet/Atos%20Formais/CO-GED-56-2026.pdf",
+          keywords: "cronograma processo seletivo seleção matrícula técnico superior"
+        },
+        {
+          title: "Soluções EAD",
+          subtitle: "Personalização ou nova solução",
+          icon: "S",
+          url:
+            "mailto:eadempresas@sp.senai.br?subject=D%C3%BAvidas%20sobre%20solu%C3%A7%C3%B5es%20e%20ofertas%20EAD",
+          keywords: "soluções ead personalizado sob medida dúvidas oferta"
+        }
+      ];
+
+      const normalize = value =>
+        String(value || "")
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+
+      function currentPage() {
+        if (["home", "conheca", "oferta"].includes(informedPage)) {
+          return informedPage;
+        }
+
+        if (referrer.includes("sobre-a-eseo")) return "conheca";
+
+        if (
+          referrer.includes("what%27s-happening") ||
+          referrer.includes("what's-happening")
+        ) {
+          return "oferta";
+        }
+
+        /* Sem parâmetro e sem referência confiável: nenhum item fica ativo. */
+        return "";
+      }
+
+      const activePage = currentPage();
+
+      document.querySelectorAll("[data-page]").forEach(link => {
+        if (activePage && link.dataset.page === activePage) {
+          link.setAttribute("aria-current", "page");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+
+      function openSearch(focusInput = true) {
+        clearTimeout(closeTimer);
+        anchor.classList.add("is-open");
+
+        if (focusInput) {
+          window.setTimeout(() => {
+            input.focus({ preventScroll: true });
+          }, 90);
+        }
+
+        if (input.value.trim()) renderSuggestions(input.value);
+      }
+
+      function closeSearch(force = false) {
+        clearTimeout(closeTimer);
+
+        closeTimer = window.setTimeout(() => {
+          if (!force && anchor.matches(":hover")) return;
+
+          input.blur();
+          anchor.classList.remove("is-open");
+          suggestions.classList.remove("is-visible");
+          input.setAttribute("aria-expanded", "false");
+          activeIndex = -1;
+        }, 150);
+      }
+
+      function updateClearButton() {
+        clearButton.classList.toggle("is-visible", Boolean(input.value));
+      }
+
+      function renderSuggestions(value) {
+        const query = normalize(value.trim());
+        updateClearButton();
+
+        if (!query) {
+          results = [];
+          activeIndex = -1;
+          suggestions.innerHTML = "";
+          suggestions.classList.remove("is-visible");
+          input.setAttribute("aria-expanded", "false");
+          return;
+        }
+
+        results = ITEMS
+          .filter(item => {
+            const searchable = normalize(
+              `${item.title} ${item.subtitle} ${item.keywords}`
+            );
+            return searchable.includes(query);
+          })
+          .slice(0, 2);
+
+        activeIndex = results.length ? 0 : -1;
+
+        suggestions.innerHTML = results.length
+          ? results.map((item, index) => `
+              <button
+                class="suggestion ${index === 0 ? "is-active" : ""}"
+                type="button"
+                role="option"
+                data-index="${index}"
+              >
+                <span class="suggestion-icon" aria-hidden="true">${item.icon}</span>
+                <span>
+                  <strong>${item.title}</strong>
+                  <small>${item.subtitle}</small>
+                </span>
+              </button>
+            `).join("")
+          : `
+              <div class="no-result">
+                Pressione Enter para pesquisar esta expressão somente no Portal ESEO.
+              </div>
+            `;
+
+        suggestions.classList.add("is-visible");
+        input.setAttribute("aria-expanded", "true");
+
+        suggestions.querySelectorAll("[data-index]").forEach(button => {
+          button.addEventListener("mouseenter", () => {
+            setActive(Number(button.dataset.index));
+          });
+
+          button.addEventListener("click", () => {
+            openItem(Number(button.dataset.index));
+          });
+        });
+      }
+
+      function setActive(index) {
+        if (!results.length) return;
+
+        activeIndex = (index + results.length) % results.length;
+
+        suggestions.querySelectorAll(".suggestion").forEach((item, itemIndex) => {
+          item.classList.toggle("is-active", itemIndex === activeIndex);
+        });
+      }
+
+      function openItem(index) {
+        const item = results[index];
+        if (!item) return;
+
+        if (item.url.startsWith("mailto:")) {
+          window.location.href = item.url;
+          return;
+        }
+
+        window.open(item.url, "_blank", "noopener,noreferrer");
+      }
+
+      function searchOnlyPortal(term) {
+        const destination =
+          PORTAL +
+          "/_layouts/15/search.aspx/siteall?q=" +
+          encodeURIComponent(term);
+
+        window.open(destination, "_blank", "noopener,noreferrer");
+      }
+
+      anchor.addEventListener("pointerenter", () => openSearch(true));
+      anchor.addEventListener("pointerleave", () => closeSearch(true));
+
+      anchor.addEventListener("focusin", () => openSearch(false));
+      anchor.addEventListener("focusout", () => {
+        window.setTimeout(() => {
+          if (!anchor.contains(document.activeElement)) closeSearch(true);
+        }, 0);
+      });
+
+      input.addEventListener("input", event => {
+        renderSuggestions(event.target.value);
+      });
+
+      input.addEventListener("keydown", event => {
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          setActive(activeIndex + 1);
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          setActive(activeIndex - 1);
+        } else if (event.key === "Escape") {
+          event.preventDefault();
+          closeSearch(true);
+        }
+      });
+
+      clearButton.addEventListener("click", () => {
+        input.value = "";
+        renderSuggestions("");
+        input.focus();
+      });
+
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+
+        if (!anchor.classList.contains("is-open")) {
+          openSearch(true);
+          return;
+        }
+
+        const term = input.value.trim();
+
+        if (!term) {
+          openSearch(true);
+          return;
+        }
+
+        if (results.length && activeIndex >= 0) {
+          openItem(activeIndex);
+        } else {
+          searchOnlyPortal(term);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
