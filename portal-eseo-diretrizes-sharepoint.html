@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diretrizes do Portal ESEO</title>
+<style>
+  :root{
+    --navy:#0a2537;
+    --navy-2:#12384f;
+    --blue:#1f607f;
+    --yellow:#f4c542;
+    --text:#18323f;
+    --muted:#667883;
+    --line:#dce5ea;
+    --soft:#f4f7f9;
+    --white:#fff;
+    --ok:#0b6b56;
+    --radius:20px;
+    --shadow:0 10px 28px rgba(10,37,55,.08);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Arial,sans-serif;
+    color:var(--text);
+    background:transparent;
+    line-height:1.5;
+  }
+
+  .eseo-wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:8px 4px 28px;
+  }
+
+  .intro{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    color:#fff;
+    border-radius:24px;
+    padding:34px 34px 30px;
+    margin-bottom:16px;
+    box-shadow:var(--shadow);
+  }
+  .intro:after{
+    content:"";
+    position:absolute;
+    width:240px;height:240px;
+    right:-80px;top:-95px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.11);
+    box-shadow:0 0 0 42px rgba(255,255,255,.025),0 0 0 88px rgba(255,255,255,.016);
+  }
+  .kicker{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    text-transform:uppercase;
+    letter-spacing:.11em;
+    font-size:11px;
+    font-weight:800;
+    color:#d9e6ed;
+    margin-bottom:10px;
+  }
+  .kicker:before{
+    content:"";
+    width:28px;height:3px;
+    border-radius:3px;
+    background:var(--yellow);
+  }
+  .intro h1{
+    margin:0;
+    font-size:clamp(28px,4.5vw,46px);
+    line-height:1.05;
+    letter-spacing:-.035em;
+  }
+  .intro p{
+    margin:12px 0 0;
+    max-width:820px;
+    color:#dce8ee;
+    font-size:16px;
+  }
+
+  .topline{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:12px;
+    margin:14px 0 18px;
+  }
+  .metric{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:17px;
+    padding:16px 18px;
+    box-shadow:0 5px 18px rgba(10,37,55,.04);
+  }
+  .metric strong{
+    display:block;
+    color:var(--navy);
+    font-size:15px;
+    margin-bottom:3px;
+  }
+  .metric span{
+    color:var(--muted);
+    font-size:13px;
+  }
+  .metric.emphasis{
+    background:#fffaf0;
+    border-color:#ead783;
+  }
+
+  .nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:4px 0 14px;
+    margin-bottom:2px;
+  }
+  .nav a{
+    text-decoration:none;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:8px 12px;
+    font-size:12px;
+    font-weight:700;
+    transition:.2s ease;
+  }
+  .nav a:hover{
+    background:var(--navy);
+    color:#fff;
+    border-color:var(--navy);
+    transform:translateY(-1px);
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+    box-shadow:0 6px 20px rgba(10,37,55,.045);
+    scroll-margin-top:18px;
+  }
+
+  .card.full{grid-column:1/-1}
+
+  .head{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  .number{
+    flex:0 0 38px;
+    height:38px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    background:var(--navy);
+    color:#fff;
+    font-size:12px;
+    font-weight:800;
+  }
+  .head h2{
+    margin:0;
+    color:var(--navy);
+    font-size:20px;
+    line-height:1.15;
+  }
+  .head p{
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:13px;
+  }
+
+  ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+    display:grid;
+    gap:8px;
+  }
+  li{
+    position:relative;
+    padding-left:24px;
+    font-size:14px;
+  }
+  li:before{
+    content:"";
+    position:absolute;
+    left:2px;top:.55em;
+    width:7px;height:7px;
+    border-radius:50%;
+    background:var(--blue);
+  }
+
+  .rule{
+    margin-top:14px;
+    border-left:4px solid var(--yellow);
+    background:#fffaf0;
+    padding:12px 14px;
+    border-radius:12px;
+    color:#5c4b12;
+    font-size:14px;
+    font-weight:650;
+  }
+
+  .sla{
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:12px;
+    margin-bottom:15px;
+  }
+  .sla-main{
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    color:#fff;
+    border-radius:16px;
+    padding:18px;
+  }
+  .sla-main small{
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-weight:800;
+    color:#d8e6ed;
+  }
+  .sla-main b{
+    display:block;
+    font-size:40px;
+    line-height:1;
+    margin:5px 0 4px;
+    letter-spacing:-.04em;
+  }
+  .sla-main span{font-size:13px;color:#e6eef2}
+  .sla-max{
+    background:var(--soft);
+    border-radius:16px;
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .sla-max b{
+    color:var(--navy);
+    font-size:25px;
+    line-height:1.05;
+  }
+  .sla-max span{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+  }
+
+  .compare{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .mini{
+    background:#f9fbfc;
+    border:1px solid var(--line);
+    border-radius:15px;
+    padding:16px;
+  }
+  .mini strong{
+    display:block;
+    color:var(--navy);
+    margin-bottom:5px;
+    font-size:15px;
+  }
+  .mini span{
+    color:var(--muted);
+    font-size:13px;
+  }
+
+  .flow{
+    display:grid;
+    grid-template-columns:1fr 46px 1fr;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .flow-box{
+    background:#f9fbfc;
+    border:1px solid var(--line);
+    border-radius:15px;
+    padding:16px;
+    min-height:108px;
+  }
+  .flow-box strong{
+    display:block;
+    color:var(--navy);
+    margin-bottom:4px;
+  }
+  .arrow{
+    text-align:center;
+    color:var(--blue);
+    font-size:26px;
+    font-weight:900;
+  }
+
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-top:14px;
+  }
+  .chip{
+    padding:7px 10px;
+    border-radius:999px;
+    background:var(--soft);
+    border:1px solid var(--line);
+    color:var(--navy);
+    font-size:12px;
+    font-weight:700;
+  }
+
+  .waves{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+  }
+  .wave{
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:17px 16px 17px 19px;
+    min-height:175px;
+    background:#fff;
+  }
+  .wave:before{
+    content:"";
+    position:absolute;
+    left:0;top:0;bottom:0;
+    width:5px;
+    background:#0a2537;
+  }
+  .wave:nth-child(2):before{background:#1f607f}
+  .wave:nth-child(3):before{background:#8aa3b1}
+  .wave:nth-child(4):before{background:var(--yellow)}
+  .wave.current{
+    background:linear-gradient(180deg,#fffaf0,#fff);
+    border-color:#e8d77f;
+  }
+  .wave small{
+    display:block;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    font-weight:800;
+    font-size:10px;
+  }
+  .wave h3{
+    color:var(--navy);
+    margin:7px 0 8px;
+    font-size:16px;
+    line-height:1.15;
+  }
+  .wave p{
+    margin:0;
+    color:var(--muted);
+    font-size:12.5px;
+  }
+  .status{
+    display:inline-block;
+    margin-top:12px;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:#5c4b12;
+    background:#fff2b8;
+    padding:5px 8px;
+    border-radius:999px;
+  }
+
+  .attention{
+    columns:2;
+    column-gap:26px;
+  }
+  .attention li{
+    break-inside:avoid;
+    margin-bottom:8px;
+  }
+
+  .closing{
+    background:linear-gradient(135deg,var(--navy),var(--navy-2));
+    color:#fff;
+    border:none;
+  }
+  .closing .number{
+    background:#fff;
+    color:var(--navy);
+  }
+  .closing h2{color:#fff}
+  .closing .head p{color:#d8e4ea}
+  .closing p{
+    color:#e5edf1;
+    font-size:14px;
+    margin:0 0 9px;
+  }
+
+  @media(max-width:860px){
+    .topline,.grid{grid-template-columns:1fr}
+    .card.full{grid-column:auto}
+    .waves{grid-template-columns:1fr 1fr}
+  }
+
+  @media(max-width:600px){
+    .eseo-wrap{padding:4px 0 18px}
+    .intro{border-radius:18px;padding:26px 20px 23px}
+    .topline{gap:9px}
+    .metric,.card{border-radius:16px}
+    .card{padding:18px}
+    .sla,.compare,.flow{grid-template-columns:1fr}
+    .arrow{transform:rotate(90deg)}
+    .waves{grid-template-columns:1fr}
+    .attention{columns:1}
+    .nav{overflow-x:auto;flex-wrap:nowrap;padding-bottom:10px}
+    .nav a{white-space:nowrap}
+  }
+</style>
+</head>
+
+<body>
+<div class="eseo-wrap">
+
+  <section class="intro">
+    <div class="kicker">Governança • Conteúdo • Evolução</div>
+    <h1>Diretrizes do Portal ESEO</h1>
+    <p>Princípios para manter o Portal simples, confiável, atualizado e preparado para evoluir com autonomia.</p>
+  </section>
+
+  <section class="topline">
+    <div class="metric">
+      <strong>Canal de referência</strong>
+      <span>Orientações, serviços e informações da ESEO.</span>
+    </div>
+    <div class="metric emphasis">
+      <strong>Resposta ideal: até 1 dia útil</strong>
+      <span>Agilidade para preservar a confiança no Portal.</span>
+    </div>
+    <div class="metric">
+      <strong>SharePoint + HTML</strong>
+      <span>Nativo quando resolve. Personalizado quando agrega valor.</span>
+    </div>
+  </section>
+
+  <nav class="nav" aria-label="Navegação rápida">
+    <a href="#papel">Papel</a>
+    <a href="#conteudo">Conteúdo</a>
+    <a href="#responsabilidade">Responsabilidade</a>
+    <a href="#canais">Canais</a>
+    <a href="#tecnologia">SharePoint + HTML</a>
+    <a href="#webparts">Novas webparts</a>
+    <a href="#gestao">Gestão técnica</a>
+    <a href="#ondas">Ondas</a>
+    <a href="#atencao">Atenção</a>
+    <a href="#continuidade">Continuidade</a>
+  </nav>
+
+  <div class="grid">
+
+    <section class="card" id="papel">
+      <div class="head">
+        <div class="number">01</div>
+        <div>
+          <h2>Papel do Portal</h2>
+          <p>Orientar, direcionar e simplificar a jornada.</p>
+        </div>
+      </div>
+      <ul>
+        <li>O Portal ESEO é o <strong>canal de referência para orientações, serviços e informações da ESEO</strong>.</li>
+        <li>A página principal direciona; as páginas internas aprofundam.</li>
+        <li>Complementa os sistemas oficiais e <strong>não substitui AVA, SGSET ou demais sistemas corporativos</strong>.</li>
+        <li>Sempre que possível, a informação deve permitir <strong>autosserviço</strong>.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="conteudo">
+      <div class="head">
+        <div class="number">02</div>
+        <div>
+          <h2>Regra de Conteúdo</h2>
+          <p>Publicar menos, mas publicar melhor.</p>
+        </div>
+      </div>
+      <ul>
+        <li>Conteúdo simples, completo e compreensível.</li>
+        <li>Informações e documentos atualizados.</li>
+        <li>Uso de fonte oficial sempre que aplicável.</li>
+        <li>Evitar duplicidade de orientações.</li>
+        <li>Indicar claramente a próxima ação do usuário.</li>
+      </ul>
+      <div class="rule">Se o usuário precisar perguntar o que fazer depois de ler, o conteúdo ainda pode ser melhorado.</div>
+    </section>
+
+    <section class="card" id="responsabilidade">
+      <div class="head">
+        <div class="number">03</div>
+        <div>
+          <h2>Responsabilidade pelo Conteúdo</h2>
+          <p>Referência clara para a página central.</p>
+        </div>
+      </div>
+      <ul>
+        <li>A <strong>página central do Portal ESEO terá um responsável definido</strong> para acompanhar atualização e funcionamento.</li>
+        <li>As demais páginas e conteúdos seguirão posteriormente os direcionamentos da Coordenação.</li>
+        <li>Links, documentos e orientações devem permanecer atualizados.</li>
+        <li>Conteúdos temporários devem ser retirados ou revisados quando perderem validade.</li>
+        <li>Alterações devem preservar padrão visual, linguagem e navegação.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="canais">
+      <div class="head">
+        <div class="number">04</div>
+        <div>
+          <h2>Canais de Atendimento</h2>
+          <p>Um bom portal depende também de uma boa resposta.</p>
+        </div>
+      </div>
+      <div class="sla">
+        <div class="sla-main">
+          <small>Prazo ideal</small>
+          <b>1 dia útil</b>
+          <span>Para fortalecer a confiança e reduzir a busca por canais paralelos.</span>
+        </div>
+        <div class="sla-max">
+          <b>Até 2 dias úteis</b>
+          <span>Prazo máximo estabelecido para os canais disponibilizados.</span>
+        </div>
+      </div>
+      <ul>
+        <li>Todo canal publicado deve possuir acompanhamento ativo.</li>
+        <li>O retorno deve ocorrer, sempre que possível, no mesmo canal de entrada.</li>
+        <li><strong>Canais sem capacidade de atendimento adequado não devem ser disponibilizados.</strong></li>
+      </ul>
+    </section>
+
+    <section class="card full" id="tecnologia">
+      <div class="head">
+        <div class="number">05</div>
+        <div>
+          <h2>SharePoint + HTML</h2>
+          <p>O Portal combina recursos nativos e componentes personalizados.</p>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="mini">
+          <strong>Recursos nativos do SharePoint</strong>
+          <span>Textos, imagens, documentos, listas, notícias, links e demais webparts disponíveis na própria plataforma.</span>
+        </div>
+        <div class="mini">
+          <strong>Recursos personalizados</strong>
+          <span>Componentes em HTML, CSS e JavaScript, armazenados e mantidos no repositório GitHub utilizado pelo Portal.</span>
+        </div>
+      </div>
+      <div class="rule">Alterações simples de texto, imagem, link, título ou conteúdo podem ser realizadas nos componentes existentes, desde que a estrutura seja preservada.</div>
+    </section>
+
+    <section class="card full" id="webparts">
+      <div class="head">
+        <div class="number">06</div>
+        <div>
+          <h2>Novas Webparts</h2>
+          <p>Escolher a solução mais simples que entregue a experiência necessária.</p>
+        </div>
+      </div>
+      <div class="flow">
+        <div class="flow-box">
+          <strong>1. Verifique primeiro o SharePoint</strong>
+          Avalie se existe recurso nativo adequado para a necessidade.
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-box">
+          <strong>2. Personalize quando fizer sentido</strong>
+          Quando o nativo não atender à experiência desejada, um novo componente HTML poderá ser criado.
+        </div>
+      </div>
+      <ul>
+        <li>Evitar criar novos componentes quando já existir solução semelhante.</li>
+        <li>Seguir identidade visual, acessibilidade, navegação e experiência do usuário.</li>
+        <li>Manter estruturas simples para facilitar futuras atualizações.</li>
+        <li>O conhecimento poderá ser compartilhado sempre que houver necessidade de criação ou evolução dos recursos.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="gestao">
+      <div class="head">
+        <div class="number">07</div>
+        <div>
+          <h2>Gestão Técnica</h2>
+          <p>Sustentação com continuidade e manutenção simples.</p>
+        </div>
+      </div>
+      <ul>
+        <li>O <strong>NIE será responsável pela sustentação técnica do Portal</strong>, incluindo SharePoint e componentes hospedados no GitHub.</li>
+        <li>A gestão de conteúdo da página central ficará concentrada em um responsável definido.</li>
+        <li>As demais responsabilidades serão estabelecidas conforme direcionamentos da Coordenação.</li>
+      </ul>
+      <div class="chips">
+        <span class="chip">Simplicidade</span>
+        <span class="chip">Manutenção fácil</span>
+        <span class="chip">Segurança</span>
+        <span class="chip">Continuidade</span>
+        <span class="chip">Agilidade</span>
+      </div>
+    </section>
+
+    <section class="card" id="atencao">
+      <div class="head">
+        <div class="number">09</div>
+        <div>
+          <h2>Pontos de Atenção</h2>
+          <p>Regras simples que evitam retrabalho e quebra de componentes.</p>
+        </div>
+      </div>
+      <ul class="attention">
+        <li>Identificar onde o componente é utilizado antes de alterar arquivos.</li>
+        <li>Preservar nomes, caminhos e organização do GitHub.</li>
+        <li>Evitar quebrar iframes ou componentes publicados.</li>
+        <li>Evitar duplicação de páginas, documentos e recursos.</li>
+        <li>Testar alterações antes da publicação definitiva.</li>
+        <li>Manter links e documentos atualizados.</li>
+        <li>Preservar acessibilidade e experiência do usuário.</li>
+        <li>Evitar excesso de informação na página principal.</li>
+        <li>Não criar canais sem capacidade real de acompanhamento.</li>
+        <li>Registrar novas soluções para facilitar manutenção e transferência de conhecimento.</li>
+      </ul>
+    </section>
+
+    <section class="card full" id="ondas">
+      <div class="head">
+        <div class="number">08</div>
+        <div>
+          <h2>Evolução por Ondas</h2>
+          <p>O Portal nasce estruturado para evoluir de forma contínua.</p>
+        </div>
+      </div>
+      <div class="waves">
+        <article class="wave current">
+          <small>Onda 01</small>
+          <h3>Fundação e Autosserviço</h3>
+          <p>Estrutura, navegação, organização das informações e primeiros serviços voltados à autonomia das escolas.</p>
+          <span class="status">Etapa acompanhada</span>
+        </article>
+        <article class="wave">
+          <small>Onda 02</small>
+          <h3>Formação & Eventos</h3>
+          <p>Organização da comunicação, eventos, desenvolvimento e oportunidades de formação.</p>
+        </article>
+        <article class="wave">
+          <small>Onda 03</small>
+          <h3>Gestão Escolar e Turmas</h3>
+          <p>Serviços, informações operacionais, solicitações, acompanhamento e integração de dados.</p>
+        </article>
+        <article class="wave">
+          <small>Onda 04</small>
+          <h3>Gestão de Tutores</h3>
+          <p>Orientações, acompanhamento, indicadores e ferramentas de apoio à gestão da tutoria.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="card full closing" id="continuidade">
+      <div class="head">
+        <div class="number">10</div>
+        <div>
+          <h2>Continuidade</h2>
+          <p>Conhecimento compartilhado para permitir evolução com autonomia.</p>
+        </div>
+      </div>
+      <p>A implantação do Portal ESEO é evolutiva. Acompanharei a construção até a implementação da etapa de <strong>Fundação e Autosserviço</strong>, apoiando também a transferência do conhecimento necessário para sua continuidade.</p>
+      <p>Permaneço à disposição para compartilhar os aprendizados desta construção e contribuir com o NIE e as demais áreas na evolução das ferramentas, processos e da experiência digital da ESEO.</p>
+    </section>
+
+  </div>
+</div>
+</body>
+</html>
