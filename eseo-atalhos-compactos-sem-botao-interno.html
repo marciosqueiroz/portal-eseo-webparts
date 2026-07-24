@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atalhos compactos — Portal ESEO</title>
+  <style>
+    :root {
+      --navy: #0a2537;
+      --cyan: #0eb7d5;
+      --red: #ed1c24;
+      --white: #ffffff;
+      --text: #193746;
+      --line: #c9d7dd;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: transparent;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      padding: 8px;
+    }
+
+    .shortcuts {
+      width: 100%;
+      max-width: 1080px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(20px, 3vw, 42px);
+      margin: 0 auto;
+    }
+
+    .item {
+      position: relative;
+      min-width: 0;
+      min-height: 178px;
+      display: grid;
+      justify-items: center;
+      align-content: start;
+    }
+
+    /* Único botão visual: nenhuma caixa dentro dele. */
+    .shortcut {
+      width: 126px;
+      height: 126px;
+      display: grid;
+      grid-template-rows: 48px auto;
+      place-items: center;
+      align-content: center;
+      gap: 9px;
+      padding: 14px 10px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.94);
+      color: var(--navy);
+      text-decoration: none;
+      text-align: center;
+      box-shadow: 0 7px 16px rgba(10,37,55,.08);
+      transition:
+        border-color .18s ease,
+        background .18s ease,
+        color .18s ease,
+        transform .18s ease,
+        box-shadow .18s ease;
+    }
+
+    .shortcut:hover,
+    .shortcut:focus-visible {
+      border-color: var(--navy);
+      background: var(--navy);
+      color: var(--white);
+      transform: translateY(-4px);
+      box-shadow: 0 14px 26px rgba(10,37,55,.18);
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      color: var(--cyan);
+      transition: color .18s ease, transform .18s ease;
+    }
+
+    .shortcut:hover .icon,
+    .shortcut:focus-visible .icon {
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    .icon svg {
+      width: 34px;
+      height: 34px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .title {
+      color: inherit;
+      font-size: 13px;
+      font-weight: 850;
+      line-height: 1.12;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+    }
+
+    /* Texto explicativo realmente fora do botão. */
+    .description {
+      position: absolute;
+      top: 138px;
+      left: 50%;
+      width: min(220px, calc(100vw - 20px));
+      margin: 0;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.28;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -5px);
+      transition: opacity .16s ease, transform .18s ease;
+    }
+
+    .description::before {
+      display: block;
+      width: 28px;
+      height: 2px;
+      margin: 0 auto 7px;
+      border-radius: 999px;
+      background: var(--cyan);
+      content: "";
+    }
+
+    .item:hover .description,
+    .item:focus-within .description {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 860px) {
+      html,
+      body {
+        overflow: auto;
+      }
+
+      .shortcuts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .shortcuts {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="shortcuts" aria-label="Atalhos principais do Portal ESEO">
+
+    <div class="item">
+      <a
+        class="shortcut"
+        href="https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-describedby="desc-portfolio"
+      >
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 5.5h6.8A3.2 3.2 0 0 1 14 8.7V20H7.2A3.2 3.2 0 0 1 4 16.8V5.5Z"/>
+            <path d="M20 5.5h-2.8A3.2 3.2 0 0 0 14 8.7V20h2.8a3.2 3.2 0 0 0 3.2-3.2V5.5Z"/>
+            <path d="M7.5 10h3M7.5 13h3"/>
+          </svg>
+        </span>
+        <strong class="title">Acessar portfólio</strong>
+      </a>
+      <p class="description" id="desc-portfolio">
+        Abra o catálogo inteligente e encontre cursos por área, modelo ou duração.
+      </p>
+    </div>
+
+    <div class="item">
+      <a
+        class="shortcut"
+        href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-describedby="desc-sgset"
+      >
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <rect x="4" y="9" width="16" height="11" rx="2.5"/>
+            <path d="M8 9V6.5A4.5 4.5 0 0 1 16.2 4"/>
+            <path d="m10 14 2 2 4-4"/>
+          </svg>
+        </span>
+        <strong class="title">Liberar turma SGSET</strong>
+      </a>
+      <p class="description" id="desc-sgset">
+        Solicite a conferência e a liberação de uma turma cadastrada no SGSET.
+      </p>
+    </div>
+
+    <div class="item">
+      <a
+        class="shortcut"
+        href="https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-describedby="desc-solucoes"
+      >
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3v4M12 17v4M3 12h4M17 12h4"/>
+            <path d="m5.6 5.6 2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/>
+            <circle cx="12" cy="12" r="3.2"/>
+          </svg>
+        </span>
+        <strong class="title">Soluções EAD</strong>
+      </a>
+      <p class="description" id="desc-solucoes">
+        Solicite personalização de uma oferta ou análise de uma nova solução educacional.
+      </p>
+    </div>
+
+    <div class="item">
+      <a
+        class="shortcut"
+        href="https://outlook.office.com/mail/deeplink/compose?to=rantonio%40sp.senai.br"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-describedby="desc-aqv"
+      >
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <circle cx="8" cy="8" r="3"/>
+            <circle cx="17" cy="9" r="2.4"/>
+            <path d="M2.8 19v-1.2A4.8 4.8 0 0 1 7.6 13h.8a4.8 4.8 0 0 1 4.8 4.8V19"/>
+            <path d="M14.2 14.3h1.5a4 4 0 0 1 4 4V19"/>
+          </svg>
+        </span>
+        <strong class="title">Parceria AQV ESEO</strong>
+      </a>
+      <p class="description" id="desc-aqv">
+        Acione a ESEO para apoiar iniciativas conjuntas com a AQV da sua unidade.
+      </p>
+    </div>
+
+  </nav>
+</body>
+</html>
