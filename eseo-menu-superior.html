@@ -352,6 +352,40 @@
     /* ─── Configuração ─────────────────────────────────────────────── */
     const PORTAL_BASE = 'https://sesisenaisp.sharepoint.com/sites/ESEOConecta';
 
+    /* Sugestões locais: garantem o autopreenchimento mesmo quando o HTML
+       está publicado fora do SharePoint (ex.: GitHub Pages dentro de iframe),
+       situação em que a API do SharePoint pode bloquear a chamada por CORS. */
+    const LOCAL_SUGGESTIONS = [
+      { title: 'Home', url: PORTAL_BASE },
+      { title: 'Conheça a ESEO', url: PORTAL_BASE + '/SitePages/Sobre-a-ESEO.aspx' },
+      { title: 'Oferta de cursos online', url: PORTAL_BASE + "/SitePages/What's-happening.aspx" },
+      { title: 'Orientações às unidades', type: 'Pesquisa' },
+      { title: 'Cursos autoinstrucionais', type: 'Pesquisa' },
+      { title: 'Cursos técnicos', type: 'Pesquisa' },
+      { title: 'Cursos superiores', type: 'Pesquisa' },
+      { title: 'Aprendizagem industrial', type: 'Pesquisa' },
+      { title: 'Cursos personalizados', type: 'Pesquisa' },
+      { title: 'Qualificação profissional', type: 'Pesquisa' },
+      { title: 'Aperfeiçoamento profissional', type: 'Pesquisa' },
+      { title: 'Educação de Jovens e Adultos', type: 'Pesquisa' },
+      { title: 'Proposta Pedagógica 1.50', type: 'Pesquisa' },
+      { title: 'Calendário de cursos', type: 'Pesquisa' },
+      { title: 'Material de divulgação', type: 'Pesquisa' },
+      { title: 'Assistente ESEO', type: 'Pesquisa' },
+      { title: 'Fale com a gente', type: 'Pesquisa' },
+      { title: 'Tutoria', type: 'Pesquisa' },
+      { title: 'Monitoria', type: 'Pesquisa' },
+      { title: 'Gestão escolar', type: 'Pesquisa' },
+      { title: 'Serviços ESEO', type: 'Pesquisa' },
+      { title: 'Substituição de tutor', type: 'Pesquisa' },
+      { title: 'Calendário de aulas', type: 'Pesquisa' },
+      { title: 'Boletim ESEO', type: 'Pesquisa' },
+      { title: 'Portfólio EAD', type: 'Pesquisa' },
+      { title: 'Soluções EAD', type: 'Pesquisa' },
+      { title: 'Parceria AQV', type: 'Pesquisa' },
+      { title: 'Liberação de turma', type: 'Pesquisa' }
+    ];
+
     /* ─── Elementos ────────────────────────────────────────────────── */
     const form        = document.getElementById('portalSearch');
     const input       = document.getElementById('siteSearch');
@@ -381,8 +415,9 @@
         .replace(/"/g,'&quot;');
     }
 
-    function labelFor(path) {
-      if (!path) return '';
+    function labelFor(path, explicitType) {
+      if (explicitType) return explicitType;
+      if (!path) return 'Pesquisa';
       const lower = path.toLowerCase();
       if (lower.includes('/sitepages/')) return 'Página';
       if (lower.includes('.pdf'))        return 'PDF';
@@ -391,6 +426,44 @@
       if (lower.includes('.pptx') || lower.includes('.ppt')) return 'PPT';
       if (lower.includes('.mp4') || lower.includes('.mov')) return 'Vídeo';
       return 'Documento';
+    }
+
+
+    function normalizeText(value) {
+      return String(value || '')
+        .normalize('NFD')
+        .replace(/[̀-ͯ]/g, '')
+        .toLowerCase()
+        .trim();
+    }
+
+    function getLocalSuggestions(term) {
+      const normalizedTerm = normalizeText(term);
+      if (!normalizedTerm) return [];
+
+      return LOCAL_SUGGESTIONS
+        .map(item => {
+          const normalizedTitle = normalizeText(item.title);
+          const starts = normalizedTitle.startsWith(normalizedTerm);
+          const contains = normalizedTitle.includes(normalizedTerm);
+          return { ...item, score: starts ? 0 : contains ? 1 : 99 };
+        })
+        .filter(item => item.score < 99)
+        .sort((a, b) => a.score - b.score || a.title.localeCompare(b.title, 'pt-BR'))
+        .slice(0, 7)
+        .map(({ score, ...item }) => item);
+    }
+
+    function mergeSuggestions(primary, secondary) {
+      const seen = new Set();
+      return [...primary, ...secondary]
+        .filter(item => {
+          const key = normalizeText(item.url || item.title);
+          if (!key || seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        })
+        .slice(0, 7);
     }
 
     /* ─── Controle do campo ────────────────────────────────────────── */
@@ -446,7 +519,7 @@
         li.setAttribute('id','sugg-' + i);
         li.className = 'suggestion-item';
 
-        const typeLabel = labelFor(item.url);
+        const typeLabel = labelFor(item.url, item.type);
 
         li.innerHTML =
           /* ícone lupa */
@@ -459,8 +532,12 @@
 
         li.addEventListener('mousedown', e => {
           e.preventDefault();
-          window.open(item.url || doSearch(item.title), '_blank', 'noopener,noreferrer');
-          if (!item.url) doSearch(item.title);
+          input.value = item.title;
+          if (item.url) {
+            window.open(item.url, '_blank', 'noopener,noreferrer');
+          } else {
+            doSearch(item.title);
+          }
           hideSugg();
         });
 
@@ -486,9 +563,14 @@
     function fetchSugg(term) {
       if (!term || term.length < 2) { hideSugg(); return; }
 
-      showLoading();
+      const localItems = getLocalSuggestions(term);
 
-      /* Busca documentos do site via Search REST API */
+      /* Mostra imediatamente sugestões locais. Assim o autopreenchimento
+         funciona até quando a API do SharePoint estiver bloqueada no iframe. */
+      if (localItems.length) renderSugg(localItems);
+      else showLoading();
+
+      /* Tenta complementar com resultados reais do Portal ESEO. */
       const kw  = encodeURIComponent("'" + term + "* Path:" + PORTAL_BASE + "'");
       const sel = encodeURIComponent("Title,Path");
       const url = PORTAL_BASE
@@ -516,7 +598,7 @@
                ?.results
         ) || [];
 
-        const items = rows.map(row => {
+        const remoteItems = rows.map(row => {
           const cells = row?.Cells?.results || [];
           let title = '', url = '';
           cells.forEach(c => {
@@ -526,11 +608,13 @@
           return { title: title || url.split('/').pop() || url, url };
         }).filter(i => i.title && i.url);
 
-        renderSugg(items);
+        const merged = mergeSuggestions(remoteItems, localItems);
+        if (merged.length) renderSugg(merged);
+        else hideSugg();
       })
       .catch(() => {
-        /* Falha silenciosa — busca via submit continua funcionando */
-        hideSugg();
+        /* A lista local já está na tela. Só fecha quando não houver sugestão. */
+        if (!localItems.length) hideSugg();
       });
     }
 
@@ -557,6 +641,13 @@
       } else if (e.key === 'Enter' && activeIndex >= 0) {
         e.preventDefault();
         items[activeIndex].dispatchEvent(new MouseEvent('mousedown'));
+      } else if (e.key === 'Tab' && items.length) {
+        const chosen = items[activeIndex >= 0 ? activeIndex : 0];
+        const title = chosen?.querySelector('span')?.textContent || '';
+        if (title) {
+          input.value = title;
+          hideSugg();
+        }
       } else if (e.key === 'Escape') {
         if (input.value) {
           input.value = '';
