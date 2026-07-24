@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atalhos — Portal ESEO</title>
+  <title>Atalhos premium — Portal ESEO</title>
   <style>
     :root {
       --navy: #0a2537;
+      --navy-deep: #061923;
+      --navy-soft: #123f52;
       --cyan: #0eb7d5;
-      --red: #e30613;
+      --cyan-light: #72e5f6;
       --white: #ffffff;
-      --line: #d9e3e8;
-      --muted: #5e6d76;
+      --muted: #d6e4e9;
+      --focus: #ffcb05;
     }
 
     * { box-sizing: border-box; }
@@ -19,161 +21,159 @@
     html,
     body {
       width: 100%;
-      height: 100%;
+      min-height: 100%;
       margin: 0;
       overflow: hidden;
       background: transparent;
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
+    body { padding: 8px; }
+
     .shortcuts {
       width: 100%;
-      height: 100%;
-      min-height: 136px;
+      min-height: 148px;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      background: var(--white);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 10px;
     }
 
     .shortcut {
       position: relative;
       min-width: 0;
+      min-height: 142px;
       display: grid;
-      grid-template-columns: 42px minmax(0, 1fr) 24px;
+      grid-template-columns: 54px minmax(0,1fr) 24px;
       align-items: center;
       gap: 14px;
-      padding: 20px clamp(18px, 2vw, 34px);
+      padding: 18px 20px;
       overflow: hidden;
-      color: var(--navy);
+      border: 1px solid rgba(114,229,246,.16);
+      border-radius: 14px;
+      color: var(--white);
       text-decoration: none;
-      background: transparent;
-      transition: color 180ms ease, background 180ms ease;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(14,183,213,.17), transparent 34%),
+        linear-gradient(145deg, var(--navy-deep), var(--navy-soft));
+      box-shadow:
+        0 12px 25px rgba(6,25,35,.13),
+        inset 0 1px 0 rgba(255,255,255,.06);
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
     }
-
-    .shortcut + .shortcut { border-left: 1px solid var(--line); }
 
     .shortcut::before {
       position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      height: 4px;
-      background: var(--cyan);
+      inset: 0;
+      background: linear-gradient(112deg, transparent 28%, rgba(255,255,255,.10) 45%, transparent 62%);
       content: "";
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 220ms ease;
+      pointer-events: none;
+      transform: translateX(-140%);
+      transition: transform .55s ease;
+    }
+
+    .shortcut::after {
+      position: absolute;
+      right: 14px;
+      bottom: 12px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cyan-light);
+      box-shadow: 0 0 14px rgba(114,229,246,.70);
+      content: "";
+      opacity: .5;
     }
 
     .shortcut:hover,
     .shortcut:focus-visible {
-      background: #f6fafb;
+      border-color: rgba(14,183,213,.76);
+      transform: translateY(-5px);
+      box-shadow:
+        0 19px 38px rgba(6,25,35,.23),
+        0 0 0 1px rgba(14,183,213,.10),
+        0 0 25px rgba(14,183,213,.08);
     }
 
     .shortcut:hover::before,
-    .shortcut:focus-visible::before {
-      transform: scaleX(1);
-    }
-
-    .shortcut:focus-visible {
-      z-index: 2;
-      outline: 3px solid var(--cyan);
-      outline-offset: -3px;
-    }
+    .shortcut:focus-visible::before { transform: translateX(140%); }
 
     .shortcut__icon {
-      width: 42px;
-      height: 42px;
+      width: 52px;
+      height: 52px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(10, 37, 55, .2);
-      border-radius: 50%;
-      color: var(--navy);
-      transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+      border: 1px solid rgba(114,229,246,.54);
+      border-radius: 12px;
+      color: var(--cyan-light);
+      background: rgba(14,183,213,.08);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
 
     .shortcut:hover .shortcut__icon,
     .shortcut:focus-visible .shortcut__icon {
-      border-color: var(--cyan);
-      color: #0086a5;
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 21px rgba(14,183,213,.14);
     }
 
     .shortcut__icon svg {
-      width: 23px;
-      height: 23px;
+      width: 27px;
+      height: 27px;
       fill: none;
       stroke: currentColor;
-      stroke-width: 1.8;
+      stroke-width: 1.75;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
-    .shortcut__copy {
-      position: relative;
-      min-width: 0;
-      height: 58px;
-      display: flex;
-      align-items: center;
-    }
-
-    .shortcut__title,
-    .shortcut__description {
-      position: absolute;
-      inset-inline: 0;
-      margin: 0;
-      transition: opacity 180ms ease, transform 180ms ease;
-    }
+    .shortcut__copy { min-width: 0; }
 
     .shortcut__title {
-      color: var(--navy);
+      display: block;
+      color: var(--white);
       font-size: clamp(13px, .95vw, 16px);
-      font-weight: 850;
-      line-height: 1.22;
-      letter-spacing: .015em;
+      font-weight: 900;
+      line-height: 1.18;
+      letter-spacing: .02em;
       text-transform: uppercase;
     }
 
     .shortcut__description {
+      display: block;
+      margin-top: 8px;
       color: var(--muted);
-      font-size: clamp(12px, .85vw, 14px);
-      font-weight: 600;
+      font-size: clamp(11px, .78vw, 13px);
+      font-weight: 580;
       line-height: 1.35;
-      opacity: 0;
-      transform: translateY(10px);
-    }
-
-    .shortcut:hover .shortcut__title,
-    .shortcut:focus-visible .shortcut__title {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-
-    .shortcut:hover .shortcut__description,
-    .shortcut:focus-visible .shortcut__description {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .shortcut__arrow {
-      color: #829099;
+      align-self: start;
+      margin-top: 7px;
+      color: var(--cyan-light);
       font-size: 22px;
       line-height: 1;
-      transition: color 180ms ease, transform 180ms ease;
+      transition: transform .2s ease;
     }
 
     .shortcut:hover .shortcut__arrow,
-    .shortcut:focus-visible .shortcut__arrow {
-      color: var(--cyan);
-      transform: translate(3px, -3px);
+    .shortcut:focus-visible .shortcut__arrow { transform: translate(3px,-3px); }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
     }
 
-    @media (max-width: 900px) {
-      .shortcuts { grid-template-columns: repeat(2, 1fr); min-height: 272px; }
-      .shortcut:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
-      .shortcut:nth-child(4) { border-top: 1px solid var(--line); }
+    @media (max-width: 980px) {
+      html, body { overflow: auto; }
+      .shortcuts { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+
+    @media (max-width: 560px) {
+      .shortcuts { grid-template-columns: 1fr; }
+      .shortcut { min-height: 126px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -185,17 +185,17 @@
   <nav class="shortcuts" aria-label="Atalhos principais do Portal ESEO">
     <a
       class="shortcut"
-      href="https://app.powerbi.com/view?r=eyJrIjoiYzk1MzhjNWQtYTZlMy00ZmY4LWFiM2MtZGMxZjRlMzJiNDA3IiwidCI6IjQxNDhhNmRlLTBkZDEtNGQwNC1hNGM1LTc4ZTM3NGU0ZjZkNiIsImMiOjR9&amp;pageName=ReportSection811927fa7d0805d7a097"
+      href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx#portfolio"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Portfólio de cursos. Explore cursos, formatos e informações do catálogo EAD. Abre em nova guia."
+      aria-label="Portfólio de cursos. Consulte cursos, formatos de oferta e informações do catálogo EAD. Abre em nova guia."
     >
       <span class="shortcut__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="m3 9 9-5 9 5-9 5-9-5Z"></path><path d="M7 12v5c3 2 7 2 10 0v-5"></path></svg>
+        <svg viewBox="0 0 24 24"><path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"/><path d="M6.5 10.5v4.2c2.9 2.2 8.1 2.2 11 0v-4.2"/><path d="M21 8.5v5"/></svg>
       </span>
       <span class="shortcut__copy">
         <strong class="shortcut__title">Portfólio de cursos</strong>
-        <span class="shortcut__description">Explore cursos, formatos e informações do catálogo EAD.</span>
+        <span class="shortcut__description">Consulte cursos, formatos de oferta e informações do catálogo EAD.</span>
       </span>
       <span class="shortcut__arrow" aria-hidden="true">↗</span>
     </a>
@@ -205,14 +205,14 @@
       href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Liberar turma SGSET. Solicite a liberação da turma no SGSET. Abre em nova guia."
+      aria-label="Liberar turma SGSET. Solicitar liberação de turma no SGSET. Abre em nova guia."
     >
       <span class="shortcut__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 7-2.5"></path></svg>
+        <svg viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="11" rx="2.5"/><path d="M8 9V6.5A4.5 4.5 0 0 1 16.2 4"/></svg>
       </span>
       <span class="shortcut__copy">
         <strong class="shortcut__title">Liberar turma SGSET</strong>
-        <span class="shortcut__description">Solicite a liberação de uma turma no SGSET.</span>
+        <span class="shortcut__description">Solicitar liberação de turma no SGSET.</span>
       </span>
       <span class="shortcut__arrow" aria-hidden="true">↗</span>
     </a>
@@ -222,14 +222,14 @@
       href="https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Soluções EAD. Solicite novos cursos ou ofertas personalizadas. Abre em nova guia."
+      aria-label="Soluções EAD. Solicite avaliação de novos cursos ou personalização de ofertas existentes. Abre em nova guia."
     >
       <span class="shortcut__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"></path><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        <svg viewBox="0 0 24 24"><path d="m12 3 2.65 5.37 5.93.86-4.29 4.18 1.01 5.91L12 16.53l-5.3 2.79 1.01-5.91-4.29-4.18 5.93-.86L12 3Z"/></svg>
       </span>
       <span class="shortcut__copy">
         <strong class="shortcut__title">Soluções EAD</strong>
-        <span class="shortcut__description">Solicite novos cursos ou ofertas personalizadas.</span>
+        <span class="shortcut__description">Solicite avaliação de novos cursos ou personalização de ofertas existentes.</span>
       </span>
       <span class="shortcut__arrow" aria-hidden="true">↗</span>
     </a>
@@ -239,14 +239,14 @@
       href="https://outlook.office.com/mail/deeplink/compose?to=rantonio%40sp.senai.br"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Parceria AQV ESEO. Solicite uma ação em parceria com a AQV. Abre em nova guia."
+      aria-label="Parceria AQV ESEO. Solicite a parceria da ESEO para ações relacionadas à AQV. Abre em nova guia."
     >
       <span class="shortcut__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM16 12a4 4 0 1 0 0-8"></path><path d="M2 21v-2a6 6 0 0 1 12 0v2M14 14a6 6 0 0 1 8 5v2"></path></svg>
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 19v-1.4A4.6 4.6 0 0 1 8.1 13h1.8a4.6 4.6 0 0 1 4.6 4.6V19"/><circle cx="17" cy="9" r="2.3"/><path d="M16.3 14.1h1.2A3.5 3.5 0 0 1 21 17.6V19"/></svg>
       </span>
       <span class="shortcut__copy">
         <strong class="shortcut__title">Parceria AQV ESEO</strong>
-        <span class="shortcut__description">Solicite uma ação em parceria com a AQV.</span>
+        <span class="shortcut__description">Solicite a parceria da ESEO para ações relacionadas à AQV.</span>
       </span>
       <span class="shortcut__arrow" aria-hidden="true">↗</span>
     </a>
