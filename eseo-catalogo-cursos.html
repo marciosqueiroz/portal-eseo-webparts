@@ -848,6 +848,51 @@
       color: var(--white);
       transform: none;
     }
+    .favorites-toggle {
+      appearance: none;
+      -webkit-appearance: none;
+      min-width: 158px;
+      min-height: 52px;
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      padding: 0 17px;
+      border: 1px solid rgba(10,37,55,.28) !important;
+      border-radius: 6px;
+      background: rgba(255,255,255,.78) !important;
+      color: #0a2537 !important;
+      -webkit-text-fill-color: #0a2537;
+      font: 800 13px/1 "Segoe UI", Arial, sans-serif;
+      white-space: nowrap;
+      visibility: visible !important;
+      opacity: 1 !important;
+      cursor: pointer;
+      box-shadow: none;
+      position: relative;
+      z-index: 2;
+    }
+    .favorites-toggle:hover,
+    .favorites-toggle:focus-visible {
+      border-color: #0a2537 !important;
+      background: #eef4f7 !important;
+      color: #0a2537 !important;
+      -webkit-text-fill-color: #0a2537;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .favorites-toggle[aria-pressed="true"] {
+      border-color: #0a2537 !important;
+      background: #0a2537 !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff;
+    }
+    .favorites-toggle[aria-pressed="true"]:hover,
+    .favorites-toggle[aria-pressed="true"]:focus-visible {
+      border-color: #153e55 !important;
+      background: #153e55 !important;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff;
+    }
     .search-wrap,
     .filter-select,
     .sort-select,
@@ -1049,6 +1094,7 @@
       .workspace { padding: 16px 2px 8px; }
       .search-panel { margin: 0; }
       .search-row { grid-template-columns: 1fr; }
+      .favorites-toggle { width: 100%; }
       .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
@@ -1200,7 +1246,7 @@
               />
               <button class="clear-search" id="clearSearch" type="button" aria-label="Limpar pesquisa">×</button>
             </div>
-            <button class="primary-action" id="favoritesOnly" type="button">☆ Meus favoritos</button>
+            <button class="favorites-toggle" id="favoritesOnly" type="button" aria-pressed="false">☆ Meus favoritos</button>
           </div>
 
           <div class="filters">
