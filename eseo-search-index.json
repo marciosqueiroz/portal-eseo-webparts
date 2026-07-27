@@ -1,0 +1,126 @@
+[
+  {
+    "title": "Home do Portal ESEO",
+    "subtitle": "Página inicial",
+    "type": "Página",
+    "icon": "H",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta",
+    "keywords": [
+      "home",
+      "inicio",
+      "inicial",
+      "portal",
+      "eseo"
+    ],
+    "boost": 90
+  },
+  {
+    "title": "Conheça a ESEO",
+    "subtitle": "História, identidade, proposta e estrutura",
+    "type": "Página",
+    "icon": "E",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx",
+    "keywords": [
+      "conheca",
+      "historia",
+      "identidade",
+      "missao",
+      "visao",
+      "valores",
+      "proposta",
+      "estrutura",
+      "organograma"
+    ],
+    "boost": 80
+  },
+  {
+    "title": "Oferta de cursos online",
+    "subtitle": "Portfólio, modelos e orientações",
+    "type": "Página",
+    "icon": "O",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "keywords": [
+      "oferta",
+      "cursos",
+      "catalogo",
+      "portfolio",
+      "modelos",
+      "orientacoes"
+    ],
+    "boost": 95
+  },
+  {
+    "title": "Portfólio de cursos",
+    "subtitle": "Cursos, formatos, modelos e carga horária",
+    "type": "Cursos",
+    "icon": "P",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx#portfolio",
+    "keywords": [
+      "portfolio",
+      "catalogo",
+      "cursos",
+      "curso",
+      "sgset",
+      "autoinstrucional",
+      "carga horaria",
+      "prateleira",
+      "material divulgacao"
+    ],
+    "boost": 110
+  },
+  {
+    "title": "Tipos de atendimento",
+    "subtitle": "Orientações para as unidades",
+    "type": "Orientação",
+    "icon": "T",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx#tipos",
+    "keywords": [
+      "tipos",
+      "atendimento",
+      "eja",
+      "autoinstrucional",
+      "tecnico",
+      "superior",
+      "aprendizagem",
+      "caitec",
+      "qualificacao",
+      "aperfeicoamento",
+      "personalizado"
+    ],
+    "boost": 100
+  },
+  {
+    "title": "Proposta Pedagógica da ESEO",
+    "subtitle": "Documento institucional",
+    "type": "Documento",
+    "icon": "D",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/Documentos%20Compartilhados/Documentos%20da%20p%C3%A1gina%20ESEO/Proposta%20pedag%C3%B3gica%201.50.pdf?web=1",
+    "keywords": [
+      "proposta",
+      "pedagogica",
+      "documento",
+      "pdf",
+      "1.50",
+      "cfp"
+    ],
+    "boost": 75
+  },
+  {
+    "title": "Soluções EAD",
+    "subtitle": "Personalização ou nova solução",
+    "type": "Contato",
+    "icon": "S",
+    "url": "mailto:eadempresas@sp.senai.br?subject=D%C3%BAvidas%20sobre%20solu%C3%A7%C3%B5es%20e%20ofertas%20EAD",
+    "keywords": [
+      "solucoes",
+      "ead",
+      "personalizado",
+      "personalizacao",
+      "sob medida",
+      "duvidas",
+      "oferta",
+      "fale com a gente"
+    ],
+    "boost": 85
+  }
+]
