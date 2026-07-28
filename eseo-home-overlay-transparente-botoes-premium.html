@@ -26,9 +26,9 @@ body{overflow-x:hidden}
 .hero{
   position:relative;
   width:100%;
-  height:100vh;
-  min-height:590px;
-  max-height:760px;
+  height:clamp(520px,62vh,610px);
+  min-height:520px;
+  max-height:610px;
   overflow:hidden;
   color:#fff;
   isolation:isolate;
@@ -53,8 +53,8 @@ body{overflow-x:hidden}
   flex-direction:column;
 }
 .topbar{
-  height:86px;
-  flex:0 0 86px;
+  height:74px;
+  flex:0 0 74px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -65,7 +65,7 @@ body{overflow-x:hidden}
 .nav{
   display:flex;
   align-items:center;
-  gap:48px;
+  gap:clamp(28px,3.2vw,48px);
   min-width:0;
 }
 .nav a{
@@ -73,7 +73,7 @@ body{overflow-x:hidden}
   color:#fff;
   text-decoration:none;
   text-transform:uppercase;
-  font-size:13px;
+  font-size:clamp(14px,.95vw,16px);
   font-weight:800;
   letter-spacing:.02em;
   white-space:nowrap;
@@ -185,23 +185,23 @@ body{overflow-x:hidden}
   display:flex;
   flex-direction:column;
   justify-content:center;
-  padding:5px 0 115px 18px;
-  max-width:690px;
+  padding:0 0 104px 18px;
+  max-width:940px;
 }
 .eyebrow{
-  margin:0 0 18px;
+  margin:0 0 15px;
   color:#fff;
-  font-size:16px;
+  font-size:18px;
   line-height:1;
   font-weight:900;
-  letter-spacing:.29em;
+  letter-spacing:.24em;
   text-transform:uppercase;
   text-shadow:0 2px 14px rgba(0,0,0,.3);
 }
 h1{
   margin:0;
   color:#fff;
-  font-size:clamp(54px,5.4vw,92px);
+  font-size:clamp(64px,6vw,98px);
   line-height:.95;
   letter-spacing:-.045em;
   font-weight:900;
@@ -213,25 +213,26 @@ h1{
   height:6px;
   border-radius:99px;
   background:var(--red);
-  margin:29px 0 24px;
+  margin:22px 0 18px;
 }
 .tagline{
   margin:0;
-  max-width:590px;
-  font-size:clamp(18px,1.45vw,23px);
-  line-height:1.38;
+  max-width:940px;
+  font-size:clamp(20px,1.35vw,24px);
+  line-height:1.28;
   font-weight:400;
   color:rgba(255,255,255,.96);
   text-shadow:0 2px 14px rgba(0,0,0,.22);
 }
 .quick-actions{
   position:absolute;
-  left:62px;
-  bottom:34px;
+  left:18px;
+  right:18px;
+  bottom:22px;
   display:grid;
   grid-template-columns:repeat(4,minmax(160px,1fr));
   gap:9px;
-  width:min(920px,calc(100% - 124px));
+  width:auto;
   z-index:10;
 }
 .shortcut{
@@ -321,9 +322,9 @@ h1{
   .search-wrap{position:absolute;right:0;top:7px}
   .search.is-open{width:min(300px,78vw)}
   .content{
-    min-height:520px;
-    justify-content:flex-end;
-    padding:110px 5px 180px;
+    min-height:0;
+    justify-content:center;
+    padding:72px 5px 154px;
     max-width:none;
   }
   .eyebrow{font-size:12px;letter-spacing:.22em}
@@ -438,7 +439,8 @@ h1{
 
   const fallback = [
     {title:"Home do Portal ESEO",subtitle:"Página inicial",icon:"H",url:PORTAL,keywords:["home","inicio","portal","eseo"]},
-    {title:"Conheça a ESEO",subtitle:"História, identidade, proposta e estrutura",icon:"E",url:PORTAL + "/SitePages/Sobre-a-ESEO.aspx",keywords:["historia","identidade","proposta","estrutura"]},
+    {title:"Conheça a ESEO",subtitle:"História, identidade e estrutura",icon:"E",url:PORTAL + "/SitePages/Sobre-a-ESEO.aspx",keywords:["historia","identidade","estrutura"]},
+    {title:"Proposta Pedagógica ESEO",subtitle:"Documento institucional em versão interativa",icon:"P",url:"https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-proposta-pedagogica-transparente.html",keywords:["proposta","proposta pedagogica","documento institucional","metodologia","diretrizes"]},
     {title:"Oferta de cursos online",subtitle:"Portfólio, modelos e orientações",icon:"O",url:PORTAL + "/SitePages/What's-happening.aspx",keywords:["oferta","curso","cursos","catalogo","portfolio"]},
     {title:"Portfólio de cursos",subtitle:"Cursos, formatos e informações do catálogo",icon:"P",url:"https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html",keywords:["portfolio","catalogo","curso","cursos","sgset"]},
     {title:"Liberar turma no SGSET",subtitle:"Solicitação de liberação de turma",icon:"L",url:"https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u",keywords:["liberar","turma","sgset","forms"]},
@@ -459,6 +461,15 @@ h1{
       if(!r.ok) throw new Error("índice indisponível");
       const data = await r.json();
       items = Array.isArray(data) ? data : (Array.isArray(data.items) ? data.items : fallback);
+      const proposalUrl = "https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-proposta-pedagogica-transparente.html";
+      items = items.filter(item => !normalize(item.title).includes("proposta pedagogica"));
+      items.unshift({
+        title:"Proposta Pedagógica ESEO",
+        subtitle:"Documento institucional em versão interativa",
+        icon:"P",
+        url:proposalUrl,
+        keywords:["proposta","proposta pedagogica","documento institucional","metodologia","diretrizes"]
+      });
     }catch(_){
       items = fallback;
     }
