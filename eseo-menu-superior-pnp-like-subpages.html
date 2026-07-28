@@ -197,7 +197,7 @@ html,body{
 <script>
 (()=>{
   const PORTAL="https://sesisenaisp.sharepoint.com/sites/ESEOConecta";
-  const INDEX_URL="https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-search-index.json";
+  const INDEX_URL="./eseo-search-index.json";
   const anchor=document.getElementById("searchAnchor");
   const form=document.getElementById("portalSearch");
   const input=document.getElementById("siteSearch");
@@ -212,14 +212,13 @@ html,body{
   let activeIndex=-1;
   let closeTimer;
 
+  try{localStorage.removeItem("eseoRecentSearches")}catch(_){}
+
   const FALLBACK_ITEMS = [
     {title:"Home do Portal ESEO",subtitle:"Página inicial",type:"Página",icon:"H",url:PORTAL,keywords:["home","inicio","portal","eseo"],boost:90},
     {title:"Conheça a ESEO",subtitle:"História, identidade e estrutura da escola",type:"Página",icon:"E",url:PORTAL+"/SitePages/Sobre-a-ESEO.aspx",keywords:["historia","identidade","estrutura","eseo"],boost:80},
     {title:"Proposta Pedagógica ESEO",subtitle:"Documento institucional em versão interativa",type:"Documento",icon:"P",url:"https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-proposta-pedagogica-transparente.html",keywords:["proposta","proposta pedagogica","documento institucional","metodologia","diretrizes"],boost:92},
-    {title:"Oferta de cursos online",subtitle:"Portfólio, modelos e orientações",type:"Página",icon:"O",url:PORTAL+"/SitePages/What's-happening.aspx",keywords:["oferta","cursos","catalogo","portfolio","modelos","orientacoes"],boost:95},
-    {title:"Portfólio de cursos",subtitle:"Cursos, formatos, modelos e carga horária",type:"Cursos",icon:"P",url:PORTAL+"/SitePages/What's-happening.aspx#portfolio",keywords:["portfolio","catalogo","cursos","curso","sgset","autoinstrucional","carga horaria","prateleira","material divulgacao"],boost:110},
-    {title:"Tipos de atendimento",subtitle:"Orientações para as unidades",type:"Orientação",icon:"T",url:PORTAL+"/SitePages/What's-happening.aspx#tipos",keywords:["tipos","atendimento","eja","autoinstrucional","tecnico","superior","aprendizagem","caitec","qualificacao","aperfeicoamento","personalizado"],boost:100},
-    {title:"Soluções EAD",subtitle:"Personalização ou nova solução",type:"Contato",icon:"S",url:"mailto:eadempresas@sp.senai.br?subject=D%C3%BAvidas%20sobre%20solu%C3%A7%C3%B5es%20e%20ofertas%20EAD",keywords:["solucoes","ead","personalizado","personalizacao","sob medida","duvidas","oferta","fale com a gente"],boost:85}
+    {title:"Oferta de cursos online",subtitle:"Portfólio, modelos e orientações",type:"Página",icon:"O",url:PORTAL+"/SitePages/What's-happening.aspx",keywords:["oferta","cursos","catalogo","portfolio"],boost:95}
   ];
 
   const SYNONYMS={
@@ -251,18 +250,18 @@ html,body{
 
   async function loadIndex(){
     try{
-      const response=await fetch(INDEX_URL+"?v="+Date.now(),{cache:"no-store"});
-      if(!response.ok) throw new Error("Índice não encontrado");
-      const loaded=await response.json();
-      const externalItems=Array.isArray(loaded)
-        ? loaded
-        : (Array.isArray(loaded.items) ? loaded.items : []);
-      const merged=[...externalItems,...FALLBACK_ITEMS];
+      const r=await fetch(INDEX_URL+"?v="+Date.now(),{cache:"no-store"});
+      if(!r.ok) throw new Error("Índice não encontrado");
+      const loaded=await r.json();
+      const rawExternalItems=Array.isArray(loaded) ? loaded : (Array.isArray(loaded.items) ? loaded.items : []);
+      const externalItems=rawExternalItems.filter(item=>{
+        const title=normalize(item?.title);
+        const url=normalize(item?.url);
+        return !title.includes("proposta pedagogica") && !url.includes("proposta-pedagogica");
+      });
+      const merged=[...FALLBACK_ITEMS,...externalItems];
       ITEMS=merged.filter((item,index,list)=>
-        item &&
-        item.title &&
-        item.url &&
-        index===list.findIndex(other=>normalize(other?.url)===normalize(item.url))
+        index===list.findIndex(other=>normalize(other.url)===normalize(item.url))
       );
     }catch(_){
       ITEMS=FALLBACK_ITEMS;
@@ -330,16 +329,10 @@ html,body{
   }
 
   function getRecent(){
-    try{return JSON.parse(localStorage.getItem("eseoRecentSearches")||"[]").slice(0,4)}
-    catch(_){return []}
+    return [];
   }
 
-  function saveRecent(term){
-    const t=term.trim();
-    if(!t) return;
-    const list=[t,...getRecent().filter(x=>normalize(x)!==normalize(t))].slice(0,4);
-    try{localStorage.setItem("eseoRecentSearches",JSON.stringify(list))}catch(_){}
-  }
+  function saveRecent(){}
 
   function openSearch(focus=true){
     clearTimeout(closeTimer);
