@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oxigênio ESEO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: linear-gradient(120deg, #ffffff 0%, #eaf5fb 50%, #d4ecf7 100%);
+      font-family: 'Montserrat', 'Segoe UI', sans-serif;
+      position: relative;
+    }
+
+    /* ── WAVE SVG animada ── */
+    .wave-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 32%;
+      opacity: 0.45;
+      overflow: hidden;
+    }
+    .wave-container svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      animation: waveMove 10s ease-in-out infinite alternate;
+    }
+    @keyframes waveMove {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-25%); }
+    }
+
+    /* ── LINHA MOLECULAR ── */
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* ── TEXTO ── */
+    .content {
+      position: absolute;
+      left: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+    }
+    .content h1 {
+      font-size: clamp(28px, 4.5vw, 72px);
+      font-weight: 900;
+      color: #0a2537;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .content h1 span { color: #e30613; }
+    .content h2 {
+      font-size: clamp(18px, 2.8vw, 46px);
+      font-weight: 700;
+      color: #e30613;
+      margin-top: 0.15em;
+      line-height: 1;
+    }
+    .content p {
+      font-size: clamp(14px, 1.6vw, 26px);
+      font-weight: 600;
+      color: #446070;
+      margin-top: 0.7em;
+      letter-spacing: 0.3px;
+    }
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: #e30613;
+      border-radius: 2px;
+      margin-top: 0.8em;
+      animation: expandLine 2s ease forwards;
+    }
+    @keyframes expandLine {
+      from { width: 0; } to { width: 60px; }
+    }
+
+    /* ── O2 SÍMBOLO ── */
+    .o2-wrap {
+      position: absolute;
+      right: 7%;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      animation: floatSymbol 5s ease-in-out infinite;
+    }
+    @keyframes floatSymbol {
+      0%, 100% { transform: translateY(-50%) scale(1); filter: drop-shadow(0 0 18px rgba(227,6,19,0.35)) drop-shadow(0 0 35px rgba(10,37,55,0.2)); }
+      50%       { transform: translateY(calc(-50% - 12px)) scale(1.04); filter: drop-shadow(0 0 35px rgba(227,6,19,0.55)) drop-shadow(0 0 60px rgba(10,37,55,0.3)); }
+    }
+    .o2-text {
+      font-size: clamp(70px, 12vw, 180px);
+      font-weight: 900;
+      background: linear-gradient(145deg, #0a2537 20%, #e30613 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      position: relative;
+      user-select: none;
+    }
+    /* anel pulsante atrás do O2 */
+    .o2-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 110%;
+      height: 110%;
+      border-radius: 50%;
+      border: 2px solid rgba(10, 37, 55, 0.1);
+      animation: ringPulse 3s ease-in-out infinite;
+    }
+    .o2-ring2 {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 130%;
+      height: 130%;
+      border-radius: 50%;
+      border: 1px solid rgba(227, 6, 19, 0.07);
+      animation: ringPulse 3s ease-in-out infinite 1s;
+    }
+    @keyframes ringPulse {
+      0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+      50%       { opacity: 0;   transform: translate(-50%, -50%) scale(1.3); }
+    }
+
+    /* ── BOLHAS ── */
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(100,190,230,0.15));
+      border: 1px solid rgba(100, 180, 230, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: rgba(10, 37, 55, 0.45);
+      animation: riseBubble linear forwards;
+      backdrop-filter: blur(2px);
+    }
+    @keyframes riseBubble {
+      0%   { transform: translateY(0) translateX(0) scale(0.7); opacity: 0; }
+      8%   { opacity: 1; }
+      85%  { opacity: 0.7; }
+      100% { transform: translateY(var(--rise)) translateX(var(--drift)) scale(1.15); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Wave de fundo -->
+  <div class="wave-container">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#60b8e0" fill-opacity="0.4"
+        d="M0,160 C180,60 360,260 540,160 C720,60 900,260 1080,160 C1260,60 1440,200 1440,160 L1440,320 L0,320 Z"/>
+      <path fill="#e30613" fill-opacity="0.07"
+        d="M0,200 C200,100 400,300 600,200 C800,100 1000,300 1200,200 C1350,130 1440,220 1440,200 L1440,320 L0,320 Z"/>
+    </svg>
+  </div>
+
+  <!-- Canvas para partículas / linhas moleculares -->
+  <canvas id="canvas"></canvas>
+
+  <!-- Texto principal -->
+  <div class="content">
+    <h1>Oxigênio <span>ESEO</span></h1>
+    <h2>Hub de Ideias</h2>
+    <p>com foco em Experiência e Fidelização de Clientes</p>
+    <div class="divider"></div>
+  </div>
+
+  <!-- Símbolo O2 -->
+  <div class="o2-wrap">
+    <div style="position:relative; display:inline-block;">
+      <div class="o2-ring"></div>
+      <div class="o2-ring2"></div>
+      <div class="o2-text">O₂</div>
+    </div>
+  </div>
+
+  <script>
+    /* ── CANVAS: partículas moleculares ── */
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const particles = [];
+    const COUNT = 40;
+
+    for (let i = 0; i < COUNT; i++) {
+      particles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        r: Math.random() * 3 + 1.5,
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Linhas entre partículas próximas
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(10, 100, 180, ${0.18 * (1 - dist / 120)})`;
+            ctx.lineWidth = 0.8;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Pontos
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(10, 100, 180, 0.35)';
+        ctx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    /* ── BOLHAS FLUTUANTES ── */
+    function createBubble() {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+
+      const size    = Math.random() * 55 + 18;
+      const left    = Math.random() * 95;
+      const dur     = Math.random() * 9 + 7;
+      const delay   = Math.random() * 3;
+      const drift   = ((Math.random() - 0.5) * 180) + 'px';
+      const rise    = '-' + (window.innerHeight + size + 40) + 'px';
+      const fs      = size * 0.28;
+
+      bubble.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${left}%;
+        bottom:-${size + 10}px;
+        font-size:${fs}px;
+        --drift:${drift};
+        --rise:${rise};
+        animation-duration:${dur}s;
+        animation-delay:${delay}s;
+      `;
+
+      if (size > 36) bubble.textContent = 'O₂';
+
+      document.body.appendChild(bubble);
+      setTimeout(() => bubble.remove(), (dur + delay + 0.5) * 1000);
+    }
+
+    // Inicia bolhas escalonadas
+    for (let i = 0; i < 18; i++) {
+      setTimeout(createBubble, i * 350);
+    }
+    setInterval(createBubble, 750);
+  </script>
+</body>
+</html>
