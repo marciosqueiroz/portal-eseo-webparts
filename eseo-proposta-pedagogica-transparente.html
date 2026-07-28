@@ -497,7 +497,7 @@
             allow="fullscreen"
             referrerpolicy="strict-origin-when-cross-origin"
           ></iframe>
-          <div class="viewer-help">Caso a política de segurança do SharePoint impeça a visualização dentro da página, use “Abrir em nova guia”.</div>
+          <div class="viewer-help">O documento é exibido diretamente nesta página. Use “Abrir em nova guia” para leitura em tela cheia.</div>
         </div>
 
         <footer class="footer-nav">
@@ -513,16 +513,14 @@
 
   <script>
     (()=>{
-      const SHARE_URL = "https://sesisenaisp.sharepoint.com/:b:/s/ESEOConecta/IQBGilFCBSCLTZqqMcuQhpzNAcqPvExLvfm8QaQxY2MGqmk?e=OeUCqj";
-
       /*
-        Para salto de página mais confiável, este HTML também aceita uma URL direta
-        terminada em .pdf pelo parâmetro ?pdf=. Exemplo:
-        eseo-proposta-pedagogica-transparente.html?pdf=URL_DIRETA_DO_PDF
+        O PDF deve ficar na mesma pasta deste HTML no GitHub Pages, com o nome:
+        proposta-pedagogica-eseo.pdf
+
+        Por estar no mesmo domínio do HTML, o navegador consegue exibir o documento
+        dentro da página e navegar diretamente para cada capítulo.
       */
-      const params = new URLSearchParams(window.location.search);
-      const configuredPdf = (params.get("pdf") || "").trim();
-      const PDF_URL = configuredPdf || SHARE_URL;
+      const PDF_URL = new URL("./proposta-pedagogica-eseo.pdf", window.location.href).href;
 
       const CHAPTERS = [
         {
@@ -586,7 +584,7 @@
 
       function buildPageUrl(page){
         const clean = PDF_URL.split("#")[0];
-        return `${clean}#page=${page}`;
+        return `${clean}#page=${page}&zoom=page-width`;
       }
 
       function renderIndex(){
