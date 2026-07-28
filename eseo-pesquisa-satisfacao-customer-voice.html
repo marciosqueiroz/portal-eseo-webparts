@@ -21,10 +21,11 @@
     html,
     body {
       width: 100%;
-      min-height: 720px;
+      min-height: 1040px;
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       background: transparent !important;
       font-family: "Segoe UI", Arial, sans-serif;
     }
@@ -34,7 +35,7 @@
     .survey-shell {
       position: relative;
       width: min(100%, 1480px);
-      min-height: 700px;
+      min-height: 1020px;
       display: grid;
       grid-template-columns: minmax(300px, .72fr) minmax(620px, 1.28fr);
       margin: 0 auto;
@@ -156,8 +157,8 @@
     .form-frame {
       position: relative;
       width: min(100%, 760px);
-      height: 640px;
-      overflow: hidden;
+      height: 950px;
+      overflow: visible;
       border-radius: 10px;
       background: var(--eseo-white);
       box-shadow: 0 20px 46px rgba(0,0,0,.24);
@@ -178,7 +179,7 @@
     }
 
     @media (max-width: 960px) {
-      html, body { min-height: 1020px; overflow-y: auto; }
+      html, body { min-height: 1320px; overflow-y: auto; }
       .survey-shell { grid-template-columns: 1fr; }
       .survey-copy { padding: 40px 34px; }
       .survey-copy::after {
@@ -197,7 +198,7 @@
       .survey-shell { border-radius: 0; }
       .survey-copy { padding: 34px 24px; }
       .form-column { padding-inline: 8px; }
-      .form-frame { height: 660px; border-radius: 5px; }
+      .form-frame { height: 950px; border-radius: 5px; }
     }
   </style>
 </head>
