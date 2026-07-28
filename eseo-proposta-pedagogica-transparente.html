@@ -150,7 +150,7 @@
     .workspace{
       display:grid;
       grid-template-columns:minmax(270px,320px) minmax(0,1fr);
-      min-height:760px;
+      min-height:430px;
       border:1px solid var(--line);
       border-top:0;
       border-radius:0 0 18px 18px;
@@ -339,36 +339,41 @@
       line-height:1.45;
     }
 
-    .viewer-shell{
-      position:relative;
+
+    .chapter-access{
       flex:1 1 auto;
-      min-height:620px;
-      background:#f4f1f1;
+      display:grid;
+      place-items:center;
+      min-height:220px;
+      padding:34px 22px;
+      background:
+        radial-gradient(circle at 88% 15%,rgba(240,24,32,.08),transparent 30%),
+        linear-gradient(135deg,rgba(255,255,255,.92),rgba(250,246,246,.88));
     }
 
-    .viewer{
-      width:100%;
-      height:100%;
-      min-height:620px;
+    .chapter-access-card{
+      width:min(700px,100%);
+      padding:26px 28px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:rgba(255,255,255,.90);
+      text-align:center;
+      box-shadow:0 12px 30px rgba(92,16,22,.06);
+    }
+
+    .chapter-access-card strong{
       display:block;
-      border:0;
-      background:#fff;
+      color:var(--wine);
+      font-size:clamp(20px,2vw,28px);
+      line-height:1.18;
     }
 
-    .viewer-help{
-      position:absolute;
-      right:14px;
-      bottom:14px;
-      max-width:340px;
-      padding:10px 12px;
-      border:1px solid rgba(138,17,27,.12);
-      border-radius:9px;
-      background:rgba(255,255,255,.94);
+    .chapter-access-card span{
+      display:block;
+      margin-top:10px;
       color:var(--muted);
-      font-size:12px;
-      line-height:1.4;
-      box-shadow:0 8px 22px rgba(0,0,0,.08);
-      pointer-events:none;
+      font-size:15px;
+      line-height:1.5;
     }
 
     .footer-nav{
@@ -438,7 +443,6 @@
       .document-toolbar{align-items:flex-start;flex-direction:column}
       .document-meta{width:100%;justify-content:space-between}
       .open-button{flex:1}
-      .viewer-shell,.viewer{min-height:540px}
       .footer-nav{align-items:flex-start;flex-direction:column}
     }
   </style>
@@ -482,22 +486,17 @@
               <span>Páginas</span>
               <strong id="documentPages"></strong>
             </div>
-            <a class="open-button" id="openDocument" target="_blank" rel="noopener noreferrer">Abrir em nova guia ↗</a>
+            <a class="open-button" id="openDocument" target="_blank" rel="noopener noreferrer">Abrir capítulo no documento ↗</a>
           </div>
         </div>
 
         <p class="chapter-summary" id="chapterSummary"></p>
 
-        <div class="viewer-shell">
-          <iframe
-            class="viewer"
-            id="documentViewer"
-            title="Proposta Pedagógica oficial da ESEO"
-            loading="lazy"
-            allow="fullscreen"
-            referrerpolicy="strict-origin-when-cross-origin"
-          ></iframe>
-          <div class="viewer-help">O documento é exibido diretamente nesta página. Use “Abrir em nova guia” para leitura em tela cheia.</div>
+        <div class="chapter-access">
+          <div class="chapter-access-card">
+            <strong>Capítulo pronto para consulta</strong>
+            <span>Use o botão acima para abrir o documento oficial diretamente na página correspondente ao tema selecionado.</span>
+          </div>
         </div>
 
         <footer class="footer-nav">
@@ -517,8 +516,8 @@
         O PDF deve ficar na mesma pasta deste HTML no GitHub Pages, com o nome:
         proposta-pedagogica-eseo.pdf
 
-        Por estar no mesmo domínio do HTML, o navegador consegue exibir o documento
-        dentro da página e navegar diretamente para cada capítulo.
+        O botão de cada capítulo abre o PDF diretamente na página correspondente,
+        sem tentar incorporar o visualizador dentro desta página.
       */
       const PDF_URL = new URL("./proposta-pedagogica-eseo.pdf", window.location.href).href;
 
@@ -573,7 +572,6 @@
         title:document.getElementById("documentTitle"),
         pages:document.getElementById("documentPages"),
         summary:document.getElementById("chapterSummary"),
-        viewer:document.getElementById("documentViewer"),
         open:document.getElementById("openDocument"),
         progress:document.getElementById("documentProgress"),
         previous:document.getElementById("previousChapter"),
@@ -619,9 +617,6 @@
         elements.progress.textContent = `${activeChapter+1} de ${CHAPTERS.length} capítulos`;
         elements.open.href = target;
 
-        /* Recarrega o visualizador para tentar posicionar no trecho escolhido. */
-        elements.viewer.src = "about:blank";
-        window.setTimeout(()=>{ elements.viewer.src = target; },40);
 
         elements.previous.disabled = activeChapter===0;
         elements.next.disabled = activeChapter===CHAPTERS.length-1;
