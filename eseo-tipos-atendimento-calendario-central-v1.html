@@ -1,150 +1,686 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Tipos de atendimento ESEO — orientações às unidades</title>
-<style>
-:root{--primary:#0a2537;--secondary:#1d728f;--accent:#0eb7d5;--white:#fff;--ink:#17202b;--muted:#62717e;--line:#d8e3e8;--focus:#ffcb05}
-*{box-sizing:border-box}html,body{width:100%;min-height:780px;margin:0;padding:0;overflow-x:hidden;background:transparent!important;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}button,a{font:inherit}.app{width:min(1480px,100%);min-height:780px;margin:0 auto;padding:12px}.guide{margin:0 0 18px;padding:16px 19px;border-left:4px solid var(--accent);border-radius:0 12px 12px 0;background:rgba(244,250,251,.92)}.guide strong{display:block;margin-bottom:4px;color:var(--primary);font-size:14px;font-weight:950}.guide p{margin:0;color:#526672;font-size:13px;line-height:1.5}.layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:22px;align-items:start}.sidebar{padding:10px 12px 14px;border:1px solid rgba(29,114,143,.13);border-radius:17px;background:transparent}.sidebar-title{margin:5px 8px 10px;color:var(--secondary);font-size:10px;font-weight:950;letter-spacing:.14em;text-transform:uppercase}.menu{display:grid;gap:3px}.group{border-bottom:1px solid rgba(29,114,143,.13)}.group:last-child{border-bottom:0}.group-button{width:100%;min-height:58px;display:grid;grid-template-columns:42px minmax(0,1fr) 20px;align-items:center;gap:10px;padding:8px 7px;border:0;background:transparent;color:var(--primary);text-align:left;cursor:pointer}.group-button:hover,.group-button:focus-visible{color:var(--secondary)}.menu-number{width:42px;height:35px;display:grid;place-items:center;border:1px solid var(--accent);border-radius:8px;color:var(--secondary);font-size:11px;font-weight:950}.menu-label{font-size:12px;font-weight:900;line-height:1.22}.chevron{color:var(--secondary);font-size:19px;font-weight:900;transition:transform .18s ease}.group.open .chevron{transform:rotate(90deg)}.submenu{display:none;padding:0 0 9px 52px}.group.open .submenu{display:grid;gap:3px}.sub-button{width:100%;min-height:38px;padding:7px 10px;border:0;border-left:2px solid #d7e4e9;background:transparent;color:#536773;font-size:11px;font-weight:800;text-align:left;cursor:pointer;transition:border-color .16s ease,color .16s ease,background .16s ease}.sub-button:hover,.sub-button:focus-visible{border-left-color:var(--accent);color:var(--primary);background:rgba(14,183,213,.05)}.sub-button.active{border-left-color:var(--accent);color:var(--primary);background:rgba(14,183,213,.09)}.main{min-width:0}.panel{overflow:hidden;border:1px solid rgba(29,114,143,.19);border-top:5px solid var(--accent);border-radius:18px;background:rgba(255,255,255,.88)}.panel-body{min-height:610px;padding:30px 34px 25px}.title-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:20px}.kicker{margin:0 0 8px;color:var(--secondary);font-size:10px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}h1{margin:0;color:var(--primary);font-size:clamp(28px,3vw,43px);line-height:1.04;letter-spacing:-.04em}.summary{max-width:980px;margin:14px 0 0;color:var(--muted);font-size:15px;line-height:1.58}.manual-topic{min-width:166px;min-height:64px;display:grid;grid-template-columns:45px minmax(0,1fr);align-items:center;gap:11px;padding:9px 12px;border:1px solid rgba(14,183,213,.34);border-radius:12px;background:#f4fafb;color:var(--primary);text-decoration:none}.manual-topic.is-pending{opacity:.82;cursor:default}.manual-topic__icon{width:43px;height:43px;display:grid;place-items:center;border-radius:10px;background:var(--primary);color:#fff}.manual-topic__icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.manual-topic strong{display:block;font-size:11px;font-weight:950;line-height:1.2;text-transform:uppercase}.manual-topic small{display:block;margin-top:4px;color:#667985;font-size:10px;line-height:1.25}.content-grid{display:grid;grid-template-columns:.86fr 1fr 1fr;gap:23px;margin-top:27px}.section{padding-top:13px;border-top:1px solid rgba(29,114,143,.19)}.section-title{margin:0 0 11px;color:var(--primary);font-size:11px;font-weight:950;letter-spacing:.045em;text-transform:uppercase}.section ul{display:grid;gap:10px;margin:0;padding:0;list-style:none}.section li{position:relative;padding-left:18px;color:#33424e;font-size:12.5px;line-height:1.45}.section li::before{position:absolute;top:.52em;left:0;width:7px;height:7px;border-radius:50%;background:var(--accent);content:""}.footer-access{display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,430px);align-items:center;gap:24px;margin-top:30px;padding:22px;border:1px solid rgba(14,183,213,.27);border-radius:16px;background:linear-gradient(135deg,rgba(23,82,104,.98),rgba(29,114,143,.94))}.footer-copy span{display:block;margin-bottom:5px;color:#91e9f3;font-size:10px;font-weight:950;letter-spacing:.11em;text-transform:uppercase}.footer-copy strong{display:block;color:#fff;font-size:17px;line-height:1.3}.footer-copy small{display:block;margin-top:6px;color:#e0eef2;font-size:11.5px;line-height:1.48}.footer-actions{display:grid;gap:10px}.footer-button{min-height:57px;display:inline-flex;align-items:center;justify-content:center;padding:0 24px;border:1px solid var(--accent);border-radius:12px;background:#fff;color:var(--primary);font-size:14px;font-weight:950;line-height:1.2;text-align:center;text-decoration:none}.footer-button:hover,.footer-button:focus-visible{border-color:#fff;background:#f4fafb}:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
-.empty-state{
-  min-height:610px;
-  display:grid;
-  place-items:center;
-  padding:46px 30px;
-  text-align:center;
-}
-.empty-state[hidden],
-.panel-body[hidden]{
-  display:none !important;
-}
-.empty-state__inner{
-  max-width:560px;
-}
-.empty-state__icon{
-  width:72px;
-  height:72px;
-  display:grid;
-  place-items:center;
-  margin:0 auto 20px;
-  border:1px solid rgba(14,183,213,.34);
-  border-radius:18px;
-  background:rgba(14,183,213,.06);
-  color:var(--secondary);
-}
-.empty-state__icon svg{
-  width:36px;
-  height:36px;
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.7;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-.empty-state h2{
-  margin:0;
-  color:var(--primary);
-  font-size:28px;
-  font-weight:950;
-  letter-spacing:-.03em;
-}
-.empty-state p{
-  max-width:520px;
-  margin:11px auto 0;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.55;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>Tipos de atendimento — ESEO</title>
+  <style>
+    :root {
+      --navy: #0a2537;
+      --navy-2: #12384f;
+      --blue: #0078b9;
+      --blue-light: #eaf6fb;
+      --yellow: #f4c542;
+      --text: #193547;
+      --muted: #5f7380;
+      --line: rgba(10, 37, 55, 0.13);
+      --surface: rgba(255, 255, 255, 0.88);
+      --surface-strong: #ffffff;
+      --shadow: 0 22px 60px rgba(10, 37, 55, 0.09);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
 
-@media(max-width:1080px){.content-grid{grid-template-columns:1fr 1fr}.content-grid .section:first-child{grid-column:1/-1}}@media(max-width:960px){.layout{grid-template-columns:1fr}.sidebar{background:rgba(244,250,251,.65)}}@media(max-width:720px){.app{padding:7px}.panel-body{padding:25px 20px 22px}.content-grid,.footer-access,.title-row{grid-template-columns:1fr}.content-grid .section:first-child{grid-column:auto}.manual-topic{max-width:190px}}
-</style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: transparent;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow-x: hidden;
+      background: transparent;
+      color: var(--text);
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    .page {
+      position: relative;
+      isolation: isolate;
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 46px 0 40px;
+    }
+
+    .page::before,
+    .page::after {
+      position: absolute;
+      z-index: -1;
+      border-radius: 999px;
+      content: "";
+      pointer-events: none;
+      filter: blur(2px);
+    }
+
+    .page::before {
+      top: 18px;
+      right: -140px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(0, 120, 185, 0.09), transparent 68%);
+    }
+
+    .page::after {
+      bottom: 20px;
+      left: -180px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(244, 197, 66, 0.10), transparent 68%);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.65fr);
+      gap: 42px;
+      align-items: end;
+      padding: 18px 8px 34px;
+    }
+
+    .hero__title {
+      max-width: 760px;
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(38px, 5vw, 66px);
+      font-weight: 760;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+    }
+
+    .hero__intro {
+      max-width: 440px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.45vw, 19px);
+      line-height: 1.68;
+    }
+
+    .route-switcher {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 8px 0 18px;
+    }
+
+    .route-button {
+      position: relative;
+      display: flex;
+      min-height: 88px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: 0 10px 30px rgba(10, 37, 55, 0.05);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .route-button::before {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: transparent;
+      content: "";
+      transition: background 180ms ease;
+    }
+
+    .route-button:hover {
+      border-color: rgba(0, 120, 185, 0.35);
+      box-shadow: 0 16px 38px rgba(10, 37, 55, 0.09);
+      transform: translateY(-2px);
+    }
+
+    .route-button[aria-selected="true"] {
+      border-color: rgba(0, 120, 185, 0.38);
+      background: rgba(255, 255, 255, 0.97);
+      box-shadow: 0 18px 44px rgba(10, 37, 55, 0.11);
+    }
+
+    .route-button[aria-selected="true"]::before {
+      background: var(--blue);
+    }
+
+    .route-button__label {
+      color: var(--navy);
+      font-size: clamp(17px, 1.5vw, 20px);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .route-button__number {
+      display: grid;
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid rgba(10, 37, 55, 0.14);
+      border-radius: 50%;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    .route-button[aria-selected="true"] .route-button__number {
+      border-color: var(--navy);
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .explorer {
+      display: grid;
+      grid-template-columns: minmax(270px, 0.38fr) minmax(0, 0.62fr);
+      min-height: 438px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 240ms ease, transform 240ms ease;
+      backdrop-filter: blur(18px);
+    }
+
+    .explorer.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .explorer[hidden] {
+      display: none;
+    }
+
+    .option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 20px;
+      border-right: 1px solid var(--line);
+      background: rgba(239, 247, 250, 0.62);
+    }
+
+    .option-button {
+      position: relative;
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      min-height: 52px;
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      transition: background 170ms ease, border-color 170ms ease, color 170ms ease, transform 170ms ease;
+    }
+
+    .option-button:hover {
+      border-color: rgba(10, 37, 55, 0.10);
+      background: rgba(255, 255, 255, 0.78);
+      transform: translateX(2px);
+    }
+
+    .option-button[aria-selected="true"] {
+      border-color: rgba(0, 120, 185, 0.18);
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(10, 37, 55, 0.07);
+    }
+
+    .option-button__index {
+      color: #7b909b;
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+    }
+
+    .option-button[aria-selected="true"] .option-button__index {
+      color: var(--blue);
+    }
+
+    .option-button__label {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 650;
+      line-height: 1.28;
+    }
+
+    .option-button[aria-selected="true"] .option-button__label {
+      color: var(--navy);
+    }
+
+    .detail {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(32px, 5vw, 64px);
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .detail::after {
+      position: absolute;
+      right: 34px;
+      bottom: 30px;
+      width: 62px;
+      height: 5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue) 0 72%, var(--yellow) 72% 100%);
+      content: "";
+    }
+
+    .detail__eyebrow {
+      margin: 0 0 16px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .detail__title {
+      max-width: 700px;
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(28px, 3.3vw, 44px);
+      font-weight: 760;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+    }
+
+    .detail__text {
+      max-width: 730px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.5vw, 19px);
+      line-height: 1.72;
+    }
+
+    .detail__text a {
+      color: var(--blue);
+      font-weight: 650;
+      text-decoration-color: rgba(0, 120, 185, 0.35);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .detail__text a:hover {
+      text-decoration-color: var(--blue);
+    }
+
+    .notice {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+      margin-top: 18px;
+      padding: 23px 25px;
+      border: 1px solid rgba(244, 197, 66, 0.46);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 250, 230, 0.72);
+      backdrop-filter: blur(12px);
+    }
+
+    .notice__mark {
+      display: grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 750;
+    }
+
+    .notice__title {
+      margin: 1px 0 6px;
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 750;
+    }
+
+    .notice__text {
+      margin: 0;
+      color: #526a77;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .route-button:focus-visible,
+    .option-button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid rgba(0, 120, 185, 0.32);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 840px) {
+      .page {
+        width: min(100% - 28px, 720px);
+        padding-top: 30px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding-bottom: 26px;
+      }
+
+      .hero__intro {
+        max-width: 650px;
+      }
+
+      .explorer {
+        grid-template-columns: 1fr;
+      }
+
+      .option-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .detail {
+        min-height: 330px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        width: min(100% - 22px, 480px);
+        padding-top: 22px;
+      }
+
+      .hero__title {
+        font-size: clamp(34px, 11vw, 48px);
+      }
+
+      .route-switcher {
+        grid-template-columns: 1fr;
+      }
+
+      .route-button {
+        min-height: 72px;
+      }
+
+      .option-list {
+        grid-template-columns: 1fr;
+        padding: 14px;
+      }
+
+      .option-button {
+        min-height: 48px;
+      }
+
+      .detail {
+        min-height: 360px;
+        padding: 32px 24px 54px;
+      }
+
+      .detail::after {
+        right: 24px;
+        bottom: 22px;
+      }
+
+      .notice {
+        grid-template-columns: 36px minmax(0, 1fr);
+        gap: 13px;
+        padding: 20px 18px;
+      }
+
+      .notice__mark {
+        width: 34px;
+        height: 34px;
+        font-size: 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 <body>
-<main class="app">
-<section class="guide" aria-label="Como consultar as orientações"><strong>Como consultar</strong><p>Escolha um tipo de atendimento. Quando houver mais de uma modalidade, abra a opção na coluna à esquerda e selecione o subassunto. As orientações, responsabilidades e documentos correspondentes serão apresentados ao lado.</p></section>
-<div class="layout">
-<aside class="sidebar"><p class="sidebar-title">Tipos de atendimento</p><nav class="menu" id="menu" aria-label="Tipos e modalidades"></nav></aside>
-<section class="main"><article class="panel">
-<div class="empty-state" id="emptyState">
-  <div class="empty-state__inner">
-    <span class="empty-state__icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24">
-        <path d="M4 6h16M4 12h10M4 18h7"/>
-        <path d="m17 15 3 3 3-3"/>
-      </svg>
-    </span>
-    <h2>Selecione um tipo de atendimento</h2>
-    <p>Abra uma categoria na coluna à esquerda e escolha o subassunto desejado. As orientações, responsabilidades e documentos correspondentes serão apresentados aqui.</p>
-  </div>
-</div>
-<div class="panel-body" id="panelBody" hidden><div class="title-row"><div><p class="kicker" id="kicker"></p><h1 id="title"></h1></div><a class="manual-topic is-pending" id="manualTopic" href="#" aria-disabled="true"><span class="manual-topic__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h6"/></svg></span><span><strong>Manual técnico</strong><small id="manualTopicStatus">Em curadoria</small></span></a></div><p class="summary" id="summary"></p><div class="content-grid"><section class="section"><h2 class="section-title">Como funciona</h2><ul id="flowList"></ul></section><section class="section"><h2 class="section-title">Responsabilidades da escola</h2><ul id="schoolList"></ul></section><section class="section"><h2 class="section-title">Responsabilidades da ESEO</h2><ul id="eseoList"></ul></section></div><div class="footer-access"><div class="footer-copy"><span>Acesso institucional</span><strong>Cronograma dos Processos Seletivos do SENAI-SP</strong><small>Consulte o documento oficial para verificar os períodos, etapas e prazos vigentes. Quando houver manual específico da modalidade, o acesso ficará disponível no ícone acima.</small></div><div class="footer-actions"><a class="footer-button" href="https://sesisenaisp.sharepoint.com/sites/intranet/Atos%20Formais/CO-GED-56-2026.pdf" target="_blank" rel="noopener noreferrer">Acessar cronograma de processos seletivos ↗</a></div></div></div></article></section>
-</div>
-</main>
-<script>
-const DATA=[
-{n:"01",m:"AUTOINSTRUCIONAIS",tabs:[{l:"Autoinstrucional — Escola",k:"FIC · MATRÍCULA PELOS CANAIS DA ESCOLA",t:"AUTOINSTRUCIONAL — ESCOLA",s:"Oferta gratuita ao público em geral. A escola inclui o curso em sua carteira e cria os agrupamentos; a ESEO orienta, confere e libera a oferta.",f:["Selecionar o curso e organizar a oferta.","Criar os agrupamentos no SGSET2.","Encaminhar para conferência e liberação."],e:["Inserir o curso na carteira da escola.","Criar agrupamentos conforme a orientação vigente.","Manter os registros e a documentação acadêmica."],o:["Definir cursos e período de inscrição.","Enviar a orientação semestral.","Conferir e liberar os agrupamentos."],manualUrl:""},{l:"CAITEC e Novo Ensino Médio",k:"MATRÍCULA AUTOMÁTICA · ITINERÁRIO FORMATIVO",t:"CAITEC E NOVO ENSINO MÉDIO",s:"Atendimento com matrícula automática por termo para estudantes vinculados ao itinerário de formação técnica e profissional.",f:["Definir cursos e regras de associação.","Preparar matrizes e agrupamentos.","Validar a carga e acompanhar os resultados."],e:["Manter corretos os dados acadêmicos dos estudantes.","Acompanhar a participação e orientar os estudantes.","Comunicar inconsistências identificadas."],o:["Coordenar os cursos de cada termo.","Validar regras, matrizes e cargas.","Articular as áreas técnicas envolvidas."],manualUrl:""}]},
-{n:"02",m:"INICIAÇÃO E APERFEIÇOAMENTO",tabs:[{l:"Iniciação Profissional",k:"FORMAÇÃO INICIAL E CONTINUADA",t:"INICIAÇÃO PROFISSIONAL",s:"Cursos que introduzem o estudante ao mundo do trabalho e desenvolvem capacidades básicas em diferentes áreas profissionais.",f:["Apresentar conceitos essenciais.","Realizar atividades no AVA.","Certificar conforme os critérios da oferta."],e:["Divulgar e orientar o público.","Organizar a oferta conforme a carteira.","Acompanhar registros e demandas administrativas."],o:["Disponibilizar os cursos no AVA.","Orientar a implantação.","Apoiar a escola na operação digital."],manualUrl:""},{l:"Aperfeiçoamento Profissional",k:"ATUALIZAÇÃO E COMPLEMENTAÇÃO PROFISSIONAL",t:"APERFEIÇOAMENTO PROFISSIONAL",s:"Cursos destinados à atualização, ampliação ou complementação de competências já adquiridas na formação profissional ou no trabalho.",f:["Partir de conhecimentos ou experiências anteriores.","Adotar formato online ou combinado.","Avaliar conforme o plano de curso."],e:["Verificar público, requisitos e aderência.","Organizar a turma e os recursos.","Acompanhar os registros acadêmicos."],o:["Orientar o modelo educacional.","Preparar o ambiente virtual.","Acompanhar qualidade e melhorias."],manualUrl:""}]},
-{n:"03",m:"QUALIFICAÇÃO PROFISSIONAL",tabs:[{l:"Qualificação Profissional",k:"FORMAÇÃO PARA O EXERCÍCIO PROFISSIONAL",t:"QUALIFICAÇÃO PROFISSIONAL",s:"Cursos com carga horária igual ou superior a 160 horas, destinados à preparação para o exercício de uma profissão.",f:["Analisar plano, perfil e demanda.","Integrar teoria e prática.","Definir acompanhamento e momentos presenciais."],e:["Apresentar a demanda e garantir condições locais.","Disponibilizar equipe e infraestrutura.","Realizar registros e acompanhar a turma."],o:["Analisar a viabilidade da oferta.","Preparar AVA, materiais e recursos.","Apoiar o acompanhamento pedagógico."],manualUrl:""},{l:"EJA Profissionalizante",k:"EDUCAÇÃO DE JOVENS E ADULTOS · QUALIFICAÇÃO PROFISSIONAL",t:"EJA PROFISSIONALIZANTE",s:"Atendimento que integra a Educação de Jovens e Adultos à formação profissional, articulando a conclusão da educação básica ao desenvolvimento de competências para o trabalho.",f:["Confirmar público, percurso formativo e requisitos de ingresso.","Integrar componentes da educação básica e da qualificação profissional.","Acompanhar a trajetória do estudante de forma articulada."],e:["Organizar matrículas, equipe, infraestrutura e atendimento local.","Acompanhar frequência, registros e permanência dos estudantes.","Articular as áreas responsáveis pela educação básica e profissional."],o:["Orientar o modelo educacional e a implantação do percurso.","Preparar os componentes e recursos no ambiente virtual.","Apoiar as equipes no acompanhamento pedagógico da oferta."],manualUrl:""}]},
-{n:"04",m:"APRENDIZAGEM PROFISSIONAL",tabs:[{l:"Aprendizagem com atividades EaD",k:"OFERTA CONDICIONADA A CRITÉRIOS LEGAIS",t:"APRENDIZAGEM PROFISSIONAL COM ATIVIDADES EAD",s:"A Aprendizagem Profissional pode incluir atividades a distância ou ser ofertada em modelo híbrido, respeitando critérios legais, pedagógicos e de infraestrutura.",f:["Analisar curso, público e autorizações.","Integrar atividades presenciais e a distância.","Acompanhar estudantes e evidências."],e:["Garantir estrutura e acompanhamento local.","Cumprir critérios de matrícula e frequência.","Articular empresas e parceiros quando aplicável."],o:["Apoiar a estruturação do modelo.","Preparar o AVA e orientar as equipes.","Acompanhar qualidade e aderência."],manualUrl:""}]},
-{n:"05",m:"MODELO HÍBRIDO — ECONOMIA 4.0",tabs:[{l:"Economia 4.0",k:"MODELO HÍBRIDO · PÚBLICO 18+",t:"MODELO HÍBRIDO — ECONOMIA 4.0",s:"Atendimento destinado a pessoas com 18 anos ou mais e Ensino Médio completo. Combina atividades online e presenciais conforme os critérios institucionais do modelo.",f:["Confirmar o público elegível e os requisitos do programa.","Organizar de forma integrada as atividades online e presenciais.","Garantir acompanhamento, registros e infraestrutura."],e:["Validar idade, escolaridade e requisitos de ingresso.","Garantir estrutura e realização das atividades presenciais.","Acompanhar os estudantes e manter os registros da oferta."],o:["Orientar a implantação do modelo híbrido.","Configurar o ambiente virtual e apoiar as equipes.","Acompanhar resultados e aderência às diretrizes."],manualUrl:""}]},
-{n:"06",m:"CURSOS TÉCNICOS",tabs:[{l:"Presencial com UCs a distância",k:"CURSO PRESENCIAL · COMPONENTES CURRICULARES EAD",t:"TÉCNICO PRESENCIAL COM UCs A DISTÂNCIA",s:"Curso presencial que incorpora unidades curriculares ou atividades a distância conforme o plano de curso e as diretrizes institucionais.",f:["Integrar as UCs ao calendário.","Realizar conteúdos e atividades no AVA.","Acompanhar estudantes e docentes."],e:["Organizar calendário, docentes e registros.","Orientar a rotina presencial e digital.","Garantir integração entre as UCs."],o:["Disponibilizar componentes no AVA.","Orientar docentes e equipes.","Apoiar o acompanhamento."],manualUrl:""},{l:"Técnico Semipresencial",k:"OFERTA HÍBRIDA · AUTORIZAÇÃO E INFRAESTRUTURA",t:"TÉCNICO SEMIPRESENCIAL",s:"Oferta que combina atividades no AVA com práticas e encontros presenciais, garantindo integração entre teoria, prática e acompanhamento educacional.",f:["Analisar autorização, demanda e infraestrutura.","Organizar atividades online e presenciais.","Acompanhar a turma de forma integrada."],e:["Disponibilizar infraestrutura e docentes.","Organizar momentos presenciais e registros.","Acompanhar estudantes."],o:["Analisar a implantação.","Configurar a oferta no AVA.","Apoiar tutoria, monitoria e indicadores."],manualUrl:""}]},
-{n:"07",m:"SUPERIOR",tabs:[{l:"Graduação",k:"EDUCAÇÃO SUPERIOR",t:"GRADUAÇÃO",s:"Cursos superiores de tecnologia que podem combinar atividades presenciais, síncronas e assíncronas conforme o projeto pedagógico.",f:["Planejar UCs e atividades digitais.","Garantir acompanhamento docente.","Cumprir registros e avaliações."],e:["Organizar docentes, calendário e atividades.","Acompanhar estudantes e registros.","Articular necessidades com a ESEO."],o:["Disponibilizar componentes digitais.","Apoiar mediação e uso do AVA.","Acompanhar a oferta."],manualUrl:""},{l:"Pós-graduação",k:"ESPECIALIZAÇÃO PROFISSIONAL",t:"PÓS-GRADUAÇÃO",s:"Cursos de especialização lato sensu voltados ao aprofundamento e à atualização de conhecimentos relacionados à indústria, tecnologia, gestão e inovação.",f:["Definir atividades online, síncronas e presenciais.","Garantir acompanhamento acadêmico.","Seguir as diretrizes do Centro Universitário."],e:["Organizar docentes e calendário.","Realizar registros acadêmicos.","Articular a operação."],o:["Preparar AVA e recursos digitais.","Apoiar tutoria e monitoria.","Analisar resultados."],manualUrl:""}]},
-{n:"08",m:"PROGRAMAS ESPECÍFICOS",tabs:[{l:"Programas e cursos específicos",k:"ATENDIMENTOS COM FLUXO PRÓPRIO",t:"PROGRAMAS ESPECÍFICOS",s:"Algumas ofertas possuem público, inscrição, parceiros e procedimentos próprios. Por isso, são apresentadas separadamente dos tipos gerais de curso.",f:["Libras: disciplina optativa online.","Power BI: curso semipresencial.","PEMSEP, ProEducador e cursos corporativos: fluxos próprios."],e:["Consultar a orientação vigente.","Verificar público, requisitos e prazos.","Seguir o fluxo específico."],o:["Manter orientações atualizadas.","Articular áreas e parceiros.","Centralizar orientações vigentes."],manualUrl:""}]}
-];
-const menu=document.getElementById("menu"),el={
-kicker:document.getElementById("kicker"),
-title:document.getElementById("title"),
-summary:document.getElementById("summary"),
-flow:document.getElementById("flowList"),
-school:document.getElementById("schoolList"),
-eseo:document.getElementById("eseoList"),
-manual:document.getElementById("manualTopic"),
-manualStatus:document.getElementById("manualTopicStatus"),
-emptyState:document.getElementById("emptyState"),
-panelBody:document.getElementById("panelBody")
-};
-let groupIndex=-1,tabIndex=-1,openGroup=-1;function listHtml(items){return items.map(x=>`<li>${x}</li>`).join("")}function renderMenu(){menu.innerHTML=DATA.map((group,gi)=>{const open=gi===openGroup;return `<div class="group ${open?"open":""}"><button class="group-button" type="button" data-group="${gi}" aria-expanded="${open}"><span class="menu-number">${group.n}</span><span class="menu-label">${group.m}</span><span class="chevron" aria-hidden="true">›</span></button><div class="submenu">${group.tabs.map((tab,ti)=>`<button class="sub-button ${groupIndex>=0&&gi===groupIndex&&ti===tabIndex?"active":""}" type="button" data-group="${gi}" data-tab="${ti}">${tab.l}</button>`).join("")}</div></div>`}).join("");menu.querySelectorAll(".group-button").forEach(btn=>btn.addEventListener("click",()=>{const gi=Number(btn.dataset.group);openGroup=openGroup===gi?-1:gi;renderMenu()}));menu.querySelectorAll(".sub-button").forEach(btn=>btn.addEventListener("click",()=>{groupIndex=Number(btn.dataset.group);tabIndex=Number(btn.dataset.tab);openGroup=groupIndex;render()}))}function renderPanel(){
-  if(groupIndex<0||tabIndex<0){
-    el.emptyState.hidden=false;
-    el.panelBody.hidden=true;
-    return;
-  }
+  <main class="page">
+    <header class="hero">
+      <h1 class="hero__title">Conheça as possibilidades da Educação Online</h1>
+      <p class="hero__intro">A ESEO apoia diferentes níveis de ensino e estratégias educacionais, de acordo com o perfil dos estudantes e as necessidades de cada oferta.</p>
+    </header>
 
-  const group=DATA[groupIndex];
-  const item=group&&group.tabs?group.tabs[tabIndex]:null;
+    <nav class="route-switcher" aria-label="Possibilidades da Educação Online" role="tablist">
+      <button class="route-button" type="button" role="tab" aria-selected="false" aria-controls="explorer" data-route="courses">
+        <span class="route-button__label">Tipos de cursos e atendimentos</span>
+        <span class="route-button__number" aria-hidden="true">01</span>
+      </button>
+      <button class="route-button" type="button" role="tab" aria-selected="false" aria-controls="explorer" data-route="strategies">
+        <span class="route-button__label">Estratégias de oferta</span>
+        <span class="route-button__number" aria-hidden="true">02</span>
+      </button>
+    </nav>
 
-  if(!item){
-    el.emptyState.hidden=false;
-    el.panelBody.hidden=true;
-    return;
-  }
+    <section class="explorer" id="explorer" aria-live="polite" hidden>
+      <div class="option-list" id="optionList" role="tablist" aria-label="Opções"></div>
+      <article class="detail" id="detail" role="tabpanel" tabindex="-1">
+        <p class="detail__eyebrow" id="detailEyebrow"></p>
+        <h2 class="detail__title" id="detailTitle"></h2>
+        <p class="detail__text" id="detailText"></p>
+      </article>
+    </section>
 
-  el.emptyState.hidden=true;
-  el.panelBody.hidden=false;
+    <aside class="notice" aria-labelledby="noticeTitle">
+      <span class="notice__mark" aria-hidden="true">!</span>
+      <div>
+        <h2 class="notice__title" id="noticeTitle">Aviso importante</h2>
+        <p class="notice__text">As possibilidades apresentadas não representam disponibilidade automática. A oferta depende do catálogo vigente, do plano de curso, do público, da infraestrutura e das validações institucionais necessárias.</p>
+      </div>
+    </aside>
+  </main>
 
-  el.kicker.textContent=item.k;
-  el.title.textContent=item.t;
-  el.summary.textContent=item.s;
-  el.flow.innerHTML=listHtml(item.f);
-  el.school.innerHTML=listHtml(item.e);
-  el.eseo.innerHTML=listHtml(item.o);
+  <script>
+    (() => {
+      "use strict";
 
-  if(item.manualUrl){
-    el.manual.href=item.manualUrl;
-    el.manual.target="_blank";
-    el.manual.rel="noopener noreferrer";
-    el.manual.classList.remove("is-pending");
-    el.manual.removeAttribute("aria-disabled");
-    el.manualStatus.textContent="Acessar documento";
-  }else{
-    el.manual.href="#";
-    el.manual.removeAttribute("target");
-    el.manual.removeAttribute("rel");
-    el.manual.classList.add("is-pending");
-    el.manual.setAttribute("aria-disabled","true");
-    el.manualStatus.textContent="Em curadoria";
-  }
-}el.manual.addEventListener("click",e=>{if(el.manual.classList.contains("is-pending"))e.preventDefault()});function render(){renderMenu();renderPanel()}render();
-</script>
+      const groups = {
+        courses: {
+          label: "Tipos de cursos e atendimentos",
+          items: [
+            {
+              title: "Formação Inicial e Continuada",
+              text: "Iniciação, Aperfeiçoamento, Qualificação e Especialização Profissional."
+            },
+            {
+              title: "Aprendizagem Profissional",
+              text: "Formação articulada à prática na empresa e ao contrato de aprendizagem."
+            },
+            {
+              title: "Educação Técnica",
+              text: "Cursos que preparam para o exercício de uma profissão técnica."
+            },
+            {
+              title: "EJA Profissionalizante",
+              html: "Articula a Educação de Jovens e Adultos com a formação para o mundo do trabalho. O <a href=\"https://sesisenaisp.sharepoint.com/sites/intranet/Gestao%20Documental/Documenta%C3%A7%C3%A3o%20SESI-SP/%C3%81reas/Educa%C3%A7%C3%A3o/Procedimentos/EDUC_001/Anexos/Anexo%2001%20-%20Plano%20de%20Curso_NOVA%20EJA%202024.pdf?web=1\" target=\"_blank\" rel=\"noopener noreferrer\">plano da Nova EJA</a> prevê oferta a distância e possibilidade de articulação com Qualificação Profissional."
+            },
+            {
+              title: "Educação Superior",
+              text: "Graduação, Pós-graduação e Extensão Universitária."
+            },
+            {
+              title: "Soluções específicas",
+              text: "Projetos para empresas, programas institucionais, ofertas customizadas e atendimentos com parceiros."
+            }
+          ]
+        },
+        strategies: {
+          label: "Estratégias de oferta",
+          items: [
+            {
+              title: "Online",
+              text: "Realizado no Ambiente Virtual de Aprendizagem."
+            },
+            {
+              title: "Autoinstrucional",
+              text: "O estudante realiza o percurso com autonomia."
+            },
+            {
+              title: "Com mediação pedagógica",
+              text: "Possui acompanhamento e interação durante o curso."
+            },
+            {
+              title: "Semipresencial ou híbrida",
+              text: "Combina atividades online e presenciais."
+            },
+            {
+              title: "Presencial com atividades a distância",
+              text: "Incorpora recursos digitais previstos no curso."
+            },
+            {
+              title: "Material Didático Impresso — MDI",
+              text: "Utilizado em projetos e públicos específicos."
+            },
+            {
+              title: "Atividades síncronas e assíncronas",
+              text: "Podem ocorrer em tempo real ou em horários flexíveis."
+            }
+          ]
+        }
+      };
+
+      const routeButtons = Array.from(document.querySelectorAll(".route-button"));
+      const explorer = document.getElementById("explorer");
+      const optionList = document.getElementById("optionList");
+      const detail = document.getElementById("detail");
+      const detailEyebrow = document.getElementById("detailEyebrow");
+      const detailTitle = document.getElementById("detailTitle");
+      const detailText = document.getElementById("detailText");
+      let currentRoute = "";
+      let currentIndex = 0;
+
+      const updateDetail = (index, moveFocus = false) => {
+        const group = groups[currentRoute];
+        const item = group.items[index];
+        currentIndex = index;
+
+        Array.from(optionList.querySelectorAll(".option-button")).forEach((button, buttonIndex) => {
+          const selected = buttonIndex === index;
+          button.setAttribute("aria-selected", String(selected));
+          button.tabIndex = selected ? 0 : -1;
+        });
+
+        detailEyebrow.textContent = group.label;
+        detailTitle.textContent = item.title;
+        if (item.html) {
+          detailText.innerHTML = item.html;
+        } else {
+          detailText.textContent = item.text;
+        }
+
+        if (moveFocus) {
+          detail.focus({ preventScroll: true });
+        }
+      };
+
+      const renderRoute = (route) => {
+        currentRoute = route;
+        currentIndex = 0;
+        const group = groups[route];
+
+        routeButtons.forEach((button) => {
+          button.setAttribute("aria-selected", String(button.dataset.route === route));
+        });
+
+        optionList.innerHTML = "";
+        optionList.setAttribute("aria-label", group.label);
+
+        group.items.forEach((item, index) => {
+          const button = document.createElement("button");
+          button.className = "option-button";
+          button.type = "button";
+          button.role = "tab";
+          button.id = `${route}-option-${index}`;
+          button.setAttribute("aria-controls", "detail");
+          button.setAttribute("aria-selected", "false");
+          button.tabIndex = -1;
+          button.innerHTML = `
+            <span class="option-button__index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+            <span class="option-button__label">${item.title}</span>
+          `;
+          button.addEventListener("click", () => updateDetail(index));
+          button.addEventListener("keydown", (event) => {
+            const buttons = Array.from(optionList.querySelectorAll(".option-button"));
+            let nextIndex = currentIndex;
+
+            if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+              nextIndex = (currentIndex + 1) % buttons.length;
+            } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+              nextIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+            } else if (event.key === "Home") {
+              nextIndex = 0;
+            } else if (event.key === "End") {
+              nextIndex = buttons.length - 1;
+            } else {
+              return;
+            }
+
+            event.preventDefault();
+            updateDetail(nextIndex);
+            buttons[nextIndex].focus();
+          });
+          optionList.appendChild(button);
+        });
+
+        explorer.hidden = false;
+        requestAnimationFrame(() => explorer.classList.add("is-visible"));
+        updateDetail(0);
+      };
+
+      routeButtons.forEach((button) => {
+        button.addEventListener("click", () => renderRoute(button.dataset.route));
+        button.addEventListener("keydown", (event) => {
+          if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+          event.preventDefault();
+          const direction = event.key === "ArrowRight" ? 1 : -1;
+          const index = routeButtons.indexOf(button);
+          const next = routeButtons[(index + direction + routeButtons.length) % routeButtons.length];
+          next.focus();
+          renderRoute(next.dataset.route);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
