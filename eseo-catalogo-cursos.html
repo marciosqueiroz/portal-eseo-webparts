@@ -1599,15 +1599,17 @@
   },
   {
     "id": 17,
-    "title": "Desenhista de Molde",
-    "level": "Qualificação",
+    "title": "Desenhista de Moda",
+    "level": "Qualificação Profissional",
     "hours": 160,
-    "area": "Metalmecânica",
+    "hoursOnline": 128,
+    "hoursPresencial": 32,
+    "area": "Design",
     "format": "Semipresencial",
     "model": "Colaborativo",
-    "segment": "Metalmecânica",
-    "description": "Formação voltada à representação e ao detalhamento técnico de moldes.",
-    "audience": "Profissionais e estudantes da área.",
+    "segment": "Design",
+    "description": "Formação voltada ao desenvolvimento e à representação técnica de produtos de moda.",
+    "audience": "Profissionais e estudantes interessados na área de moda e design.",
     "prerequisites": "Consultar requisitos da oferta.",
     "sgset": ""
   },
@@ -1909,7 +1911,7 @@
 
     /*
       Códigos recuperados da base SGSET anteriormente fornecida.
-      Os dois cursos sem correspondência exata permanecem pendentes,
+      O curso sem correspondência exata permanece pendente,
       evitando apontar para uma oferta incorreta.
     */
     const SGSET_CODES_BY_TITLE = {
@@ -1928,6 +1930,7 @@
       "Desvendando Data Centers": "108980",
       "Assistente de Recursos Humanos": "103310",
       "Inspetor de Qualidade": "103312",
+      "Desenhista de Moda": "104382",
       "Assistente de Controle de Qualidade": "104503",
       "Controlador e Programador de Produção": "104626",
       "Operador de Computador": "104629",
@@ -1974,12 +1977,12 @@
          O link específico tem prioridade sobre o link geral.
          Também é possível cadastrar "materialUrl" diretamente em um curso.
 
-       teamsConversationUrl:
-         Link de uma conversa/canal fixo do Teams. É a opção mais organizada.
+       solutionsEmail:
+         Caixa de e-mail da equipe de Soluções EAD usada pelo botão
+         "Consultar oferta EAD". O Outlook abre com o curso já identificado.
 
-       teamsUsers:
-         Alternativa ao link fixo. Informe os e-mails para criar um chat.
-         Ex.: ["pessoa1@sp.senai.br", "pessoa2@sp.senai.br"]
+       teamsConversationUrl e teamsUsers:
+         Mantidos no arquivo apenas para compatibilidade com versões anteriores.
 
        trackingWebhookUrl:
          URL do fluxo/serviço que gravará o clique na lista do SharePoint.
@@ -1993,6 +1996,7 @@
       materialLinksByCourseId: {
         /* 1: "https://cole-aqui-o-link-do-material" */
       },
+      solutionsEmail: "eadempresas@sp.senai.br",
       teamsConversationUrl: "",
       teamsUsers: [],
       trackingWebhookUrl: "",
@@ -2099,7 +2103,7 @@
     function getPrimaryAction(course) {
       return isAutoinstructional(course)
         ? { label: "Material de divulgação", type: "material" }
-        : { label: "Fale com a gente", type: "contact" };
+        : { label: "Consultar oferta EAD", type: "contact" };
     }
 
     function getMaterialUrl(course) {
@@ -2133,6 +2137,31 @@
 
       const encodedUsers = users.map(encodeURIComponent).join(",");
       return `https://teams.microsoft.com/l/chat/0/0?users=${encodedUsers}&message=${encodeURIComponent(message)}`;
+    }
+
+    function buildSolutionsEmailUrl(course) {
+      const email = String(ESEO_CONFIG.solutionsEmail || "eadempresas@sp.senai.br").trim();
+
+      const subject = `Consulta de oferta EAD — ${course.title}`;
+      const body = [
+        "Olá, equipe de Soluções EAD!",
+        "",
+        "Gostaria de consultar esta oferta do Portfólio de Cursos ESEO:",
+        "",
+        `Curso: ${course.title}`,
+        `Código SGSET: ${course.courseCode || "não informado"}`,
+        `Nível: ${course.level}`,
+        `Área: ${course.area}`,
+        `Formato: ${course.format}`,
+        `Modelo: ${course.model}`,
+        `Carga horária: ${course.hours} horas`,
+        "",
+        "Por favor, poderiam orientar sobre disponibilidade, condições e próximos passos?",
+        "",
+        "Obrigado(a)."
+      ].join("\n");
+
+      return `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(email)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
 
     function buildInteractionPayload(course, action, destination) {
@@ -2212,12 +2241,12 @@
         }
         recordInteraction(course, "material_divulgacao", destination);
       } else {
-        destination = buildTeamsConversationUrl(course);
+        destination = buildSolutionsEmailUrl(course);
         if (!destination) {
-          showToast("Cadastre o link do Teams ou os participantes no bloco ESEO_CONFIG.");
+          showToast("Não foi possível abrir o e-mail de Soluções EAD.");
           return;
         }
-        recordInteraction(course, "fale_com_a_gente", destination);
+        recordInteraction(course, "consultar_oferta_ead", destination);
       }
 
       window.open(destination, "_blank", "noopener,noreferrer");
@@ -2446,7 +2475,7 @@
       elements.drawerMainAction.classList.toggle("consultation", primaryAction.type === "contact");
       elements.drawerNote.textContent = primaryAction.type === "material"
         ? "Curso disponível na prateleira: o acesso direciona ao material oficial de divulgação, não à página do curso."
-        : "Oferta sob consulta: o contato será direcionado ao Teams e poderá ser registrado na lista de interações.";
+        : "Oferta sob consulta: o botão abrirá uma nova mensagem para a equipe de Soluções EAD, já identificando o curso selecionado.";
 
       elements.drawerBackdrop.classList.add("open");
       elements.courseDrawer.classList.add("open");
