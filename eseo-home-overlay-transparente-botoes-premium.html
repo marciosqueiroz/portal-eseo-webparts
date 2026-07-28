@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portal ESEO — Hero Integrado</title>
+<style>
+:root{
+  --navy:#071e2c;
+  --navy2:#0a2d40;
+  --cyan:#66e6f2;
+  --white:#fff;
+  --red:#e30613;
+  --line:rgba(102,230,242,.35);
+}
+*{box-sizing:border-box}
+html,body{
+  width:100%;
+  min-height:100%;
+  margin:0;
+  padding:0;
+  background:transparent !important;
+  font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+}
+body{overflow-x:hidden}
+.hero{
+  position:relative;
+  width:100%;
+  height:100vh;
+  min-height:590px;
+  max-height:760px;
+  overflow:hidden;
+  color:#fff;
+  isolation:isolate;
+  background:transparent !important;
+}
+.photo{
+  display:none !important;
+}
+.photo::before{
+  display:none !important;
+}
+.hero::after{
+  display:none !important;
+  content:none !important;
+}
+.shell{
+  width:min(1240px,calc(100% - 64px));
+  height:100%;
+  margin:0 auto;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+.topbar{
+  height:86px;
+  flex:0 0 86px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  position:relative;
+  z-index:20;
+}
+.nav{
+  display:flex;
+  align-items:center;
+  gap:48px;
+  min-width:0;
+}
+.nav a{
+  position:relative;
+  color:#fff;
+  text-decoration:none;
+  text-transform:uppercase;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.02em;
+  white-space:nowrap;
+  text-shadow:0 2px 10px rgba(0,0,0,.38);
+  padding:11px 0;
+  transition:opacity .18s ease;
+}
+.nav a:hover{opacity:.8}
+.nav a[aria-current="page"]::after,
+.nav a:hover::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:2px;
+  height:3px;
+  border-radius:99px;
+  background:#fff;
+}
+.search-wrap{
+  position:relative;
+  display:flex;
+  justify-content:flex-end;
+}
+.search{
+  height:48px;
+  width:48px;
+  border:2px solid #082b40;
+  border-radius:999px;
+  background:#fff;
+  box-shadow:0 6px 22px rgba(0,0,0,.14);
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  overflow:hidden;
+  transition:width .28s ease;
+}
+.search.is-open{width:min(430px,38vw)}
+.search input{
+  width:0;
+  opacity:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  font-size:14px;
+  color:#0a2537;
+  padding:0;
+  transition:all .18s ease;
+}
+.search.is-open input{
+  width:100%;
+  opacity:1;
+  padding:0 8px 0 18px;
+}
+.search button{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  display:grid;
+  place-items:center;
+  border:0;
+  background:#fff;
+  cursor:pointer;
+}
+.search svg{
+  width:23px;
+  height:23px;
+  fill:none;
+  stroke:#082b40;
+  stroke-width:2.2;
+}
+.suggestions{
+  display:none;
+  position:absolute;
+  top:57px;
+  right:0;
+  width:min(430px,80vw);
+  max-height:330px;
+  overflow:auto;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 18px 46px rgba(0,0,0,.25);
+  padding:8px;
+  color:#0a2537;
+}
+.suggestions.show{display:block}
+.suggestion{
+  display:grid;
+  grid-template-columns:36px 1fr;
+  gap:10px;
+  align-items:center;
+  padding:10px 11px;
+  border-radius:10px;
+  color:#0a2537;
+  text-decoration:none;
+}
+.suggestion:hover{background:#eef7fa}
+.suggestion-icon{
+  width:32px;height:32px;border-radius:9px;
+  background:#e9f8fb;color:#0b7182;
+  display:grid;place-items:center;
+  font-size:12px;font-weight:900;
+}
+.suggestion strong{display:block;font-size:13px}
+.suggestion small{display:block;margin-top:2px;color:#60737d;font-size:11px}
+
+.content{
+  flex:1 1 auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:5px 0 115px 18px;
+  max-width:690px;
+}
+.eyebrow{
+  margin:0 0 18px;
+  color:#fff;
+  font-size:16px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:.29em;
+  text-transform:uppercase;
+  text-shadow:0 2px 14px rgba(0,0,0,.3);
+}
+h1{
+  margin:0;
+  color:#fff;
+  font-size:clamp(54px,5.4vw,92px);
+  line-height:.95;
+  letter-spacing:-.045em;
+  font-weight:900;
+  white-space:nowrap;
+  text-shadow:0 7px 30px rgba(0,0,0,.18);
+}
+.redline{
+  width:96px;
+  height:6px;
+  border-radius:99px;
+  background:var(--red);
+  margin:29px 0 24px;
+}
+.tagline{
+  margin:0;
+  max-width:590px;
+  font-size:clamp(18px,1.45vw,23px);
+  line-height:1.38;
+  font-weight:400;
+  color:rgba(255,255,255,.96);
+  text-shadow:0 2px 14px rgba(0,0,0,.22);
+}
+.quick-actions{
+  position:absolute;
+  left:62px;
+  bottom:34px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(160px,1fr));
+  gap:9px;
+  width:min(920px,calc(100% - 124px));
+  z-index:10;
+}
+.shortcut{
+  position:relative;
+  min-height:64px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:linear-gradient(135deg,rgba(3,41,55,.88),rgba(9,77,96,.80));
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+  color:#fff;
+  text-decoration:none;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 15px;
+  box-shadow:0 9px 24px rgba(0,0,0,.12);
+  transition:transform .18s ease,border-color .18s ease,background .18s ease;
+}
+.shortcut:hover{
+  transform:translateY(-3px);
+  border-color:rgba(102,230,242,.9);
+  background:linear-gradient(135deg,rgba(3,41,55,.96),rgba(8,93,112,.92));
+}
+.shortcut svg{
+  width:25px;
+  height:25px;
+  flex:0 0 25px;
+  fill:none;
+  stroke:#66e6f2;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.shortcut strong{
+  font-size:12.5px;
+  line-height:1.12;
+  text-transform:uppercase;
+  font-weight:900;
+}
+.shortcut::after{
+  content:attr(data-tip);
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 9px);
+  width:220px;
+  transform:translate(-50%,8px);
+  padding:9px 11px;
+  border-radius:9px;
+  background:rgba(4,28,39,.96);
+  color:#fff;
+  font-size:11px;
+  line-height:1.35;
+  font-weight:500;
+  box-shadow:0 12px 28px rgba(0,0,0,.25);
+  pointer-events:none;
+  opacity:0;
+  transition:.18s ease;
+}
+.shortcut:hover::after{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+:focus-visible{
+  outline:3px solid #66e6f2;
+  outline-offset:3px;
+}
+
+@media (max-width:1050px){
+  .shell{width:min(100% - 38px,1240px)}
+  .nav{gap:24px}
+  .photo{
+  display:none !important;
+}
+.photo::before{
+  display:none !important;
+}
+  .shell{width:calc(100% - 28px)}
+  .topbar{height:auto;min-height:74px;padding:10px 0;align-items:flex-start}
+  .nav{
+    gap:15px;
+    flex-wrap:wrap;
+    padding-top:5px;
+    padding-right:56px;
+  }
+  .nav a{font-size:10px}
+  .search-wrap{position:absolute;right:0;top:7px}
+  .search.is-open{width:min(300px,78vw)}
+  .content{
+    min-height:520px;
+    justify-content:flex-end;
+    padding:110px 5px 180px;
+    max-width:none;
+  }
+  .eyebrow{font-size:12px;letter-spacing:.22em}
+  h1{white-space:normal;font-size:clamp(48px,13vw,72px)}
+  .tagline{font-size:17px;max-width:510px}
+  .redline{width:72px;height:5px;margin:22px 0 18px}
+  .quick-actions{
+    position:absolute;
+    left:5px;
+    right:5px;
+    bottom:22px;
+    width:auto;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+  }
+  .shortcut{min-height:58px;padding:8px 10px}
+  .shortcut strong{font-size:10.5px}
+  .shortcut::after{display:none}
+}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="photo" aria-hidden="true"></div>
+  <div class="shell">
+    <header class="topbar">
+      <nav class="nav" aria-label="Navegação principal do Portal ESEO">
+        <a href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta" target="_blank" rel="noopener noreferrer" aria-current="page">Home</a>
+        <a href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx" target="_blank" rel="noopener noreferrer">Conheça a ESEO</a>
+        <a href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx" target="_blank" rel="noopener noreferrer">Oferta de cursos online</a>
+      </nav>
+
+      <div class="search-wrap" id="searchWrap">
+        <form class="search" id="searchForm" role="search" autocomplete="off">
+          <input id="searchInput" type="search" placeholder="Pesquisar no Portal ESEO" aria-label="Pesquisar somente no Portal ESEO" />
+          <button type="submit" aria-label="Pesquisar">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5"></circle>
+              <path d="m15.5 15.5 4.5 4.5"></path>
+            </svg>
+          </button>
+        </form>
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+    </header>
+
+    <main class="content">
+      <p class="eyebrow">QUE BOM TER VOCÊ AQUI</p>
+      <h1>PORTAL ESEO</h1>
+      <div class="redline" aria-hidden="true"></div>
+      <p class="tagline">Um só lugar para orientar, ofertar e ampliar a Educação Online nas escolas SENAI-SP.</p>
+    </main>
+
+    <nav class="quick-actions" aria-label="Ações rápidas">
+      <a class="shortcut"
+         href="https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html"
+         target="_blank" rel="noopener noreferrer"
+         data-tip="Consulte cursos, formatos e informações do catálogo EAD.">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"></path>
+          <path d="M6.5 10.5v4.2c2.9 2.2 8.1 2.2 11 0v-4.2"></path>
+        </svg>
+        <strong>Portfólio de<br>cursos</strong>
+      </a>
+
+      <a class="shortcut"
+         href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u"
+         target="_blank" rel="noopener noreferrer"
+         data-tip="Peça a conferência e a liberação de uma turma no SGSET.">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="4" y="9" width="16" height="11" rx="2.5"></rect>
+          <path d="M8 9V6.5A4.5 4.5 0 0 1 16.2 4"></path>
+          <path d="m10 14 2 2 4-4"></path>
+        </svg>
+        <strong>Liberar turma<br>SGSET</strong>
+      </a>
+
+      <a class="shortcut"
+         href="https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br"
+         target="_blank" rel="noopener noreferrer"
+         data-tip="Solicite novos cursos, ofertas personalizadas ou uma nova solução.">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m12 3 2.65 5.37 5.93.86-4.29 4.18 1.01 5.91L12 16.53l-5.3 2.79 1.01-5.91-4.29-4.18 5.93-.86L12 3Z"></path>
+        </svg>
+        <strong>Soluções EAD</strong>
+      </a>
+
+      <a class="shortcut"
+         href="https://outlook.office.com/mail/deeplink/compose?to=rantonio%40sp.senai.br"
+         target="_blank" rel="noopener noreferrer"
+         data-tip="Solicite uma ação da ESEO em parceria com a AQV da sua unidade.">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="9" cy="8" r="3"></circle>
+          <path d="M3.5 19v-1.4A4.6 4.6 0 0 1 8.1 13h1.8a4.6 4.6 0 0 1 4.6 4.6V19"></path>
+          <circle cx="17" cy="9" r="2.3"></circle>
+        </svg>
+        <strong>Parceria AQV<br>ESEO</strong>
+      </a>
+    </nav>
+  </div>
+</section>
+
+<script>
+(() => {
+  const PORTAL = "https://sesisenaisp.sharepoint.com/sites/ESEOConecta";
+  const INDEX_URL = "./eseo-search-index.json";
+
+  const form = document.getElementById("searchForm");
+  const input = document.getElementById("searchInput");
+  const suggestions = document.getElementById("suggestions");
+  let items = [];
+
+  const fallback = [
+    {title:"Home do Portal ESEO",subtitle:"Página inicial",icon:"H",url:PORTAL,keywords:["home","inicio","portal","eseo"]},
+    {title:"Conheça a ESEO",subtitle:"História, identidade, proposta e estrutura",icon:"E",url:PORTAL + "/SitePages/Sobre-a-ESEO.aspx",keywords:["historia","identidade","proposta","estrutura"]},
+    {title:"Oferta de cursos online",subtitle:"Portfólio, modelos e orientações",icon:"O",url:PORTAL + "/SitePages/What's-happening.aspx",keywords:["oferta","curso","cursos","catalogo","portfolio"]},
+    {title:"Portfólio de cursos",subtitle:"Cursos, formatos e informações do catálogo",icon:"P",url:"https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html",keywords:["portfolio","catalogo","curso","cursos","sgset"]},
+    {title:"Liberar turma no SGSET",subtitle:"Solicitação de liberação de turma",icon:"L",url:"https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u",keywords:["liberar","turma","sgset","forms"]},
+    {title:"Soluções EAD",subtitle:"Novos cursos e ofertas personalizadas",icon:"S",url:"https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br",keywords:["solucoes","ead","personalizado","novo curso","empresa"]}
+  ];
+
+  function normalize(v){
+    return String(v || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g,"")
+      .toLowerCase()
+      .trim();
+  }
+
+  async function loadIndex(){
+    try{
+      const r = await fetch(INDEX_URL + "?v=" + Date.now(), {cache:"no-store"});
+      if(!r.ok) throw new Error("índice indisponível");
+      const data = await r.json();
+      items = Array.isArray(data) ? data : (Array.isArray(data.items) ? data.items : fallback);
+    }catch(_){
+      items = fallback;
+    }
+  }
+
+  function escapeHtml(v){
+    return String(v || "")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  function render(q){
+    const term = normalize(q);
+    if(!term){
+      suggestions.classList.remove("show");
+      suggestions.innerHTML = "";
+      return;
+    }
+
+    const result = items
+      .filter(item => {
+        const kws = Array.isArray(item.keywords) ? item.keywords : [item.keywords || ""];
+        const bag = normalize([item.title,item.subtitle,...kws].join(" "));
+        return bag.includes(term);
+      })
+      .slice(0,6);
+
+    if(!result.length){
+      const searchUrl = PORTAL + "/_layouts/15/search.aspx/siteall?q=" + encodeURIComponent(q);
+      suggestions.innerHTML =
+        '<a class="suggestion" target="_blank" rel="noopener noreferrer" href="' + searchUrl + '">' +
+        '<span class="suggestion-icon">↗</span><span><strong>Pesquisar no Portal ESEO</strong>' +
+        '<small>Ver todos os resultados para “' + escapeHtml(q) + '”</small></span></a>';
+      suggestions.classList.add("show");
+      return;
+    }
+
+    suggestions.innerHTML = result.map(item => `
+      <a class="suggestion" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
+        <span class="suggestion-icon">${escapeHtml(item.icon || "•")}</span>
+        <span>
+          <strong>${escapeHtml(item.title || "")}</strong>
+          <small>${escapeHtml(item.subtitle || "")}</small>
+        </span>
+      </a>
+    `).join("");
+
+    suggestions.classList.add("show");
+  }
+
+  form.addEventListener("click", () => form.classList.add("is-open"));
+  input.addEventListener("input", e => render(e.target.value));
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+
+    if(!form.classList.contains("is-open")){
+      form.classList.add("is-open");
+      input.focus();
+      return;
+    }
+
+    const term = input.value.trim();
+    if(!term){
+      input.focus();
+      return;
+    }
+
+    window.open(
+      PORTAL + "/_layouts/15/search.aspx/siteall?q=" + encodeURIComponent(term),
+      "_blank",
+      "noopener,noreferrer"
+    );
+  });
+
+  document.addEventListener("click", e => {
+    if(!e.target.closest("#searchWrap")){
+      suggestions.classList.remove("show");
+      if(!input.value.trim()) form.classList.remove("is-open");
+    }
+  });
+
+  loadIndex();
+})();
+</script>
+</body>
+</html>
