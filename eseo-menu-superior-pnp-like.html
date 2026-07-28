@@ -25,7 +25,7 @@ html,body{
   background:transparent!important
 }
 .portal-nav{
-  min-width:0;display:flex;align-items:center;
+  min-width:0;flex:1 1 auto;display:flex;align-items:center;
   gap:clamp(24px,3.7vw,62px)
 }
 .portal-nav a{
@@ -157,7 +157,7 @@ html,body{
 :focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
 @media(max-width:920px){
   .portal-header{gap:12px;padding-inline:14px}
-  .portal-nav{gap:18px;overflow-x:auto;scrollbar-width:none}
+  .portal-nav{gap:16px;overflow-x:auto;scrollbar-width:none}
   .portal-nav::-webkit-scrollbar{display:none}
   .portal-nav a{font-size:12px}
   .search-anchor.is-open .search-shell{width:min(390px,52vw)}
@@ -214,7 +214,8 @@ html,body{
 
   const FALLBACK_ITEMS = [
     {title:"Home do Portal ESEO",subtitle:"Página inicial",type:"Página",icon:"H",url:PORTAL,keywords:["home","inicio","portal","eseo"],boost:90},
-    {title:"Conheça a ESEO",subtitle:"História, identidade, proposta e estrutura",type:"Página",icon:"E",url:PORTAL+"/SitePages/Sobre-a-ESEO.aspx",keywords:["historia","identidade","proposta","estrutura"],boost:80},
+    {title:"Conheça a ESEO",subtitle:"História, identidade e estrutura da escola",type:"Página",icon:"E",url:PORTAL+"/SitePages/Sobre-a-ESEO.aspx",keywords:["historia","identidade","estrutura","eseo"],boost:80},
+    {title:"Proposta Pedagógica ESEO",subtitle:"Documento institucional em versão interativa",type:"Documento",icon:"P",url:"https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-proposta-pedagogica-transparente.html",keywords:["proposta","proposta pedagogica","documento institucional","metodologia","diretrizes"],boost:92},
     {title:"Oferta de cursos online",subtitle:"Portfólio, modelos e orientações",type:"Página",icon:"O",url:PORTAL+"/SitePages/What's-happening.aspx",keywords:["oferta","cursos","catalogo","portfolio"],boost:95}
   ];
 
@@ -249,7 +250,17 @@ html,body{
     try{
       const r=await fetch(INDEX_URL+"?v="+Date.now(),{cache:"no-store"});
       if(!r.ok) throw new Error("Índice não encontrado");
-      ITEMS=await r.json();
+      const loaded=await r.json();
+      const rawExternalItems=Array.isArray(loaded) ? loaded : (Array.isArray(loaded.items) ? loaded.items : []);
+      const externalItems=rawExternalItems.filter(item=>{
+        const title=normalize(item?.title);
+        const url=normalize(item?.url);
+        return !title.includes("proposta pedagogica") && !url.includes("proposta-pedagogica");
+      });
+      const merged=[...FALLBACK_ITEMS,...externalItems];
+      ITEMS=merged.filter((item,index,list)=>
+        index===list.findIndex(other=>normalize(other.url)===normalize(item.url))
+      );
     }catch(_){
       ITEMS=FALLBACK_ITEMS;
     }
