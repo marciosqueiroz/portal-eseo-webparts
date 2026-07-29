@@ -164,6 +164,54 @@ body{overflow-x:hidden}
 }
 .suggestion strong{display:block;font-size:13px}
 .suggestion small{display:block;margin-top:2px;color:#60737d;font-size:11px}
+.hero.has-intro{min-height:430px}
+.page-intro{
+  display:none;
+  width:min(780px,72%);
+  padding:58px 18px 72px;
+}
+.page-intro.is-visible{
+  display:block;
+  animation:intro-in .45s ease both;
+}
+.page-intro h1{
+  margin:0;
+  color:#fff;
+  font-size:clamp(46px,4.4vw,70px);
+  line-height:.98;
+  letter-spacing:-.045em;
+  font-weight:900;
+  text-transform:uppercase;
+  text-shadow:0 8px 28px rgba(0,0,0,.22);
+}
+.intro-redline{
+  width:92px;
+  height:6px;
+  margin:23px 0 25px;
+  border-radius:999px;
+  background:#e30613;
+  box-shadow:0 5px 16px rgba(227,6,19,.24);
+}
+.page-intro p{
+  max-width:760px;
+  margin:0;
+  color:rgba(255,255,255,.96);
+  font-size:clamp(17px,1.3vw,20px);
+  line-height:1.55;
+  font-weight:500;
+  text-wrap:pretty;
+  text-shadow:0 2px 14px rgba(0,0,0,.30);
+}
+.page-intro p + p{margin-top:15px}
+.page-intro .intro-support{
+  max-width:690px;
+  color:rgba(255,255,255,.86);
+  font-size:clamp(16px,1.15vw,18px);
+}
+@keyframes intro-in{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
 :focus-visible{
   outline:3px solid #66e6f2;
   outline-offset:3px;
@@ -183,6 +231,17 @@ body{overflow-x:hidden}
   .nav a{font-size:10px}
   .search-wrap{position:absolute;right:0;top:7px}
   .search.is-open{width:min(300px,78vw)}
+  .hero.has-intro{min-height:440px}
+  .page-intro{
+    width:100%;
+    padding:52px 5px 64px;
+  }
+  .page-intro h1{
+    max-width:620px;
+    font-size:clamp(40px,10vw,62px);
+  }
+  .page-intro p{font-size:17px}
+  .intro-redline{width:76px;height:5px;margin:20px 0 22px}
 }
 </style>
 </head>
@@ -209,6 +268,13 @@ body{overflow-x:hidden}
         <div class="suggestions" id="suggestions"></div>
       </div>
     </header>
+
+    <main class="page-intro" id="conhecaIntro">
+      <h1>Conheça a ESEO</h1>
+      <div class="intro-redline" aria-hidden="true"></div>
+      <p>A ESEO é a Escola SENAI de Educação Online, o braço estratégico do SENAI-SP no desenvolvimento, oferta e acompanhamento de soluções educacionais online e semipresenciais.</p>
+      <p class="intro-support">Aqui você conhece nossa história, proposta pedagógica e como apoiamos a Rede de Escolas SENAI-SP.</p>
+    </main>
   </div>
 </section>
 
@@ -230,12 +296,18 @@ body{overflow-x:hidden}
   if(!["home","conheca","oferta"].includes(activePage)){
     if(referrer.includes("sobre-a-eseo")) activePage = "conheca";
     else if(referrer.includes("what%27s-happening") || referrer.includes("what's-happening")) activePage = "oferta";
+    else if(!referrer || referrer.includes("chatgpt.com")) activePage = "conheca";
     else activePage = "";
   }
 
   document.querySelectorAll("[data-page]").forEach(link => {
     if(link.dataset.page === activePage) link.setAttribute("aria-current","page");
   });
+
+  if(activePage === "conheca"){
+    document.querySelector(".hero").classList.add("has-intro");
+    document.getElementById("conhecaIntro").classList.add("is-visible");
+  }
 
   const fallback = [
     {title:"Home do Portal ESEO",subtitle:"Página inicial",icon:"H",url:PORTAL,keywords:["home","inicio","portal","eseo"]},
