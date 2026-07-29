@@ -220,9 +220,11 @@ body{overflow-x:hidden}
   padding-bottom:24px;
 }
 .fronts-tabs{
+  width:min(690px,100%);
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:8px;
+  margin:0 auto;
   padding:5px;
   border:1px solid rgba(255,255,255,.14);
   border-radius:14px;
@@ -235,7 +237,7 @@ body{overflow-x:hidden}
   min-width:0;
   min-height:72px;
   display:grid;
-  grid-template-columns:38px minmax(0,1fr);
+  grid-template-columns:34px minmax(0,1fr);
   align-items:center;
   gap:11px;
   padding:10px 14px;
@@ -276,22 +278,15 @@ body{overflow-x:hidden}
   transform:scaleX(1);
 }
 .fronts-tab-icon{
-  width:36px;
-  height:36px;
+  width:32px;
+  height:32px;
   display:grid;
   place-items:center;
-  border:1px solid rgba(114,221,235,.42);
-  border-radius:10px;
   color:#72ddeb;
-  background:rgba(6,25,35,.20);
-}
-.fronts-tab[aria-selected="true"] .fronts-tab-icon{
-  border-color:#0eb7d5;
-  background:rgba(14,183,213,.14);
 }
 .fronts-tab-icon svg{
-  width:22px;
-  height:22px;
+  width:27px;
+  height:27px;
   fill:none;
   stroke:currentColor;
   stroke-width:1.8;
@@ -318,51 +313,12 @@ body{overflow-x:hidden}
   text-overflow:ellipsis;
   text-transform:uppercase;
 }
-.fronts-panels{min-height:266px}
-.fronts-panel{padding:27px 12px 8px}
+.fronts-panels{min-height:210px}
+.fronts-panel{padding:25px 12px 8px}
 .fronts-panel[hidden]{display:none}
 .fronts-panel.is-entering{animation:fronts-panel-in .36s cubic-bezier(.2,.8,.2,1) both}
 .fronts-panel-layout{
-  display:grid;
-  grid-template-columns:minmax(240px,310px) minmax(0,1fr);
-  gap:clamp(30px,4.5vw,62px);
-  align-items:start;
-}
-.fronts-panel-heading{
-  position:relative;
-  padding:4px 0 4px 18px;
-}
-.fronts-panel-heading::before{
-  position:absolute;
-  top:3px;
-  bottom:3px;
-  left:0;
-  width:4px;
-  border-radius:999px;
-  background:#0eb7d5;
-  box-shadow:0 0 18px rgba(14,183,213,.28);
-  content:"";
-}
-.fronts-panel-number{
   display:block;
-  margin-bottom:8px;
-  color:#72ddeb;
-  font-size:10px;
-  font-weight:850;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-}
-.fronts-panel-title{
-  max-width:300px;
-  margin:0;
-  color:#fff;
-  font-size:clamp(24px,2.2vw,32px);
-  font-weight:880;
-  line-height:1.08;
-  letter-spacing:-.025em;
-  text-transform:uppercase;
-  text-wrap:balance;
-  text-shadow:0 4px 18px rgba(0,0,0,.20);
 }
 .fronts-list{
   display:grid;
@@ -437,8 +393,6 @@ body{overflow-x:hidden}
   .fronts-tab-title{white-space:normal}
   .fronts-panels{min-height:0}
   .fronts-panel{padding:24px 8px 8px}
-  .fronts-panel-layout{grid-template-columns:1fr;gap:22px}
-  .fronts-panel-title{max-width:520px}
   .fronts-list{grid-template-columns:1fr;gap:12px}
 }
 </style>
@@ -524,10 +478,6 @@ body{overflow-x:hidden}
         <section class="fronts-panel is-entering" id="panel-valor" role="tabpanel"
                  aria-labelledby="tab-valor">
           <div class="fronts-panel-layout">
-            <header class="fronts-panel-heading">
-              <span class="fronts-panel-number">Frente 01</span>
-              <h2 class="fronts-panel-title">Diferenciais que geram valor</h2>
-            </header>
             <ul class="fronts-list">
               <li>Atendimento integrado às demandas da indústria, das empresas, da comunidade e das Unidades SENAI-SP.</li>
               <li>Ampliação do acesso à educação profissional, com impacto na receita e na gratuidade.</li>
@@ -541,10 +491,6 @@ body{overflow-x:hidden}
         <section class="fronts-panel" id="panel-apoio" role="tabpanel"
                  aria-labelledby="tab-apoio" hidden>
           <div class="fronts-panel-layout">
-            <header class="fronts-panel-heading">
-              <span class="fronts-panel-number">Frente 02</span>
-              <h2 class="fronts-panel-title">Apoio estratégico às escolas</h2>
-            </header>
             <ul class="fronts-list">
               <li>Estruturação da oferta, desde a análise da demanda até a operação do curso.</li>
               <li>Consultoria para definição da modalidade, do modelo educacional, do escopo e da viabilidade técnica.</li>
@@ -558,10 +504,6 @@ body{overflow-x:hidden}
         <section class="fronts-panel" id="panel-resultados" role="tabpanel"
                  aria-labelledby="tab-resultados" hidden>
           <div class="fronts-panel-layout">
-            <header class="fronts-panel-heading">
-              <span class="fronts-panel-number">Frente 03</span>
-              <h2 class="fronts-panel-title">Soluções que impulsionam resultados</h2>
-            </header>
             <ul class="fronts-list">
               <li>Desenvolvimento e adaptação de cursos alinhados às demandas do mercado e da indústria.</li>
               <li>Escalabilidade das ofertas com qualidade pedagógica e identidade institucional.</li>
