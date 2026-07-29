@@ -64,11 +64,14 @@ body{overflow-x:hidden}
   white-space:nowrap;
   text-shadow:0 2px 10px rgba(0,0,0,.38);
   padding:11px 0;
-  transition:opacity .18s ease;
+  transition:color .18s ease,opacity .18s ease;
 }
-.nav a:hover{opacity:.8}
-.nav a[aria-current="page"]::after,
-.nav a:hover::after{
+.nav a:hover,
+.nav a:focus-visible{
+  color:var(--cyan);
+  opacity:1;
+}
+.nav a[aria-current="page"]::after{
   content:"";
   position:absolute;
   left:0;
@@ -196,12 +199,13 @@ body{overflow-x:hidden}
   box-shadow:0 5px 16px rgba(227,6,19,.24);
 }
 .page-intro p{
-  max-width:760px;
+  max-width:900px;
   margin:0;
   color:rgba(255,255,255,.96);
-  font-size:clamp(17px,1.3vw,20px);
-  line-height:1.55;
-  font-weight:500;
+  font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+  font-size:clamp(16px,1.15vw,18px);
+  line-height:1.5;
+  font-weight:400;
   text-wrap:pretty;
   text-shadow:0 2px 14px rgba(0,0,0,.30);
 }
@@ -220,42 +224,38 @@ body{overflow-x:hidden}
   padding-bottom:24px;
 }
 .fronts-tabs{
-  width:min(690px,100%);
+  width:min(980px,100%);
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:8px;
+  gap:9px;
   margin:0 auto;
-  padding:5px;
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:14px;
-  background:rgba(6,25,35,.18);
-  backdrop-filter:blur(5px);
-  -webkit-backdrop-filter:blur(5px);
+  padding:0;
 }
 .fronts-tab{
   position:relative;
   min-width:0;
-  min-height:72px;
-  display:grid;
-  grid-template-columns:34px minmax(0,1fr);
+  min-height:64px;
+  display:flex;
   align-items:center;
-  gap:11px;
-  padding:10px 14px;
+  justify-content:flex-start;
+  gap:12px;
+  padding:10px 15px;
   overflow:hidden;
-  border:1px solid transparent;
+  border:1px solid rgba(102,230,242,.30);
   border-radius:10px;
-  background:transparent;
-  color:rgba(255,255,255,.70);
+  background:linear-gradient(135deg,rgba(35,8,16,.96),rgba(67,13,25,.92));
+  color:rgba(255,255,255,.82);
+  box-shadow:0 9px 24px rgba(0,0,0,.12);
   text-align:left;
   cursor:pointer;
-  transition:color .2s ease,background .2s ease,border-color .2s ease,transform .2s ease;
+  transition:color .2s ease,transform .2s ease,border-color .2s ease,background .2s ease;
 }
 .fronts-tab::after{
   position:absolute;
-  right:18px;
+  right:15px;
   bottom:0;
-  left:18px;
-  height:3px;
+  left:15px;
+  height:2px;
   border-radius:999px 999px 0 0;
   background:#0eb7d5;
   content:"";
@@ -265,28 +265,29 @@ body{overflow-x:hidden}
 }
 .fronts-tab:hover{
   color:#fff;
-  background:rgba(255,255,255,.055);
+  border-color:rgba(102,230,242,.72);
+  background:linear-gradient(135deg,rgba(44,9,19,.98),rgba(83,15,31,.95));
+  transform:translateY(-2px);
 }
 .fronts-tab[aria-selected="true"]{
-  border-color:rgba(114,221,235,.30);
-  background:linear-gradient(135deg,rgba(6,25,35,.52),rgba(14,183,213,.13));
   color:#fff;
-  transform:translateY(-1px);
+  border-color:rgba(102,230,242,.82);
+  background:linear-gradient(135deg,rgba(44,9,19,.98),rgba(83,15,31,.95));
 }
 .fronts-tab[aria-selected="true"]::after{
   opacity:1;
   transform:scaleX(1);
 }
 .fronts-tab-icon{
-  width:32px;
-  height:32px;
+  width:28px;
+  height:28px;
   display:grid;
   place-items:center;
   color:#72ddeb;
 }
 .fronts-tab-icon svg{
-  width:27px;
-  height:27px;
+  width:24px;
+  height:24px;
   fill:none;
   stroke:currentColor;
   stroke-width:1.8;
@@ -296,10 +297,10 @@ body{overflow-x:hidden}
 .fronts-tab-copy{min-width:0}
 .fronts-tab-number{
   display:block;
-  margin-bottom:3px;
+  margin-bottom:2px;
   color:#72ddeb;
   font-size:9px;
-  font-weight:850;
+  font-weight:700;
   letter-spacing:.13em;
   text-transform:uppercase;
 }
@@ -307,14 +308,18 @@ body{overflow-x:hidden}
   display:block;
   overflow:hidden;
   color:inherit;
-  font-size:13px;
-  font-weight:850;
+  font-size:12px;
+  font-weight:700;
   line-height:1.18;
   text-overflow:ellipsis;
   text-transform:uppercase;
 }
-.fronts-panels{min-height:210px}
-.fronts-panel{padding:25px 12px 8px}
+.fronts-panels{
+  min-height:190px;
+  width:min(880px,100%);
+  margin:0 auto;
+}
+.fronts-panel{padding:24px 0 4px}
 .fronts-panel[hidden]{display:none}
 .fronts-panel.is-entering{animation:fronts-panel-in .36s cubic-bezier(.2,.8,.2,1) both}
 .fronts-panel-layout{
@@ -323,7 +328,7 @@ body{overflow-x:hidden}
 .fronts-list{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:13px 28px;
+  gap:12px 38px;
   margin:0;
   padding:2px 0 0;
   list-style:none;
@@ -332,10 +337,11 @@ body{overflow-x:hidden}
   position:relative;
   min-width:0;
   padding-left:17px;
-  color:rgba(255,255,255,.82);
-  font-size:14px;
-  font-weight:550;
-  line-height:1.36;
+  color:rgba(255,255,255,.78);
+  font-size:13px;
+  font-family:"Segoe UI",Arial,Helvetica,sans-serif;
+  font-weight:400;
+  line-height:1.42;
   text-wrap:pretty;
 }
 .fronts-list li::before{
@@ -424,8 +430,7 @@ body{overflow-x:hidden}
     <main class="page-intro page-intro--wide" id="ofertaIntro">
       <h1>Oferta de cursos online</h1>
       <div class="intro-redline" aria-hidden="true"></div>
-      <p>Em parceria com as Escolas e Faculdades SENAI-SP, desenvolvemos e ofertamos soluções educacionais online e semipresenciais para a educação profissional.</p>
-      <p class="intro-support">A ESEO apoia as unidades na escolha, estruturação e operação das soluções mais adequadas, por meio de três frentes complementares que integram escala, apoio técnico-pedagógico e colaboração com as Unidades SENAI-SP.</p>
+      <p>Em parceria com as Escolas e Faculdades SENAI-SP, a ESEO desenvolve e apoia soluções online e semipresenciais para a educação profissional.</p>
     </main>
 
     <section class="fronts-explorer" aria-label="Frentes da oferta de cursos online">
