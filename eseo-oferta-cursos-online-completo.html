@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Menu superior — Portal ESEO</title>
+<title>Oferta de cursos online — Portal ESEO</title>
 <style>
 :root{
   --navy:#071e2c;
@@ -212,6 +212,191 @@ body{overflow-x:hidden}
   font-size:clamp(16px,1.15vw,18px);
 }
 .page-intro--wide .intro-support{max-width:1060px}
+.page-intro--wide{padding-bottom:34px}
+
+.fronts-explorer{
+  width:min(1120px,calc(100% - 36px));
+  margin:0 auto;
+  padding-bottom:24px;
+}
+.fronts-tabs{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  padding:5px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  background:rgba(6,25,35,.18);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+}
+.fronts-tab{
+  position:relative;
+  min-width:0;
+  min-height:72px;
+  display:grid;
+  grid-template-columns:38px minmax(0,1fr);
+  align-items:center;
+  gap:11px;
+  padding:10px 14px;
+  overflow:hidden;
+  border:1px solid transparent;
+  border-radius:10px;
+  background:transparent;
+  color:rgba(255,255,255,.70);
+  text-align:left;
+  cursor:pointer;
+  transition:color .2s ease,background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.fronts-tab::after{
+  position:absolute;
+  right:18px;
+  bottom:0;
+  left:18px;
+  height:3px;
+  border-radius:999px 999px 0 0;
+  background:#0eb7d5;
+  content:"";
+  opacity:0;
+  transform:scaleX(.25);
+  transition:opacity .2s ease,transform .24s ease;
+}
+.fronts-tab:hover{
+  color:#fff;
+  background:rgba(255,255,255,.055);
+}
+.fronts-tab[aria-selected="true"]{
+  border-color:rgba(114,221,235,.30);
+  background:linear-gradient(135deg,rgba(6,25,35,.52),rgba(14,183,213,.13));
+  color:#fff;
+  transform:translateY(-1px);
+}
+.fronts-tab[aria-selected="true"]::after{
+  opacity:1;
+  transform:scaleX(1);
+}
+.fronts-tab-icon{
+  width:36px;
+  height:36px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(114,221,235,.42);
+  border-radius:10px;
+  color:#72ddeb;
+  background:rgba(6,25,35,.20);
+}
+.fronts-tab[aria-selected="true"] .fronts-tab-icon{
+  border-color:#0eb7d5;
+  background:rgba(14,183,213,.14);
+}
+.fronts-tab-icon svg{
+  width:22px;
+  height:22px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.fronts-tab-copy{min-width:0}
+.fronts-tab-number{
+  display:block;
+  margin-bottom:3px;
+  color:#72ddeb;
+  font-size:9px;
+  font-weight:850;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.fronts-tab-title{
+  display:block;
+  overflow:hidden;
+  color:inherit;
+  font-size:13px;
+  font-weight:850;
+  line-height:1.18;
+  text-overflow:ellipsis;
+  text-transform:uppercase;
+}
+.fronts-panels{min-height:266px}
+.fronts-panel{padding:27px 12px 8px}
+.fronts-panel[hidden]{display:none}
+.fronts-panel.is-entering{animation:fronts-panel-in .36s cubic-bezier(.2,.8,.2,1) both}
+.fronts-panel-layout{
+  display:grid;
+  grid-template-columns:minmax(240px,310px) minmax(0,1fr);
+  gap:clamp(30px,4.5vw,62px);
+  align-items:start;
+}
+.fronts-panel-heading{
+  position:relative;
+  padding:4px 0 4px 18px;
+}
+.fronts-panel-heading::before{
+  position:absolute;
+  top:3px;
+  bottom:3px;
+  left:0;
+  width:4px;
+  border-radius:999px;
+  background:#0eb7d5;
+  box-shadow:0 0 18px rgba(14,183,213,.28);
+  content:"";
+}
+.fronts-panel-number{
+  display:block;
+  margin-bottom:8px;
+  color:#72ddeb;
+  font-size:10px;
+  font-weight:850;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.fronts-panel-title{
+  max-width:300px;
+  margin:0;
+  color:#fff;
+  font-size:clamp(24px,2.2vw,32px);
+  font-weight:880;
+  line-height:1.08;
+  letter-spacing:-.025em;
+  text-transform:uppercase;
+  text-wrap:balance;
+  text-shadow:0 4px 18px rgba(0,0,0,.20);
+}
+.fronts-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px 28px;
+  margin:0;
+  padding:2px 0 0;
+  list-style:none;
+}
+.fronts-list li{
+  position:relative;
+  min-width:0;
+  padding-left:17px;
+  color:rgba(255,255,255,.82);
+  font-size:14px;
+  font-weight:550;
+  line-height:1.36;
+  text-wrap:pretty;
+}
+.fronts-list li::before{
+  position:absolute;
+  top:.48em;
+  left:0;
+  width:7px;
+  height:7px;
+  border:1.5px solid #0eb7d5;
+  border-radius:2px;
+  content:"";
+  transform:rotate(45deg);
+}
+@keyframes fronts-panel-in{
+  from{opacity:0;transform:translateY(9px)}
+  to{opacity:1;transform:translateY(0)}
+}
 @keyframes intro-in{
   from{opacity:0;transform:translateY(10px)}
   to{opacity:1;transform:translateY(0)}
@@ -246,6 +431,15 @@ body{overflow-x:hidden}
   }
   .page-intro p{font-size:17px}
   .intro-redline{width:76px;height:5px;margin:20px 0 22px}
+  .fronts-explorer{width:calc(100% - 12px)}
+  .fronts-tabs{grid-template-columns:1fr}
+  .fronts-tab{min-height:60px}
+  .fronts-tab-title{white-space:normal}
+  .fronts-panels{min-height:0}
+  .fronts-panel{padding:24px 8px 8px}
+  .fronts-panel-layout{grid-template-columns:1fr;gap:22px}
+  .fronts-panel-title{max-width:520px}
+  .fronts-list{grid-template-columns:1fr;gap:12px}
 }
 </style>
 </head>
@@ -273,19 +467,113 @@ body{overflow-x:hidden}
       </div>
     </header>
 
-    <main class="page-intro" id="conhecaIntro">
-      <h1>Conheça a ESEO</h1>
-      <div class="intro-redline" aria-hidden="true"></div>
-      <p>A ESEO é a Escola SENAI de Educação Online, o braço estratégico do SENAI-SP no desenvolvimento, oferta e acompanhamento de soluções educacionais online e semipresenciais.</p>
-      <p class="intro-support">Aqui você conhece nossa história, proposta pedagógica e como apoiamos a Rede de Escolas SENAI-SP.</p>
-    </main>
-
     <main class="page-intro page-intro--wide" id="ofertaIntro">
       <h1>Oferta de cursos online</h1>
       <div class="intro-redline" aria-hidden="true"></div>
       <p>Em parceria com as Escolas e Faculdades SENAI-SP, desenvolvemos e ofertamos soluções educacionais online e semipresenciais para a educação profissional.</p>
       <p class="intro-support">A ESEO apoia as unidades na escolha, estruturação e operação das soluções mais adequadas, por meio de três frentes complementares que integram escala, apoio técnico-pedagógico e colaboração com as Unidades SENAI-SP.</p>
     </main>
+
+    <section class="fronts-explorer" aria-label="Frentes da oferta de cursos online">
+      <div class="fronts-tabs" role="tablist" aria-label="Selecione uma frente da oferta">
+        <button class="fronts-tab" id="tab-valor" type="button" role="tab"
+                aria-selected="true" aria-controls="panel-valor" tabindex="0">
+          <span class="fronts-tab-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/>
+              <path d="m3 6 6-3 6 5 6-5"/>
+            </svg>
+          </span>
+          <span class="fronts-tab-copy">
+            <span class="fronts-tab-number">Frente 01</span>
+            <span class="fronts-tab-title">Diferenciais que geram valor</span>
+          </span>
+        </button>
+
+        <button class="fronts-tab" id="tab-apoio" type="button" role="tab"
+                aria-selected="false" aria-controls="panel-apoio" tabindex="-1">
+          <span class="fronts-tab-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M3 12h4l3-7 4 14 3-7h4"/>
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+          </span>
+          <span class="fronts-tab-copy">
+            <span class="fronts-tab-number">Frente 02</span>
+            <span class="fronts-tab-title">Apoio estratégico às escolas</span>
+          </span>
+        </button>
+
+        <button class="fronts-tab" id="tab-resultados" type="button" role="tab"
+                aria-selected="false" aria-controls="panel-resultados" tabindex="-1">
+          <span class="fronts-tab-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3v18M3 12h18"/>
+              <circle cx="12" cy="12" r="9"/>
+              <path d="m7.5 16.5 9-9"/>
+            </svg>
+          </span>
+          <span class="fronts-tab-copy">
+            <span class="fronts-tab-number">Frente 03</span>
+            <span class="fronts-tab-title">Soluções que impulsionam resultados</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="fronts-panels">
+        <section class="fronts-panel is-entering" id="panel-valor" role="tabpanel"
+                 aria-labelledby="tab-valor">
+          <div class="fronts-panel-layout">
+            <header class="fronts-panel-heading">
+              <span class="fronts-panel-number">Frente 01</span>
+              <h2 class="fronts-panel-title">Diferenciais que geram valor</h2>
+            </header>
+            <ul class="fronts-list">
+              <li>Atendimento integrado às demandas da indústria, das empresas, da comunidade e das Unidades SENAI-SP.</li>
+              <li>Ampliação do acesso à educação profissional, com impacto na receita e na gratuidade.</li>
+              <li>Flexibilidade de formatos: autoinstrucional, colaborativo, semipresencial, híbrido e in company.</li>
+              <li>Escalabilidade com rapidez, melhor aproveitamento de recursos e padronização da experiência educacional.</li>
+              <li>Atendimento a diferentes públicos e regiões do estado.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="fronts-panel" id="panel-apoio" role="tabpanel"
+                 aria-labelledby="tab-apoio" hidden>
+          <div class="fronts-panel-layout">
+            <header class="fronts-panel-heading">
+              <span class="fronts-panel-number">Frente 02</span>
+              <h2 class="fronts-panel-title">Apoio estratégico às escolas</h2>
+            </header>
+            <ul class="fronts-list">
+              <li>Estruturação da oferta, desde a análise da demanda até a operação do curso.</li>
+              <li>Consultoria para definição da modalidade, do modelo educacional, do escopo e da viabilidade técnica.</li>
+              <li>Formação, onboarding e suporte contínuo para tutores e monitores.</li>
+              <li>Operação centralizada de monitoria, acompanhamento e emissão de relatórios.</li>
+              <li>Decisões orientadas por indicadores e compartilhamento de boas práticas entre as Unidades SENAI-SP.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="fronts-panel" id="panel-resultados" role="tabpanel"
+                 aria-labelledby="tab-resultados" hidden>
+          <div class="fronts-panel-layout">
+            <header class="fronts-panel-heading">
+              <span class="fronts-panel-number">Frente 03</span>
+              <h2 class="fronts-panel-title">Soluções que impulsionam resultados</h2>
+            </header>
+            <ul class="fronts-list">
+              <li>Desenvolvimento e adaptação de cursos alinhados às demandas do mercado e da indústria.</li>
+              <li>Escalabilidade das ofertas com qualidade pedagógica e identidade institucional.</li>
+              <li>Integração entre teoria online e prática presencial em laboratórios especializados.</li>
+              <li>Trilhas de aprendizagem adequadas a diferentes perfis profissionais.</li>
+              <li>Maior engajamento e retenção por meio de tutoria, monitoria e acompanhamento contínuo.</li>
+              <li>Atualização ágil dos conteúdos e formação orientada à aplicação prática das competências.</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </section>
   </div>
 </section>
 
@@ -299,29 +587,14 @@ body{overflow-x:hidden}
   const suggestions = document.getElementById("suggestions");
   let items = [];
 
-  const params = new URLSearchParams(location.search);
-  const informedPage = (params.get("ativa") || "").toLowerCase();
-  const referrer = (document.referrer || "").toLowerCase();
-  let activePage = informedPage;
-
-  if(!["home","conheca","oferta"].includes(activePage)){
-    if(referrer.includes("sobre-a-eseo")) activePage = "conheca";
-    else if(referrer.includes("what%27s-happening") || referrer.includes("what's-happening")) activePage = "oferta";
-    else if(!referrer || referrer.includes("chatgpt.com")) activePage = "conheca";
-    else activePage = "";
-  }
+  const activePage = "oferta";
 
   document.querySelectorAll("[data-page]").forEach(link => {
     if(link.dataset.page === activePage) link.setAttribute("aria-current","page");
   });
 
-  if(activePage === "conheca"){
-    document.querySelector(".hero").classList.add("has-intro");
-    document.getElementById("conhecaIntro").classList.add("is-visible");
-  }else if(activePage === "oferta"){
-    document.querySelector(".hero").classList.add("has-intro");
-    document.getElementById("ofertaIntro").classList.add("is-visible");
-  }
+  document.querySelector(".hero").classList.add("has-intro");
+  document.getElementById("ofertaIntro").classList.add("is-visible");
 
   const fallback = [
     {title:"Home do Portal ESEO",subtitle:"Página inicial",icon:"H",url:PORTAL,keywords:["home","inicio","portal","eseo"]},
@@ -442,6 +715,55 @@ body{overflow-x:hidden}
   });
 
   loadIndex();
+})();
+</script>
+
+<script>
+(() => {
+  const tabs = [...document.querySelectorAll(".fronts-tab")];
+  const panels = [...document.querySelectorAll(".fronts-panel")];
+
+  function activate(index, moveFocus = false){
+    tabs.forEach((tab, position) => {
+      const selected = position === index;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+    });
+
+    panels.forEach((panel, position) => {
+      const selected = position === index;
+      panel.hidden = !selected;
+      panel.classList.remove("is-entering");
+      if(selected){
+        void panel.offsetWidth;
+        panel.classList.add("is-entering");
+      }
+    });
+
+    if(moveFocus) tabs[index].focus();
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => activate(index));
+    tab.addEventListener("keydown", event => {
+      let target = index;
+
+      if(event.key === "ArrowRight" || event.key === "ArrowDown"){
+        target = (index + 1) % tabs.length;
+      }else if(event.key === "ArrowLeft" || event.key === "ArrowUp"){
+        target = (index - 1 + tabs.length) % tabs.length;
+      }else if(event.key === "Home"){
+        target = 0;
+      }else if(event.key === "End"){
+        target = tabs.length - 1;
+      }else{
+        return;
+      }
+
+      event.preventDefault();
+      activate(target, true);
+    });
+  });
 })();
 </script>
 </body>
