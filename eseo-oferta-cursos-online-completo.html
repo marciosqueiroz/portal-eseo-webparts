@@ -319,6 +319,32 @@ body{overflow-x:hidden}
   width:min(880px,100%);
   margin:0 auto;
 }
+.fronts-empty{
+  min-height:170px;
+  display:grid;
+  place-content:center;
+  gap:7px;
+  padding:28px 16px;
+  color:#fff;
+  text-align:center;
+  animation:fronts-panel-in .36s cubic-bezier(.2,.8,.2,1) both;
+}
+.fronts-empty[hidden]{display:none}
+.fronts-empty-kicker{
+  margin:0;
+  color:#72ddeb;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.fronts-empty-text{
+  margin:0;
+  color:rgba(255,255,255,.82);
+  font-size:clamp(15px,1.1vw,17px);
+  font-weight:400;
+  line-height:1.45;
+}
 .fronts-panel{padding:24px 0 4px}
 .fronts-panel[hidden]{display:none}
 .fronts-panel.is-entering{animation:fronts-panel-in .36s cubic-bezier(.2,.8,.2,1) both}
@@ -436,7 +462,7 @@ body{overflow-x:hidden}
     <section class="fronts-explorer" aria-label="Frentes da oferta de cursos online">
       <div class="fronts-tabs" role="tablist" aria-label="Selecione uma frente da oferta">
         <button class="fronts-tab" id="tab-valor" type="button" role="tab"
-                aria-selected="true" aria-controls="panel-valor" tabindex="0">
+                aria-selected="false" aria-controls="panel-valor" tabindex="0">
           <span class="fronts-tab-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24">
               <path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/>
@@ -480,8 +506,13 @@ body{overflow-x:hidden}
       </div>
 
       <div class="fronts-panels">
-        <section class="fronts-panel is-entering" id="panel-valor" role="tabpanel"
-                 aria-labelledby="tab-valor">
+        <div class="fronts-empty" id="frontsEmpty" aria-live="polite">
+          <p class="fronts-empty-kicker">Conheça as três frentes</p>
+          <p class="fronts-empty-text">Selecione uma das opções acima para visualizar os detalhes.</p>
+        </div>
+
+        <section class="fronts-panel" id="panel-valor" role="tabpanel"
+                 aria-labelledby="tab-valor" hidden>
           <div class="fronts-panel-layout">
             <ul class="fronts-list">
               <li>Atendimento integrado às demandas da indústria, das empresas, da comunidade e das Unidades SENAI-SP.</li>
@@ -669,8 +700,11 @@ body{overflow-x:hidden}
 (() => {
   const tabs = [...document.querySelectorAll(".fronts-tab")];
   const panels = [...document.querySelectorAll(".fronts-panel")];
+  const emptyState = document.getElementById("frontsEmpty");
 
   function activate(index, moveFocus = false){
+    emptyState.hidden = true;
+
     tabs.forEach((tab, position) => {
       const selected = position === index;
       tab.setAttribute("aria-selected", String(selected));
