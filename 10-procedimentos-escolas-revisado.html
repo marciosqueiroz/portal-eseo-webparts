@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>Tipos de atendimento — ESEO</title>
+  <style>
+    :root {
+      --navy: #0a2537;
+      --navy-2: #12384f;
+      --blue: #0078b9;
+      --blue-light: #eaf6fb;
+      --yellow: #f4c542;
+      --text: #193547;
+      --muted: #5f7380;
+      --line: rgba(10, 37, 55, 0.13);
+      --surface: rgba(255, 255, 255, 0.88);
+      --surface-strong: #ffffff;
+      --shadow: 0 22px 60px rgba(10, 37, 55, 0.09);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: transparent;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      overflow-x: hidden;
+      background: transparent;
+      color: var(--text);
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    .global-menu {
+      display: block;
+      width: min(1180px, calc(100% - 40px));
+      height: 220px;
+      margin: 0 auto;
+      border: 0;
+      background: transparent;
+    }
+
+    .page {
+      position: relative;
+      isolation: isolate;
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 16px 0 40px;
+    }
+
+    .page::before,
+    .page::after {
+      position: absolute;
+      z-index: -1;
+      border-radius: 999px;
+      content: "";
+      pointer-events: none;
+      filter: blur(2px);
+    }
+
+    .page::before {
+      top: 18px;
+      right: -140px;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(0, 120, 185, 0.09), transparent 68%);
+    }
+
+    .page::after {
+      bottom: 20px;
+      left: -180px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(244, 197, 66, 0.10), transparent 68%);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.65fr);
+      gap: 42px;
+      align-items: end;
+      padding: 18px 8px 34px;
+    }
+
+    .hero__title {
+      max-width: 760px;
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(38px, 5vw, 66px);
+      font-weight: 760;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+    }
+
+    .hero__intro {
+      max-width: 440px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.45vw, 19px);
+      line-height: 1.68;
+    }
+
+    .route-switcher {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 8px 0 18px;
+    }
+
+    .route-button {
+      position: relative;
+      display: flex;
+      min-height: 88px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: 0 10px 30px rgba(10, 37, 55, 0.05);
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease, background 180ms ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .route-button::before {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: transparent;
+      content: "";
+      transition: background 180ms ease;
+    }
+
+    .route-button:hover {
+      border-color: rgba(0, 120, 185, 0.35);
+      box-shadow: 0 16px 38px rgba(10, 37, 55, 0.09);
+      transform: translateY(-2px);
+    }
+
+    .route-button[aria-selected="true"] {
+      border-color: rgba(0, 120, 185, 0.38);
+      background: rgba(255, 255, 255, 0.97);
+      box-shadow: 0 18px 44px rgba(10, 37, 55, 0.11);
+    }
+
+    .route-button[aria-selected="true"]::before {
+      background: var(--blue);
+    }
+
+    .route-button__label {
+      color: var(--navy);
+      font-size: clamp(17px, 1.5vw, 20px);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .route-button__number {
+      display: grid;
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid rgba(10, 37, 55, 0.14);
+      border-radius: 50%;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    .route-button[aria-selected="true"] .route-button__number {
+      border-color: var(--navy);
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .explorer {
+      display: grid;
+      grid-template-columns: minmax(270px, 0.38fr) minmax(0, 0.62fr);
+      min-height: 570px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 240ms ease, transform 240ms ease;
+      backdrop-filter: blur(18px);
+    }
+
+    .explorer.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .explorer[hidden] {
+      display: none;
+    }
+
+    .option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 20px;
+      border-right: 1px solid var(--line);
+      background: rgba(239, 247, 250, 0.62);
+    }
+
+    .option-button {
+      position: relative;
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      min-height: 52px;
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      transition: background 170ms ease, border-color 170ms ease, color 170ms ease, transform 170ms ease;
+    }
+
+    .option-button:hover {
+      border-color: rgba(10, 37, 55, 0.10);
+      background: rgba(255, 255, 255, 0.78);
+      transform: translateX(2px);
+    }
+
+    .option-button[aria-selected="true"] {
+      border-color: rgba(0, 120, 185, 0.18);
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(10, 37, 55, 0.07);
+    }
+
+    .option-button__index {
+      color: #7b909b;
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+    }
+
+    .option-button[aria-selected="true"] .option-button__index {
+      color: var(--blue);
+    }
+
+    .option-button__label {
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 650;
+      line-height: 1.28;
+    }
+
+    .option-button[aria-selected="true"] .option-button__label {
+      color: var(--navy);
+    }
+
+    .detail {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: clamp(30px, 4vw, 48px);
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .detail::after {
+      position: absolute;
+      right: 34px;
+      bottom: 30px;
+      width: 62px;
+      height: 5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--blue) 0 72%, var(--yellow) 72% 100%);
+      content: "";
+    }
+
+    .detail__eyebrow {
+      margin: 0 0 16px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .detail__title {
+      max-width: 700px;
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(28px, 3.3vw, 44px);
+      font-weight: 760;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+    }
+
+    .detail__text {
+      max-width: 730px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.5vw, 19px);
+      line-height: 1.72;
+    }
+
+    .detail__text a {
+      color: var(--blue);
+      font-weight: 650;
+      text-decoration-color: rgba(0, 120, 185, 0.35);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .detail__text a:hover {
+      text-decoration-color: var(--blue);
+    }
+
+    .responsibilities {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      width: 100%;
+      margin-top: 26px;
+    }
+
+    .role-card {
+      min-width: 0;
+      padding: 18px 18px 17px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .role-card--eseo {
+      border-color: rgba(0, 120, 185, 0.22);
+      background: rgba(234, 246, 251, 0.72);
+    }
+
+    .role-card__title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .role-card__title::before {
+      width: 8px;
+      height: 8px;
+      flex: 0 0 8px;
+      border-radius: 50%;
+      background: var(--yellow);
+      content: "";
+    }
+
+    .role-card--eseo .role-card__title::before {
+      background: var(--blue);
+    }
+
+    .role-card__list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .role-card__list li {
+      position: relative;
+      padding-left: 15px;
+      color: #4e6572;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .role-card__list li::before {
+      position: absolute;
+      top: 0.58em;
+      left: 0;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #8aa0ab;
+      content: "";
+    }
+
+    .calendar-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(0, 120, 185, 0.24);
+      border-radius: 14px;
+      background: rgba(234, 246, 251, 0.66);
+    }
+
+    .calendar-card[hidden] {
+      display: none;
+    }
+
+    .calendar-card__copy {
+      color: #4e6572;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .calendar-card__copy strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--navy);
+      font-size: 13px;
+    }
+
+    .calendar-card__link {
+      display: inline-flex;
+      min-height: 38px;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      padding: 0 14px;
+      border: 1px solid var(--navy);
+      border-radius: 999px;
+      background: var(--navy);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 750;
+      text-decoration: none;
+      transition: background 170ms ease, border-color 170ms ease, transform 170ms ease;
+    }
+
+    .calendar-card__link:hover {
+      border-color: var(--blue);
+      background: var(--blue);
+      transform: translateY(-1px);
+    }
+
+    .notice {
+      display: grid;
+      grid-template-columns: 44px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+      margin-top: 18px;
+      padding: 23px 25px;
+      border: 1px solid rgba(244, 197, 66, 0.46);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 250, 230, 0.72);
+      backdrop-filter: blur(12px);
+    }
+
+    .notice__mark {
+      display: grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 750;
+    }
+
+    .notice__title {
+      margin: 1px 0 6px;
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 750;
+    }
+
+    .notice__text {
+      margin: 0;
+      color: #526a77;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .route-button:focus-visible,
+    .option-button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid rgba(0, 120, 185, 0.32);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 840px) {
+      .global-menu {
+        width: min(100% - 28px, 720px);
+      }
+
+      .page {
+        width: min(100% - 28px, 720px);
+        padding-top: 12px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding-bottom: 26px;
+      }
+
+      .hero__intro {
+        max-width: 650px;
+      }
+
+      .explorer {
+        grid-template-columns: 1fr;
+      }
+
+      .option-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .detail {
+        min-height: 330px;
+      }
+
+      .responsibilities {
+        grid-template-columns: 1fr;
+      }
+
+      .calendar-card {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .global-menu {
+        width: min(100% - 22px, 480px);
+        height: 260px;
+      }
+
+      .page {
+        width: min(100% - 22px, 480px);
+        padding-top: 8px;
+      }
+
+      .hero__title {
+        font-size: clamp(34px, 11vw, 48px);
+      }
+
+      .route-switcher {
+        grid-template-columns: 1fr;
+      }
+
+      .route-button {
+        min-height: 72px;
+      }
+
+      .option-list {
+        grid-template-columns: 1fr;
+        padding: 14px;
+      }
+
+      .option-button {
+        min-height: 48px;
+      }
+
+      .detail {
+        min-height: 360px;
+        padding: 32px 24px 54px;
+      }
+
+      .detail::after {
+        right: 24px;
+        bottom: 22px;
+      }
+
+      .notice {
+        grid-template-columns: 36px minmax(0, 1fr);
+        gap: 13px;
+        padding: 20px 18px;
+      }
+
+      .notice__mark {
+        width: 34px;
+        height: 34px;
+        font-size: 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <iframe
+    class="global-menu"
+    src="https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-menu-superior-pnp-like.html?ativa=oferta"
+    title="Menu e busca do Portal ESEO"
+    loading="eager"
+    allowtransparency="true">
+  </iframe>
+
+  <main class="page">
+    <header class="hero">
+      <h1 class="hero__title">Como sua escola deve proceder em cada tipo de oferta</h1>
+      <p class="hero__intro">Selecione o tipo de curso para consultar, de forma objetiva, as responsabilidades da sua escola e da ESEO durante a implantação e o acompanhamento da oferta.</p>
+    </header>
+
+    <nav class="route-switcher" aria-label="Possibilidades da Educação Online" role="tablist">
+      <button class="route-button" type="button" role="tab" aria-selected="false" aria-controls="explorer" data-route="courses">
+        <span class="route-button__label">Tipos de cursos e atendimentos</span>
+        <span class="route-button__number" aria-hidden="true">01</span>
+      </button>
+      <button class="route-button" type="button" role="tab" aria-selected="false" aria-controls="explorer" data-route="strategies">
+        <span class="route-button__label">Estratégias de oferta</span>
+        <span class="route-button__number" aria-hidden="true">02</span>
+      </button>
+    </nav>
+
+    <section class="explorer" id="explorer" aria-live="polite" hidden>
+      <div class="option-list" id="optionList" role="tablist" aria-label="Opções"></div>
+      <article class="detail" id="detail" role="tabpanel" tabindex="-1">
+        <p class="detail__eyebrow" id="detailEyebrow"></p>
+        <h2 class="detail__title" id="detailTitle"></h2>
+        <p class="detail__text" id="detailText"></p>
+        <div class="responsibilities" aria-label="Responsabilidades">
+          <section class="role-card" aria-labelledby="schoolRoleTitle">
+            <h3 class="role-card__title" id="schoolRoleTitle">Responsabilidades da escola</h3>
+            <ul class="role-card__list" id="schoolRoleList"></ul>
+          </section>
+          <section class="role-card role-card--eseo" aria-labelledby="eseoRoleTitle">
+            <h3 class="role-card__title" id="eseoRoleTitle">Responsabilidades da ESEO</h3>
+            <ul class="role-card__list" id="eseoRoleList"></ul>
+          </section>
+        </div>
+        <aside class="calendar-card" id="calendarCard" hidden>
+          <div class="calendar-card__copy">
+            <strong>Calendário de Seleção Escolar</strong>
+            Quando houver processo de ingresso, utilize o calendário vigente.
+          </div>
+          <a class="calendar-card__link" href="https://sesisenaisp.sharepoint.com/sites/intranet/Atos%20Formais/CO-GED-56-2026.pdf" target="_blank" rel="noopener noreferrer">Consultar calendário</a>
+        </aside>
+      </article>
+    </section>
+
+    <aside class="notice" aria-labelledby="noticeTitle">
+      <span class="notice__mark" aria-hidden="true">!</span>
+      <div>
+        <h2 class="notice__title" id="noticeTitle">Aviso importante</h2>
+        <p class="notice__text">As possibilidades apresentadas não representam disponibilidade automática. A oferta depende do catálogo vigente, do plano de curso, do público, da infraestrutura e das validações institucionais necessárias.</p>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const groups = {
+        courses: {
+          label: "Procedimentos por tipo de curso",
+          items: [
+            {
+              title: "Superior — Graduação e Pós-graduação",
+              text: "Procedimentos para ofertas de Educação Superior com etapa online.",
+              school: [
+                "Criar a turma no SGSET com parceria entre CFP 1.50.",
+                "No item Componente Curricular, definir a carga horária a distância como 100%.",
+                "Solicitar a liberação da turma pelo formulário disponível no menu de atalhos do Portal ESEO.",
+                "Matricular os alunos.",
+                "Planejar o calendário das aulas, inclusive das remotas, em conjunto com a equipe da ESEO.",
+                "Realizar o fechamento da Unidade Curricular no SGSET."
+              ],
+              eseo: [
+                "Liberar a turma no SGSET.",
+                "Gerar o calendário da etapa online.",
+                "Acompanhar a integração dos alunos com o AVA.",
+                "Preparar o ambiente virtual para a turma.",
+                "Realizar ações de tutoria e monitoria.",
+                "Enviar à escola os relatórios de acompanhamento e de encerramento da turma."
+              ],
+              calendar: true
+            },
+            {
+              title: "Autoinstrucional",
+              text: "Cursos em que o estudante realiza o percurso com autonomia.",
+              school: [
+                "Inserir o curso na carteira da escola, no SGSET.",
+                "Criar os agrupamentos semestrais no SGSET2, de acordo com as orientações enviadas pelo Núcleo de Administração da ESEO.",
+                "Emitir a RMRF dos agrupamentos para arquivo e microfilmagem."
+              ],
+              eseo: [
+                "Definir os cursos autoinstrucionais e o período de inscrição.",
+                "Enviar semestralmente às escolas a orientação para criação dos agrupamentos.",
+                "Conferir e liberar os agrupamentos para inscrição no site das escolas SENAI-SP.",
+                "Ao liberar os agrupamentos no SGSET2, disponibilizar os cursos para inscrição nos sites das escolas da rede."
+              ],
+              calendar: false
+            },
+            {
+              title: "Autoinstrucional — CAITEC e Novo Ensino Médio",
+              text: "Fluxo específico para cursos autoinstrucionais vinculados ao CAITEC e ao Novo Ensino Médio.",
+              school: [
+                "Não realizar ação para criação dos agrupamentos no SGSET2.",
+                "Realizar toda a produção da escola.",
+                "Acompanhar a conclusão dos alunos de acordo com o planejamento interno.",
+                "Cadastrar o interlocutor nas turmas, no SGSET2, após a liberação dos agrupamentos.",
+                "Emitir a RMRF dos agrupamentos para arquivo e microfilmagem."
+              ],
+              eseo: [
+                "Definir os cursos autoinstrucionais por termo.",
+                "Definir o período de realização dos cursos.",
+                "Elaborar regras associativas para matrículas automáticas.",
+                "Enviar semestralmente às escolas as informações dos agrupamentos."
+              ],
+              calendar: false
+            },
+            {
+              title: "FIC — Aprendizagem",
+              text: "Procedimentos para cursos de Formação Inicial e Continuada vinculados à Aprendizagem Profissional.",
+              school: [
+                "Criar a turma no SGSET em parceria com a CFP 1.50.",
+                "Solicitar a liberação da turma pelo formulário disponível no menu de atalhos do Portal ESEO.",
+                "Matricular os alunos.",
+                "Lançar o aproveitamento e encerrar a turma.",
+                "Emitir o certificado."
+              ],
+              eseo: [
+                "Liberar a turma no SGSET.",
+                "Acompanhar a integração dos alunos com o AVA.",
+                "Preparar o ambiente virtual para a turma.",
+                "Realizar ações de tutoria e monitoria.",
+                "Enviar à escola os relatórios de acompanhamento e de encerramento da turma."
+              ],
+              calendar: true
+            },
+            {
+              title: "Técnico",
+              text: "Procedimentos para cursos técnicos com etapa online.",
+              school: [
+                "Criar a turma no SGSET com parceria entre CFP 1.50.",
+                "Gerar o calendário da etapa presencial.",
+                "Solicitar a liberação da turma pelo formulário disponível no menu de atalhos do Portal ESEO.",
+                "Matricular os alunos.",
+                "Realizar o encerramento da Unidade Curricular no SGSET."
+              ],
+              eseo: [
+                "Liberar a turma no SGSET.",
+                "Gerar o calendário da etapa online.",
+                "Acompanhar a integração dos alunos com o AVA.",
+                "Preparar o ambiente virtual para a turma.",
+                "Realizar ações de tutoria e monitoria.",
+                "Enviar à escola os relatórios de acompanhamento e de encerramento da turma."
+              ],
+              calendar: true
+            },
+            {
+              title: "FIC — EJA",
+              text: "As orientações específicas deste tipo de oferta ainda não foram informadas no material recebido.",
+              school: ["Procedimentos da escola em validação."],
+              eseo: ["Procedimentos da ESEO em validação."],
+              calendar: false
+            },
+            {
+              title: "FIC — Qualificação",
+              text: "As orientações específicas deste tipo de oferta ainda não foram informadas no material recebido.",
+              school: ["Procedimentos da escola em validação."],
+              eseo: ["Procedimentos da ESEO em validação."],
+              calendar: false
+            }
+          ]
+        },
+        strategies: {
+          label: "Estratégias de oferta",
+          items: [
+            {
+              title: "Online",
+              text: "Realizado no Ambiente Virtual de Aprendizagem.",
+              school: [
+                "Organizar matrícula, infraestrutura e registros.",
+                "Acompanhar a execução local da oferta."
+              ],
+              eseo: [
+                "Preparar os recursos digitais e o ambiente virtual.",
+                "Apoiar a implantação e o acompanhamento da oferta."
+              ]
+            },
+            {
+              title: "Autoinstrucional",
+              text: "O estudante realiza o percurso com autonomia.",
+              school: [
+                "Divulgar a oferta e orientar o público.",
+                "Criar os agrupamentos com os dados corretos.",
+                "Manter registros e documentação acadêmica."
+              ],
+              eseo: [
+                "Definir os cursos e o período de inscrição.",
+                "Disponibilizar os cursos no AVA e orientar a implantação.",
+                "Conferir e liberar os agrupamentos."
+              ]
+            },
+            {
+              title: "Com mediação pedagógica",
+              text: "Possui acompanhamento e interação durante o curso.",
+              school: [
+                "Organizar turma, divulgação, equipe e recursos necessários.",
+                "Acompanhar os registros acadêmicos e a conclusão."
+              ],
+              eseo: [
+                "Preparar o ambiente virtual e os recursos digitais.",
+                "Apoiar tutoria, monitoria, qualidade e melhoria contínua."
+              ]
+            },
+            {
+              title: "Semipresencial ou híbrida",
+              text: "Combina atividades online e presenciais.",
+              school: [
+                "Disponibilizar infraestrutura, docentes e laboratórios.",
+                "Organizar momentos presenciais e registros.",
+                "Acompanhar estudantes e práticas."
+              ],
+              eseo: [
+                "Analisar a implantação.",
+                "Configurar a oferta no AVA.",
+                "Apoiar tutoria, monitoria e indicadores."
+              ]
+            },
+            {
+              title: "Presencial com atividades a distância",
+              text: "Incorpora recursos digitais previstos no curso.",
+              school: [
+                "Organizar calendário, docentes e registros.",
+                "Orientar a rotina presencial e digital.",
+                "Garantir integração entre as unidades curriculares."
+              ],
+              eseo: [
+                "Disponibilizar os componentes no AVA.",
+                "Orientar docentes e equipes.",
+                "Apoiar o acompanhamento da etapa online."
+              ]
+            },
+            {
+              title: "Material Didático Impresso — MDI",
+              text: "Utilizado em projetos e públicos específicos.",
+              school: [
+                "Consultar e seguir a orientação vigente.",
+                "Organizar público, registros e condições locais."
+              ],
+              eseo: [
+                "Manter orientações atualizadas.",
+                "Articular as áreas envolvidas e apoiar a operação."
+              ]
+            },
+            {
+              title: "Atividades síncronas e assíncronas",
+              text: "Podem ocorrer em tempo real ou em horários flexíveis.",
+              school: [
+                "Organizar calendário, docentes e registros.",
+                "Orientar a rotina presencial e digital."
+              ],
+              eseo: [
+                "Disponibilizar os componentes no AVA.",
+                "Orientar docentes e equipes.",
+                "Apoiar o acompanhamento da etapa online."
+              ]
+            }
+          ]
+        }
+      };
+
+      const routeButtons = Array.from(document.querySelectorAll(".route-button"));
+      const explorer = document.getElementById("explorer");
+      const optionList = document.getElementById("optionList");
+      const detail = document.getElementById("detail");
+      const detailEyebrow = document.getElementById("detailEyebrow");
+      const detailTitle = document.getElementById("detailTitle");
+      const detailText = document.getElementById("detailText");
+      const schoolRoleList = document.getElementById("schoolRoleList");
+      const eseoRoleList = document.getElementById("eseoRoleList");
+      const calendarCard = document.getElementById("calendarCard");
+      let currentRoute = "";
+      let currentIndex = 0;
+
+      const updateDetail = (index, moveFocus = false) => {
+        const group = groups[currentRoute];
+        const item = group.items[index];
+        currentIndex = index;
+
+        Array.from(optionList.querySelectorAll(".option-button")).forEach((button, buttonIndex) => {
+          const selected = buttonIndex === index;
+          button.setAttribute("aria-selected", String(selected));
+          button.tabIndex = selected ? 0 : -1;
+        });
+
+        detailEyebrow.textContent = group.label;
+        detailTitle.textContent = item.title;
+        if (item.html) {
+          detailText.innerHTML = item.html;
+        } else {
+          detailText.textContent = item.text;
+        }
+        schoolRoleList.innerHTML = item.school.map((responsibility) => `<li>${responsibility}</li>`).join("");
+        eseoRoleList.innerHTML = item.eseo.map((responsibility) => `<li>${responsibility}</li>`).join("");
+        calendarCard.hidden = !item.calendar;
+
+        if (moveFocus) {
+          detail.focus({ preventScroll: true });
+        }
+      };
+
+      const renderRoute = (route) => {
+        currentRoute = route;
+        currentIndex = 0;
+        const group = groups[route];
+
+        routeButtons.forEach((button) => {
+          button.setAttribute("aria-selected", String(button.dataset.route === route));
+        });
+
+        optionList.innerHTML = "";
+        optionList.setAttribute("aria-label", group.label);
+
+        group.items.forEach((item, index) => {
+          const button = document.createElement("button");
+          button.className = "option-button";
+          button.type = "button";
+          button.role = "tab";
+          button.id = `${route}-option-${index}`;
+          button.setAttribute("aria-controls", "detail");
+          button.setAttribute("aria-selected", "false");
+          button.tabIndex = -1;
+          button.innerHTML = `
+            <span class="option-button__index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+            <span class="option-button__label">${item.title}</span>
+          `;
+          button.addEventListener("click", () => updateDetail(index));
+          button.addEventListener("keydown", (event) => {
+            const buttons = Array.from(optionList.querySelectorAll(".option-button"));
+            let nextIndex = currentIndex;
+
+            if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+              nextIndex = (currentIndex + 1) % buttons.length;
+            } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+              nextIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+            } else if (event.key === "Home") {
+              nextIndex = 0;
+            } else if (event.key === "End") {
+              nextIndex = buttons.length - 1;
+            } else {
+              return;
+            }
+
+            event.preventDefault();
+            updateDetail(nextIndex);
+            buttons[nextIndex].focus();
+          });
+          optionList.appendChild(button);
+        });
+
+        explorer.hidden = false;
+        requestAnimationFrame(() => explorer.classList.add("is-visible"));
+        updateDetail(0);
+      };
+
+      routeButtons.forEach((button) => {
+        button.addEventListener("click", () => renderRoute(button.dataset.route));
+        button.addEventListener("keydown", (event) => {
+          if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+          event.preventDefault();
+          const direction = event.key === "ArrowRight" ? 1 : -1;
+          const index = routeButtons.indexOf(button);
+          const next = routeButtons[(index + direction + routeButtons.length) % routeButtons.length];
+          next.focus();
+          renderRoute(next.dataset.route);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
