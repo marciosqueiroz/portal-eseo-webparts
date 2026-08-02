@@ -1,0 +1,3060 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bússola EAD — Jornada Unificada</title><style>
+:root{--navy:#073b5c;--navy2:#0a5573;--red:#c6283d;--teal:#087f83;--green:#167553;--ink:#173247;--muted:#647985;--line:#d8e3e8;--bg:#edf4f7;--white:#fff;--soft:#f6f9fb;--blueSoft:#eaf4f7;--greenSoft:#e9f6f0;--redSoft:#fbecef;--shadow:0 16px 42px rgba(7,59,92,.11)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#e7f3f4 0,#f4f7f9 300px);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}button,input,select,textarea{font:inherit}a{color:inherit}button,a{-webkit-tap-highlight-color:transparent}
+.topbar{background:var(--navy);color:#fff;padding:8px 24px;font-size:11px}.topbar-inner{max-width:1240px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:14px}.top-links{display:flex;gap:8px;flex-wrap:wrap}.top-link{text-decoration:none;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 9px;color:#fff}.top-link:hover{background:#fff;color:var(--navy)}
+.app{max-width:1240px;margin:auto;padding:20px}.hero{background:linear-gradient(125deg,var(--navy),var(--navy2) 66%,var(--teal));color:#fff;border-radius:24px;padding:31px 32px;box-shadow:var(--shadow);border-bottom:5px solid var(--red)}.eyebrow{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;opacity:.75}.hero h1{font-size:34px;line-height:1.08;margin:8px 0 9px}.hero p{max-width:890px;margin:0;color:#d8edf2;line-height:1.6;font-size:15px}.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.hero-tag{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);border-radius:999px;padding:6px 10px;font-size:11px;font-weight:700}
+.catalog-entry{margin-top:-2px;background:#fff;border:1px solid var(--line);border-radius:0 0 20px 20px;padding:18px 22px;box-shadow:var(--shadow)}.catalog-entry-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end}.catalog-entry h2{font-size:17px;margin:0 0 4px;color:var(--navy)}.catalog-entry p{font-size:11px;color:var(--muted);margin:0 0 10px}.search-wrap{position:relative}.search-input{width:100%;padding:13px 48px 13px 14px;border:1px solid #cbd9e0;border-radius:12px;font-size:14px;outline:none}.search-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(8,127,131,.11)}.search-btn{position:absolute;right:5px;top:5px;border:0;background:var(--navy);color:#fff;border-radius:9px;padding:8px 12px;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--navy);padding:10px 13px;font-size:11px;font-weight:800;text-decoration:none;cursor:pointer}.btn:hover{transform:translateY(-1px);box-shadow:0 7px 17px rgba(7,59,92,.10)}.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}.btn.teal{background:var(--teal);border-color:var(--teal);color:#fff}.btn.red{background:var(--red);border-color:var(--red);color:#fff}.btn.soft{background:var(--blueSoft);border-color:#cbdfe7}.btn.full{width:100%}
+.page{display:none;animation:fade .22s ease}.page.active{display:block}.section-head{margin:24px 0 13px;display:flex;justify-content:space-between;align-items:end;gap:16px}.section-head h2{margin:0;color:var(--navy);font-size:22px}.section-head p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.menu-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.menu-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:17px;min-height:178px;text-align:left;cursor:pointer;box-shadow:0 8px 22px rgba(7,59,92,.07);transition:.18s}.menu-card:hover{transform:translateY(-3px);border-color:#9bbdc7;box-shadow:0 14px 30px rgba(7,59,92,.12)}.menu-card .icon{width:39px;height:39px;border-radius:12px;display:grid;place-items:center;background:var(--blueSoft);font-size:20px;margin-bottom:12px}.menu-card strong{display:block;font-size:14px;color:var(--navy);line-height:1.3;margin-bottom:7px}.menu-card span{display:block;color:var(--muted);font-size:11px;line-height:1.45}
+.info-strip{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.info-item{background:#fff;border:1px solid var(--line);border-radius:13px;padding:12px}.info-item b{display:block;color:var(--navy);font-size:11px;margin-bottom:3px}.info-item span{font-size:10px;color:var(--muted);line-height:1.4}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;margin-top:20px}.panel-head{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}.panel-head h2{margin:0;color:var(--navy);font-size:20px}.panel-body{padding:20px}.back{border:0;background:transparent;color:var(--teal);font-size:11px;font-weight:800;cursor:pointer;padding:0}
+.filters{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:9px;margin-bottom:14px}.filters input,.filters select,.form-grid input,.form-grid select,.form-grid textarea{width:100%;border:1px solid #ccd9e0;border-radius:10px;padding:10px;background:#fff;color:var(--ink)}.course-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.course{border:1px solid var(--line);border-radius:15px;padding:15px;background:#fff;display:flex;flex-direction:column;min-height:245px}.course:hover{border-color:#9bbdc7;box-shadow:0 10px 24px rgba(7,59,92,.08)}.badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}.badge{display:inline-flex;border-radius:999px;padding:4px 8px;background:#edf3f6;color:#4b6573;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}.badge.green{background:var(--greenSoft);color:var(--green)}.badge.red{background:var(--redSoft);color:var(--red)}.badge.teal{background:#e8f7f5;color:var(--teal)}.course h3{font-size:15px;line-height:1.3;color:var(--navy);margin:0 0 7px}.course p{font-size:11px;line-height:1.5;color:var(--muted);margin:0 0 12px}.course-meta{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:auto;margin-bottom:12px}.meta{background:var(--soft);border-radius:8px;padding:7px;font-size:9px;color:var(--muted)}.meta b{display:block;color:var(--ink);font-size:9px;margin-bottom:2px}.empty{border:1px dashed #aebfc8;border-radius:14px;padding:25px;text-align:center;color:var(--muted);font-size:12px;grid-column:1/-1}
+.detail-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(290px,.65fr);gap:15px}.detail-card,.route-card{border:1px solid var(--line);border-radius:15px;padding:17px;background:#fff}.detail-card h2{color:var(--navy);margin:0 0 7px;font-size:22px}.detail-description{font-size:12px;line-height:1.55;color:var(--muted)}.detail-table{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:15px 0}.detail-item{background:var(--soft);border-radius:10px;padding:9px}.detail-item b{display:block;font-size:9px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}.detail-item span{font-size:11px;font-weight:700}.route-card{background:linear-gradient(180deg,#f4fbfb,#fff);border-color:#bcdedc}.route-card h3{margin:0 0 6px;color:var(--navy);font-size:17px}.route-card p{font-size:11px;color:var(--muted);line-height:1.5}.route-actions{display:grid;gap:8px;margin-top:12px}
+.timeline{display:grid;gap:8px;margin:12px 0}.step{display:grid;grid-template-columns:29px minmax(0,1fr);gap:9px;align-items:start;background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px}.step-num{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-size:10px;font-weight:800}.step b{font-size:10px;color:var(--teal);text-transform:uppercase;letter-spacing:.3px}.step p{margin:3px 0 0;font-size:11px;color:var(--ink);line-height:1.45}
+.notice{background:#fff7e8;border:1px solid #edd397;border-radius:11px;padding:10px;font-size:11px;color:#74521b;line-height:1.5}.success{background:var(--greenSoft);border:1px solid #b9dfcc;border-radius:12px;padding:13px;color:var(--green);font-size:11px}.question{margin:13px 0;padding:14px;background:var(--blueSoft);border-radius:12px}.question h4{margin:0 0 9px;color:var(--navy);font-size:13px}.question-actions{display:flex;gap:8px;flex-wrap:wrap}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.form-field.full{grid-column:1/-1}.form-field label{display:block;font-size:10px;color:#4d6674;font-weight:800;margin-bottom:5px}.form-field textarea{min-height:95px;resize:vertical}.helper{font-size:9px;color:var(--muted);margin-top:4px}.result-box{display:none;margin-top:15px}.result-box.show{display:block}.help-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.help-option{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;cursor:pointer;text-align:left}.help-option:hover{border-color:var(--teal);background:#f5fbfb}.help-option b{font-size:12px;color:var(--navy)}.help-option p{font-size:10px;color:var(--muted);margin:4px 0 0}
+.footer{margin:24px 0 12px;padding:15px 18px;border-radius:14px;background:var(--navy);color:#d6e9ef;font-size:10px;display:flex;justify-content:space-between;gap:14px;align-items:center}.footer a{color:#fff;font-weight:800}@keyframes fade{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@media(max-width:1040px){.menu-grid{grid-template-columns:repeat(3,1fr)}.course-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.topbar-inner,.catalog-entry-grid,.section-head,.footer{display:block}.top-links{margin-top:7px}.menu-grid,.info-strip,.course-grid,.detail-grid,.help-grid{grid-template-columns:1fr}.filters,.form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}.hero{padding:25px 20px}.hero h1{font-size:28px}.catalog-entry{padding:15px}}
+
+.hero-tags,.hero-tag,.info-strip,.info-item{display:none!important}
+.portfolio-callout{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.62fr);gap:18px;align-items:center;padding:23px 25px;border:1px solid #c7d9e1;border-radius:20px;background:#fff;box-shadow:var(--shadow)}
+.portfolio-kicker,.after-kicker{display:block;margin-bottom:5px;color:var(--red);font-size:10px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+.portfolio-callout h2{margin:0 0 6px;color:var(--navy);font-size:24px}.portfolio-callout p{margin:0;max-width:730px;color:var(--muted);font-size:12px;line-height:1.55}
+.portfolio-main-button{width:100%;min-height:86px;display:grid;grid-template-columns:48px minmax(0,1fr) 25px;align-items:center;gap:13px;padding:15px 17px;border:0;border-radius:16px;background:linear-gradient(120deg,var(--red),#9f1e32);color:#fff;text-align:left;cursor:pointer;box-shadow:0 13px 28px rgba(198,40,61,.22);transition:.18s}
+.portfolio-main-button:hover{transform:translateY(-3px);box-shadow:0 18px 34px rgba(198,40,61,.29)}.portfolio-main-icon{width:45px;height:45px;display:grid;place-items:center;border-radius:13px;background:rgba(255,255,255,.16);font-size:25px}.portfolio-main-button strong{display:block;font-size:16px}.portfolio-main-button small{display:block;margin-top:4px;color:#ffe7eb;font-size:10px}.portfolio-arrow{font-size:24px;font-weight:300}
+.portfolio-panel{overflow:visible}.portfolio-body{padding:16px}.portfolio-orientation{padding:11px 13px;border-left:4px solid var(--teal);border-radius:7px;background:#eef8f8;color:#365765;font-size:11px;line-height:1.5}.portfolio-levels{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:12px 0}.portfolio-levels span{color:var(--muted);font-size:10px;font-weight:800}.portfolio-levels b{padding:6px 10px;border:1px solid #cddce3;border-radius:999px;background:#fff;color:var(--navy);font-size:10px}
+.portfolio-frame-wrap{overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff}.portfolio-frame{display:block;width:100%;height:1520px;border:0;background:#fff}
+.after-portfolio{margin-top:15px;display:grid;grid-template-columns:minmax(230px,.62fr) minmax(0,1.38fr);gap:15px;align-items:center;padding:17px;border:1px solid #bfd6df;border-radius:14px;background:linear-gradient(110deg,#eef8fa,#fff)}.after-portfolio h3{margin:0 0 4px;color:var(--navy);font-size:18px}.after-portfolio p{margin:0;color:var(--muted);font-size:10px;line-height:1.45}.after-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.classification-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:16px}.classification-card{min-height:120px;padding:16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-align:left;cursor:pointer;transition:.18s}.classification-card:hover{transform:translateY(-2px);border-color:var(--teal);box-shadow:0 10px 22px rgba(7,59,92,.09)}.classification-card strong{display:block;margin-bottom:7px;color:var(--navy);font-size:17px}.classification-card span{display:block;color:var(--muted);font-size:10px;line-height:1.5}.classification-result{margin-top:14px}.subchoice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.subchoice{padding:14px;border:1px solid var(--line);border-radius:11px;background:var(--soft);text-align:left;cursor:pointer}.subchoice b{display:block;color:var(--navy);font-size:12px}.subchoice span{display:block;margin-top:4px;color:var(--muted);font-size:10px;line-height:1.4}
+@media(max-width:900px){.portfolio-callout,.after-portfolio{grid-template-columns:1fr}.classification-grid{grid-template-columns:repeat(2,1fr)}.portfolio-frame{height:1750px}}
+@media(max-width:620px){.classification-grid,.subchoice-grid,.after-actions{grid-template-columns:1fr}.portfolio-frame{height:1950px}}
+
+.portfolio-levels{display:none!important}
+.portfolio-guide{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:18px;align-items:center;padding:18px 19px;border:1px solid #bed8de;border-left:5px solid var(--teal);border-radius:14px;background:linear-gradient(110deg,#eef8f8,#ffffff)}
+.portfolio-guide-copy h3{margin:3px 0 7px;color:var(--navy);font-size:18px;line-height:1.25}.portfolio-guide-copy p{margin:0;color:#4d6876;font-size:11px;line-height:1.55}.guide-kicker{display:block;color:var(--teal);font-size:9px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.guide-steps{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}.guide-steps span{padding:6px 9px;border:1px solid #c9dee4;border-radius:999px;background:#fff;color:#365765;font-size:9px;font-weight:700}.guide-steps b{color:var(--red)}
+.show-all-button{width:100%;min-height:82px;display:grid;grid-template-columns:46px minmax(0,1fr);align-items:center;gap:12px;padding:14px 16px;border:0;border-radius:14px;background:linear-gradient(120deg,var(--red),#a51e32);color:#fff;text-align:left;cursor:pointer;box-shadow:0 12px 26px rgba(198,40,61,.22);transition:.18s}.show-all-button:hover{transform:translateY(-2px);box-shadow:0 16px 31px rgba(198,40,61,.28)}.show-all-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.16);font-size:22px}.show-all-button strong{display:block;font-size:14px}.show-all-button small{display:block;margin-top:4px;color:#ffe8ec;font-size:9px;line-height:1.35}
+.portfolio-feedback{margin-top:10px;padding:9px 11px;border-radius:9px;background:#eaf6f0;color:#176548;font-size:10px;font-weight:700}
+@media(max-width:820px){.portfolio-guide{grid-template-columns:1fr}.show-all-button{max-width:380px}}
+
+/* Menu inicial: um único padrão visual para todos os caminhos */
+.home-heading{margin-top:25px}.home-kicker{display:block;margin-bottom:5px;color:var(--teal);font-size:10px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+.menu-grid{align-items:stretch}
+.menu-card,.menu-card.highlight,.menu-card.continue{position:relative;display:flex;flex-direction:column;min-height:225px;padding:17px;border:1px solid #cfdde3!important;border-top:1px solid #cfdde3!important;border-radius:17px;background:#fff!important;color:var(--ink);box-shadow:0 8px 22px rgba(7,59,92,.07);overflow:hidden}
+.menu-card::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--teal)}
+.menu-card:hover{transform:translateY(-3px);border-color:#9bbdc7!important;box-shadow:0 14px 30px rgba(7,59,92,.12)}
+.menu-label{display:block!important;min-height:14px;margin-bottom:11px;color:var(--teal)!important;font-size:8.5px!important;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+.menu-card .icon{flex:0 0 auto;width:42px;height:42px;margin-bottom:13px;background:#e9f4f7;color:var(--navy)}
+.menu-card strong{font-size:14px;line-height:1.32;margin-bottom:8px}.menu-description{display:block!important;flex:1 1 auto;color:var(--muted)!important;font-size:10.5px!important;line-height:1.5!important}
+.menu-action{display:flex!important;align-items:center;justify-content:space-between;margin-top:15px;padding-top:11px;border-top:1px solid #e2eaee;color:var(--navy)!important;font-size:10px!important;font-weight:900;letter-spacing:.01em}.menu-action b{font-size:16px;color:var(--red)}
+@media(max-width:1040px){.menu-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.menu-grid{grid-template-columns:1fr}.menu-card{min-height:205px}}
+
+/* Menu inicial clean — classificação e título formam um único cabeçalho */
+.menu-card,.menu-card.highlight,.menu-card.continue{min-height:198px;padding:17px 18px 15px}
+.menu-heading{display:grid!important;grid-template-columns:43px minmax(0,1fr);gap:12px;align-items:center;margin-bottom:13px}
+.menu-card .icon{width:43px;height:43px;margin:0!important;border-radius:12px;background:#e9f4f7;color:var(--navy);font-size:20px}
+.menu-title-block{display:block!important;min-width:0}
+.menu-title-block .menu-label{display:block!important;min-height:0;margin:0 0 4px;color:var(--teal)!important;font-size:8.5px!important;font-weight:900;letter-spacing:.09em;text-transform:uppercase;line-height:1.2}
+.menu-title-block strong{display:block;margin:0!important;color:var(--navy);font-size:13.5px;line-height:1.28}
+.menu-description{display:block!important;flex:1 1 auto;margin:0;color:var(--muted)!important;font-size:10.2px!important;line-height:1.48!important}
+.menu-action{margin-top:13px;padding-top:10px}
+@media(max-width:760px){.menu-card{min-height:175px}.menu-heading{grid-template-columns:40px minmax(0,1fr)}.menu-card .icon{width:40px;height:40px}}
+
+.help-option-action{
+  border-color:var(--teal);
+  background:linear-gradient(180deg,#f5fbfb,#ffffff);
+}
+.help-option-action:hover{
+  border-color:var(--red);
+}
+.help-link{
+  display:block;
+  margin-top:9px;
+  color:var(--red);
+  font-size:10px;
+  font-weight:900;
+}
+
+.request-intro{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:14px;align-items:center;margin-bottom:15px;padding:17px;border:1px solid #c7dce3;border-radius:14px;background:linear-gradient(110deg,#eef8f8,#fff)}
+.request-kicker{display:block;margin-bottom:4px;color:var(--teal);font-size:9px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}.request-intro h3{margin:0 0 5px;color:var(--navy);font-size:18px}.request-intro p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}.copy-notice{padding:13px 14px;border-radius:11px;background:#fff;border:1px solid #d6e4e9}.copy-notice b{display:block;color:var(--navy);font-size:11px;margin-bottom:4px}.copy-notice span{display:block;color:var(--muted);font-size:9.5px;line-height:1.45}
+.form-section{margin-top:13px;padding:15px;border:1px solid var(--line);border-radius:14px;background:#fff}.form-section-title{display:grid;grid-template-columns:30px minmax(0,1fr);gap:9px;align-items:start;margin-bottom:13px}.form-section-title>span{width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--navy);color:#fff;font-size:10px;font-weight:900}.form-section-title b{display:block;color:var(--navy);font-size:13px}.form-section-title small{display:block;margin-top:2px;color:var(--muted);font-size:9.5px;line-height:1.4}
+.support-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.support-option{position:relative;display:block;min-height:104px;padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--soft);cursor:pointer}.support-option:hover{border-color:var(--teal);background:#f3fbfb}.support-option input{position:absolute;top:12px;right:12px;width:17px;height:17px}.support-option span{display:block;padding-right:24px}.support-option b{display:block;color:var(--navy);font-size:11px;margin-bottom:4px}.support-option small{display:block;color:var(--muted);font-size:9px;line-height:1.4}.support-option:has(input:checked){border-color:var(--teal);background:#eaf7f5;box-shadow:0 0 0 2px rgba(8,127,131,.08)}
+.confirm-line{display:flex!important;align-items:flex-start;gap:8px;padding:11px;border:1px solid #d5e2e7;border-radius:10px;background:#f7fafb;color:var(--ink)!important;font-weight:600!important}.confirm-line input{width:17px!important;margin-top:1px}.confirm-line span{font-size:10px;line-height:1.45}
+.request-submit-bar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:15px;padding:14px 15px;border-radius:12px;background:var(--navy);color:#fff}.request-submit-bar b{display:block;font-size:10px}.request-submit-bar span{display:block;margin-top:3px;color:#d6e8ee;font-size:9px}.request-submit-bar .btn{border-color:#fff;background:#fff;color:var(--navy)}
+.request-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}.request-summary div{padding:9px;border-radius:9px;background:#f6f9fa}.request-summary b{display:block;color:var(--muted);font-size:8px;text-transform:uppercase}.request-summary span{display:block;margin-top:3px;color:var(--ink);font-size:10px;font-weight:700}
+@media(max-width:1000px){.support-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.request-intro{grid-template-columns:1fr}.support-grid,.request-summary{grid-template-columns:1fr}.request-submit-bar{display:block}.request-submit-bar .btn{width:100%;margin-top:11px}}
+
+.course-combo-panel{display:grid;grid-template-columns:minmax(0,.8fr) minmax(420px,1.2fr);gap:18px;align-items:center;margin-bottom:15px;padding:18px;border:1px solid #bcd8df;border-left:5px solid var(--teal);border-radius:14px;background:linear-gradient(110deg,#eef8f8,#fff)}
+.course-combo-panel.compact{margin-bottom:13px}.course-combo-copy h3{margin:3px 0 6px;color:var(--navy);font-size:18px;line-height:1.3}.course-combo-copy p{margin:0;color:var(--muted);font-size:10.5px;line-height:1.5}.course-combo-field label{display:block;margin-bottom:6px;color:var(--navy);font-size:10px;font-weight:900}.course-combo-field select{width:100%;min-height:52px;padding:0 42px 0 13px;border:2px solid #a9c7d0;border-radius:11px;background:#fff;color:var(--ink);font-size:12px;font-weight:700;outline:none}.course-combo-field select:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(8,127,131,.10)}.course-combo-field>span{display:block;margin-top:6px;color:var(--muted);font-size:9px}.form-field input[readonly]{background:#f4f7f8;color:#385260;border-color:#d8e3e7}
+@media(max-width:900px){.course-combo-panel{grid-template-columns:1fr}.course-combo-field select{font-size:11px}}
+
+.help-intro{margin-bottom:14px}
+.footer-actions{display:flex;align-items:center;gap:7px}
+.secret-log-button{width:19px;height:19px;display:grid;place-items:center;margin-left:5px;border:1px solid rgba(255,255,255,.08);border-radius:50%;background:transparent;color:rgba(255,255,255,.18);font-size:9px;cursor:pointer;transition:.18s}
+.secret-log-button:hover,.secret-log-button:focus-visible{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.70);background:rgba(255,255,255,.08)}
+
+.log-backdrop{position:fixed;inset:0;z-index:12000;display:none;background:rgba(3,22,35,.56);backdrop-filter:blur(3px)}
+.log-backdrop.open{display:block}
+.log-modal{position:fixed;left:50%;top:50%;z-index:12001;width:min(1040px,calc(100% - 32px));max-height:82vh;display:none;overflow:hidden;border:1px solid #cbdde4;border-radius:17px;background:#fff;box-shadow:0 28px 80px rgba(0,28,48,.30);transform:translate(-50%,-50%)}
+.log-modal.open{display:block}
+.log-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;padding:18px 20px;border-bottom:1px solid var(--line);background:linear-gradient(110deg,#eef8f8,#fff)}
+.log-modal-head h2{margin:3px 0 3px;color:var(--navy);font-size:21px}
+.log-modal-head p{margin:0;color:var(--muted);font-size:10px}
+.log-close{width:35px;height:35px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:21px;cursor:pointer}
+.log-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--line)}
+.log-toolbar>span{color:var(--muted);font-size:10px;font-weight:800}
+.log-toolbar>div{display:flex;gap:7px}
+.log-table-wrap{max-height:52vh;overflow:auto}
+.log-table{width:100%;border-collapse:collapse;font-size:10px}
+.log-table th{position:sticky;top:0;padding:9px 10px;background:#f0f6f8;color:var(--navy);text-align:left;font-size:8.5px;text-transform:uppercase;letter-spacing:.04em}
+.log-table td{padding:9px 10px;border-top:1px solid #e4ecef;vertical-align:top;line-height:1.4}
+.log-table td:nth-child(1){white-space:nowrap;color:var(--muted)}
+.log-table td:nth-child(2){font-weight:800;color:var(--navy)}
+.log-table td:nth-child(3){color:var(--teal);font-weight:700}
+.log-table td:nth-child(4){max-width:480px;word-break:break-word}
+.log-empty{display:none;padding:34px;text-align:center;color:var(--muted);font-size:11px}
+.log-note{margin:0;padding:10px 16px;border-top:1px solid var(--line);background:#f8fafb;color:var(--muted);font-size:9px}
+@media(max-width:760px){.log-toolbar{display:block}.log-toolbar>div{margin-top:8px}.log-table{min-width:760px}}
+
+.course-combo-field input[list],
+.form-field input[list]{
+  width:100%;
+  min-height:50px;
+  padding:0 13px;
+  border:2px solid #afcbd3;
+  border-radius:10px;
+  background:#fff;
+  color:var(--ink);
+  font-size:12px;
+  font-weight:700;
+  outline:none;
+}
+.course-combo-field input[list]:focus,
+.form-field input[list]:focus{
+  border-color:var(--teal);
+  box-shadow:0 0 0 3px rgba(8,127,131,.10);
+}
+
+.autocomplete{position:relative}
+.autocomplete input[type="search"]{width:100%;min-height:50px;padding:0 42px 0 13px;border:2px solid #afcbd3;border-radius:10px;background:#fff;color:var(--ink);font-size:12px;font-weight:700;outline:none}
+.autocomplete input[type="search"]:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(8,127,131,.10)}
+.autocomplete-results{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:80;display:none;max-height:320px;overflow:auto;border:1px solid #bcd1d9;border-radius:11px;background:#fff;box-shadow:0 18px 38px rgba(7,59,92,.18)}
+.autocomplete-results.open{display:block}
+.autocomplete-option{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 13px;border:0;border-bottom:1px solid #e5edef;background:#fff;text-align:left;cursor:pointer}
+.autocomplete-option:last-child{border-bottom:0}.autocomplete-option:hover,.autocomplete-option.active{background:#edf8f7}.autocomplete-option strong{display:block;color:var(--navy);font-size:11px;line-height:1.35}.autocomplete-option small{display:block;margin-top:3px;color:var(--muted);font-size:9px}.autocomplete-code{align-self:center;padding:5px 8px;border-radius:999px;background:#edf3f6;color:var(--teal);font-size:9px;font-weight:900;white-space:nowrap}
+.autocomplete-empty{padding:14px;color:var(--muted);font-size:10px;text-align:center}.autocomplete-help{padding:9px 12px;border-top:1px solid #e5edef;background:#f8fafb;color:var(--muted);font-size:8.5px}
+.company-field.company-visible{display:block!important}
+
+.portfolio-only-panel{overflow:hidden}
+.portfolio-only-body{padding:0;background:#fff}
+.portfolio-only-frame{display:block;width:100%;height:1500px;border:0;background:#fff}
+.portfolio-help-link{display:inline-flex;margin-top:10px;color:var(--teal);font-size:9.5px;font-weight:800;text-decoration:none}
+.portfolio-help-link:hover{text-decoration:underline;color:var(--navy)}
+@media(max-width:900px){.portfolio-only-frame{height:1750px}}
+@media(max-width:600px){.portfolio-only-frame{height:2000px}}
+
+.portfolio-loading{padding:30px;text-align:center;color:var(--muted);background:#fff}.portfolio-loading b{display:block;color:var(--navy);font-size:14px}.portfolio-loading span{display:block;margin-top:5px;font-size:10px}
+.compact-panel-body{padding:16px}.selected-course-summary{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.55fr);gap:14px;align-items:center;margin-bottom:14px;padding:14px 16px;border:1px solid #bed8df;border-left:5px solid var(--teal);border-radius:13px;background:linear-gradient(110deg,#eef8f8,#fff)}.selected-course-summary h3{margin:2px 0 4px;color:var(--navy);font-size:17px}.selected-course-summary p{margin:0;color:var(--muted);font-size:10px}.compact-copy{padding:10px 12px}.compact-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.compact-form-grid .form-field.full{grid-column:1/-1}.compact-form-grid input,.compact-form-grid select,.compact-form-grid textarea{padding:9px 10px}.compact-form-grid textarea{min-height:88px}.compact-form-grid .small-textarea{min-height:55px}.compact-question-block{margin:12px 0}.block-label{display:block;margin-bottom:7px;color:var(--navy);font-size:10px;font-weight:900}.compact-support{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.compact-support .support-option{min-height:76px;padding:10px}.compact-submit{margin-top:12px}.offer-company-visible{display:block!important}
+.personalization-fields[hidden]{display:none!important}.personalization-fields{margin-top:12px}.compact-selected-summary{grid-template-columns:minmax(0,1fr) auto}.selected-course-check{padding:8px 10px;border-radius:999px;background:#e8f6ef;color:var(--green);font-size:9px;font-weight:900}.compact-submit-row{display:flex;justify-content:flex-end;margin-top:12px}
+@media(max-width:900px){.selected-course-summary{grid-template-columns:1fr}.compact-support{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.compact-form-grid,.compact-support{grid-template-columns:1fr}.compact-form-grid .form-field.full{grid-column:auto}}
+
+/* Atalhos premium do menu inicial */
+.premium-shortcuts{gap:10px;align-items:start}
+.premium-shortcut,.menu-card.premium-shortcut{
+  min-height:104px!important;
+  padding:15px!important;
+  border:0!important;
+  border-radius:15px!important;
+  background:linear-gradient(135deg,#073b5c 0%,#0a6079 100%)!important;
+  color:#fff!important;
+  box-shadow:0 10px 25px rgba(7,59,92,.16)!important;
+  overflow:hidden;
+}
+.premium-shortcut::before{display:none!important}
+.premium-shortcut .menu-heading{grid-template-columns:39px minmax(0,1fr);gap:10px;margin:0}
+.premium-shortcut .icon{width:39px;height:39px;margin:0!important;background:rgba(255,255,255,.13)!important;color:#fff!important;border:1px solid rgba(255,255,255,.18)}
+.premium-shortcut .menu-label{color:#8fe6e4!important;font-size:8px!important;margin-bottom:3px!important}
+.premium-shortcut .menu-title-block strong{color:#fff!important;font-size:12.5px!important;line-height:1.28}
+.premium-shortcut .menu-description{
+  display:block!important;
+  max-height:0;
+  margin:0;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(-4px);
+  color:#d9eef2!important;
+  font-size:9.5px!important;
+  line-height:1.45!important;
+  transition:max-height .23s ease,opacity .2s ease,transform .2s ease,margin .2s ease;
+}
+.premium-shortcut:hover,.premium-shortcut:focus-visible{transform:translateY(-3px);box-shadow:0 16px 32px rgba(7,59,92,.24)!important;outline:none}
+.premium-shortcut:hover .menu-description,.premium-shortcut:focus-visible .menu-description{max-height:72px;margin-top:11px;opacity:1;transform:none}
+.menu-action{display:none!important}
+
+/* Busca única de escola */
+.school-picker{position:relative}
+.school-picker-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.school-picker-row input{width:100%;min-height:46px;padding:0 13px;border:2px solid #afcbd3;border-radius:10px;background:#fff;color:var(--ink);font-size:11px;font-weight:700;outline:none}
+.school-picker-row input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(8,127,131,.10)}
+.school-list-button{min-height:46px;padding:0 13px;border:1px solid #b9ced6;border-radius:10px;background:#eef6f8;color:var(--navy);font-size:9.5px;font-weight:900;cursor:pointer;white-space:nowrap}
+.school-list-button:hover{border-color:var(--teal);background:#e5f3f4}
+.school-results{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:100;display:none;max-height:310px;overflow:auto;border:1px solid #bcd1d9;border-radius:11px;background:#fff;box-shadow:0 18px 38px rgba(7,59,92,.18)}
+.school-results.open{display:block}
+.school-option{width:100%;display:grid;grid-template-columns:58px minmax(0,1fr);gap:10px;align-items:center;padding:10px 12px;border:0;border-bottom:1px solid #e6edef;background:#fff;text-align:left;cursor:pointer}
+.school-option:last-child{border-bottom:0}.school-option:hover,.school-option.active{background:#edf8f7}
+.school-option-code{display:inline-flex;justify-content:center;padding:5px 7px;border-radius:999px;background:#e7f3f5;color:var(--teal);font-size:9px;font-weight:900}
+.school-option-name{color:var(--navy);font-size:10px;font-weight:750;line-height:1.35}
+.school-empty{padding:14px;text-align:center;color:var(--muted);font-size:10px}
+.school-list-note{padding:8px 11px;border-top:1px solid #e6edef;background:#f8fafb;color:var(--muted);font-size:8.5px}
+
+/* Formulários mais compactos */
+.selected-course-summary:not(.compact-selected-summary){grid-template-columns:1fr}
+.request-intro.no-copy{grid-template-columns:1fr}
+.wide-textarea{width:100%!important;min-width:100%!important;min-height:125px!important;resize:vertical!important;display:block}
+.compact-form-grid .form-field.full textarea{width:100%!important;max-width:none!important}
+
+@media(max-width:760px){
+  .school-picker-row{grid-template-columns:1fr}
+  .school-list-button{width:100%}
+  .premium-shortcuts{grid-template-columns:1fr}
+  .premium-shortcut .menu-description{max-height:72px;margin-top:10px;opacity:1;transform:none}
+}
+
+/* Menu inicial ainda mais compacto: a descrição aparece apenas no hover */
+.premium-shortcuts{gap:9px}
+.premium-shortcut,.menu-card.premium-shortcut{
+  min-height:78px!important;
+  padding:12px 13px!important;
+  border-radius:13px!important;
+}
+.premium-shortcut .menu-heading{
+  grid-template-columns:34px minmax(0,1fr);
+  gap:9px;
+  align-items:center;
+}
+.premium-shortcut .icon{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  font-size:17px;
+}
+.premium-shortcut .menu-label{
+  margin-bottom:2px!important;
+  font-size:7.5px!important;
+}
+.premium-shortcut .menu-title-block strong{
+  font-size:11.5px!important;
+  line-height:1.22;
+}
+.premium-shortcut:hover .menu-description,
+.premium-shortcut:focus-visible .menu-description{
+  max-height:60px;
+  margin-top:8px;
+}
+@media(max-width:760px){
+  .premium-shortcut,.menu-card.premium-shortcut{min-height:88px!important}
+  .premium-shortcut .menu-description{max-height:60px;margin-top:8px;opacity:1;transform:none}
+}
+
+/* A descrição do menu inicial aparece exclusivamente no hover ou foco */
+.premium-shortcut .menu-description{
+  display:block!important;
+  max-height:0!important;
+  margin-top:0!important;
+  overflow:hidden!important;
+  opacity:0!important;
+  transform:translateY(-4px)!important;
+  transition:max-height .22s ease,opacity .18s ease,transform .18s ease,margin .18s ease!important;
+}
+.premium-shortcut:hover .menu-description,
+.premium-shortcut:focus-visible .menu-description{
+  max-height:60px!important;
+  margin-top:8px!important;
+  opacity:1!important;
+  transform:none!important;
+}
+@media(max-width:760px){
+  .premium-shortcut .menu-description{
+    max-height:0!important;
+    margin-top:0!important;
+    opacity:0!important;
+    transform:translateY(-4px)!important;
+  }
+  .premium-shortcut:hover .menu-description,
+  .premium-shortcut:focus-visible .menu-description{
+    max-height:60px!important;
+    margin-top:8px!important;
+    opacity:1!important;
+    transform:none!important;
+  }
+}
+
+/* Atalhos premium: no hover, a descrição substitui o título no mesmo espaço */
+.premium-shortcut,.menu-card.premium-shortcut{
+  position:relative;
+  min-height:76px!important;
+  height:76px!important;
+  padding:11px 12px!important;
+  overflow:hidden!important;
+}
+.premium-shortcut .menu-heading{
+  position:absolute;
+  inset:11px 12px;
+  display:grid!important;
+  grid-template-columns:34px minmax(0,1fr);
+  gap:9px;
+  align-items:center;
+  margin:0!important;
+  opacity:1;
+  transform:none;
+  transition:opacity .18s ease,transform .18s ease;
+}
+.premium-shortcut .menu-description{
+  position:absolute!important;
+  inset:11px 12px!important;
+  display:flex!important;
+  align-items:center;
+  max-height:none!important;
+  margin:0!important;
+  overflow:hidden!important;
+  opacity:0!important;
+  transform:translateY(4px)!important;
+  color:#ffffff!important;
+  font-size:10px!important;
+  font-weight:700!important;
+  line-height:1.38!important;
+  transition:opacity .18s ease,transform .18s ease!important;
+}
+.premium-shortcut:hover .menu-heading,
+.premium-shortcut:focus-visible .menu-heading{
+  opacity:0;
+  transform:translateY(-4px);
+}
+.premium-shortcut:hover .menu-description,
+.premium-shortcut:focus-visible .menu-description{
+  max-height:none!important;
+  margin:0!important;
+  opacity:1!important;
+  transform:none!important;
+}
+@media(max-width:760px){
+  .premium-shortcut,.menu-card.premium-shortcut{
+    min-height:76px!important;
+    height:76px!important;
+  }
+  .premium-shortcut .menu-description{
+    opacity:0!important;
+    transform:translateY(4px)!important;
+  }
+  .premium-shortcut:hover .menu-description,
+  .premium-shortcut:focus-visible .menu-description{
+    opacity:1!important;
+    transform:none!important;
+  }
+}
+
+/* Mantém o ícone visível: somente o texto é substituído pela descrição */
+.premium-shortcut:hover .menu-heading,
+.premium-shortcut:focus-visible .menu-heading{
+  opacity:1!important;
+  transform:none!important;
+}
+.premium-shortcut .menu-title-block{
+  opacity:1;
+  transform:none;
+  transition:opacity .18s ease,transform .18s ease;
+}
+.premium-shortcut:hover .menu-title-block,
+.premium-shortcut:focus-visible .menu-title-block{
+  opacity:0;
+  transform:translateY(-4px);
+}
+.premium-shortcut .menu-description{
+  left:55px!important;
+  right:12px!important;
+  top:11px!important;
+  bottom:11px!important;
+}
+
+/* Terceira guia: a lista de cursos abre acima e não bloqueia a continuação da página */
+#personalization .panel,
+#personalization .panel-body,
+#personalization .course-combo-panel,
+#personalization .course-combo-field,
+#personalization .autocomplete{
+  overflow:visible!important;
+}
+#personalization .course-combo-panel{position:relative;z-index:40}
+#personalization .autocomplete{position:relative;z-index:90}
+#personalization .autocomplete-results{
+  top:auto!important;
+  bottom:calc(100% + 7px)!important;
+  max-height:min(310px,42vh)!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+}
+#personalization.page.active{overflow:visible!important}
+html,body{overflow-y:auto!important}
+
+/* Escola: apenas um campo compacto; a lista completa aparece e possui rolagem */
+.school-field{max-width:820px}
+.school-picker-row{display:block!important}
+.school-list-button{display:none!important}
+.school-picker-row input{
+  min-height:40px!important;
+  height:40px!important;
+  padding:0 12px!important;
+  font-size:10.5px!important;
+}
+.school-results{
+  max-height:300px!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+}
+
+/* Campos mais compactos */
+.compact-form-grid input:not([type="hidden"]),
+.compact-form-grid select{
+  min-height:40px!important;
+  height:40px!important;
+  padding:0 10px!important;
+}
+.compact-form-grid{gap:8px 12px!important}
+.compact-form-grid .form-field{margin:0!important}
+.compact-form-grid label{margin-bottom:4px!important}
+
+/* =========================================================
+   DIREÇÃO VISUAL PREMIUM CLEAN — BÚSSOLA EAD
+   ========================================================= */
+:root{
+  --navy:#0b3558;
+  --navy2:#154d73;
+  --teal:#0b7c78;
+  --coral:#e96b63;
+  --red:#d34f5b;
+  --green:#247451;
+  --ink:#183348;
+  --muted:#6d7b86;
+  --line:#dfe5e7;
+  --bg:#f6f1e8;
+  --white:#fff;
+  --soft:#f8f5ef;
+  --blueSoft:#eaf3f6;
+  --greenSoft:#e9f5ef;
+  --redSoft:#faeceb;
+  --shadow:0 16px 38px rgba(30,63,82,.10);
+}
+
+html,body{min-height:100%;overflow-x:hidden}
+body{
+  background:
+    radial-gradient(circle at 12% 0%,rgba(11,124,120,.08),transparent 28%),
+    linear-gradient(180deg,#f7f3ec 0%,#f2f5f5 100%);
+  color:var(--ink);
+}
+
+.topbar{
+  background:rgba(255,255,255,.82);
+  color:var(--navy);
+  border-bottom:1px solid rgba(11,53,88,.10);
+  backdrop-filter:blur(12px);
+}
+.top-link{
+  color:var(--navy);
+  border-color:rgba(11,53,88,.14);
+  background:rgba(255,255,255,.55);
+}
+.top-link:hover{background:var(--navy);color:#fff}
+
+.app{max-width:1380px;padding:18px 24px 28px}
+
+.hero{
+  min-height:170px;
+  display:flex;
+  align-items:center;
+  padding:34px 38px;
+  border:0;
+  border-radius:28px;
+  background:
+    radial-gradient(circle at 87% 18%,rgba(255,255,255,.10),transparent 28%),
+    linear-gradient(118deg,#0b7c78 0%,#126b78 37%,#0b3558 100%);
+  box-shadow:0 22px 46px rgba(11,53,88,.16);
+}
+.hero-copy{max-width:900px}
+.hero h1{margin:0;font-size:38px;letter-spacing:-.035em}
+.hero p{margin:12px 0 0;max-width:820px;color:rgba(255,255,255,.88);font-size:14px;line-height:1.55}
+.eyebrow{display:none}
+
+.section-head{margin:20px 2px 12px}
+.home-kicker,.panel-kicker,.request-kicker{
+  display:block;
+  color:var(--teal);
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+.panel-kicker.coral{color:var(--coral)}
+.section-head h2{font-size:20px;letter-spacing:-.02em}
+
+.premium-shortcuts{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;
+}
+.premium-shortcut,.menu-card.premium-shortcut{
+  height:88px!important;
+  min-height:88px!important;
+  border:1px solid rgba(11,53,88,.11)!important;
+  border-radius:18px!important;
+  background:rgba(255,255,255,.86)!important;
+  color:var(--navy)!important;
+  box-shadow:0 10px 24px rgba(33,62,80,.07)!important;
+}
+.premium-shortcut .icon{
+  background:linear-gradient(135deg,rgba(11,124,120,.14),rgba(11,53,88,.09))!important;
+  border:1px solid rgba(11,124,120,.15)!important;
+  color:var(--teal)!important;
+}
+.premium-shortcut .menu-label{color:var(--coral)!important}
+.premium-shortcut .menu-title-block strong{color:var(--navy)!important}
+.premium-shortcut .menu-description{
+  color:var(--ink)!important;
+  font-weight:650!important;
+}
+.premium-shortcut:hover,.premium-shortcut:focus-visible{
+  border-color:rgba(11,124,120,.50)!important;
+  background:#fff!important;
+  box-shadow:0 16px 30px rgba(33,62,80,.12)!important;
+}
+
+.panel{
+  margin-top:18px;
+  border:1px solid rgba(11,53,88,.10);
+  border-radius:24px;
+  background:rgba(255,255,255,.90);
+  box-shadow:var(--shadow);
+}
+.panel-head{
+  min-height:86px;
+  padding:18px 22px;
+  border-bottom:1px solid rgba(11,53,88,.09);
+  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(251,250,247,.92));
+}
+.panel-title h2{margin:4px 0 0;color:var(--navy);font-size:21px;letter-spacing:-.025em}
+.panel-head-actions{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.premium-back{
+  min-height:39px;
+  padding:0 12px!important;
+  border:1px solid rgba(11,53,88,.14)!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:var(--navy)!important;
+}
+.premium-back:hover{background:var(--blueSoft)!important;border-color:var(--teal)!important}
+.home-back{background:var(--blueSoft)!important}
+
+.panel-body,.compact-panel-body{padding:20px}
+.detail-card,.route-card,.form-section,.course-combo-panel,.selected-course-summary{
+  border-radius:18px;
+}
+.detail-card,.route-card{
+  border-color:rgba(11,53,88,.10);
+  background:rgba(255,255,255,.78);
+}
+.route-card{
+  background:linear-gradient(145deg,#eaf5f4,#fff);
+  border-color:rgba(11,124,120,.18);
+}
+.timeline{gap:9px}
+.step{
+  border-color:rgba(11,53,88,.09);
+  border-radius:14px;
+  background:#fff;
+}
+.step-num{background:linear-gradient(135deg,var(--teal),var(--navy))}
+.notice{
+  border-color:#f0d6a4;
+  background:#fff6e8;
+  color:#79561f;
+}
+.selected-course-summary,.course-combo-panel{
+  border:1px solid rgba(11,124,120,.18);
+  border-left:5px solid var(--teal);
+  background:linear-gradient(120deg,#eef7f5,#fff);
+}
+.selected-course-summary h3,.course-combo-copy h3{color:var(--navy)}
+
+.btn{
+  min-height:40px;
+  border-radius:12px;
+  box-shadow:none;
+}
+.btn.primary{
+  background:linear-gradient(135deg,var(--navy),#145a79);
+  border-color:transparent;
+}
+.btn.teal{
+  background:linear-gradient(135deg,var(--teal),#15918b);
+  border-color:transparent;
+}
+
+.form-field label,.block-label{
+  color:var(--navy);
+  font-size:9.5px;
+}
+.compact-form-grid input:not([type="hidden"]),
+.compact-form-grid select,
+.form-grid input,
+.form-grid select,
+.form-grid textarea,
+.school-picker-row input,
+.autocomplete input[type="search"],
+.multi-picker>input{
+  min-height:42px!important;
+  height:auto!important;
+  border:1px solid #d2dde1!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  color:var(--ink)!important;
+  box-shadow:0 2px 0 rgba(11,53,88,.02);
+}
+.compact-form-grid input:focus,
+.compact-form-grid select:focus,
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus,
+.school-picker-row input:focus,
+.autocomplete input[type="search"]:focus,
+.multi-picker>input:focus{
+  border-color:var(--teal)!important;
+  box-shadow:0 0 0 3px rgba(11,124,120,.10)!important;
+  outline:none;
+}
+.wide-textarea{min-height:130px!important}
+.helper{color:#7c8991}
+
+.support-grid{gap:8px}
+.support-option{
+  border:1px solid rgba(11,53,88,.10)!important;
+  border-radius:15px!important;
+  background:#fafcfc!important;
+}
+.support-option:hover{border-color:rgba(11,124,120,.40)!important;background:#f0f8f7!important}
+.support-option:has(input:checked){
+  border-color:var(--teal)!important;
+  background:#e9f6f3!important;
+}
+.support-option b{color:var(--navy)}
+
+.autocomplete-results,.school-results,.municipality-results{
+  border:1px solid rgba(11,53,88,.13);
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 20px 40px rgba(30,63,82,.16);
+}
+.autocomplete-option,.school-option,.municipality-option{
+  border-bottom:1px solid #edf1f2;
+}
+.autocomplete-option:hover,.autocomplete-option.active,
+.school-option:hover,.school-option.active,
+.municipality-option:hover,.municipality-option.active{
+  background:#edf7f5;
+}
+
+.multi-picker{
+  position:relative;
+  min-height:44px;
+  padding:7px;
+  border:1px solid #d2dde1;
+  border-radius:12px;
+  background:#fff;
+}
+.multi-picker:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px rgba(11,124,120,.10)}
+.multi-picker>input{
+  width:100%;
+  min-height:34px!important;
+  padding:0 8px!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.multi-chips{display:flex;flex-wrap:wrap;gap:6px}
+.multi-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 8px;
+  border-radius:999px;
+  background:#e7f4f2;
+  color:var(--teal);
+  font-size:9px;
+  font-weight:800;
+}
+.multi-chip button{border:0;background:transparent;color:inherit;font-size:14px;line-height:1;cursor:pointer;padding:0}
+.municipality-results{
+  position:absolute;
+  left:0;right:0;top:calc(100% + 6px);
+  z-index:130;
+  display:none;
+  max-height:260px;
+  overflow:auto;
+}
+.municipality-results.open{display:block}
+.municipality-option{
+  width:100%;
+  padding:10px 12px;
+  border:0;
+  border-bottom:1px solid #edf1f2;
+  background:#fff;
+  color:var(--navy);
+  text-align:left;
+  font-size:10px;
+  cursor:pointer;
+}
+.municipality-empty{padding:14px;text-align:center;color:var(--muted);font-size:10px}
+
+.footer{
+  justify-content:flex-end;
+  margin-top:18px;
+  padding:10px 14px;
+  border:1px solid rgba(11,53,88,.08);
+  border-radius:16px;
+  background:rgba(255,255,255,.72);
+  color:var(--navy);
+}
+.footer a{color:var(--navy)}
+.secret-log-button{color:rgba(11,53,88,.22);border-color:rgba(11,53,88,.08)}
+
+.log-modal{
+  border-radius:22px;
+  border-color:rgba(11,53,88,.12);
+}
+.log-modal-head{background:linear-gradient(120deg,#edf7f5,#fff)}
+
+@media(max-width:1100px){
+  .premium-shortcuts{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:760px){
+  .app{padding:12px}
+  .hero{min-height:145px;padding:26px 22px;border-radius:22px}
+  .hero h1{font-size:31px}
+  .premium-shortcuts{grid-template-columns:1fr}
+  .panel-head{align-items:flex-start;display:grid}
+  .panel-head-actions{justify-content:flex-start}
+  .detail-grid{grid-template-columns:1fr}
+}
+
+
+/* Acompanhamento de protocolos */
+.hero{justify-content:space-between;gap:22px}
+.hero-actions{flex:0 0 auto}
+.hero-protocol-button{
+  min-width:220px;
+  min-height:62px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:10px 15px;
+  border:1px solid rgba(255,255,255,.24);
+  border-radius:16px;
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+  backdrop-filter:blur(8px);
+  transition:transform .18s ease,background .18s ease,border-color .18s ease;
+}
+.hero-protocol-button:hover,.hero-protocol-button:focus-visible{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.20);
+  border-color:rgba(255,255,255,.42);
+  outline:none;
+}
+.hero-protocol-icon{
+  width:38px;height:38px;
+  display:grid;place-items:center;
+  border-radius:12px;
+  background:rgba(255,255,255,.16);
+  font-size:18px;
+}
+.hero-protocol-button b{display:block;font-size:11px}
+.hero-protocol-button small{display:block;margin-top:3px;color:rgba(255,255,255,.76);font-size:8.5px}
+
+.after-submit-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.after-submit-actions .btn{min-width:170px}
+.result-box .success{border-radius:15px}
+.submission-locked{display:none!important}
+
+.protocol-backdrop{
+  position:fixed;inset:0;z-index:12500;
+  display:none;
+  background:rgba(5,31,48,.58);
+  backdrop-filter:blur(4px);
+}
+.protocol-backdrop.open{display:block}
+.protocol-modal{
+  position:fixed;left:50%;top:50%;z-index:12501;
+  width:min(960px,calc(100% - 30px));
+  max-height:84vh;
+  display:none;
+  overflow:hidden;
+  border:1px solid rgba(11,53,88,.13);
+  border-radius:24px;
+  background:#fff;
+  box-shadow:0 30px 90px rgba(11,53,88,.28);
+  transform:translate(-50%,-50%);
+}
+.protocol-modal.open{display:block}
+.protocol-modal-head{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  padding:19px 21px;
+  border-bottom:1px solid #e5ebed;
+  background:linear-gradient(120deg,#eaf5f3,#fff);
+}
+.protocol-modal-head h2{margin:4px 0 3px;color:var(--navy);font-size:22px}
+.protocol-modal-head p{margin:0;color:var(--muted);font-size:9.5px}
+.protocol-toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  padding:12px 18px;
+  border-bottom:1px solid #edf1f2;
+}
+.protocol-toolbar b{display:block;color:var(--navy);font-size:11px}
+.protocol-toolbar span{display:block;margin-top:3px;color:var(--muted);font-size:8.5px}
+.protocol-list{
+  max-height:57vh;
+  overflow:auto;
+  padding:12px 16px 18px;
+  background:#fbfcfc;
+}
+.protocol-card{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:15px;
+  align-items:center;
+  margin-top:8px;
+  padding:13px 14px;
+  border:1px solid rgba(11,53,88,.10);
+  border-radius:16px;
+  background:#fff;
+}
+.protocol-card:first-child{margin-top:0}
+.protocol-card h3{margin:0;color:var(--navy);font-size:12px}
+.protocol-code{
+  display:inline-flex;
+  margin-bottom:6px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:#e8f4f2;
+  color:var(--teal);
+  font-size:9px;
+  font-weight:900;
+}
+.protocol-card p{margin:5px 0 0;color:var(--muted);font-size:9.5px;line-height:1.45}
+.protocol-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.protocol-meta span{
+  padding:5px 7px;
+  border-radius:8px;
+  background:#f1f4f5;
+  color:#536874;
+  font-size:8.5px;
+}
+.protocol-status{
+  min-width:128px;
+  padding:8px 10px;
+  border-radius:12px;
+  background:#eaf6ef;
+  color:#247451;
+  text-align:center;
+  font-size:9px;
+  font-weight:900;
+}
+.protocol-empty{display:none;padding:45px 20px;text-align:center}
+.protocol-empty b{display:block;color:var(--navy);font-size:14px}
+.protocol-empty span{display:block;margin-top:6px;color:var(--muted);font-size:10px}
+
+@media(max-width:760px){
+  .hero{display:grid}
+  .hero-actions{width:100%}
+  .hero-protocol-button{width:100%;min-width:0}
+  .protocol-toolbar{display:block}
+  .protocol-toolbar .btn{margin-top:9px}
+  .protocol-card{grid-template-columns:1fr}
+  .protocol-status{justify-self:start}
+  .after-submit-actions{justify-content:stretch}
+  .after-submit-actions .btn{width:100%}
+}
+
+
+/* CTA inferior: sempre visível e com contraste correto */
+.request-submit-bar .btn.primary,
+.request-submit-bar .btn.primary:visited{
+  border:1px solid rgba(255,255,255,.92)!important;
+  background:#ffffff!important;
+  color:var(--navy)!important;
+  opacity:1!important;
+  box-shadow:0 8px 18px rgba(2,34,58,.18)!important;
+}
+.request-submit-bar .btn.primary:hover,
+.request-submit-bar .btn.primary:focus-visible{
+  border-color:#ffffff!important;
+  background:var(--blueSoft)!important;
+  color:var(--teal)!important;
+  transform:translateY(-1px);
+}
+.request-submit-bar .btn.primary:disabled{
+  border-color:rgba(255,255,255,.65)!important;
+  background:rgba(255,255,255,.82)!important;
+  color:rgba(11,53,88,.62)!important;
+  opacity:1!important;
+  cursor:wait;
+}
+
+
+.footer-actions a{
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  padding:0 11px;
+  border:1px solid rgba(11,53,88,.10);
+  border-radius:999px;
+  background:#fff;
+  color:var(--navy);
+  font-size:9.5px;
+  font-weight:850;
+  text-decoration:none;
+}
+.footer-actions a:hover{
+  border-color:var(--teal);
+  background:var(--blueSoft);
+  color:var(--teal);
+}
+
+</style></head><body>
+<div class="topbar"><div class="topbar-inner"><div><b>ESEO</b> — Escola SENAI de Educação Online</div><div class="top-links"><a class="top-link" href="https://sesisenaisp.sharepoint.com/sites/eseo/" target="_blank">Portal ESEO</a><a class="top-link" href="https://sesisenaisp.sharepoint.com/sites/intranet/Atos%20Formais/CO-GED-56-2026.pdf" target="_blank">Seleção Escolar</a><a class="top-link" href="https://sgset.sp.senai.br/" target="_blank" rel="noopener">Acessar SGSET</a><a class="top-link" href="https://tramitacao.sesisenaisp.org.br/Login" target="_blank">Acessar STD</a></div></div></div>
+<div class="app">
+<section class="hero">
+  <div class="hero-copy">
+    <h1>Bússola EAD</h1>
+    <p>Descubra o melhor caminho para ofertar, adaptar ou desenvolver uma solução educacional a distância.</p>
+  </div>
+  <div class="hero-actions">
+    <button class="hero-protocol-button" type="button" onclick="openProtocolCenter()">
+      <span class="hero-protocol-icon">▣</span>
+      <span><b>Acompanhar protocolos</b><small>Consulte suas solicitações</small></span>
+    </button>
+  </div>
+</section>
+<section id="home" class="page active">
+  <div class="section-head home-heading">
+    <div>
+      <span class="home-kicker">Orientação rápida</span>
+      <h2>O que sua escola precisa?</h2>
+    </div>
+  </div>
+
+  <div class="menu-grid premium-shortcuts">
+    <button class="menu-card premium-shortcut" onclick="openCatalog('offer')">
+      <span class="menu-heading">
+        <span class="icon">⌕</span>
+        <span class="menu-title-block">
+          <span class="menu-label">COMECE AQUI</span>
+          <strong>Consultar e ofertar um curso do portfólio</strong>
+        </span>
+      </span>
+      <span class="menu-description">Acesse o portfólio completo, consulte indicadores, filtros e detalhes dos cursos disponíveis.</span>
+    </button>
+
+    <a class="menu-card premium-shortcut" href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u" target="_blank" rel="noopener" style="text-decoration:none">
+      <span class="menu-heading">
+        <span class="icon">✓</span>
+        <span class="menu-title-block">
+          <span class="menu-label">JÁ CRIEI A TURMA</span>
+          <strong>Solicitar liberação de turma no SGSET</strong>
+        </span>
+      </span>
+      <span class="menu-description">Abra o mesmo Forms “Solicitar nova turma” disponível nos Atalhos do Portal ESEO.</span>
+    </a>
+
+    <button class="menu-card premium-shortcut" onclick="openCatalog('personalize')">
+      <span class="menu-heading">
+        <span class="icon">✎</span>
+        <span class="menu-title-block">
+          <span class="menu-label">PRECISO DE ADEQUAÇÃO</span>
+          <strong>Personalizar uma solução existente</strong>
+        </span>
+      </span>
+      <span class="menu-description">Selecione um curso de referência e descreva a alteração ou adequação necessária.</span>
+    </button>
+
+    <button class="menu-card premium-shortcut" onclick="showPage('notFound')">
+      <span class="menu-heading">
+        <span class="icon">＋</span>
+        <span class="menu-title-block">
+          <span class="menu-label">NÃO ESTÁ NO PORTFÓLIO</span>
+          <strong>Não encontrei o curso que preciso</strong>
+        </span>
+      </span>
+      <span class="menu-description">Consulte como iniciar o Fluxo Institucional de Aprovação pelo STD.</span>
+    </button>
+
+    <button class="menu-card premium-shortcut" onclick="openHelpRequest()">
+      <span class="menu-heading">
+        <span class="icon">?</span>
+        <span class="menu-title-block">
+          <span class="menu-label">PRECISO DE APOIO</span>
+          <strong>Tenho uma dúvida ou dificuldade</strong>
+        </span>
+      </span>
+      <span class="menu-description">Identifique sua escola e descreva a situação para receber uma resposta da ESEO.</span>
+    </button>
+  </div>
+</section>
+
+<section id="catalog" class="page">
+  <div class="panel portfolio-only-panel">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="panel-kicker">Portfólio</span>
+        <h2>Portfólio de cursos ESEO</h2>
+      </div>
+      <div class="panel-head-actions">
+        <button class="btn primary" type="button" onclick="openIntegratedPortfolioFullScreen()">Abrir em tela cheia</button>
+        <button class="back premium-back" onclick="showPage('home')">⌂ Voltar ao início</button>
+      </div>
+    </div>
+    <div class="portfolio-loading" id="portfolioLoading">
+      <b>Carregando o portfólio...</b>
+      <span>Os indicadores, filtros e cursos serão exibidos nesta tela.</span>
+    </div>
+    <div class="portfolio-only-body">
+      <iframe
+        id="portfolioFrame"
+        class="portfolio-only-frame"
+        title="Portfólio completo de cursos da ESEO"
+        loading="eager"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<section id="offerRequest" class="page">
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="panel-kicker">Triagem ESEO</span>
+        <h2>Falar com a ESEO sobre esta oferta</h2>
+      </div>
+      <div class="panel-head-actions">
+        <button class="back premium-back" onclick="returnFromOfferRequest()">← Voltar ao portfólio</button>
+        <button class="back premium-back home-back" onclick="showPage('home')">⌂ Início</button>
+      </div>
+    </div>
+    <div class="panel-body compact-panel-body">
+      <div class="selected-course-summary">
+        <div>
+          <span class="request-kicker">Curso selecionado</span>
+          <h3 id="offerSummaryTitle">Curso do portfólio</h3>
+          <p id="offerSummaryMeta"></p>
+        </div>
+      </div>
+
+      <form id="offerRequestForm" onsubmit="submitOfferRequest(event)">
+        <input id="rCourse" type="hidden">
+        <input id="rCode" type="hidden">
+        <input id="rLevel" type="hidden">
+        <input id="rFormat" type="hidden">
+        <input id="rModel" type="hidden">
+        <input id="rHours" type="hidden">
+        <input id="rClasses" type="hidden" value="">
+        <input id="rCreated" type="hidden" value="Não informado">
+
+        <div class="compact-form-grid">
+          <div class="form-field full school-field">
+              <label>Escola</label>
+              <div class="school-picker" id="rSchoolPicker">
+                <div class="school-picker-row">
+                  <input id="rSchoolSearch" type="search" autocomplete="off" required placeholder="Digite o CFP ou o nome da escola" aria-autocomplete="list" aria-controls="rSchoolSuggestions" aria-expanded="false" oninput="renderSchoolSuggestions('r')" onfocus="renderSchoolSuggestions('r')" onkeydown="handleSchoolKeydown(event,'r')">
+                </div>
+                <div class="school-results" id="rSchoolSuggestions" role="listbox" aria-label="Lista de escolas"></div>
+              </div>
+              <input id="rCfp" type="hidden">
+              <input id="rSchool" type="hidden">
+              <div class="helper">Pesquise por exemplo por <b>1.10</b> ou pelo nome da unidade e selecione uma opção.</div>
+            </div>
+          <div class="form-field"><label>Nome do solicitante</label><input id="rName" required></div>
+          <div class="form-field"><label>E-mail corporativo</label><input id="rEmail" type="email" required></div>
+          <div class="form-field"><label>Telefone para contato</label><input id="rPhone" type="tel" placeholder="Opcional"></div>
+          <div class="form-field"><label>Matrículas estimadas</label><input id="rParticipants" type="number" min="1" required></div>
+          <div class="form-field"><label>Empresa envolvida?</label><select id="rCompanyFlag" onchange="toggleOfferCompany()" required><option value="">Selecione</option><option value="Não">Não</option><option value="Sim">Sim</option></select></div>
+          <div class="form-field offer-company-field" style="display:none"><label>Abrangência geográfica</label><select id="rScope"><option value="">Selecione</option><option>Municipal</option><option>Regional</option><option>Estadual</option><option>Nacional</option></select></div>
+          <div class="form-field offer-company-field" style="display:none"><label>Nome da empresa</label><input id="rCompany"></div>
+          <div class="form-field offer-company-field" style="display:none"><label>CNPJ</label><input id="rCnpj" placeholder="00.000.000/0000-00"></div>
+          <div class="form-field offer-company-field" style="display:none"><label>Número de unidades da empresa envolvidas</label><input id="rCompanyUnitsCount" type="number" min="1"></div>
+          <div class="form-field full offer-company-field" style="display:none">
+  <label>Municípios das unidades envolvidas</label>
+  <div class="multi-picker" id="rMunicipalityPicker">
+    <div class="multi-chips" id="rMunicipalityChips"></div>
+    <input id="rMunicipalitySearch" type="search" autocomplete="off" placeholder="Digite um município e selecione. Você pode incluir vários." oninput="renderMunicipalitySuggestions('r')" onfocus="renderMunicipalitySuggestions('r')" onkeydown="handleMunicipalityKeydown(event,'r')">
+    <div class="municipality-results" id="rMunicipalitySuggestions" role="listbox"></div>
+  </div>
+  <input id="rCompanyUnits" type="hidden">
+</div>
+        </div>
+
+        <div class="compact-question-block">
+          <label class="block-label">O que sua escola deseja avaliar nesta oferta?</label>
+          <div class="support-grid compact-support" id="supportGrid">
+            <label class="support-option"><input type="checkbox" name="support" value="Tutoria"><span><b>Tutoria</b><small>Acompanhamento pedagógico.</small></span></label>
+            <label class="support-option"><input type="checkbox" name="support" value="Monitoria"><span><b>Monitoria</b><small>Apoio operacional aos alunos.</small></span></label>
+            <label class="support-option"><input type="checkbox" name="support" value="Acompanhamento da oferta"><span><b>Acompanhamento</b><small>Suporte durante a execução.</small></span></label>
+            <label class="support-option"><input type="checkbox" name="support" value="Relatórios"><span><b>Relatórios</b><small>Participação, desempenho ou conclusão.</small></span></label>
+            <label class="support-option"><input type="checkbox" name="support" value="Aulas ao vivo"><span><b>Aulas ao vivo</b><small>Encontros síncronos.</small></span></label>
+            <label class="support-option"><input type="checkbox" name="support" value="Outra orientação"><span><b>Outra orientação</b><small>Explique no campo abaixo.</small></span></label>
+          </div>
+        </div>
+
+        <div class="compact-form-grid">
+          <div class="form-field full"><label>Descreva tudo o que sua escola precisa ou deseja esclarecer</label><textarea id="rNeed" class="wide-textarea" required placeholder="Explique o contexto, o público, o resultado esperado, referências e qualquer outra informação importante."></textarea></div>
+          <div class="form-field full"><label class="confirm-line"><input id="rConfirm" type="checkbox" required><span>Confirmo que as informações estão corretas e autorizo o encaminhamento para análise da ESEO.</span></label></div>
+        </div>
+
+        <div class="request-submit-bar compact-submit">
+          <div><b>Destino</b><span>ESEO — triagem e devolutiva à escola.</span></div>
+          <button class="btn primary" id="offerSubmitButton" type="submit">Enviar solicitação à ESEO</button>
+        </div>
+      </form>
+      <div id="offerRequestResult" class="result-box"></div>
+    </div>
+  </div>
+</section>
+
+<section id="personalization" class="page">
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="panel-kicker">Personalização</span>
+        <h2>Solicitar personalização de uma solução existente</h2>
+      </div>
+      <div class="panel-head-actions">
+        <button class="back premium-back" onclick="returnFromForm()">← Voltar</button>
+        <button class="back premium-back home-back" onclick="showPage('home')">⌂ Início</button>
+      </div>
+    </div>
+    <div class="panel-body compact-panel-body">
+      <div class="course-combo-panel compact">
+        <div class="course-combo-copy">
+          <span class="request-kicker">Curso de referência</span>
+          <h3>Encontre o curso que deseja personalizar</h3>
+          <p>Pesquise pelo nome do curso, tipo ou código SGSET e selecione uma opção.</p>
+          <a class="portfolio-help-link" href="https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html" target="_blank" rel="noopener">Está com dificuldade para localizar? Abrir o portfólio completo ↗</a>
+        </div>
+        <div class="course-combo-field">
+          <label for="pCourseSearch">Buscar curso</label>
+          <div class="autocomplete" id="pCourseAutocomplete">
+            <input id="pCourseSearch" type="search" autocomplete="off" placeholder="Digite nome, tipo ou código SGSET" aria-autocomplete="list" aria-controls="pCourseSuggestions" aria-expanded="false" oninput="renderPersonalizationCourseSuggestions()" onfocus="renderPersonalizationCourseSuggestions()" onkeydown="handlePersonalizationCourseKeydown(event)" required>
+            <div class="autocomplete-results" id="pCourseSuggestions" role="listbox" aria-label="Sugestões de cursos"></div>
+          </div>
+          <span id="pCourseSyncStatus">As opções aparecerão acima conforme você digitar.</span>
+        </div>
+      </div>
+
+      <div id="personalizationFields" class="personalization-fields" hidden>
+        <div class="selected-course-summary compact-selected-summary">
+          <div><span class="request-kicker">Selecionado</span><h3 id="pSelectedTitle"></h3><p id="pSelectedMeta"></p></div>
+          <div class="selected-course-check">✓ Curso de referência definido</div>
+        </div>
+
+        <form id="personalizationForm" onsubmit="submitPersonalization(event)">
+          <input id="pCourse" type="hidden" required>
+          <input id="pCode" type="hidden">
+          <div class="compact-form-grid">
+            <div class="form-field full school-field">
+              <label>Escola</label>
+              <div class="school-picker" id="pSchoolPicker">
+                <div class="school-picker-row">
+                  <input id="pSchoolSearch" type="search" autocomplete="off" required placeholder="Digite o CFP ou o nome da escola" aria-autocomplete="list" aria-controls="pSchoolSuggestions" aria-expanded="false" oninput="renderSchoolSuggestions('p')" onfocus="renderSchoolSuggestions('p')" onkeydown="handleSchoolKeydown(event,'p')">
+                </div>
+                <div class="school-results" id="pSchoolSuggestions" role="listbox" aria-label="Lista de escolas"></div>
+              </div>
+              <input id="pCfp" type="hidden">
+              <input id="pSchool" type="hidden">
+              <div class="helper">Pesquise por exemplo por <b>1.10</b> ou pelo nome da unidade e selecione uma opção.</div>
+            </div>
+            <div class="form-field"><label>Nome do solicitante</label><input id="pName" required></div>
+            <div class="form-field"><label>E-mail corporativo</label><input id="pEmail" type="email" required></div>
+            <div class="form-field"><label>Matrículas estimadas</label><input id="pQty" type="number" min="1" required></div>
+            <div class="form-field"><label>Empresa envolvida?</label><select id="pCompanyFlag" onchange="toggleCompany()" required><option value="">Selecione</option><option value="Não">Não</option><option value="Sim">Sim</option></select></div>
+            <div class="form-field company-field" style="display:none"><label>Abrangência geográfica</label><select id="pScope"><option value="">Selecione</option><option>Municipal</option><option>Regional</option><option>Estadual</option><option>Nacional</option></select></div>
+            <div class="form-field company-field" style="display:none"><label>Nome da empresa</label><input id="pCompany"></div>
+            <div class="form-field company-field" style="display:none"><label>CNPJ</label><input id="pCnpj" placeholder="00.000.000/0000-00"></div>
+            <div class="form-field company-field" style="display:none"><label>Número de unidades da empresa envolvidas</label><input id="pCompanyUnitsCount" type="number" min="1"></div>
+            <div class="form-field full company-field" style="display:none">
+  <label>Municípios das unidades envolvidas</label>
+  <div class="multi-picker" id="pMunicipalityPicker">
+    <div class="multi-chips" id="pMunicipalityChips"></div>
+    <input id="pMunicipalitySearch" type="search" autocomplete="off" placeholder="Digite um município e selecione. Você pode incluir vários." oninput="renderMunicipalitySuggestions('p')" onfocus="renderMunicipalitySuggestions('p')" onkeydown="handleMunicipalityKeydown(event,'p')">
+    <div class="municipality-results" id="pMunicipalitySuggestions" role="listbox"></div>
+  </div>
+  <input id="pUnits" type="hidden">
+</div>
+            
+            <div class="form-field full"><label>Descreva tudo o que precisa ser alterado ou acrescentado</label><textarea id="pChanges" class="wide-textarea" required placeholder="Informe conteúdo, carga horária, contexto, estratégia, cronograma, materiais, referências e qualquer outra necessidade."></textarea></div>
+          </div>
+          <div class="compact-submit-row" id="personalizationSubmitRow"><button class="btn primary" id="personalizationSubmitButton" type="submit">Enviar para análise da ESEO</button></div>
+        </form>
+      </div>
+      <div id="personalizationResult" class="result-box"></div>
+    </div>
+  </div>
+</section>
+
+<section id="notFound" class="page"><div class="panel"><div class="panel-head">
+      <div class="panel-title"><span class="panel-kicker coral">Fluxo institucional</span><h2>Não encontrei o curso que preciso</h2></div>
+      <div class="panel-head-actions"><button class="back premium-back home-back" onclick="showPage('home')">⌂ Voltar ao início</button></div>
+    </div><div class="panel-body"><div class="detail-grid"><div class="detail-card"><h2>Fluxo Institucional de Aprovação — STD</h2><p class="detail-description">Quando a solução não está disponível no portfólio, a solicitação deve seguir pelo STD. Depois da autorização, o curso é disponibilizado no SGSET para operação acadêmica.</p><div class="timeline"><div class="step"><div class="step-num">1</div><div><b>Escola</b><p>Levantar necessidade, público, empresa/CNPJ, abrangência e volume.</p></div></div><div class="step"><div class="step-num">2</div><div><b>Escola</b><p>Abrir o processo no STD com identificação clara.</p></div></div><div class="step"><div class="step-num">3</div><div><b>Áreas corporativas</b><p>Realizar as análises institucionais aplicáveis.</p></div></div><div class="step"><div class="step-num">4</div><div><b>Diretoria Regional</b><p>Apreciar e autorizar formalmente a oferta, quando prevista.</p></div></div><div class="step"><div class="step-num">5</div><div><b>Após autorização</b><p>O curso é disponibilizado no SGSET; a escola cria a turma e segue a operação.</p></div></div></div></div><div class="route-card"><h3>Acessos necessários</h3><p>Acesse o STD para abrir o processo. Caso ainda não tenha permissão, solicite o acesso pela Central de Serviços Jira.</p><div class="route-actions"><a class="btn primary full" href="https://tramitacao.sesisenaisp.org.br/Login" target="_blank">Acessar o STD</a><a class="btn soft full" href="https://sesisenaisp.atlassian.net/servicedesk/customer/portal/15" target="_blank">Não possui acesso ao STD? Clique aqui</a></div><div class="notice" style="margin-top:12px"><b>Resumo:</b> STD aprova a oferta. SGSET opera o curso e a turma.</div></div></div></div></div></section>
+
+<section id="help" class="page">
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">
+        <span class="panel-kicker">Ajuda ESEO</span>
+        <h2>Tenho uma dúvida ou dificuldade</h2>
+      </div>
+      <div class="panel-head-actions">
+        <button class="back premium-back home-back" onclick="showPage('home')">⌂ Voltar ao início</button>
+      </div>
+    </div>
+
+    <div class="panel-body">
+      <div class="request-intro help-intro no-copy">
+        <div>
+          <span class="request-kicker">Canal de orientação</span>
+          <h3>Descreva sua dúvida e iremos responder o quanto antes</h3>
+          <p>Informe os dados da escola e explique a situação. A solicitação será encaminhada à ESEO para análise e retorno.</p>
+        </div>
+      </div>
+
+      <form id="helpRequestForm" onsubmit="submitHelpRequest(event)">
+        <div class="form-section">
+          <div class="form-section-title">
+            <span>1</span>
+            <div>
+              <b>Identificação da escola</b>
+              <small>Esses dados ajudam a localizar a unidade e direcionar corretamente a resposta.</small>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-field full school-field">
+              <label>Escola</label>
+              <div class="school-picker" id="hSchoolPicker">
+                <div class="school-picker-row">
+                  <input id="hSchoolSearch" type="search" autocomplete="off" required placeholder="Digite o CFP ou o nome da escola" aria-autocomplete="list" aria-controls="hSchoolSuggestions" aria-expanded="false" oninput="renderSchoolSuggestions('h')" onfocus="renderSchoolSuggestions('h')" onkeydown="handleSchoolKeydown(event,'h')">
+                </div>
+                <div class="school-results" id="hSchoolSuggestions" role="listbox" aria-label="Lista de escolas"></div>
+              </div>
+              <input id="hCfp" type="hidden">
+              <input id="hSchool" type="hidden">
+              <div class="helper">Pesquise por exemplo por <b>1.10</b> ou pelo nome da unidade e selecione uma opção.</div>
+            </div>
+            <div class="form-field"><label>Nome do solicitante</label><input id="hName" required placeholder="Nome completo"></div>
+            <div class="form-field"><label>E-mail corporativo</label><input id="hEmail" type="email" required placeholder="nome@sp.senai.br"><div class="helper">A resposta será encaminhada para este endereço.</div></div>
+            <div class="form-field"><label>Telefone para contato</label><input id="hPhone" type="tel" placeholder="Ex.: (11) 99999-9999"></div>
+            <div class="form-field">
+              <label>Assunto da dúvida</label>
+              <select id="hSubject" required>
+                <option value="">Selecione</option>
+                <option>Portfólio de cursos</option>
+                <option>Oferta de curso</option>
+                <option>Personalização</option>
+                <option>SGSET</option>
+                <option>SGSET2 / agrupamentos</option>
+                <option>Liberação de turma</option>
+                <option>STD / aprovação institucional</option>
+                <option>Outro assunto</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">
+            <span>2</span>
+            <div>
+              <b>Sua dúvida ou dificuldade</b>
+              <small>Descreva o que aconteceu, o que você já tentou e qual orientação precisa receber.</small>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-field full">
+              <label>Descreva sua dúvida</label>
+              <textarea id="hQuestion" class="wide-textarea" required placeholder="Explique a situação, o que já tentou e qual orientação precisa receber."></textarea>
+            </div>
+            </div>
+        </div>
+
+        <div class="request-submit-bar">
+          <div>
+            <b>Destino da solicitação</b>
+            <span>ESEO — análise e resposta à escola.</span>
+          </div>
+          <button class="btn primary" id="helpSubmitButton" type="submit">Enviar dúvida à ESEO</button>
+        </div>
+      </form>
+
+      <div id="helpRequestResult" class="result-box"></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<footer class="footer">
+  <div class="footer-actions">
+    <a href="https://sesisenaisp.sharepoint.com/sites/intranet/Atos%20Formais/CO-GED-56-2026.pdf" target="_blank" rel="noopener">Cronograma da Seleção Escolar</a>
+    <button class="secret-log-button" id="secretLogButton" type="button" onclick="openInteractionLog()" aria-label="Administração">•</button>
+  </div>
+</footer>
+
+
+<div class="protocol-backdrop" id="protocolBackdrop" onclick="closeProtocolCenter()"></div>
+<section class="protocol-modal" id="protocolModal" aria-hidden="true" aria-labelledby="protocolModalTitle">
+  <div class="protocol-modal-head">
+    <div>
+      <span class="request-kicker">Acompanhamento</span>
+      <h2 id="protocolModalTitle">Meus protocolos</h2>
+      <p>Solicitações registradas por este navegador.</p>
+    </div>
+    <button class="log-close" type="button" onclick="closeProtocolCenter()" aria-label="Fechar">×</button>
+  </div>
+
+  <div class="protocol-toolbar">
+    <div>
+      <b id="protocolCount">0 protocolos</b>
+      <span>Na versão integrada, o status será atualizado pelo fluxo oficial da ESEO.</span>
+    </div>
+    <button class="btn" type="button" onclick="downloadProtocolsCsv()">Baixar relação</button>
+  </div>
+
+  <div class="protocol-list" id="protocolList"></div>
+  <div class="protocol-empty" id="protocolEmpty">
+    <b>Nenhum protocolo encontrado.</b>
+    <span>Após encaminhar uma solicitação, ela aparecerá aqui.</span>
+  </div>
+</section>
+
+<div class="log-backdrop" id="logBackdrop" onclick="closeInteractionLog()"></div>
+<section class="log-modal" id="logModal" aria-hidden="true">
+  <div class="log-modal-head">
+    <div>
+      <span class="request-kicker">Área administrativa</span>
+      <h2>Log de interações</h2>
+      <p>Registros locais deste navegador para avaliação do protótipo.</p>
+    </div>
+    <button class="log-close" type="button" onclick="closeInteractionLog()" aria-label="Fechar">×</button>
+  </div>
+
+  <div class="log-toolbar">
+    <span id="logCount">0 interações</span>
+    <div>
+      <button class="btn" type="button" onclick="downloadInteractionLogCsv()">Baixar CSV</button>
+      <button class="btn red" type="button" onclick="clearInteractionLog()">Limpar log</button>
+    </div>
+  </div>
+
+  <div class="log-table-wrap">
+    <table class="log-table">
+      <thead><tr><th>Data e hora</th><th>Ação</th><th>Tela</th><th>Detalhes</th></tr></thead>
+      <tbody id="logTableBody"></tbody>
+    </table>
+  </div>
+  <div class="log-empty" id="logEmpty">Ainda não há interações registradas neste navegador.</div>
+  <p class="log-note">Atalho administrativo: <b>Ctrl + Alt + L</b>. O acesso exige senha. Este log local não substitui a lista oficial do SharePoint quando a automação estiver conectada.</p>
+</section></div>
+<script>
+const COURSES=[{"id": "excel", "name": "Excel aplicado à gestão", "type": "Aperfeiçoamento profissional", "level": "FIC", "model": "Autoinstrucional", "format": "100% online", "area": "Gestão", "code": "EXEMPLO-001", "delivery": "Disponível", "route": "sgset2", "personalizable": true, "description": "Solução autoinstrucional de curta duração para aplicação de recursos do Excel em rotinas de gestão.", "audience": "Profissionais que utilizam planilhas em atividades administrativas e gerenciais.", "hours": "20 h", "status": "Disponível"}, {"id": "qualificacao", "name": "Qualificação profissional em Assistente Administrativo", "type": "Qualificação profissional", "level": "FIC", "model": "Colaborativo", "format": "Semipresencial", "area": "Gestão", "code": "EXEMPLO-002", "delivery": "Disponível", "route": "sgset_forms", "personalizable": true, "description": "Qualificação de média duração com mediação pedagógica e monitoria.", "audience": "Pessoas que buscam desenvolver competências para atuação em rotinas administrativas.", "hours": "160 h", "status": "Disponível"}, {"id": "tecnico", "name": "Técnico em Desenvolvimento de Sistemas", "type": "Curso técnico", "level": "Técnico", "model": "Colaborativo", "format": "Semipresencial", "area": "Tecnologia da Informação", "code": "EXEMPLO-003", "delivery": "Oferta regulamentada", "route": "conditional", "personalizable": false, "description": "Curso técnico semipresencial, com atividades online e práticas presenciais na escola ofertante.", "audience": "Jovens e adultos cursando ou que concluíram o Ensino Médio.", "hours": "Conforme Plano de Curso", "status": "Verificar autorização da unidade"}, {"id": "aprendizagem", "name": "Aprendizagem Industrial em Logística", "type": "Aprendizagem industrial", "level": "Aprendizagem", "model": "Colaborativo", "format": "Semipresencial", "area": "Logística", "code": "EXEMPLO-004", "delivery": "Oferta regulamentada", "route": "conditional", "personalizable": false, "description": "Formação profissional vinculada à aprendizagem, com atividades online e práticas previstas na oferta.", "audience": "Jovens dentro dos requisitos legais da Aprendizagem Industrial.", "hours": "Conforme Plano de Curso", "status": "Verificar autorização da unidade"}, {"id": "graduacao", "name": "Graduação em Tecnologia de Processos Gerenciais", "type": "Graduação", "level": "Superior", "model": "Colaborativo", "format": "Híbrido", "area": "Gestão", "code": "EXEMPLO-005", "delivery": "Oferta regulamentada", "route": "conditional", "personalizable": false, "description": "Oferta de nível superior com componentes online e acompanhamento acadêmico específico.", "audience": "Candidatos que atendam aos requisitos de ingresso no Ensino Superior.", "hours": "Conforme PPC", "status": "Fluxo específico do Superior"}, {"id": "pos", "name": "Pós-graduação em Gestão de Projetos", "type": "Pós-graduação", "level": "Superior", "model": "Colaborativo", "format": "100% online com aulas síncronas", "area": "Gestão", "code": "EXEMPLO-006", "delivery": "Oferta regulamentada", "route": "conditional", "personalizable": false, "description": "Formação para aprofundamento teórico-prático de profissionais graduados.", "audience": "Profissionais com graduação concluída.", "hours": "Conforme projeto do curso", "status": "Fluxo específico do Superior"}, {"id": "caitec", "name": "CAITEC — Competências Digitais", "type": "CAITEC / Novo Ensino Médio", "level": "Programa", "model": "Autoinstrucional", "format": "Online", "area": "Tecnologia", "code": "EXEMPLO-007", "delivery": "Programa específico", "route": "caitec", "personalizable": false, "description": "Oferta vinculada ao programa CAITEC/Novo Ensino Médio, com regras próprias de associação e agrupamento.", "audience": "Estudantes vinculados ao programa.", "hours": "Conforme matriz", "status": "Conforme regras do programa"}, {"id": "eja", "name": "Nova EJA Profissionalizante", "type": "EJA Profissionalizante", "level": "EJA", "model": "Colaborativo", "format": "Semipresencial", "area": "Educação Básica e Profissional", "code": "EXEMPLO-008", "delivery": "Programa específico", "route": "eja", "personalizable": false, "description": "Oferta articulada de Educação de Jovens e Adultos com Educação Profissional.", "audience": "Público elegível conforme as regras do programa.", "hours": "Conforme Plano de Curso", "status": "Fluxo específico EJA"}, {"id": "sob-medida", "name": "Solução educacional sob medida para empresa", "type": "Atendimento empresarial", "level": "A definir", "model": "A definir", "format": "Conforme necessidade", "area": "Multitemática", "code": "", "delivery": "Sob medida", "route": "custom", "personalizable": false, "description": "Solução sujeita à análise de necessidade, viabilidade, escopo, prazo e condições de atendimento pela ESEO.", "audience": "Empresas e públicos definidos na solicitação.", "hours": "A definir", "status": "Sob análise"}];let catalogMode='offer',selectedCourse=null,previousPage='catalog';
+
+
+
+
+let PORTFOLIO_COMBO_COURSES = [{"title": "Competência Transversal – Consumo Consciente de Energia", "code": "78359", "type": "Iniciação Profissional", "format": "Online", "model": "Autoinstrucional", "hours": 14}, {"title": "Competência Transversal – Educação Ambiental", "code": "78391", "type": "Iniciação Profissional", "format": "Online", "model": "Autoinstrucional", "hours": 14}, {"title": "Competência Transversal – Finanças Pessoais", "code": "105493", "type": "Iniciação Profissional", "format": "Online", "model": "Autoinstrucional", "hours": 14}, {"title": "Competência Transversal – Fundamentos de Logística", "code": "78392", "type": "Iniciação Profissional", "format": "Online", "model": "Autoinstrucional", "hours": 14}, {"title": "Competência Transversal – Noções Básicas de Mecânica Automotiva", "code": "78396", "type": "Iniciação Profissional", "format": "Online", "model": "Autoinstrucional", "hours": 14}, {"title": "Competência Transversal – Tecnologia da Informação e Comunicação", "code": "78400", "type": "Iniciação Profissional", "format": "Online", "model": "Autoinstrucional", "hours": 14}, {"title": "Desvendando a Geração, Transmissão e Distribuição de Energia", "code": "109935", "type": "Iniciação Profissional", "format": "Online", "model": "Autoinstrucional", "hours": 14}, {"title": "Assistente de Logística", "code": "102747", "type": "Aprendizagem Industrial", "format": "Semipresencial", "model": "Colaborativo", "hours": 980}, {"title": "Acelerando a Transição para a Economia Circular", "code": "107971", "type": "Aperfeiçoamento", "format": "Online", "model": "Autoinstrucional", "hours": 20}, {"title": "Alimentos Funcionais", "code": "97264", "type": "Aperfeiçoamento", "format": "Online", "model": "Autoinstrucional", "hours": 20}, {"title": "Alinhamento Estratégico Aplicado à Gestão", "code": "101786", "type": "Aperfeiçoamento", "format": "Online", "model": "Autoinstrucional", "hours": 20}, {"title": "Desvendando a Indústria 4.0", "code": "86817", "type": "Aperfeiçoamento", "format": "Online", "model": "Autoinstrucional", "hours": 20}, {"title": "Desvendando a Inteligência Artificial", "code": "", "type": "Aperfeiçoamento", "format": "Online", "model": "Autoinstrucional", "hours": 20}, {"title": "Desvendando Data Centers", "code": "108980", "type": "Aperfeiçoamento", "format": "Online", "model": "Autoinstrucional", "hours": 20}, {"title": "Assistente de Recursos Humanos", "code": "103310", "type": "Qualificação", "format": "Online", "model": "Colaborativo", "hours": 160}, {"title": "Inspetor de Qualidade", "code": "103312", "type": "Qualificação", "format": "Semipresencial", "model": "Colaborativo", "hours": 160}, {"title": "Desenhista de Moda", "code": "104382", "type": "Qualificação Profissional", "format": "Semipresencial", "model": "Colaborativo", "hours": 160}, {"title": "Assistente de Controle de Qualidade", "code": "104503", "type": "Qualificação", "format": "Online", "model": "Colaborativo", "hours": 160}, {"title": "Controlador e Programador de Produção", "code": "104626", "type": "Qualificação", "format": "Semipresencial", "model": "Colaborativo", "hours": 160}, {"title": "Operador de Computador", "code": "104629", "type": "Qualificação", "format": "Online", "model": "Colaborativo", "hours": 160}, {"title": "Eletricista Instalador Residencial", "code": "86576", "type": "Qualificação", "format": "Semipresencial", "model": "Colaborativo", "hours": 160}, {"title": "Pintor Imobiliário", "code": "92050", "type": "Qualificação", "format": "Semipresencial", "model": "Colaborativo", "hours": 160}, {"title": "Biotecnologia", "code": "99353", "type": "Pós-graduação", "format": "Online", "model": "Colaborativo", "hours": 360}, {"title": "Conectividade", "code": "104240", "type": "Pós-graduação", "format": "Online", "model": "Colaborativo", "hours": 360}, {"title": "Desenvolvimento de Novos Produtos Alimentícios", "code": "111934", "type": "Pós-graduação", "format": "Online", "model": "Colaborativo", "hours": 360}, {"title": "Eletromobilidade", "code": "99355", "type": "Pós-graduação", "format": "Online", "model": "Colaborativo", "hours": 360}, {"title": "Gestão da Qualidade e Segurança dos Alimentos", "code": "111933", "type": "Pós-graduação", "format": "Online", "model": "Colaborativo", "hours": 360}, {"title": "Gestão de Projetos com Ênfase em BIM", "code": "98110", "type": "Pós-graduação", "format": "Online", "model": "Colaborativo", "hours": 414}, {"title": "Técnico em Segurança do Trabalho", "code": "85459", "type": "Técnico", "format": "Semipresencial", "model": "Colaborativo", "hours": 1200}, {"title": "Técnico em Refrigeração e Climatização", "code": "95156", "type": "Técnico", "format": "Semipresencial", "model": "Colaborativo", "hours": 1200}, {"title": "Técnico em Redes de Computadores", "code": "86686", "type": "Técnico", "format": "Semipresencial", "model": "Colaborativo", "hours": 1125}, {"title": "Técnico em Meio Ambiente", "code": "96028", "type": "Técnico", "format": "Semipresencial", "model": "Colaborativo", "hours": 1200}, {"title": "Técnico em Mecatrônica", "code": "103707", "type": "Técnico", "format": "Semipresencial", "model": "Colaborativo", "hours": 1200}, {"title": "Técnico em Mecânica", "code": "85573", "type": "Técnico", "format": "Semipresencial", "model": "Colaborativo", "hours": 1500}, {"title": "Técnico em Manutenção Automotiva", "code": "85906", "type": "Técnico", "format": "Semipresencial", "model": "Colaborativo", "hours": 1200}, {"title": "Técnico em Logística", "code": "85623", "type": "Técnico", "format": "Semipresencial", "model": "Colaborativo", "hours": 1200}, {"title": "Técnico em Eletromecânica", "code": "102273", "type": "Técnico", "format": "Semipresencial", "model": "Colaborativo", "hours": 1200}, {"title": "Técnico em Desenvolvimento de Sistemas", "code": "108091", "type": "Técnico", "format": "Semipresencial", "model": "Colaborativo", "hours": 1200}];
+
+function courseOptionLabel(course){
+  const code = course.code || 'código pendente';
+  return `${course.title} — ${code} — ${course.type}`;
+}
+
+function fillCourseCombos(){
+  const selects = [document.getElementById('rCourseSelect'), document.getElementById('pCourseSelect')].filter(Boolean);
+  selects.forEach(select => {
+    select.innerHTML = '<option value="">Selecione um curso...</option>';
+    PORTFOLIO_COMBO_COURSES
+      .slice()
+      .sort((a,b)=>a.title.localeCompare(b.title,'pt-BR'))
+      .forEach((course,index)=>{
+        const option=document.createElement('option');
+        option.value=String(PORTFOLIO_COMBO_COURSES.indexOf(course));
+        option.textContent=courseOptionLabel(course);
+        select.appendChild(option);
+      });
+  });
+}
+
+function applySelectedOfferCourse(){
+  const select=document.getElementById('rCourseSelect');
+  if(!select || select.value===''){
+    rCourse.value=''; rCode.value=''; rLevel.value=''; rFormat.value=''; rModel.value=''; rHours.value='';
+  if(document.getElementById('rSchoolSearch')) rSchoolSearch.value='';
+  if(document.getElementById('rCfp')) rCfp.value='';
+  if(document.getElementById('rSchool')) rSchool.value='';
+    return;
+  }
+  const course=PORTFOLIO_COMBO_COURSES[Number(select.value)];
+  offerRequestCourse=course;
+  rCourse.value=course.title;
+  rCode.value=course.code || 'Pendente';
+  rLevel.value=course.type;
+  rFormat.value=course.format;
+  rModel.value=course.model;
+  rHours.value=`${course.hours} horas`;
+}
+
+function applySelectedPersonalizationCourse(){
+  const select=document.getElementById('pCourseSelect');
+  if(!select || select.value===''){ pCourse.value=''; pCode.value=''; return; }
+  const course=PORTFOLIO_COMBO_COURSES[Number(select.value)];
+  pCourse.value=course.title;
+  pCode.value=course.code || 'Pendente';
+}
+
+function selectComboCourseByObject(course, selectId){
+  if(!course) return;
+  const title=course.title || course.name || '';
+  const index=PORTFOLIO_COMBO_COURSES.findIndex(item=>item.title===title || (course.courseCode && item.code===String(course.courseCode)));
+  const select=document.getElementById(selectId);
+  if(select && index>=0){ select.value=String(index); }
+}
+
+
+const INTEGRATED_PORTFOLIO_RAW_URL='https://raw.githubusercontent.com/marciosqueiroz/portal-eseo-webparts/main/eseo-catalogo-cursos.html';
+const INTEGRATED_PORTFOLIO_FALLBACK_URL='https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html';
+let integratedPortfolioSource='';
+let integratedPortfolioLoading=false;
+
+function prepareIntegratedPortfolioSource(source){
+  let updated=String(source||'');
+
+  /* Remove a faixa de atalhos que causava rolagem horizontal e misturava classificações. */
+  updated=updated.replace(/<div class="quick-chips"[\s\S]*?<\/div>/i,'');
+  updated=updated.replace('<label for="formatFilter">Formato</label>','<label for="formatFilter">Estratégia</label>');
+  updated=updated.replace('<span>Formato</span><strong id="drawerFormat"></strong>','<span>Estratégia</span><strong id="drawerFormat"></strong>');
+  updated=updated.replaceAll('Consultar oferta EAD','Falar com a ESEO');
+  updated=updated.replace('Oferta sob consulta: o botão abrirá uma nova mensagem para a equipe de Soluções EAD, já identificando o curso selecionado.','Oferta sob consulta: o botão abrirá um formulário da Bússola com os dados do curso já preenchidos.');
+
+  const injectedStyle=`<style>
+    html,body{overflow-x:hidden!important}
+    .quick-chips{display:none!important}
+    .filters{grid-template-columns:repeat(5,minmax(120px,1fr)) auto!important;width:100%!important}
+    @media(max-width:1050px){.filters{grid-template-columns:repeat(3,minmax(150px,1fr))!important}}
+    @media(max-width:760px){.filters{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+    @media(max-width:520px){.filters{grid-template-columns:1fr!important}}
+  </style>`;
+  updated=updated.replace('</head>',injectedStyle+'</head>');
+
+  const integrationScript=`<script>
+  (function(){
+    const originalOpenPrimaryAction=window.openPrimaryAction;
+    window.openPrimaryAction=function(course){
+      const action=window.getPrimaryAction(course);
+      if(action && action.type==='contact'){
+        window.parent.postMessage({
+          type:'ESEO_OPEN_OFFER_FORM',
+          course:{
+            title:course.title||'',
+            courseCode:course.courseCode||'',
+            level:course.level||'',
+            format:course.format||'',
+            model:course.model||'',
+            hours:course.hours||'',
+            area:course.area||''
+          }
+        },'*');
+        return;
+      }
+      originalOpenPrimaryAction(course);
+    };
+  })();
+  <\/script>`;
+  updated=updated.replace('</body>',integrationScript+'</body>');
+  return updated;
+}
+
+async function loadIntegratedPortfolio(){
+  if(integratedPortfolioSource || integratedPortfolioLoading) return;
+  integratedPortfolioLoading=true;
+  const frame=document.getElementById('portfolioFrame');
+  const loading=document.getElementById('portfolioLoading');
+  try{
+    const response=await fetch(INTEGRATED_PORTFOLIO_RAW_URL,{cache:'no-store'});
+    if(!response.ok) throw new Error('Falha ao carregar o portfólio');
+    integratedPortfolioSource=prepareIntegratedPortfolioSource(await response.text());
+    frame.srcdoc=integratedPortfolioSource;
+    if(loading) loading.style.display='none';
+  }catch(error){
+    frame.src=INTEGRATED_PORTFOLIO_FALLBACK_URL;
+    if(loading){
+      loading.innerHTML='<b>O portfólio foi aberto em modo de compatibilidade.</b><span>Quando publicado no Portal ESEO, os ajustes integrados serão carregados normalmente.</span>';
+      setTimeout(()=>loading.style.display='none',3500);
+    }
+  }finally{
+    integratedPortfolioLoading=false;
+  }
+}
+
+function openIntegratedPortfolioFullScreen(){
+  if(integratedPortfolioSource){
+    const blob=new Blob([integratedPortfolioSource],{type:'text/html;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    window.open(url,'_blank','noopener,noreferrer');
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
+    return;
+  }
+  window.open(INTEGRATED_PORTFOLIO_FALLBACK_URL,'_blank','noopener,noreferrer');
+}
+
+window.addEventListener('message',event=>{
+  if(event.data?.type==='ESEO_OPEN_OFFER_FORM' && event.data.course){
+    openOfferRequest(event.data.course,'catalog');
+  }
+});
+
+
+const PROTOCOL_STORAGE_KEY='eseoProtocolRegistryV1';
+const REQUESTER_CONTEXT_KEY='eseoRequesterContextV1';
+
+function readJsonStorage(key,fallback){
+  try{
+    const value=JSON.parse(localStorage.getItem(key)||'null');
+    return value ?? fallback;
+  }catch(_){
+    return fallback;
+  }
+}
+
+function writeJsonStorage(key,value){
+  try{ localStorage.setItem(key,JSON.stringify(value)); }catch(_){ }
+}
+
+function getRequesterContext(){
+  return readJsonStorage(REQUESTER_CONTEXT_KEY,{});
+}
+
+function saveRequesterContext(prefix){
+  const map={
+    r:{search:'rSchoolSearch',cfp:'rCfp',school:'rSchool',name:'rName',email:'rEmail',phone:'rPhone'},
+    p:{search:'pSchoolSearch',cfp:'pCfp',school:'pSchool',name:'pName',email:'pEmail',phone:null},
+    h:{search:'hSchoolSearch',cfp:'hCfp',school:'hSchool',name:'hName',email:'hEmail',phone:'hPhone'}
+  }[prefix];
+  if(!map) return;
+
+  const previous=getRequesterContext();
+  const next={...previous};
+
+  Object.entries(map).forEach(([key,id])=>{
+    if(!id) return;
+    const value=document.getElementById(id)?.value?.trim()||'';
+    if(value) next[key]=value;
+  });
+
+  writeJsonStorage(REQUESTER_CONTEXT_KEY,next);
+}
+
+function restoreRequesterContext(prefix){
+  const context=getRequesterContext();
+  const map={
+    r:{search:'rSchoolSearch',cfp:'rCfp',school:'rSchool',name:'rName',email:'rEmail',phone:'rPhone'},
+    p:{search:'pSchoolSearch',cfp:'pCfp',school:'pSchool',name:'pName',email:'pEmail',phone:null},
+    h:{search:'hSchoolSearch',cfp:'hCfp',school:'hSchool',name:'hName',email:'hEmail',phone:'hPhone'}
+  }[prefix];
+  if(!map) return;
+
+  Object.entries(map).forEach(([key,id])=>{
+    if(!id || !context[key]) return;
+    const field=document.getElementById(id);
+    if(field) field.value=context[key];
+  });
+
+  const search=document.getElementById(map.search);
+  if(search && context.cfp && context.school){
+    search.value=`${context.cfp} — ${context.school}`;
+  }
+}
+
+function getProtocolRegistry(){
+  const records=readJsonStorage(PROTOCOL_STORAGE_KEY,[]);
+  const seen=new Set();
+  return records.filter(item=>{
+    if(!item?.protocol || seen.has(item.protocol)) return false;
+    seen.add(item.protocol);
+    return true;
+  });
+}
+
+function registerProtocol(record){
+  const records=getProtocolRegistry();
+  const index=records.findIndex(item=>item.protocol===record.protocol);
+  const normalized={
+    protocol:record.protocol,
+    submittedAt:record.submittedAt||new Date().toISOString(),
+    type:record.type||'Solicitação',
+    title:record.title||'Solicitação à ESEO',
+    school:record.school||'',
+    cfp:record.cfp||'',
+    requester:record.requester||'',
+    email:record.email||'',
+    status:record.status||'Recebido',
+    details:record.details||''
+  };
+  if(index>=0) records[index]={...records[index],...normalized};
+  else records.push(normalized);
+  writeJsonStorage(PROTOCOL_STORAGE_KEY,records.slice(-150));
+}
+
+function migrateLegacyProtocols(){
+  const current=getProtocolRegistry();
+  if(current.length) return;
+
+  const offerQueue=readJsonStorage('eseoOfferRequestQueue',[]);
+  offerQueue.forEach(payload=>{
+    if(!payload?.protocol) return;
+    registerProtocol({
+      protocol:payload.protocol,
+      submittedAt:payload.submittedAt,
+      type:'Oferta do portfólio',
+      title:payload.course?.title||'Oferta de curso',
+      school:payload.school?.unit||'',
+      cfp:payload.school?.cfp||'',
+      requester:payload.school?.requester||'',
+      email:payload.school?.email||'',
+      status:'Registrado neste navegador'
+    });
+  });
+
+  const helpQueue=readJsonStorage('eseoHelpRequestQueue',[]);
+  helpQueue.forEach(payload=>{
+    if(!payload?.protocol) return;
+    registerProtocol({
+      protocol:payload.protocol,
+      submittedAt:payload.submittedAt,
+      type:'Dúvida ou dificuldade',
+      title:payload.subject||'Orientação ESEO',
+      school:payload.school?.name||'',
+      cfp:payload.school?.cfp||'',
+      requester:payload.requester?.name||'',
+      email:payload.requester?.email||'',
+      status:'Registrado neste navegador'
+    });
+  });
+}
+
+function formatProtocolDate(value){
+  const date=new Date(value);
+  return Number.isNaN(date.getTime()) ? String(value||'') : date.toLocaleString('pt-BR');
+}
+
+function renderProtocolCenter(){
+  const records=getProtocolRegistry().slice().sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt));
+  protocolCount.textContent=`${records.length} protocolo${records.length===1?'':'s'}`;
+  protocolEmpty.style.display=records.length?'none':'block';
+  protocolList.style.display=records.length?'block':'none';
+
+  protocolList.innerHTML=records.map(record=>`
+    <article class="protocol-card">
+      <div>
+        <span class="protocol-code">${escapeLogHtml(record.protocol)}</span>
+        <h3>${escapeLogHtml(record.title)}</h3>
+        <p>${escapeLogHtml(record.type)}${record.school?' · '+escapeLogHtml(record.school):''}</p>
+        <div class="protocol-meta">
+          <span>${escapeLogHtml(formatProtocolDate(record.submittedAt))}</span>
+          ${record.cfp?`<span>CFP ${escapeLogHtml(record.cfp)}</span>`:''}
+          ${record.requester?`<span>${escapeLogHtml(record.requester)}</span>`:''}
+        </div>
+      </div>
+      <div class="protocol-status">${escapeLogHtml(record.status)}</div>
+    </article>`).join('');
+}
+
+function openProtocolCenter(){
+  migrateLegacyProtocols();
+  renderProtocolCenter();
+  protocolBackdrop.classList.add('open');
+  protocolModal.classList.add('open');
+  protocolModal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+
+function closeProtocolCenter(){
+  protocolBackdrop.classList.remove('open');
+  protocolModal.classList.remove('open');
+  protocolModal.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+
+function downloadProtocolsCsv(){
+  const records=getProtocolRegistry().slice().sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt));
+  const csvValue=value=>`"${String(value??'').replaceAll('"','""')}"`;
+  const rows=[
+    ['Protocolo','Data e hora','Tipo','Título','CFP','Escola','Solicitante','E-mail','Status'].map(csvValue).join(';'),
+    ...records.map(record=>[
+      record.protocol,
+      formatProtocolDate(record.submittedAt),
+      record.type,
+      record.title,
+      record.cfp,
+      record.school,
+      record.requester,
+      record.email,
+      record.status
+    ].map(csvValue).join(';'))
+  ];
+  const blob=new Blob(['\ufeff'+rows.join('\n')],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a');
+  link.href=url;
+  link.download=`protocolos-eseo-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function resetSubmitButton(button,text){
+  if(!button) return;
+  button.disabled=false;
+  button.textContent=text;
+}
+
+document.addEventListener('keydown',event=>{
+  if(event.key==='Escape' && protocolModal?.classList.contains('open')){
+    closeProtocolCenter();
+  }
+});
+
+const OFFER_REQUEST_CONFIG = {
+  /* Cole aqui a URL do fluxo Power Automate quando estiver pronta. */
+  endpoint: ""
+};
+let offerRequestPreviousPage = 'catalog';
+let offerRequestCourse = null;
+
+function openOfferRequest(course, from='catalog'){
+  offerRequestPreviousPage=from||'catalog';
+  offerRequestCourse=course||null;
+  offerSubmitting=false;
+  offerRequestForm.dataset.submitted='false';
+  offerRequestForm.reset();
+  offerRequestResult.className='result-box';
+  offerRequestResult.innerHTML='';
+  document.querySelectorAll('input[name="support"]').forEach(input=>input.checked=false);
+  rCfp.value=''; rSchool.value='';
+  resetMunicipalityPicker('r');
+  toggleOfferCompany();
+
+  const submitBar=document.getElementById('offerSubmitButton')?.closest('.request-submit-bar');
+  if(submitBar) submitBar.classList.remove('submission-locked');
+  resetSubmitButton(document.getElementById('offerSubmitButton'),'Enviar solicitação à ESEO');
+  restoreRequesterContext('r');
+
+  if(!course){ showPage('catalog'); return; }
+  rCourse.value=course.title||course.name||'';
+  rCode.value=course.courseCode||course.code||'';
+  rLevel.value=course.level||course.type||'';
+  rFormat.value=course.format||'';
+  rModel.value=course.model||'';
+  rHours.value=course.hours ? `${course.hours} horas` : '';
+  offerSummaryTitle.textContent=rCourse.value;
+  offerSummaryMeta.textContent=[rCode.value?`Código SGSET: ${rCode.value}`:'',rLevel.value,rFormat.value,rModel.value,rHours.value].filter(Boolean).join(' · ');
+  logInteraction('abrir_formulario_oferta','offerRequest',{course:rCourse.value,code:rCode.value});
+  showPage('offerRequest');
+}
+
+function returnFromOfferRequest(){showPage(offerRequestPreviousPage||'catalog')}
+
+
+function toggleOfferCompany(){
+  const visible=document.getElementById('rCompanyFlag')?.value==='Sim';
+  document.querySelectorAll('.offer-company-field').forEach(field=>{
+    field.classList.toggle('offer-company-visible',visible);
+    field.style.display=visible?'block':'none';
+  });
+  [rScope,rCompany,rCnpj,rCompanyUnitsCount,rCompanyUnits].forEach(input=>{
+    if(!input) return;
+    input.required=visible;
+    if(!visible) input.value='';
+  });
+  if(!visible) resetMunicipalityPicker('r');
+}
+
+function toggleRequestCompany(){
+  const visible = rCompanyFlag.value === 'Sim';
+  document.querySelectorAll('.request-company').forEach(el => el.style.display = visible ? 'block' : 'none');
+}
+
+function getSelectedSupport(){
+  return [...document.querySelectorAll('input[name="support"]:checked')].map(input => input.value);
+}
+
+function buildOfferRequestPayload(protocol){
+  return {
+    protocol,
+    submittedAt: new Date().toISOString(),
+    source: 'Bússola EAD — Portfólio',
+    course: {
+      title: rCourse.value.trim(),
+      code: rCode.value.trim(),
+      level: rLevel.value.trim(),
+      format: rFormat.value.trim(),
+      model: rModel.value.trim(),
+      hours: rHours.value.trim()
+    },
+    school: {
+      cfp: rCfp.value.trim(),
+      unit: rSchool.value.trim(),
+      requester: rName.value.trim(),
+      email: rEmail.value.trim(),
+      phone: rPhone.value.trim()
+    },
+    demand: {
+      involvesCompany: rCompanyFlag.value,
+      company: rCompany.value.trim(),
+      cnpj: rCnpj.value.trim(),
+      companyUnitsCount: rCompanyUnitsCount.value,
+      companyUnits: rCompanyUnits.value.trim(),
+      scope: rScope.value,
+      participants: rParticipants.value,
+      estimatedClasses: rClasses.value,
+      desiredDate: '',
+      classCreatedInSgset: rCreated.value,
+      requestedSupport: getSelectedSupport(),
+      need: rNeed.value.trim(),
+      materials: ''
+    },
+    routing: {
+      publicDestination: 'ESEO',
+      internalQueue: 'Triagem de solicitações de oferta',
+      requesterReceivesCopy: true
+    }
+  };
+}
+
+function saveOfferRequestLocally(payload){
+  try{
+    const key = 'eseoOfferRequestQueue';
+    const queue = JSON.parse(localStorage.getItem(key) || '[]');
+    queue.push(payload);
+    localStorage.setItem(key, JSON.stringify(queue.slice(-50)));
+  }catch(_){ }
+}
+
+let offerSubmitting=false;
+
+async function submitOfferRequest(event){
+  event.preventDefault();
+  if(offerSubmitting || offerRequestForm.dataset.submitted==='true') return;
+  if(!rCfp.value || !rSchool.value){
+    alert('Pesquise e selecione a escola pelo CFP ou nome.');
+    rSchoolSearch.focus();
+    return;
+  }
+  const supports=getSelectedSupport();
+  if(!supports.length){
+    alert('Selecione ao menos uma opção em “O que deseja avaliar nesta oferta?”.');
+    document.getElementById('supportGrid').scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  offerSubmitting=true;
+  const submitButton=document.getElementById('offerSubmitButton');
+  submitButton.disabled=true;
+  submitButton.textContent='Encaminhando...';
+
+  const date=new Date().toISOString().slice(0,10).replaceAll('-','');
+  const protocol=`ESEO-OFERTA-${date}-${Math.floor(1000+Math.random()*9000)}`;
+  const payload=buildOfferRequestPayload(protocol);
+  const endpoint=String(OFFER_REQUEST_CONFIG.endpoint||'').trim();
+  let sent=false;
+
+  try{
+    if(endpoint){
+      try{
+        const response=await fetch(endpoint,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify(payload)
+        });
+        sent=response.ok||response.type==='opaque';
+        if(!sent) saveOfferRequestLocally(payload);
+      }catch(_){
+        saveOfferRequestLocally(payload);
+      }
+    }else{
+      saveOfferRequestLocally(payload);
+    }
+
+    saveRequesterContext('r');
+    registerProtocol({
+      protocol,
+      submittedAt:payload.submittedAt,
+      type:'Oferta do portfólio',
+      title:payload.course.title,
+      school:payload.school.unit,
+      cfp:payload.school.cfp,
+      requester:payload.school.requester,
+      email:payload.school.email,
+      status:sent?'Encaminhado à ESEO':'Registrado neste navegador',
+      details:supports.join(', ')
+    });
+
+    offerRequestForm.dataset.submitted='true';
+    submitButton.closest('.request-submit-bar')?.classList.add('submission-locked');
+
+    offerRequestResult.className='result-box show';
+    offerRequestResult.innerHTML=`
+      <div class="success">
+        <b>${sent?'Solicitação encaminhada à ESEO.':'Solicitação registrada.'}</b><br>
+        Protocolo: <b>${protocol}</b><br>
+        Guarde este número para acompanhamento.
+      </div>
+      <div class="request-summary">
+        <div><b>Curso</b><span>${escapeLogHtml(rCourse.value)}</span></div>
+        <div><b>Escola</b><span>${escapeLogHtml(rSchool.value)}</span></div>
+        <div><b>Apoios solicitados</b><span>${escapeLogHtml(supports.join(', '))}</span></div>
+      </div>
+      <div class="after-submit-actions">
+        <button class="btn primary" type="button" onclick="startAnotherOfferRequest()">Encaminhar outra proposta</button>
+        <button class="btn" type="button" onclick="openProtocolCenter()">Acompanhar protocolos</button>
+      </div>`;
+
+    logInteraction(sent?'enviar_solicitacao_oferta':'simular_solicitacao_oferta','offerRequest',{
+      protocol,cfp:payload.school.cfp,school:payload.school.unit,course:payload.course.title
+    });
+    offerRequestResult.scrollIntoView({behavior:'smooth',block:'center'});
+  }finally{
+    offerSubmitting=false;
+  }
+}
+
+function startAnotherOfferRequest(){
+  saveRequesterContext('r');
+  offerRequestForm.dataset.submitted='false';
+  offerRequestResult.className='result-box';
+  offerRequestResult.innerHTML='';
+  showPage('catalog');
+  loadIntegratedPortfolio();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showAllPortfolioCourses(){
+  const frame=document.getElementById('portfolioFrame');
+  try{
+    const win=frame.contentWindow;
+    win.eval(`
+      hasActiveSelection = () => true;
+      state.search = '';
+      state.level = '';
+      state.area = '';
+      state.format = '';
+      state.model = '';
+      state.hours = '';
+      state.favoritesOnly = false;
+      state.visible = COURSES.length;
+      elements.searchInput.value = '';
+      elements.levelFilter.value = '';
+      elements.areaFilter.value = '';
+      elements.formatFilter.value = '';
+      elements.modelFilter.value = '';
+      elements.hoursFilter.value = '';
+      render();
+      window.scrollTo({top: document.querySelector('.results-toolbar').offsetTop - 16, behavior: 'smooth'});
+    `);
+    const old=document.querySelector('.portfolio-feedback');
+    if(old) old.remove();
+    const note=document.createElement('div');
+    note.className='portfolio-feedback';
+    note.textContent='Todos os cursos foram exibidos no portfólio abaixo.';
+    document.querySelector('.portfolio-guide').insertAdjacentElement('afterend',note);
+  }catch(error){
+    window.open('https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html','_blank','noopener,noreferrer');
+  }
+}
+
+function tunePortfolioFrame(){
+  const frame=document.getElementById('portfolioFrame');
+  try{
+    const doc=frame.contentDocument||frame.contentWindow.document;
+    const area=doc.getElementById('areaFilter');
+    if(area){
+      const group=area.closest('.filter-group');
+      if(group) group.remove();
+      const filters=doc.querySelector('.filters');
+      if(filters) filters.style.gridTemplateColumns='repeat(4,minmax(150px,1fr)) auto';
+    }
+    const areaMetric=[...doc.querySelectorAll('.metric')].find(x=>/Áreas tecnológicas/i.test(x.textContent));
+    if(areaMetric) areaMetric.remove();
+    const metrics=doc.querySelector('.metrics');
+    if(metrics) metrics.style.gridTemplateColumns='repeat(3,minmax(0,1fr))';
+    const note=doc.querySelector('.prototype-note');
+    if(note) note.style.display='none';
+
+    const win=frame.contentWindow;
+    if(win && typeof win.openPrimaryAction==='function' && !win.__eseoOfferFormIntegrated){
+      win.__eseoOfferFormIntegrated=true;
+      const originalPrimary=win.openPrimaryAction.bind(win);
+      const originalGetPrimary=win.getPrimaryAction.bind(win);
+      const originalOpenDrawer=win.openDrawer.bind(win);
+
+      win.getPrimaryAction=function(course){
+        const action=originalGetPrimary(course);
+        if(action?.type==='contact') return {...action,label:'Solicitar análise da oferta'};
+        return action;
+      };
+
+      win.openPrimaryAction=function(course){
+        const action=win.getPrimaryAction(course);
+        if(action?.type==='contact'){
+          if(typeof win.recordInteraction==='function') win.recordInteraction(course,'abrir_formulario_oferta','Bússola EAD');
+          if(typeof win.closeDrawer==='function') win.closeDrawer();
+          window.parent.openOfferRequest(course,'catalog');
+          return;
+        }
+        originalPrimary(course);
+      };
+
+      win.openDrawer=function(id){
+        originalOpenDrawer(id);
+        const course=win.state?.selected;
+        const action=course ? win.getPrimaryAction(course) : null;
+        if(action?.type==='contact' && win.elements?.drawerNote){
+          win.elements.drawerNote.textContent='Oferta sob consulta: preencha o formulário da Bússola para informar a necessidade da escola e os apoios que deseja avaliar.';
+        }
+      };
+    }
+  }catch(e){
+    /* No arquivo local, o navegador pode bloquear alterações dentro do iframe.
+       Quando os dois HTMLs estiverem publicados no mesmo domínio, o ajuste é aplicado. */
+  }
+}
+
+function openClassification(){
+  document.getElementById('classificationResult').innerHTML='';
+  showPage('classification');
+}
+
+function chooseClassification(kind){
+  const box=document.getElementById('classificationResult');
+  if(kind==='fic'){
+    box.innerHTML=`<div class="route-card"><span class="badge teal">Formação Inicial e Continuada</span><h3>Qual é o modelo indicado no portfólio?</h3><p>FIC inclui Iniciação, Aperfeiçoamento, Qualificação e Especialização Profissional. O modelo da oferta define o próximo caminho.</p><div class="subchoice-grid"><button class="subchoice" onclick="showSyntheticRoute('sgset2','FIC autoinstrucional')"><b>Autoinstrucional</b><span>Operação por carteira e agrupamentos no SGSET2.</span></button><button class="subchoice" onclick="showSyntheticRoute('sgset_forms','FIC colaborativo')"><b>Colaborativo</b><span>Criação da turma no SGSET e solicitação de liberação à ESEO.</span></button></div></div>`;
+  }else if(kind==='aprendizagem'){
+    showSyntheticRoute('conditional','Aprendizagem Industrial');
+  }else if(kind==='tecnico'){
+    showSyntheticRoute('conditional','Curso Técnico');
+  }else if(kind==='superior'){
+    box.innerHTML=`<div class="route-card"><span class="badge teal">Educação Superior</span><h3>Qual solução do Superior você selecionou?</h3><div class="subchoice-grid"><button class="subchoice" onclick="showSyntheticRoute('conditional','Graduação')"><b>Graduação</b><span>Verificar se a unidade já possui autorização para a oferta.</span></button><button class="subchoice" onclick="showSyntheticRoute('conditional','Pós-graduação')"><b>Pós-graduação</b><span>Seguir o fluxo específico da oferta e da unidade.</span></button><button class="subchoice" onclick="showSyntheticRoute('custom','Apoio a cursos presenciais com AVA')"><b>Apoio a curso presencial com AVA</b><span>Serviço de apoio que precisa ser alinhado diretamente com a ESEO.</span></button></div></div>`;
+  }else if(kind==='eja'){
+    showSyntheticRoute('eja','Nova EJA Profissionalizante');
+  }else if(kind==='caitec'){
+    showSyntheticRoute('caitec','CAITEC / Novo Ensino Médio');
+  }
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function showSyntheticRoute(route,name){
+  const synthetic={
+    id:'synthetic',name:name,type:name,level:name,model:route==='sgset2'||route==='caitec'?'Autoinstrucional':'Colaborativo',format:'Conforme o curso selecionado',area:'',code:'Consulte no portfólio',delivery:'Disponível conforme as regras da oferta',route:route,personalizable:true,description:'Orientação gerada a partir da classificação selecionada no portfólio.',audience:'Conforme o curso selecionado.',hours:'Conforme o curso selecionado.',status:'Orientação da Bússola'
+  };
+  selectedCourse=synthetic;
+  renderDetail(synthetic);
+  showPage('detail');
+}
+
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id)?.classList.add('active');logInteraction('abrir_tela',id);window.scrollTo({top:0,behavior:'smooth'})}
+function unique(f){return [...new Set(COURSES.map(c=>c[f]).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'))}
+function populateFilters(){[['filterType','type'],['filterModel','model'],['filterArea','area']].forEach(([id,f])=>{const s=document.getElementById(id);unique(f).forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o)})})}
+function openCatalog(mode='offer'){
+  if(mode==='personalize'){
+    openPersonalization(null,'home');
+    return;
+  }
+  showPage('catalog');
+  loadIntegratedPortfolio();
+}
+function openCatalogFromHome(){openCatalog('offer')}
+function norm(v){return (v||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
+function renderCourses(){const q=norm(catalogSearch.value),t=filterType.value,m=filterModel.value,a=filterArea.value;const f=COURSES.filter(c=>{const h=norm([c.name,c.type,c.level,c.model,c.format,c.area,c.code,c.description].join(' '));return(!q||h.includes(q))&&(!t||c.type===t)&&(!m||c.model===m)&&(!a||c.area===a)});courseGrid.innerHTML=f.length?f.map(c=>`<article class="course"><div class="badges"><span class="badge">${c.type}</span><span class="badge teal">${c.model}</span><span class="badge ${c.delivery==='Sob medida'?'red':'green'}">${c.delivery}</span></div><h3>${c.name}</h3><p>${c.description}</p><div class="course-meta"><div class="meta"><b>Formato</b>${c.format}</div><div class="meta"><b>Área</b>${c.area}</div><div class="meta"><b>Código</b>${c.code||'Sob análise'}</div><div class="meta"><b>Status</b>${c.status}</div></div><button class="btn primary full" onclick="selectCourse('${c.id}')">${catalogMode==='personalize'?'Usar como referência':'Ver detalhes e orientação'}</button></article>`).join(''):'<div class="empty"><b>Nenhum resultado encontrado.</b><br>Revise os filtros ou use “Não encontrei o curso que preciso”.</div>'}
+function selectCourse(id){selectedCourse=COURSES.find(c=>c.id===id);if(catalogMode==='personalize')return openPersonalization(selectedCourse,'catalog');renderDetail(selectedCourse);showPage('detail')}
+function renderDetail(c){detailStatus.textContent=c.status;courseDetail.innerHTML=`<div class="badges"><span class="badge">${c.type}</span><span class="badge teal">${c.model}</span><span class="badge green">${c.delivery}</span></div><h2>${c.name}</h2><p class="detail-description">${c.description}</p><div class="detail-table"><div class="detail-item"><b>Nível</b><span>${c.level}</span></div><div class="detail-item"><b>Formato</b><span>${c.format}</span></div><div class="detail-item"><b>Área</b><span>${c.area}</span></div><div class="detail-item"><b>Carga horária</b><span>${c.hours}</span></div><div class="detail-item"><b>Código SGSET</b><span>${c.code||'Após análise'}</span></div><div class="detail-item"><b>Público</b><span>${c.audience}</span></div></div><div class="notice"><b>Importante:</b> o curso selecionado define o sistema e o procedimento aplicável.</div>`;routePanel.innerHTML=routeHtml(c)}
+function steps(xs){return `<div class="timeline">${xs.map((x,i)=>`<div class="step"><div class="step-num">${i+1}</div><div><b>${x[0]}</b><p>${x[1]}</p></div></div>`).join('')}</div>`}
+function help(s){return `<a class="btn full" href="mailto:eadempresas@sp.senai.br?subject=${encodeURIComponent(s)}">Preciso de ajuda da ESEO</a>`}
+function routeHtml(c){if(c.route==='sgset_forms')return `<span class="badge green">Disponível</span><h3>Operação direta no SGSET</h3><p>Este curso já está autorizado e não volta ao STD.</p>${steps([['ESCOLA','Conferir vigência, código e orientações.'],['ESCOLA','Criar a turma no SGSET.'],['ESCOLA','Preencher o Forms “Solicitar nova turma”.'],['ESEO','Conferir e liberar a turma, preparar o AVA e iniciar o atendimento.']])}<div class="route-actions"><a class="btn primary full" href="https://sgset.sp.senai.br/" target="_blank" rel="noopener">Acessar o SGSET e criar a turma</a><a class="btn soft full" href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u" target="_blank">Solicitar liberação de turma no SGSET</a>${c.personalizable?`<button class="btn soft full" onclick="openPersonalization(selectedCourse,'detail')">Solicitar personalização desta solução</button>`:''}${help('Portal ESEO - Ajuda com '+c.name)}</div>`;
+if(c.route==='sgset2')return `<span class="badge green">Oferta autoinstrucional</span><h3>Operação por agrupamentos no SGSET2</h3><p>Não utiliza o Forms de turma e não volta ao STD.</p>${steps([['ESEO','Definir cursos, períodos e orientações.'],['ESCOLA','Inserir o curso na carteira no SGSET.'],['ESCOLA','Criar os agrupamentos no SGSET2.'],['ESEO','Conferir e liberar os agrupamentos.'],['ESCOLA','Acompanhar a oferta e emitir o RMRF.']])}<div class="route-actions"><a class="btn primary full" href="http://sgset2.sp.senai.br/" target="_blank">Acessar o SGSET2</a>${c.personalizable?`<button class="btn soft full" onclick="openPersonalization(selectedCourse,'detail')">Solicitar personalização desta solução</button>`:''}${help('Portal ESEO - Ajuda autoinstrucional')}</div>`;
+if(c.route==='caitec')return `<span class="badge teal">Programa específico</span><h3>CAITEC / Novo Ensino Médio</h3><p>Segue regras próprias de associação, matrícula e agrupamentos no SGSET2.</p>${steps([['ESEO','Definir cursos, períodos e regras.'],['SISTEMA','Realizar matrículas conforme o programa.'],['ESCOLA','Cadastrar interlocutor e acompanhar conclusões.'],['ESCOLA','Emitir o RMRF.']])}<div class="route-actions"><a class="btn primary full" href="http://sgset2.sp.senai.br/" target="_blank">Acessar o SGSET2</a>${help('Portal ESEO - Ajuda CAITEC')}</div>`;
+if(c.route==='conditional')return `<span class="badge red">Verificação necessária</span><h3>Esta oferta pode exigir autorização institucional</h3><p>Informe apenas se sua unidade já recebeu autorização formal.</p><div class="question"><h4>Sua unidade já possui autorização para ofertar este curso?</h4><div class="question-actions"><button class="btn teal" onclick="approvedRoute()">Sim, já foi autorizada</button><button class="btn red" onclick="showPage('notFound')">Não / ainda precisa de aprovação</button><button class="btn" onclick="showPage('help')">Não tenho certeza</button></div></div><div id="approvedRouteBox"></div>${help('Portal ESEO - Dúvida de autorização')}`;
+if(c.route==='custom')return `<span class="badge red">Sob medida</span><h3>Depende de análise da ESEO</h3><p>Não pode ser solicitada diretamente.</p>${steps([['ESCOLA','Informar necessidade, empresa/CNPJ, público, quantidade, unidades e prazo.'],['ESEO','Analisar viabilidade, escopo e condições.'],['ESEO','Apresentar devolutiva e próximos passos.']])}<div class="route-actions"><button class="btn primary full" onclick="openPersonalization(selectedCourse,'detail')">Enviar necessidade para análise da ESEO</button>${help('Portal ESEO - Solução sob medida')}</div>`;
+if(c.route==='eja')return `<span class="badge teal">Fluxo específico EJA</span><h3>Consulte as orientações do programa</h3><p>A EJA possui regras próprias.</p>${steps([['ESCOLA','Confirmar elegibilidade, produto e vigência.'],['ESEO / PROGRAMA','Alinhar calendário, atendimento e AVA.'],['ESCOLA','Executar atividades presenciais e registros.'],['ESEO','Acompanhar atividades online e relatórios.']])}<div class="route-actions">${help('Portal ESEO - Orientação EJA')}</div>`;return help('Portal ESEO - Orientação de curso')}
+function approvedRoute(){approvedRouteBox.innerHTML=`<div class="success"><b>Próximo passo:</b> crie a turma no SGSET e utilize o formulário de liberação.</div><div class="route-actions"><a class="btn primary full" href="https://sgset.sp.senai.br/" target="_blank" rel="noopener">Acessar o SGSET e criar a turma</a><a class="btn soft full" href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u" target="_blank">Solicitar liberação de turma no SGSET</a></div>`}
+async function openPersonalization(c,from){
+  await syncPortfolioCourses();
+  selectedCourse=c||null;
+  previousPage=from||'home';
+  personalizationSubmitting=false;
+  personalizationForm.dataset.submitted='false';
+  personalizationForm.reset();
+  personalizationResult.className='result-box';
+  personalizationResult.innerHTML='';
+  hidePersonalizationFields();
+  resetMunicipalityPicker('p');
+
+  const submitRow=document.getElementById('personalizationSubmitRow');
+  if(submitRow) submitRow.classList.remove('submission-locked');
+  resetSubmitButton(document.getElementById('personalizationSubmitButton'),'Enviar para análise da ESEO');
+
+  if(document.getElementById('pSchoolSearch')) pSchoolSearch.value='';
+  if(document.getElementById('pCfp')) pCfp.value='';
+  if(document.getElementById('pSchool')) pSchool.value='';
+  const search=document.getElementById('pCourseSearch');
+  if(search) search.value='';
+  pCourse.value=''; pCode.value='';
+  pCompanyFlag.value='';
+  toggleCompany();
+  restoreRequesterContext('p');
+
+  if(c){
+    const title=c.title||c.name||'';
+    const found=PORTFOLIO_COMBO_COURSES.find(item=>item.title===title || (c.courseCode && item.code===String(c.courseCode)));
+    if(found && search){
+      search.value=courseSearchLabel(found);
+      personalizationCourseMatches=[found];
+      selectPersonalizationCourse(0);
+    }
+  }
+  showPage('personalization');
+}function returnFromForm(){showPage(previousPage||'home')}function toggleCompany(){
+  const visible=pCompanyFlag.value==='Sim';
+  document.querySelectorAll('.company-field').forEach(field=>{
+    field.classList.toggle('company-visible',visible);
+    field.style.display=visible?'block':'none';
+  });
+  [pScope,pCompany,pCnpj,pCompanyUnitsCount,pUnits].forEach(input=>{
+    if(!input) return;
+    input.required=visible;
+    if(!visible) input.value='';
+  });
+  if(!visible) resetMunicipalityPicker('p');
+}let personalizationSubmitting=false;
+
+function buildPersonalizationPayload(protocol){
+  return {
+    protocol,
+    submittedAt:new Date().toISOString(),
+    source:'Bússola EAD — Personalização',
+    course:{
+      title:pCourse.value.trim(),
+      code:pCode.value.trim()
+    },
+    school:{
+      cfp:pCfp.value.trim(),
+      unit:pSchool.value.trim(),
+      requester:pName.value.trim(),
+      email:pEmail.value.trim()
+    },
+    demand:{
+      involvesCompany:pCompanyFlag.value,
+      company:pCompany.value.trim(),
+      cnpj:pCnpj.value.trim(),
+      companyUnitsCount:pCompanyUnitsCount.value,
+      municipalities:pUnits.value.trim(),
+      scope:pScope.value,
+      enrollments:pQty.value,
+      changes:pChanges.value.trim()
+    }
+  };
+}
+
+function savePersonalizationLocally(payload){
+  const key='eseoPersonalizationQueue';
+  const queue=readJsonStorage(key,[]);
+  if(!queue.some(item=>item.protocol===payload.protocol)){
+    queue.push(payload);
+    writeJsonStorage(key,queue.slice(-100));
+  }
+}
+
+function submitPersonalization(event){
+  event.preventDefault();
+  if(personalizationSubmitting || personalizationForm.dataset.submitted==='true') return;
+  if(!pCfp.value || !pSchool.value){
+    alert('Pesquise e selecione a escola pelo CFP ou nome.');
+    pSchoolSearch.focus();
+    return;
+  }
+  if(!pCourse.value){
+    alert('Pesquise e selecione um curso pelo nome, tipo ou código.');
+    pCourseSearch.focus();
+    return;
+  }
+
+  personalizationSubmitting=true;
+  const submitButton=document.getElementById('personalizationSubmitButton');
+  submitButton.disabled=true;
+  submitButton.textContent='Encaminhando...';
+
+  try{
+    const date=new Date().toISOString().slice(0,10).replaceAll('-','');
+    const protocol=`ESEO-PERS-${date}-${Math.floor(1000+Math.random()*9000)}`;
+    const payload=buildPersonalizationPayload(protocol);
+
+    savePersonalizationLocally(payload);
+    saveRequesterContext('p');
+    registerProtocol({
+      protocol,
+      submittedAt:payload.submittedAt,
+      type:'Personalização',
+      title:payload.course.title,
+      school:payload.school.unit,
+      cfp:payload.school.cfp,
+      requester:payload.school.requester,
+      email:payload.school.email,
+      status:'Registrado neste navegador',
+      details:payload.demand.changes
+    });
+
+    personalizationForm.dataset.submitted='true';
+    document.getElementById('personalizationSubmitRow')?.classList.add('submission-locked');
+
+    personalizationResult.className='result-box show';
+    personalizationResult.innerHTML=`
+      <div class="success">
+        <b>Solicitação de personalização registrada.</b><br>
+        Protocolo: <b>${protocol}</b><br>
+        A ESEO analisará a necessidade e informará os próximos passos.
+      </div>
+      <div class="after-submit-actions">
+        <button class="btn primary" type="button" onclick="startAnotherPersonalization()">Encaminhar outra proposta</button>
+        <button class="btn" type="button" onclick="openProtocolCenter()">Acompanhar protocolos</button>
+      </div>`;
+
+    logInteraction('registrar_personalizacao','personalization',{
+      protocol,cfp:payload.school.cfp,school:payload.school.unit,course:payload.course.title
+    });
+    personalizationResult.scrollIntoView({behavior:'smooth',block:'center'});
+  }finally{
+    personalizationSubmitting=false;
+  }
+}
+
+function startAnotherPersonalization(){
+  saveRequesterContext('p');
+  personalizationForm.dataset.submitted='false';
+  personalizationForm.reset();
+  resetMunicipalityPicker('p');
+  pCompanyFlag.value='';
+  toggleCompany();
+  pCourseSearch.value='';
+  pCourse.value='';
+  pCode.value='';
+  hidePersonalizationFields();
+  restoreRequesterContext('p');
+
+  personalizationResult.className='result-box';
+  personalizationResult.innerHTML='';
+  document.getElementById('personalizationSubmitRow')?.classList.remove('submission-locked');
+  resetSubmitButton(document.getElementById('personalizationSubmitButton'),'Enviar para análise da ESEO');
+
+  document.getElementById('pCourseAutocomplete')?.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>pCourseSearch.focus(),350);
+}
+
+fillCourseCombos();
+fillPersonalizationCourseSearch();
+migrateLegacyProtocols();
+
+
+const ESEO_SCHOOLS = [{"cfp": "1.01", "name": "Escola SENAI \"Roberto Simonsen\""}, {"cfp": "1.02", "name": "Escola SENAI \"Humberto Reis Costa\""}, {"cfp": "1.03", "name": "Escola SENAI \"Morvan Figueiredo\""}, {"cfp": "1.04", "name": "Escola SENAI \"Felício Lanzara\""}, {"cfp": "1.05", "name": "Escola SENAI \"Horácio Augusto da Silveira\""}, {"cfp": "1.06", "name": "Escola SENAI \"Mariano Ferraz\""}, {"cfp": "1.07", "name": "Escola SENAI \"Francisco Matarazzo\""}, {"cfp": "1.08", "name": "Escola SENAI \"Oscar Rodrigues Alves\""}, {"cfp": "1.09", "name": "Escola SENAI \"Anchieta\""}, {"cfp": "1.10", "name": "Escola SENAI \"Dr. Celso Charuri\" - Unidade Bom Retiro"}, {"cfp": "1.11", "name": "Escola SENAI \"Orlando Laviero Ferraiuolo\""}, {"cfp": "1.12", "name": "Escola SENAI \"Ary Torres\""}, {"cfp": "1.13", "name": "Escola SENAI \"Conde José Vicente Azevedo\""}, {"cfp": "1.14", "name": "Escola SENAI \"Theobaldo De Nigris\""}, {"cfp": "1.15", "name": "Escola SENAI \"Suíço-Brasileira Paulo Ernesto Tolle\""}, {"cfp": "1.16", "name": "Escola SENAI \"Mario Amato\""}, {"cfp": "1.17", "name": "Escola SENAI \"Nami Jafet\""}, {"cfp": "1.18", "name": "Escola SENAI \"A. Jacob Lafer\""}, {"cfp": "1.19", "name": "Escola SENAI \"Nadir Dias de Figueiredo\""}, {"cfp": "1.20", "name": "Escola SENAI \"Almirante Tamandaré\""}, {"cfp": "1.21", "name": "Escola SENAI \"Carlos Pasquale\""}, {"cfp": "1.22", "name": "Escola SENAI \"Hermenegildo Campos de Almeida\""}, {"cfp": "1.23", "name": "Escola SENAI \"Armando de Arruda Pereira\""}, {"cfp": "1.24", "name": "Escola SENAI \"Luis Eulálio de Bueno Vidigal Filho\""}, {"cfp": "1.25", "name": "Escola SENAI \"Manuel Garcia Filho\""}, {"cfp": "1.26", "name": "Escola SENAI \"Frederico Jacob\""}, {"cfp": "1.27", "name": "Escola SENAI \"Prof. Vicente Amato\""}, {"cfp": "1.28", "name": "Escola SENAI \"Dr. Celso Charuri\" - Unidade Guarulhos"}, {"cfp": "1.34", "name": "Escola SENAI \"Paulo Antonio Skaf\""}, {"cfp": "1.35", "name": "Escola SENAI \"Suzana Dias\""}, {"cfp": "1.36", "name": "Escola SENAI \"José Ephim Mindlin\""}, {"cfp": "1.38", "name": "Escola SENAI \"Ricardo Lerner\""}, {"cfp": "1.43", "name": "Centro de Formação Profissional \"SENAI/Volkswagen\""}, {"cfp": "1.44", "name": "Centro de Formação Profissional \"SENAI/Mercedes-Benz\""}, {"cfp": "1.50", "name": "Escola SENAI de Educação Online"}, {"cfp": "1.63", "name": "Escola SENAI \"Jorge Mahfuz\""}, {"cfp": "1.64", "name": "Escola SENAI \"Jairo Cândido\""}, {"cfp": "2.01", "name": "Escola SENAI \"Antonio Souza Noschese\""}, {"cfp": "2.02", "name": "Escola SENAI \"Hessel Horácio Cherkassky\""}, {"cfp": "2.60", "name": "Escola SENAI de Registro"}, {"cfp": "3.01", "name": "Escola SENAI \"Félix Guisard\""}, {"cfp": "3.02", "name": "Escola SENAI \"Santos Dumont\""}, {"cfp": "3.03", "name": "Escola SENAI \"Luiz Simon\""}, {"cfp": "3.07", "name": "Escola SENAI \"Elias Miguel Haddad\""}, {"cfp": "3.60", "name": "Escola SENAI \"Geraldo Alckmin\""}, {"cfp": "3.90", "name": "Escola SENAI de Cruzeiro"}, {"cfp": "4.01", "name": "Escola SENAI \"Ítalo Bologna\""}, {"cfp": "4.02", "name": "Escola SENAI \"Gaspar Ricardo Júnior\""}, {"cfp": "4.03", "name": "Escola SENAI \"Antônio Ermírio de Moraes\""}, {"cfp": "4.04", "name": "Escola SENAI \"Luiz Pagliato\""}, {"cfp": "4.99", "name": "Centro de Treinamento SENAI de Mairinque"}, {"cfp": "5.01", "name": "Escola SENAI \"Roberto Mange\""}, {"cfp": "5.02", "name": "Escola SENAI \"Conde Alexandre Siciliano\""}, {"cfp": "5.03", "name": "Escola SENAI \"Mário Dedini\""}, {"cfp": "5.05", "name": "Escola SENAI \"Luiz Varga\""}, {"cfp": "5.06", "name": "Escola SENAI \"Manoel José Ferreira\""}, {"cfp": "5.07", "name": "Escola SENAI \"Prof. João Baptista Salles da Silva\""}, {"cfp": "5.08", "name": "Escola SENAI \"Luiz Scavone\""}, {"cfp": "5.09", "name": "Escola SENAI \"Prof. Dr. Euryclides de Jesus Zerbini\""}, {"cfp": "5.10", "name": "Escola SENAI \"Mário Henrique Simonsen\""}, {"cfp": "5.12", "name": "Escola SENAI \"Dr. Celso Charuri\" - Unidade Sumaré"}, {"cfp": "5.13", "name": "Escola SENAI de Jaguariúna"}, {"cfp": "5.14", "name": "Escola SENAI \"Alvares Romi\""}, {"cfp": "5.61", "name": "Escola SENAI \"Dr. Celso Charuri\" - Unidade Rafard"}, {"cfp": "5.62", "name": "Escola SENAI \"Comendador Santoro Mirone\""}, {"cfp": "5.63", "name": "Escola SENAI de Mogi Guaçu"}, {"cfp": "5.64", "name": "Escola SENAI de Valinhos"}, {"cfp": "5.68", "name": "Escola SENAI \"Alfried Krupp\""}, {"cfp": "5.69", "name": "Escola SENAI \"Ricardo Figueiredo Terra\""}, {"cfp": "5.90", "name": "Escola SENAI \"Ivan Fábio Zurita\""}, {"cfp": "5.91", "name": "Escola SENAI de Bragança Paulista"}, {"cfp": "5.92", "name": "Centro de Treinamento SENAI de São João da Boa Vista"}, {"cfp": "5.94", "name": "Escola SENAI \"João Guilherme Sabino Ometto\""}, {"cfp": "6.01", "name": "Escola SENAI \"Antonio Adolpho Lobbe\""}, {"cfp": "6.02", "name": "Escola SENAI \"Eng. Octávio Marcondes Ferraz\""}, {"cfp": "6.03", "name": "Escola SENAI \"Henrique Lupo\""}, {"cfp": "6.61", "name": "Escola SENAI \"Ettore Zanini\""}, {"cfp": "6.62", "name": "Escola SENAI \"Oscar Lúcio Baldan\""}, {"cfp": "7.01", "name": "Escola SENAI \"João Martins Coube\""}, {"cfp": "7.90", "name": "Centro de Treinamento SENAI \"Edward Sávio\""}, {"cfp": "7.91", "name": "Escola SENAI \"Luiz Massa\""}, {"cfp": "7.92", "name": "Escola SENAI de Lençóis Paulista"}, {"cfp": "7.94", "name": "Escola SENAI de Ourinhos"}, {"cfp": "8.01", "name": "Escola SENAI \"Antônio Devisate\""}, {"cfp": "8.50", "name": "Escola SENAI \"Euclides Facchini\""}, {"cfp": "8.90", "name": "Centro de Treinamento SENAI de Mirassol"}, {"cfp": "9.01", "name": "Escola SENAI \"Duque de Caxias\""}, {"cfp": "9.14", "name": "Escola SENAI \"Santo Paschoal Crepaldi\""}, {"cfp": "9.27", "name": "Escola SENAI \"José Polizotto\""}, {"cfp": "9.28", "name": "Escola SENAI \"Shunji Nishimura\""}, {"cfp": "9.90", "name": "Escola SENAI \"Avak Bedouian\""}];
+
+function normalizeLookup(value){
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase()
+    .trim();
+}
+
+function schoolLabel(school){
+  return `${school.cfp} — ${school.name}`;
+}
+
+const schoolPickerState={};
+
+function fillSchoolOptions(){
+  /* Mantido por compatibilidade. A seleção agora usa uma lista visual própria. */
+}
+
+function getSchoolMatches(value,showAll=false){
+  const query=normalizeLookup(value);
+  const ordered=ESEO_SCHOOLS.slice().sort((a,b)=>a.cfp.localeCompare(b.cfp,'pt-BR',{numeric:true}));
+  if(showAll) return ordered;
+  if(!query) return ordered;
+  return ordered.filter(s=>
+    normalizeLookup(s.cfp).includes(query) ||
+    normalizeLookup(s.name).includes(query) ||
+    normalizeLookup(schoolLabel(s)).includes(query)
+  );
+}
+
+
+function queryForSchoolList(value){
+  return normalizeLookup(value).length>0;
+}
+
+function renderSchoolSuggestions(prefix,showAll=false){
+  const input=document.getElementById(prefix+'SchoolSearch');
+  const box=document.getElementById(prefix+'SchoolSuggestions');
+  const cfp=document.getElementById(prefix+'Cfp');
+  const school=document.getElementById(prefix+'School');
+  if(!input||!box||!cfp||!school) return;
+
+  cfp.value='';
+  school.value='';
+  const matches=getSchoolMatches(input.value,showAll);
+  schoolPickerState[prefix]={matches,activeIndex:-1,showAll};
+
+  if(!matches.length){
+    box.innerHTML='<div class="school-empty">Nenhuma escola encontrada. Tente outro código ou nome.</div>';
+  }else{
+    box.innerHTML=matches.map((item,index)=>`
+      <button class="school-option" type="button" role="option" onclick="selectSchool('${prefix}',${index})">
+        <span class="school-option-code">${escapeLogHtml(item.cfp)}</span>
+        <span class="school-option-name">${escapeLogHtml(item.name)}</span>
+      </button>`).join('')+
+      `<div class="school-list-note">${queryForSchoolList(input.value) ? 'Resultados encontrados' : 'Todas as unidades SENAI-SP'}</div>`;
+  }
+  box.classList.add('open');
+  input.setAttribute('aria-expanded','true');
+}
+
+function toggleFullSchoolList(prefix){
+  const box=document.getElementById(prefix+'SchoolSuggestions');
+  const state=schoolPickerState[prefix];
+  if(box?.classList.contains('open') && state?.showAll){
+    closeSchoolSuggestions(prefix);
+    return;
+  }
+  renderSchoolSuggestions(prefix,true);
+}
+
+function selectSchool(prefix,index){
+  const state=schoolPickerState[prefix];
+  const item=state?.matches?.[index];
+  if(!item) return;
+  const input=document.getElementById(prefix+'SchoolSearch');
+  document.getElementById(prefix+'Cfp').value=item.cfp;
+  document.getElementById(prefix+'School').value=item.name;
+  input.value=schoolLabel(item);
+  closeSchoolSuggestions(prefix);
+  logInteraction('selecionar_escola',document.querySelector('.page.active')?.id||'formulario',{cfp:item.cfp,school:item.name});
+}
+
+function closeSchoolSuggestions(prefix){
+  const input=document.getElementById(prefix+'SchoolSearch');
+  const box=document.getElementById(prefix+'SchoolSuggestions');
+  if(box) box.classList.remove('open');
+  if(input) input.setAttribute('aria-expanded','false');
+  if(schoolPickerState[prefix]) schoolPickerState[prefix].activeIndex=-1;
+}
+
+function updateSchoolActiveOption(prefix){
+  const state=schoolPickerState[prefix];
+  document.querySelectorAll(`#${prefix}SchoolSuggestions .school-option`).forEach((option,index)=>{
+    option.classList.toggle('active',index===state?.activeIndex);
+  });
+  document.querySelector(`#${prefix}SchoolSuggestions .school-option.active`)?.scrollIntoView({block:'nearest'});
+}
+
+function handleSchoolKeydown(event,prefix){
+  const box=document.getElementById(prefix+'SchoolSuggestions');
+  if(!box?.classList.contains('open') && ['ArrowDown','ArrowUp'].includes(event.key)) renderSchoolSuggestions(prefix);
+  const state=schoolPickerState[prefix];
+  if(!state) return;
+  if(event.key==='ArrowDown'){
+    event.preventDefault();
+    state.activeIndex=Math.min(state.activeIndex+1,state.matches.length-1);
+    updateSchoolActiveOption(prefix);
+  }else if(event.key==='ArrowUp'){
+    event.preventDefault();
+    state.activeIndex=Math.max(state.activeIndex-1,0);
+    updateSchoolActiveOption(prefix);
+  }else if(event.key==='Enter' && state.activeIndex>=0){
+    event.preventDefault();
+    selectSchool(prefix,state.activeIndex);
+  }else if(event.key==='Escape'){
+    closeSchoolSuggestions(prefix);
+  }
+}
+
+function applySchoolSearch(prefix){
+  renderSchoolSuggestions(prefix);
+}
+
+function courseSearchLabel(course){
+  const code=course.code || 'código pendente';
+  return `${course.title} — ${code} — ${course.type}`;
+}
+
+
+let portfolioCoursesSynced=false;
+let portfolioCoursesSyncing=false;
+
+function extractPortfolioCourseArray(source){
+  const marker='const COURSES';
+  const markerIndex=source.indexOf(marker);
+  if(markerIndex<0) return null;
+  const start=source.indexOf('[',markerIndex);
+  if(start<0) return null;
+
+  let depth=0;
+  let inString=false;
+  let quote='';
+  let escaped=false;
+
+  for(let i=start;i<source.length;i++){
+    const ch=source[i];
+    if(inString){
+      if(escaped){ escaped=false; continue; }
+      if(ch==='\\'){ escaped=true; continue; }
+      if(ch===quote){ inString=false; quote=''; }
+      continue;
+    }
+    if(ch==='"' || ch==="'"){ inString=true; quote=ch; continue; }
+    if(ch==='[') depth++;
+    if(ch===']'){
+      depth--;
+      if(depth===0) return source.slice(start,i+1);
+    }
+  }
+  return null;
+}
+
+async function syncPortfolioCourses(){
+  if(portfolioCoursesSynced || portfolioCoursesSyncing) return;
+  portfolioCoursesSyncing=true;
+  const status=document.getElementById('pCourseSyncStatus');
+  if(status) status.textContent='Atualizando a lista de cursos do portfólio...';
+
+  try{
+    const response=await fetch(INTEGRATED_PORTFOLIO_RAW_URL,{cache:'no-store'});
+    if(!response.ok) throw new Error('Falha ao consultar o portfólio');
+    const source=await response.text();
+    const arrayText=extractPortfolioCourseArray(source);
+    if(!arrayText) throw new Error('Base de cursos não localizada');
+    const data=JSON.parse(arrayText);
+
+    const mapped=data
+      .map((course,index)=>({
+        title:String(course.title||course.name||'').trim(),
+        code:String(course.courseCode||course.code||course.sgsetCode||'').trim(),
+        type:String(course.level||course.type||'Não informado').trim(),
+        format:String(course.format||course.strategy||'Não informado').trim(),
+        model:String(course.model||'Não informado').trim(),
+        hours:course.hours??'',
+        area:String(course.area||'').trim(),
+        id:course.id??index
+      }))
+      .filter(course=>course.title);
+
+    if(mapped.length){
+      PORTFOLIO_COMBO_COURSES=mapped;
+      portfolioCoursesSynced=true;
+      if(status) status.textContent=`${mapped.length} cursos disponíveis para pesquisa.`;
+    }else{
+      throw new Error('A base retornou vazia');
+    }
+  }catch(error){
+    if(status) status.textContent=`Lista local disponível: ${PORTFOLIO_COMBO_COURSES.length} cursos.`;
+  }finally{
+    portfolioCoursesSyncing=false;
+  }
+}
+
+let personalizationCourseMatches=[];
+let personalizationCourseActiveIndex=-1;
+
+function fillPersonalizationCourseSearch(){
+  /* A busca agora usa uma lista visual própria, exibida abaixo do campo. */
+}
+
+function findCourseBySearch(value){
+  const query=normalizeLookup(value);
+  if(!query) return null;
+  const exact=PORTFOLIO_COMBO_COURSES.find(c=>normalizeLookup(courseSearchLabel(c))===query);
+  if(exact) return exact;
+  const matches=PORTFOLIO_COMBO_COURSES.filter(c=>[
+    c.title,c.code,c.type,courseSearchLabel(c)
+  ].some(field=>normalizeLookup(field).includes(query)));
+  return matches.length===1 ? matches[0] : null;
+}
+
+function getPersonalizationCourseMatches(value){
+  const query=normalizeLookup(value);
+  const source=PORTFOLIO_COMBO_COURSES.slice().sort((a,b)=>a.title.localeCompare(b.title,'pt-BR'));
+  if(!query) return source;
+  return source
+    .filter(course=>[
+      course.title,
+      course.code,
+      course.type,
+      course.format,
+      course.model
+    ].some(field=>normalizeLookup(field).includes(query)))
+    .slice(0,12);
+}
+
+
+function hidePersonalizationFields(){
+  const fields=document.getElementById('personalizationFields');
+  if(fields) fields.hidden=true;
+}
+
+function renderPersonalizationCourseSuggestions(){
+  const input=document.getElementById('pCourseSearch');
+  const box=document.getElementById('pCourseSuggestions');
+  if(!input || !box) return;
+
+  pCourse.value='';
+  pCode.value='';
+  hidePersonalizationFields();
+  personalizationCourseMatches=getPersonalizationCourseMatches(input.value);
+  personalizationCourseActiveIndex=-1;
+
+  if(!personalizationCourseMatches.length){
+    box.innerHTML='<div class="autocomplete-empty">Nenhum curso encontrado. Tente outra palavra, tipo ou código.</div>';
+  }else{
+    box.innerHTML=personalizationCourseMatches.map((course,index)=>`
+      <button class="autocomplete-option" type="button" role="option" data-course-index="${index}" onclick="selectPersonalizationCourse(${index})">
+        <span>
+          <strong>${escapeLogHtml(course.title)}</strong>
+          <small>${escapeLogHtml(course.type)} · ${escapeLogHtml(course.format)} · ${escapeLogHtml(course.model)}</small>
+        </span>
+        <span class="autocomplete-code">${escapeLogHtml(course.code || 'código pendente')}</span>
+      </button>`).join('')+
+      '<div class="autocomplete-help">Continue digitando para refinar os resultados.</div>';
+  }
+
+  box.classList.add('open');
+  input.setAttribute('aria-expanded','true');
+}
+
+function selectPersonalizationCourse(index){
+  const course=personalizationCourseMatches[index];
+  if(!course) return;
+  const input=document.getElementById('pCourseSearch');
+  input.value=courseSearchLabel(course);
+  pCourse.value=course.title;
+  pCode.value=course.code||'Pendente';
+  pSelectedTitle.textContent=course.title;
+  pSelectedMeta.textContent=[course.code?`Código SGSET: ${course.code}`:'Código pendente',course.type,course.format,course.model].filter(Boolean).join(' · ');
+  personalizationFields.hidden=false;
+  closePersonalizationCourseSuggestions();
+  logInteraction('selecionar_curso_personalizacao','personalization',{course:course.title,code:course.code,type:course.type});
+  setTimeout(()=>personalizationFields.scrollIntoView({behavior:'smooth',block:'start'}),80);
+}
+
+function closePersonalizationCourseSuggestions(){
+  const input=document.getElementById('pCourseSearch');
+  const box=document.getElementById('pCourseSuggestions');
+  if(box) box.classList.remove('open');
+  if(input) input.setAttribute('aria-expanded','false');
+  personalizationCourseActiveIndex=-1;
+}
+
+function updatePersonalizationActiveOption(){
+  document.querySelectorAll('#pCourseSuggestions .autocomplete-option').forEach((option,index)=>{
+    option.classList.toggle('active',index===personalizationCourseActiveIndex);
+  });
+  const active=document.querySelector('#pCourseSuggestions .autocomplete-option.active');
+  if(active) active.scrollIntoView({block:'nearest'});
+}
+
+function handlePersonalizationCourseKeydown(event){
+  const box=document.getElementById('pCourseSuggestions');
+  if(!box?.classList.contains('open') && ['ArrowDown','ArrowUp'].includes(event.key)){
+    renderPersonalizationCourseSuggestions();
+  }
+  if(event.key==='ArrowDown'){
+    event.preventDefault();
+    personalizationCourseActiveIndex=Math.min(personalizationCourseActiveIndex+1,personalizationCourseMatches.length-1);
+    updatePersonalizationActiveOption();
+  }else if(event.key==='ArrowUp'){
+    event.preventDefault();
+    personalizationCourseActiveIndex=Math.max(personalizationCourseActiveIndex-1,0);
+    updatePersonalizationActiveOption();
+  }else if(event.key==='Enter' && personalizationCourseActiveIndex>=0){
+    event.preventDefault();
+    selectPersonalizationCourse(personalizationCourseActiveIndex);
+  }else if(event.key==='Escape'){
+    closePersonalizationCourseSuggestions();
+  }
+}
+
+function applySelectedPersonalizationCourseSearch(){
+  renderPersonalizationCourseSuggestions();
+}
+
+
+const MUNICIPALITY_API='https://servicodados.ibge.gov.br/api/v1/localidades/estados/35/municipios?orderBy=nome';
+const MUNICIPALITY_FALLBACK=[
+  'Americana','Araçatuba','Araraquara','Assis','Atibaia','Barueri','Bauru','Botucatu',
+  'Bragança Paulista','Campinas','Caraguatatuba','Cotia','Cruzeiro','Diadema','Franca',
+  'Guaratinguetá','Guarulhos','Hortolândia','Indaiatuba','Itu','Jacareí','Jaguariúna',
+  'Jundiaí','Limeira','Marília','Mauá','Mogi das Cruzes','Mogi Guaçu','Osasco',
+  'Ourinhos','Piracicaba','Praia Grande','Presidente Prudente','Registro','Ribeirão Preto',
+  'Rio Claro','Santo André','Santos','São Bernardo do Campo','São Caetano do Sul',
+  'São Carlos','São José do Rio Preto','São José dos Campos','São Paulo','Sorocaba',
+  'Sumaré','Suzano','Taubaté','Valinhos'
+];
+let municipalityNames=[];
+let municipalityLoading=false;
+const municipalityState={
+  r:{selected:[],matches:[],activeIndex:-1},
+  p:{selected:[],matches:[],activeIndex:-1}
+};
+
+async function loadMunicipalities(){
+  if(municipalityNames.length || municipalityLoading) return;
+  municipalityLoading=true;
+  try{
+    const response=await fetch(MUNICIPALITY_API,{cache:'force-cache'});
+    if(!response.ok) throw new Error('Falha ao carregar municípios');
+    const data=await response.json();
+    municipalityNames=data.map(item=>item.nome).filter(Boolean).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  }catch(error){
+    municipalityNames=MUNICIPALITY_FALLBACK.slice().sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  }finally{
+    municipalityLoading=false;
+  }
+}
+
+function municipalityIds(prefix){
+  return {
+    search:document.getElementById(prefix+'MunicipalitySearch'),
+    results:document.getElementById(prefix+'MunicipalitySuggestions'),
+    chips:document.getElementById(prefix+'MunicipalityChips'),
+    hidden:document.getElementById(prefix==='r'?'rCompanyUnits':'pUnits')
+  };
+}
+
+async function renderMunicipalitySuggestions(prefix){
+  await loadMunicipalities();
+  const ids=municipalityIds(prefix);
+  if(!ids.search||!ids.results) return;
+  const query=normalizeLookup(ids.search.value);
+  const state=municipalityState[prefix];
+  state.matches=municipalityNames
+    .filter(name=>!state.selected.includes(name))
+    .filter(name=>!query || normalizeLookup(name).includes(query))
+    .slice(0,60);
+  state.activeIndex=-1;
+
+  if(!state.matches.length){
+    ids.results.innerHTML='<div class="municipality-empty">Nenhum município encontrado.</div>';
+  }else{
+    ids.results.innerHTML=state.matches.map((name,index)=>`
+      <button type="button" class="municipality-option" onclick="selectMunicipality('${prefix}',${index})">
+        ${escapeLogHtml(name)}
+      </button>`).join('');
+  }
+  ids.results.classList.add('open');
+}
+
+function selectMunicipality(prefix,index){
+  const state=municipalityState[prefix];
+  const name=state.matches[index];
+  if(!name || state.selected.includes(name)) return;
+  state.selected.push(name);
+  const ids=municipalityIds(prefix);
+  ids.search.value='';
+  updateMunicipalityPicker(prefix);
+  renderMunicipalitySuggestions(prefix);
+}
+
+function removeMunicipality(prefix,name){
+  const state=municipalityState[prefix];
+  state.selected=state.selected.filter(item=>item!==name);
+  updateMunicipalityPicker(prefix);
+}
+
+function updateMunicipalityPicker(prefix){
+  const state=municipalityState[prefix];
+  const ids=municipalityIds(prefix);
+  ids.chips.innerHTML=state.selected.map(name=>`
+    <span class="multi-chip">${escapeLogHtml(name)}
+      <button type="button" onclick="removeMunicipality('${prefix}','${String(name).replaceAll("'","\\'")}')" aria-label="Remover ${escapeLogHtml(name)}">×</button>
+    </span>`).join('');
+  ids.hidden.value=state.selected.join('; ');
+}
+
+function resetMunicipalityPicker(prefix){
+  const state=municipalityState[prefix];
+  if(!state) return;
+  state.selected=[];
+  state.matches=[];
+  state.activeIndex=-1;
+  const ids=municipalityIds(prefix);
+  if(ids.search) ids.search.value='';
+  if(ids.results){ ids.results.classList.remove('open'); ids.results.innerHTML=''; }
+  if(ids.chips) ids.chips.innerHTML='';
+  if(ids.hidden) ids.hidden.value='';
+}
+
+function handleMunicipalityKeydown(event,prefix){
+  const state=municipalityState[prefix];
+  const ids=municipalityIds(prefix);
+  const options=[...ids.results.querySelectorAll('.municipality-option')];
+
+  if(event.key==='ArrowDown'){
+    event.preventDefault();
+    state.activeIndex=Math.min(state.activeIndex+1,state.matches.length-1);
+  }else if(event.key==='ArrowUp'){
+    event.preventDefault();
+    state.activeIndex=Math.max(state.activeIndex-1,0);
+  }else if(event.key==='Enter' && state.activeIndex>=0){
+    event.preventDefault();
+    selectMunicipality(prefix,state.activeIndex);
+    return;
+  }else if(event.key==='Escape'){
+    ids.results.classList.remove('open');
+    return;
+  }else{
+    return;
+  }
+
+  options.forEach((option,index)=>option.classList.toggle('active',index===state.activeIndex));
+  options[state.activeIndex]?.scrollIntoView({block:'nearest'});
+}
+
+document.addEventListener('click',event=>{
+  ['r','p'].forEach(prefix=>{
+    const picker=document.getElementById(prefix+'MunicipalityPicker');
+    if(picker && !picker.contains(event.target)){
+      document.getElementById(prefix+'MunicipalitySuggestions')?.classList.remove('open');
+    }
+  });
+});
+
+const HELP_REQUEST_CONFIG = {
+  /* Cole aqui a URL do Power Automate quando o fluxo estiver pronto. */
+  endpoint: ""
+};
+
+const INTERACTION_LOG_KEY = 'eseoInteractionLog';
+
+const INTERACTION_LOG_PASSWORD='150';
+
+function requestInteractionLogAccess(){
+  const password=window.prompt('Área administrativa — informe a senha:');
+  if(password===null) return false;
+  return String(password).trim()===INTERACTION_LOG_PASSWORD;
+}
+
+
+function safeLogDetails(details){
+  try{
+    if(typeof details === 'string') return details;
+    return JSON.stringify(details || {});
+  }catch(_){
+    return String(details || '');
+  }
+}
+
+function logInteraction(action, screen, details=''){
+  try{
+    const items = JSON.parse(localStorage.getItem(INTERACTION_LOG_KEY) || '[]');
+    items.push({
+      timestamp: new Date().toISOString(),
+      action,
+      screen: screen || '',
+      details: safeLogDetails(details)
+    });
+    localStorage.setItem(INTERACTION_LOG_KEY, JSON.stringify(items.slice(-500)));
+  }catch(_){ }
+}
+
+function readInteractionLog(){
+  try{
+    return JSON.parse(localStorage.getItem(INTERACTION_LOG_KEY) || '[]');
+  }catch(_){
+    return [];
+  }
+}
+
+function openHelpRequest(){
+  helpSubmitting=false;
+  helpRequestForm.dataset.submitted='false';
+  helpRequestForm.reset();
+  hCfp.value=''; hSchool.value='';
+  helpRequestResult.className='result-box';
+  helpRequestResult.innerHTML='';
+  const submitBar=document.getElementById('helpSubmitButton')?.closest('.request-submit-bar');
+  submitBar?.classList.remove('submission-locked');
+  resetSubmitButton(document.getElementById('helpSubmitButton'),'Enviar dúvida à ESEO');
+  restoreRequesterContext('h');
+  logInteraction('abrir_formulario_ajuda','help');
+  showPage('help');
+}
+
+function buildHelpRequestPayload(protocol){
+  return {
+    protocol,
+    submittedAt:new Date().toISOString(),
+    source:'Bússola EAD — Ajuda',
+    school:{
+      cfp:hCfp.value.trim(),
+      name:hSchool.value.trim()
+    },
+    requester:{
+      name:hName.value.trim(),
+      email:hEmail.value.trim(),
+      phone:hPhone.value.trim()
+    },
+    subject:hSubject.value,
+    question:hQuestion.value.trim(),
+    reference:'',
+    routing:{
+      publicDestination:'ESEO',
+      requesterReceivesCopy:true
+    }
+  };
+}
+
+function saveHelpRequestLocally(payload){
+  try{
+    const key='eseoHelpRequestQueue';
+    const queue=JSON.parse(localStorage.getItem(key)||'[]');
+    queue.push(payload);
+    localStorage.setItem(key,JSON.stringify(queue.slice(-100)));
+  }catch(_){ }
+}
+
+let helpSubmitting=false;
+
+async function submitHelpRequest(event){
+  event.preventDefault();
+  if(helpSubmitting || helpRequestForm.dataset.submitted==='true') return;
+  if(!hCfp.value || !hSchool.value){
+    alert('Pesquise e selecione a escola pelo CFP ou nome.');
+    hSchoolSearch.focus();
+    return;
+  }
+
+  helpSubmitting=true;
+  const submitButton=document.getElementById('helpSubmitButton');
+  submitButton.disabled=true;
+  submitButton.textContent='Encaminhando...';
+
+  const date=new Date().toISOString().slice(0,10).replaceAll('-','');
+  const protocol=`ESEO-AJUDA-${date}-${Math.floor(1000+Math.random()*9000)}`;
+  const payload=buildHelpRequestPayload(protocol);
+  const endpoint=String(HELP_REQUEST_CONFIG.endpoint||'').trim();
+  let sent=false;
+
+  try{
+    if(endpoint){
+      try{
+        const response=await fetch(endpoint,{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify(payload)
+        });
+        sent=response.ok||response.type==='opaque';
+        if(!sent) saveHelpRequestLocally(payload);
+      }catch(_){
+        saveHelpRequestLocally(payload);
+      }
+    }else{
+      saveHelpRequestLocally(payload);
+    }
+
+    saveRequesterContext('h');
+    registerProtocol({
+      protocol,
+      submittedAt:payload.submittedAt,
+      type:'Dúvida ou dificuldade',
+      title:payload.subject||'Orientação ESEO',
+      school:payload.school.name,
+      cfp:payload.school.cfp,
+      requester:payload.requester.name,
+      email:payload.requester.email,
+      status:sent?'Encaminhado à ESEO':'Registrado neste navegador',
+      details:payload.question
+    });
+
+    helpRequestForm.dataset.submitted='true';
+    submitButton.closest('.request-submit-bar')?.classList.add('submission-locked');
+
+    helpRequestResult.className='result-box show';
+    helpRequestResult.innerHTML=`
+      <div class="success">
+        <b>${sent?'Dúvida encaminhada à ESEO.':'Dúvida registrada.'}</b><br>
+        Protocolo: <b>${protocol}</b><br>
+        Guarde este número para acompanhamento.
+      </div>
+      <div class="after-submit-actions">
+        <button class="btn primary" type="button" onclick="startAnotherHelpRequest()">Enviar outra dúvida</button>
+        <button class="btn" type="button" onclick="openProtocolCenter()">Acompanhar protocolos</button>
+      </div>`;
+
+    logInteraction(sent?'enviar_duvida':'simular_envio_duvida','help',{
+      protocol,cfp:payload.school.cfp,school:payload.school.name,subject:payload.subject
+    });
+    helpRequestResult.scrollIntoView({behavior:'smooth',block:'center'});
+  }finally{
+    helpSubmitting=false;
+  }
+}
+
+function startAnotherHelpRequest(){
+  saveRequesterContext('h');
+  helpRequestForm.dataset.submitted='false';
+  helpRequestForm.reset();
+  hCfp.value='';
+  hSchool.value='';
+  restoreRequesterContext('h');
+  helpRequestResult.className='result-box';
+  helpRequestResult.innerHTML='';
+  document.getElementById('helpSubmitButton')?.closest('.request-submit-bar')?.classList.remove('submission-locked');
+  resetSubmitButton(document.getElementById('helpSubmitButton'),'Enviar dúvida à ESEO');
+  hSubject.focus();
+}
+
+function escapeLogHtml(value){
+  return String(value ?? '')
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'",'&#039;');
+}
+
+function renderInteractionLog(){
+  const logs=readInteractionLog().slice().reverse();
+  logCount.textContent=`${logs.length} interaç${logs.length===1?'ão':'ões'}`;
+  logTableBody.innerHTML=logs.map(item=>{
+    const date=new Date(item.timestamp);
+    const formatted=Number.isNaN(date.getTime())?item.timestamp:date.toLocaleString('pt-BR');
+    return `<tr>
+      <td>${escapeLogHtml(formatted)}</td>
+      <td>${escapeLogHtml(item.action)}</td>
+      <td>${escapeLogHtml(item.screen)}</td>
+      <td>${escapeLogHtml(item.details)}</td>
+    </tr>`;
+  }).join('');
+  logEmpty.style.display=logs.length?'none':'block';
+  document.querySelector('.log-table-wrap').style.display=logs.length?'block':'none';
+}
+
+function openInteractionLog(){
+  if(!requestInteractionLogAccess()) return;
+  renderInteractionLog();
+  logBackdrop.classList.add('open');
+  logModal.classList.add('open');
+  logModal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+
+function closeInteractionLog(){
+  logBackdrop.classList.remove('open');
+  logModal.classList.remove('open');
+  logModal.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+
+function clearInteractionLog(){
+  if(!confirm('Limpar todos os registros locais de interação?')) return;
+  localStorage.removeItem(INTERACTION_LOG_KEY);
+  renderInteractionLog();
+}
+
+function csvCell(value){
+  const text=String(value??'').replaceAll('"','""');
+  return `"${text}"`;
+}
+
+function downloadInteractionLogCsv(){
+  const logs=readInteractionLog();
+  const lines=[
+    ['Data e hora','Ação','Tela','Detalhes'].map(csvCell).join(';'),
+    ...logs.map(item=>[
+      new Date(item.timestamp).toLocaleString('pt-BR'),
+      item.action,
+      item.screen,
+      item.details
+    ].map(csvCell).join(';'))
+  ];
+  const blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a');
+  link.href=url;
+  link.download=`log-interacoes-bussola-eseo-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+document.addEventListener('keydown',event=>{
+  if(event.ctrlKey && event.altKey && event.key.toLowerCase()==='l'){
+    event.preventDefault();
+    openInteractionLog();
+  }
+});
+
+document.addEventListener('click',event=>{
+  const anchor=event.target.closest('a[href]');
+  if(anchor){
+    logInteraction('abrir_link',document.querySelector('.page.active')?.id||'geral',{
+      text:(anchor.textContent||'').trim().replace(/\s+/g,' ').slice(0,120),
+      href:anchor.getAttribute('href')
+    });
+  }
+});
+
+
+document.addEventListener('click',event=>{
+  const area=document.getElementById('pCourseAutocomplete');
+  if(area && !area.contains(event.target)) closePersonalizationCourseSuggestions();
+});
+
+
+document.addEventListener('click',event=>{
+  ['r','p','h'].forEach(prefix=>{
+    const picker=document.getElementById(prefix+'SchoolPicker');
+    if(picker && !picker.contains(event.target)) closeSchoolSuggestions(prefix);
+  });
+});
+
+</script></body></html>
