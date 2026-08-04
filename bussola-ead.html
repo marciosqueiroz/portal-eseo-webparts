@@ -2332,6 +2332,123 @@ body:not(.subpage-active) .eseo-portal-nav{
 #catalog{padding-top:0!important}
 #catalog .catalog-panel-clean{margin-top:8px!important}
 
+
+
+/* V47 — protocolos mais legíveis e detalhes do curso mais confortáveis */
+.hero-protocol-button{
+  min-width:320px!important;
+  min-height:88px!important;
+  gap:16px!important;
+  padding:16px 18px!important;
+}
+.hero-protocol-icon{
+  width:64px!important;
+  height:64px!important;
+  border-radius:18px!important;
+}
+.hero-protocol-button b{
+  font-size:22px!important;
+  line-height:1.08!important;
+}
+.hero-protocol-button small{
+  margin-top:6px!important;
+  font-size:14px!important;
+  line-height:1.35!important;
+  color:rgba(255,255,255,.9)!important;
+}
+
+.protocol-modal{
+  width:min(980px,calc(100% - 24px))!important;
+  max-height:min(82vh,760px)!important;
+  border-radius:24px!important;
+}
+.protocol-modal-head{
+  padding:22px 24px!important;
+}
+.protocol-modal-head h2{
+  font-size:30px!important;
+  line-height:1.08!important;
+}
+.protocol-modal-head p{
+  font-size:15px!important;
+  line-height:1.45!important;
+}
+.protocol-toolbar{
+  padding:14px 20px!important;
+}
+.protocol-toolbar b{
+  font-size:18px!important;
+}
+.protocol-toolbar span{
+  font-size:14px!important;
+  line-height:1.45!important;
+}
+.protocol-toolbar .btn{
+  min-height:42px!important;
+  font-size:14px!important;
+  padding:0 16px!important;
+}
+.protocol-list{
+  max-height:58vh!important;
+  padding:16px 18px 20px!important;
+}
+.protocol-card{
+  padding:16px 18px!important;
+  gap:18px!important;
+}
+.protocol-card h3{
+  font-size:18px!important;
+  line-height:1.25!important;
+}
+.protocol-code{
+  font-size:12px!important;
+  padding:6px 10px!important;
+}
+.protocol-card p{
+  font-size:14px!important;
+  line-height:1.5!important;
+}
+.protocol-meta span{
+  font-size:12.5px!important;
+  padding:6px 9px!important;
+}
+.protocol-status{
+  min-width:152px!important;
+  font-size:12px!important;
+  padding:10px 12px!important;
+}
+.protocol-empty b{
+  font-size:20px!important;
+}
+.protocol-empty span{
+  font-size:14px!important;
+}
+
+@media(max-width:760px){
+  .hero-protocol-button{
+    min-width:0!important;
+    min-height:82px!important;
+    padding:14px 16px!important;
+  }
+  .hero-protocol-icon{
+    width:56px!important;
+    height:56px!important;
+  }
+  .hero-protocol-button b{font-size:19px!important}
+  .hero-protocol-button small{font-size:13px!important}
+  .protocol-modal{
+    width:calc(100% - 16px)!important;
+    max-height:calc(100vh - 20px)!important;
+  }
+  .protocol-modal-head h2{font-size:24px!important}
+  .protocol-modal-head p,
+  .protocol-toolbar span,
+  .protocol-card p,
+  .protocol-empty span{font-size:13.5px!important}
+  .protocol-card h3{font-size:16px!important}
+  .protocol-status{min-width:0!important}
+}
+
 </style></head><body>
 <div class="app">
 
@@ -2353,7 +2470,7 @@ body:not(.subpage-active) .eseo-portal-nav{
     <p>Descubra o melhor caminho para ofertar, adaptar ou desenvolver uma solução educacional a distância.</p>
   </div>
   <div class="hero-actions">
-    <button class="hero-protocol-button" type="button" onclick="openProtocolCenter()">
+    <button class="hero-protocol-button" type="button" onclick="openProtocolCenter(event)">
       <span class="hero-protocol-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24">
           <circle cx="10.5" cy="10.5" r="6.5"></circle>
@@ -3661,7 +3778,196 @@ function prepareIntegratedPortfolioSource(source){
       .results-controls{flex-direction:column!important}
       .results-control-group{width:100%!important}
     }
-</style>`;
+
+
+    /* V47 — detalhes do curso em modal central e leitura maior */
+    .drawer-title{font-size:30px!important;line-height:1.12!important}
+    .drawer-area{font-size:16px!important;line-height:1.5!important}
+    .drawer-section p,.drawer-note{font-size:15px!important;line-height:1.58!important}
+    .drawer-meta-item span{font-size:12px!important}
+    .drawer-meta-item strong{font-size:15px!important}
+    .drawer-main-action,.drawer-personalize-action,.drawer-secondary{
+      min-height:48px!important;
+      font-size:14px!important;
+    }
+    .drawer-close,
+    .drawer-header button,
+    [aria-label="Fechar detalhes"]{
+      width:42px!important;
+      height:42px!important;
+      font-size:22px!important;
+    }
+    @media(max-width:760px){
+      .drawer-title{font-size:24px!important}
+      .drawer-area,.drawer-section p,.drawer-note{font-size:14px!important}
+    }
+
+  
+    /* V48 — detalhes do curso em modal central usando as classes reais */
+    .drawer-backdrop{
+      position:fixed!important;
+      inset:0!important;
+      z-index:15998!important;
+      background:rgba(5,31,48,.54)!important;
+      backdrop-filter:blur(4px)!important;
+    }
+
+    .drawer{
+      position:fixed!important;
+      left:50%!important;
+      right:auto!important;
+      top:16px!important;
+      bottom:auto!important;
+      z-index:15999!important;
+      width:min(1120px,calc(100vw - 32px))!important;
+      height:auto!important;
+      max-height:calc(100dvh - 32px)!important;
+      overflow-y:auto!important;
+      padding:24px!important;
+      border:1px solid rgba(11,53,88,.14)!important;
+      border-radius:24px!important;
+      background:#fff!important;
+      box-shadow:0 28px 80px rgba(11,53,88,.26)!important;
+      opacity:0!important;
+      visibility:hidden!important;
+      pointer-events:none!important;
+      transform:translate(-50%,-110%)!important;
+      transition:
+        transform .24s ease,
+        opacity .18s ease,
+        visibility .18s ease!important;
+      -webkit-overflow-scrolling:touch!important;
+    }
+
+    .drawer.open{
+      opacity:1!important;
+      visibility:visible!important;
+      pointer-events:auto!important;
+      transform:translate(-50%,0)!important;
+    }
+
+    .drawer-header{
+      position:sticky!important;
+      top:-24px!important;
+      z-index:5!important;
+      margin:-24px -24px 0!important;
+      padding:20px 24px 16px!important;
+      background:rgba(255,255,255,.97)!important;
+      backdrop-filter:blur(8px)!important;
+    }
+
+    .close-drawer{
+      width:46px!important;
+      height:46px!important;
+      flex:0 0 46px!important;
+      font-size:25px!important;
+    }
+
+    .drawer-title{
+      margin-top:24px!important;
+      font-size:32px!important;
+    }
+
+    .drawer-area{
+      font-size:16px!important;
+    }
+
+    .drawer-meta{
+      grid-template-columns:repeat(3,minmax(0,1fr))!important;
+      gap:12px!important;
+    }
+
+    .drawer-meta-item{
+      padding:14px!important;
+    }
+
+    .drawer-meta-item span{
+      font-size:12px!important;
+    }
+
+    .drawer-meta-item strong{
+      font-size:15px!important;
+    }
+
+    .drawer-section h3{
+      font-size:14px!important;
+    }
+
+    .drawer-section p,
+    .drawer-note{
+      font-size:15px!important;
+      line-height:1.6!important;
+    }
+
+    .drawer-actions{
+      position:sticky!important;
+      bottom:-24px!important;
+      z-index:4!important;
+      margin:24px -24px -24px!important;
+      padding:16px 24px 24px!important;
+      background:linear-gradient(to top,#fff 76%,rgba(255,255,255,.86))!important;
+    }
+
+    .drawer-primary,
+    .drawer-secondary,
+    .drawer-personalize-action{
+      min-height:50px!important;
+      font-size:14px!important;
+    }
+
+    @media(max-width:760px){
+      .drawer{
+        top:8px!important;
+        width:calc(100vw - 16px)!important;
+        max-height:calc(100dvh - 16px)!important;
+        padding:18px!important;
+        border-radius:18px!important;
+      }
+
+      .drawer-header{
+        top:-18px!important;
+        margin:-18px -18px 0!important;
+        padding:16px 18px 13px!important;
+      }
+
+      .drawer-title{
+        margin-top:19px!important;
+        font-size:25px!important;
+      }
+
+      .drawer-area{
+        font-size:14px!important;
+      }
+
+      .drawer-meta{
+        grid-template-columns:1fr 1fr!important;
+        gap:8px!important;
+      }
+
+      .drawer-meta-item{
+        padding:11px!important;
+      }
+
+      .drawer-section p,
+      .drawer-note{
+        font-size:14px!important;
+      }
+
+      .drawer-actions{
+        grid-template-columns:1fr!important;
+        bottom:-18px!important;
+        margin:20px -18px -18px!important;
+        padding:14px 18px 18px!important;
+      }
+    }
+
+    @media(max-width:420px){
+      .drawer-meta{
+        grid-template-columns:1fr!important;
+      }
+    }
+
+  </style>`;
   updated=updated.replace('</head>',injectedStyle+'</head>');
 
   const integrationScript=`<script>
@@ -3998,6 +4304,11 @@ function prepareIntegratedPortfolioSource(source){
     const drawerMaxStudents=ensureDrawerMeta('drawerMaxStudents','Máx. de alunos/turma');
     const drawerAge=ensureDrawerMeta('drawerAge','Idade indicada');
 
+    function presentDrawerAsModal(){
+      const panel=document.querySelector('.drawer');
+      if(panel) panel.scrollTop=0;
+    }
+
     window.openDrawer=function(id){
       originalOpenDrawer(id);
       const course=state.selected;
@@ -4032,6 +4343,7 @@ function prepareIntegratedPortfolioSource(source){
           : 'Curso sob consulta: envie o interesse da escola e informe se também existe necessidade de adaptação.';
       }
       if(drawerPersonalize) drawerPersonalize.style.display=course.personalizable?'block':'none';
+      requestAnimationFrame(()=>presentDrawerAsModal());
     };
 
     render();
@@ -4267,21 +4579,66 @@ function renderProtocolCenter(){
     </article>`).join('');
 }
 
-function openProtocolCenter(){
+let lastProtocolAnchor=null;
+
+function positionProtocolModal(anchor){
+  if(!protocolModal) return;
+  const compact=window.innerWidth<=760;
+  protocolModal.style.left='50%';
+  protocolModal.style.top=compact?'12px':'50%';
+  protocolModal.style.transform=compact?'translateX(-50%)':'translate(-50%,-50%)';
+
+  if(compact || !anchor || !anchor.getBoundingClientRect) return;
+
+  const rect=anchor.getBoundingClientRect();
+  const viewportWidth=window.innerWidth;
+  const viewportHeight=window.innerHeight;
+  const modalWidth=Math.min(980, viewportWidth-24);
+  const safeWidth=Math.max(320, modalWidth);
+  const modalHeight=Math.min(protocolModal.offsetHeight||640, viewportHeight-24);
+
+  const idealLeft=rect.left + (rect.width/2) - (safeWidth/2);
+  const left=Math.min(Math.max(12, idealLeft), Math.max(12, viewportWidth-safeWidth-12));
+  const idealTop=rect.bottom + 12;
+  const top=Math.min(Math.max(12, idealTop), Math.max(12, viewportHeight-modalHeight-12));
+
+  protocolModal.style.left=`${left}px`;
+  protocolModal.style.top=`${top}px`;
+  protocolModal.style.transform='none';
+}
+
+function openProtocolCenter(eventOrAnchor){
   migrateLegacyProtocols();
   renderProtocolCenter();
+  const anchor=(eventOrAnchor && eventOrAnchor.currentTarget) ||
+    (eventOrAnchor && eventOrAnchor.target && eventOrAnchor.target.closest ? eventOrAnchor.target.closest('button,[role="button"],a') : null) ||
+    (document.activeElement && document.activeElement.matches && document.activeElement.matches('button,[role="button"],a') ? document.activeElement : null);
+  lastProtocolAnchor=anchor || null;
   protocolBackdrop.classList.add('open');
   protocolModal.classList.add('open');
   protocolModal.setAttribute('aria-hidden','false');
+  protocolModal.setAttribute('tabindex','-1');
   document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>{
+    positionProtocolModal(lastProtocolAnchor);
+    protocolModal.scrollTop=0;
+    protocolModal.focus({preventScroll:true});
+  });
 }
 
 function closeProtocolCenter(){
   protocolBackdrop.classList.remove('open');
   protocolModal.classList.remove('open');
   protocolModal.setAttribute('aria-hidden','true');
+  protocolModal.style.left='';
+  protocolModal.style.top='';
+  protocolModal.style.transform='';
   document.body.style.overflow='';
 }
+
+window.addEventListener('resize',()=>{
+  if(protocolModal?.classList.contains('open')) positionProtocolModal(lastProtocolAnchor);
+});
 
 function downloadProtocolsCsv(){
   const records=getProtocolRegistry().slice().sort((a,b)=>new Date(b.submittedAt)-new Date(a.submittedAt));
