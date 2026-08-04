@@ -231,6 +231,23 @@
         transform 180ms ease;
     }
 
+    .slide__actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide__actions .slide__cta {
+      margin-top: 25px;
+    }
+
+    .slide__cta--primary {
+      border-color: var(--eseo-red);
+      background: var(--eseo-red);
+      box-shadow: 0 10px 24px rgba(166, 4, 16, 0.2);
+    }
+
     .slide__cta span {
       font-size: 20px;
       font-weight: 400;
@@ -447,6 +464,14 @@
         margin-top: 16px;
       }
 
+      .slide__actions {
+        gap: 8px;
+      }
+
+      .slide__actions .slide__cta {
+        margin-top: 16px;
+      }
+
       .carousel__controls {
         right: 13px;
         bottom: 13px;
@@ -540,6 +565,26 @@
     */
     const slides = [
       {
+        image: "boletim-eseo.png",
+        imagePosition: "center",
+        variant: "newsletter",
+        tag: "Notícias",
+        title: "Conheça o Boletim ESEO",
+        description:
+          "Acesse as edições já publicadas e inscreva-se para receber periodicamente novidades, oportunidades e informações do mundo da educação a distância.",
+        actions: [
+          {
+            label: "Acessar os boletins",
+            link: "https://outlook.office.com/newsletters/newsletters/eb0f379967babb4b816eae11c96c0d0322"
+          },
+          {
+            label: "Inscrever-se",
+            link: "https://outlook.office.com/newsletters/newsletters/eb0f379967babb4b816eae11c96c0d0322",
+            primary: true
+          }
+        ]
+      },
+      {
         image: "curso-desenvolvimento.jpg",
         imagePosition: "center",
         tag: "Nova oferta",
@@ -562,18 +607,6 @@
         cta: "Acessar publicação"
       },
       {
-        image: "boletim-eseo.png",
-        imagePosition: "center",
-        variant: "newsletter",
-        tag: "Notícias",
-        title: "Conheça o Boletim ESEO",
-        description:
-          "Assine e receba periodicamente novidades, oportunidades e informações do mundo da educação a distância.",
-        link:
-          "https://outlook.office.com/newsletters/newsletters/eb0f379967babb4b816eae11c96c0d0322",
-        cta: "Assinar o boletim"
-      },
-      {
         image: "conheca-eseo.jpg",
         imagePosition: "center",
         tag: "Identidade",
@@ -593,18 +626,39 @@
     const nextButton = document.getElementById("eseoNext");
     const autoplayButton = document.getElementById("eseoAutoplay");
     const status = document.getElementById("eseoStatus");
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const intervalMs = 8000;
 
     let currentIndex = 0;
     let autoplayTimer = null;
-    let autoplayPaused = reduceMotion;
+    let autoplayPaused = false;
     let pointerStartX = null;
 
     function slideTemplate(slide, index) {
       const variantClass = slide.variant
         ? ` slide--${slide.variant}`
         : "";
+      const actions = slide.actions || [
+        {
+          label: slide.cta,
+          link: slide.link
+        }
+      ];
+      const actionsMarkup = actions
+        .map(
+          (action) => `
+            <a
+              class="slide__cta${action.primary ? " slide__cta--primary" : ""}"
+              href="${action.link}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="${action.label}: ${slide.title}. Abre em nova guia."
+            >
+              ${action.label}
+              <span aria-hidden="true">→</span>
+            </a>
+          `
+        )
+        .join("");
 
       return `
         <li
@@ -625,16 +679,9 @@
             <span class="slide__tag">${slide.tag}</span>
             <h2>${slide.title}</h2>
             <p>${slide.description}</p>
-            <a
-              class="slide__cta"
-              href="${slide.link}"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="${slide.cta}: ${slide.title}. Abre em nova guia."
-            >
-              ${slide.cta}
-              <span aria-hidden="true">→</span>
-            </a>
+            <div class="slide__actions">
+              ${actionsMarkup}
+            </div>
           </div>
         </li>
       `;
@@ -692,7 +739,7 @@
     function startAutoplay() {
       stopAutoplay();
 
-      if (autoplayPaused || reduceMotion) {
+      if (autoplayPaused) {
         return;
       }
 
@@ -707,7 +754,7 @@
     }
 
     function updateAutoplayButton() {
-      const paused = autoplayPaused || reduceMotion;
+      const paused = autoplayPaused;
 
       autoplayButton.setAttribute("aria-pressed", String(paused));
       autoplayButton.setAttribute(
