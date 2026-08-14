@@ -7494,13 +7494,20 @@ function courseOptionLabel(course){
   return [course.title,code,course.type].filter(Boolean).join(' — ');
 }
 
+function compareCourseCode(a,b){
+  const aCode=String(ensureOfficialCourseCode(a)||'');
+  const bCode=String(ensureOfficialCourseCode(b)||'');
+  const byCode=aCode.localeCompare(bCode,'pt-BR',{numeric:true});
+  return byCode || String(a.title||'').localeCompare(String(b.title||''),'pt-BR');
+}
+
 function fillCourseCombos(){
   const selects = [document.getElementById('rCourseSelect'), document.getElementById('pCourseSelect')].filter(Boolean);
   selects.forEach(select => {
     select.innerHTML = '<option value="">Selecione um curso...</option>';
     PORTFOLIO_COMBO_COURSES
       .slice()
-      .sort((a,b)=>a.title.localeCompare(b.title,'pt-BR'))
+      .sort(compareCourseCode)
       .forEach((course,index)=>{
         const option=document.createElement('option');
         option.value=String(PORTFOLIO_COMBO_COURSES.indexOf(course));
@@ -8757,7 +8764,7 @@ function findCourseBySearch(value){
 
 function getPersonalizationCourseMatches(value){
   const query=normalizeLookup(value);
-  const source=PORTFOLIO_COMBO_COURSES.slice().sort((a,b)=>a.title.localeCompare(b.title,'pt-BR'));
+  const source=PORTFOLIO_COMBO_COURSES.slice().sort(compareCourseCode);
   if(!query) return source;
   return source.filter(course=>[
       course.title,

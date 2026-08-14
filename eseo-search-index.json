@@ -4,7 +4,7 @@
     "subtitle": "Página inicial",
     "type": "Página",
     "icon": "H",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/OrganizationHome.aspx",
     "keywords": [
       "home",
       "inicio",
@@ -35,7 +35,7 @@
   },
   {
     "title": "Oferta de cursos online",
-    "subtitle": "Portfólio, modelos e orientações",
+    "subtitle": "Página central de cursos e orientações",
     "type": "Página",
     "icon": "O",
     "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
@@ -44,6 +44,7 @@
       "cursos",
       "catalogo",
       "portfolio",
+      "bussola",
       "modelos",
       "orientacoes"
     ],
@@ -51,10 +52,10 @@
   },
   {
     "title": "Portfólio de cursos",
-    "subtitle": "Cursos, formatos, modelos e carga horária",
+    "subtitle": "Consulte cursos, códigos, formatos e materiais",
     "type": "Cursos",
     "icon": "P",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx#portfolio",
+    "url": "https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html",
     "keywords": [
       "portfolio",
       "catalogo",
@@ -69,48 +70,71 @@
     "boost": 110
   },
   {
-    "title": "Tipos de atendimento",
-    "subtitle": "Orientações para as unidades",
+    "title": "Bússola EAD",
+    "subtitle": "Encontre a oferta indicada para cada necessidade",
     "type": "Orientação",
-    "icon": "T",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx#tipos",
+    "icon": "B",
+    "url": "https://marciosqueiroz.github.io/portal-eseo-webparts/bussola-ead.html",
     "keywords": [
-      "tipos",
-      "atendimento",
-      "eja",
-      "autoinstrucional",
-      "tecnico",
-      "superior",
-      "aprendizagem",
-      "caitec",
-      "qualificacao",
-      "aperfeicoamento",
-      "personalizado"
+      "bussola",
+      "orientacao",
+      "curso",
+      "oferta",
+      "modalidade",
+      "estrategia"
+    ],
+    "boost": 108
+  },
+  {
+    "title": "Proposta Pedagógica da ESEO",
+    "subtitle": "Documento institucional da Escola SENAI de Educação Online",
+    "type": "Documento",
+    "icon": "P",
+    "url": "https://marciosqueiroz.github.io/portal-eseo-webparts/proposta-pedagogica-eseo-interativa.html",
+    "keywords": [
+      "proposta",
+      "proposta pedagogica",
+      "documento institucional",
+      "metodologia",
+      "diretrizes"
+    ],
+    "boost": 105
+  },
+  {
+    "title": "Cronograma dos processos seletivos",
+    "subtitle": "Consulte as datas dos processos seletivos do SENAI-SP",
+    "type": "Documento",
+    "icon": "C",
+    "url": "https://sesisenaisp.sharepoint.com/sites/intranet/Atos%20Formais/CO-GED-56-2026.pdf",
+    "keywords": [
+      "cronograma",
+      "processo seletivo",
+      "processos seletivos",
+      "datas",
+      "senai-sp"
     ],
     "boost": 100
   },
   {
-    "title": "Proposta Pedagógica da ESEO",
-    "subtitle": "Documento institucional",
-    "type": "Documento",
-    "icon": "D",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/Documentos%20Compartilhados/Documentos%20da%20p%C3%A1gina%20ESEO/Proposta%20pedag%C3%B3gica%201.50.pdf?web=1",
+    "title": "Liberar turma no SGSET",
+    "subtitle": "Solicitação de liberação de turma",
+    "type": "Formulário",
+    "icon": "L",
+    "url": "https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u",
     "keywords": [
-      "proposta",
-      "pedagogica",
-      "documento",
-      "pdf",
-      "1.50",
-      "cfp"
+      "liberar",
+      "turma",
+      "sgset",
+      "forms"
     ],
-    "boost": 75
+    "boost": 100
   },
   {
     "title": "Soluções EAD",
-    "subtitle": "Personalização ou nova solução",
+    "subtitle": "Novos cursos e ofertas personalizadas",
     "type": "Contato",
     "icon": "S",
-    "url": "mailto:eadempresas@sp.senai.br?subject=D%C3%BAvidas%20sobre%20solu%C3%A7%C3%B5es%20e%20ofertas%20EAD",
+    "url": "mailto:eadempresas@sp.senai.br?subject=Portal%20ESEO%20%7C%20Orienta%C3%A7%C3%A3o%20sobre%20solu%C3%A7%C3%A3o%20EAD&body=Ol%C3%A1%2C%20equipe%20ESEO!%0A%0AGostaria%20de%20receber%20orienta%C3%A7%C3%A3o%20sobre%20uma%20solu%C3%A7%C3%A3o%20EAD%20para%20nossa%20escola.%0A%0AEscola%2Funidade%3A%0ANome%20e%20contato%3A%0ATipo%20de%20necessidade%3A%20(%20)%20personalizar%20um%20curso%20existente%20%20(%20)%20solicitar%20novo%20curso%20%20(%20)%20ainda%20precisamos%20de%20orienta%C3%A7%C3%A3o%0ACurso%20ou%20c%C3%B3digo%20SGSET%2C%20se%20houver%3A%0AP%C3%BAblico%20estimado%3A%0APrazo%20desejado%3A%0ABreve%20descri%C3%A7%C3%A3o%20da%20necessidade%3A%0A%0AObrigado(a)!",
     "keywords": [
       "solucoes",
       "ead",
@@ -122,5 +146,22 @@
       "fale com a gente"
     ],
     "boost": 85
+  },
+  {
+    "title": "Parceria AQV e ESEO",
+    "subtitle": "Solicite uma ação conjunta para sua unidade",
+    "type": "Contato",
+    "icon": "A",
+    "url": "mailto:rantonio@sp.senai.br?subject=Portal%20ESEO%20%7C%20Interesse%20em%20parceria%20AQV%20e%20ESEO&body=Ol%C3%A1!%0A%0ANossa%20escola%20gostaria%20de%20conversar%20sobre%20uma%20poss%C3%ADvel%20a%C3%A7%C3%A3o%20em%20parceria%20com%20a%20AQV%20e%20a%20ESEO.%0A%0AEscola%2Funidade%3A%0ANome%20e%20contato%3A%0ACurso%20ou%20turma%20envolvida%2C%20se%20houver%3A%0AObjetivo%20da%20a%C3%A7%C3%A3o%3A%0AP%C3%BAblico%20estimado%3A%0APrazo%20ou%20per%C3%ADodo%20desejado%3A%0ABreve%20descri%C3%A7%C3%A3o%20da%20necessidade%3A%0A%0APor%20seguran%C3%A7a%2C%20n%C3%A3o%20inclu%C3%ADmos%20neste%20e-mail%20dados%20pessoais%20ou%20informa%C3%A7%C3%B5es%20sens%C3%ADveis%20de%20estudantes.%0A%0AObrigado(a)!",
+    "keywords": [
+      "parceria",
+      "aqv",
+      "eseo",
+      "acao",
+      "unidade",
+      "acessibilidade",
+      "socioemocional"
+    ],
+    "boost": 84
   }
 ]
