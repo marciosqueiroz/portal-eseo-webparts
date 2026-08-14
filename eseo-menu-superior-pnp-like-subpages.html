@@ -50,7 +50,7 @@ body{overflow-x:hidden}
 .nav{
   display:flex;
   align-items:center;
-  gap:clamp(28px,3.2vw,48px);
+  gap:48px;
   min-width:0;
 }
 .nav a{
@@ -58,20 +58,15 @@ body{overflow-x:hidden}
   color:#fff;
   text-decoration:none;
   text-transform:uppercase;
-  font-size:clamp(14px,.95vw,16px);
+  font-size:clamp(16px,1.1vw,19px);
   font-weight:800;
   letter-spacing:.02em;
   white-space:nowrap;
   text-shadow:0 2px 10px rgba(0,0,0,.38);
   padding:11px 0;
-  transition:color .18s ease,opacity .18s ease;
+  transition:color .18s ease,transform .18s ease;
 }
-.nav a:hover,
-.nav a:focus-visible{
-  color:var(--cyan);
-  opacity:1;
-}
-.nav a[aria-current="page"]::after{
+.nav a::after{
   content:"";
   position:absolute;
   left:0;
@@ -80,7 +75,15 @@ body{overflow-x:hidden}
   height:3px;
   border-radius:99px;
   background:#fff;
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform .18s ease;
 }
+.nav a:hover,
+.nav a:focus-visible{color:#fff;transform:translateY(-1px)}
+.nav a:hover::after,
+.nav a:focus-visible::after{transform:scaleX(1)}
+.nav a[aria-current="page"]{color:var(--cyan);transform:none}
 .search-wrap{
   position:relative;
   display:flex;
@@ -235,7 +238,7 @@ body{overflow-x:hidden}
     padding-top:5px;
     padding-right:56px;
   }
-  .nav a{font-size:10px}
+  .nav a{font-size:13px}
   .search-wrap{position:absolute;right:0;top:7px}
   .search.is-open{width:min(300px,78vw)}
   .hero.has-intro{min-height:440px}
@@ -257,9 +260,9 @@ body{overflow-x:hidden}
   <div class="shell">
     <header class="topbar">
       <nav class="nav" aria-label="Navegação principal do Portal ESEO">
-        <a data-page="home" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta" target="_blank" rel="noopener noreferrer">Home</a>
-        <a data-page="conheca" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx" target="_blank" rel="noopener noreferrer">Conheça a ESEO</a>
-        <a data-page="oferta" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx" target="_blank" rel="noopener noreferrer">Oferta de cursos online</a>
+        <a data-page="home" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/OrganizationHome.aspx" target="_top">Home</a>
+        <a data-page="conheca" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx" target="_top">Conheça a ESEO</a>
+        <a data-page="oferta" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx" target="_top">Oferta de cursos online</a>
       </nav>
 
       <div class="search-wrap" id="searchWrap">
@@ -295,7 +298,10 @@ body{overflow-x:hidden}
 <script>
 (() => {
   const PORTAL = "https://sesisenaisp.sharepoint.com/sites/ESEOConecta";
+  const GITHUB_PAGES = "https://marciosqueiroz.github.io/portal-eseo-webparts";
   const INDEX_URL = "./eseo-search-index.json";
+  const SOLUTIONS_EMAIL = "mailto:eadempresas@sp.senai.br?subject=Portal%20ESEO%20%7C%20Orienta%C3%A7%C3%A3o%20sobre%20solu%C3%A7%C3%A3o%20EAD&body=Ol%C3%A1%2C%20equipe%20ESEO!%0A%0AGostaria%20de%20receber%20orienta%C3%A7%C3%A3o%20sobre%20uma%20solu%C3%A7%C3%A3o%20EAD%20para%20nossa%20escola.%0A%0AEscola%2Funidade%3A%0ANome%20e%20contato%3A%0ATipo%20de%20necessidade%3A%20(%20)%20personalizar%20um%20curso%20existente%20%20(%20)%20solicitar%20novo%20curso%20%20(%20)%20ainda%20precisamos%20de%20orienta%C3%A7%C3%A3o%0ACurso%20ou%20c%C3%B3digo%20SGSET%2C%20se%20houver%3A%0AP%C3%BAblico%20estimado%3A%0APrazo%20desejado%3A%0ABreve%20descri%C3%A7%C3%A3o%20da%20necessidade%3A%0A%0AObrigado(a)!";
+  const AQV_EMAIL = "mailto:rantonio@sp.senai.br?subject=Portal%20ESEO%20%7C%20Interesse%20em%20parceria%20AQV%20e%20ESEO&body=Ol%C3%A1!%0A%0ANossa%20escola%20gostaria%20de%20conversar%20sobre%20uma%20poss%C3%ADvel%20a%C3%A7%C3%A3o%20em%20parceria%20com%20a%20AQV%20e%20a%20ESEO.%0A%0AEscola%2Funidade%3A%0ANome%20e%20contato%3A%0ACurso%20ou%20turma%20envolvida%2C%20se%20houver%3A%0AObjetivo%20da%20a%C3%A7%C3%A3o%3A%0AP%C3%BAblico%20estimado%3A%0APrazo%20ou%20per%C3%ADodo%20desejado%3A%0ABreve%20descri%C3%A7%C3%A3o%20da%20necessidade%3A%0A%0APor%20seguran%C3%A7a%2C%20n%C3%A3o%20inclu%C3%ADmos%20neste%20e-mail%20dados%20pessoais%20ou%20informa%C3%A7%C3%B5es%20sens%C3%ADveis%20de%20estudantes.%0A%0AObrigado(a)!";
 
   const form = document.getElementById("searchForm");
   const input = document.getElementById("searchInput");
@@ -327,13 +333,15 @@ body{overflow-x:hidden}
   }
 
   const fallback = [
-    {title:"Home do Portal ESEO",subtitle:"Página inicial",icon:"H",url:PORTAL,keywords:["home","inicio","portal","eseo"]},
-    {title:"Conheça a ESEO",subtitle:"História, identidade e estrutura",icon:"E",url:PORTAL + "/SitePages/Sobre-a-ESEO.aspx",keywords:["historia","identidade","estrutura"]},
-    {title:"Proposta Pedagógica ESEO",subtitle:"Documento institucional em versão interativa",icon:"P",url:"https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-proposta-pedagogica-transparente.html",keywords:["proposta","proposta pedagogica","documento institucional","metodologia","diretrizes"]},
-    {title:"Oferta de cursos online",subtitle:"Portfólio, modelos e orientações",icon:"O",url:PORTAL + "/SitePages/What's-happening.aspx",keywords:["oferta","curso","cursos","catalogo","portfolio"]},
-    {title:"Portfólio de cursos",subtitle:"Cursos, formatos e informações do catálogo",icon:"P",url:"https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-catalogo-cursos.html",keywords:["portfolio","catalogo","curso","cursos","sgset"]},
+    {title:"Home do Portal ESEO",subtitle:"Página inicial",icon:"H",url:PORTAL + "/SitePages/OrganizationHome.aspx",keywords:["home","inicio","portal","eseo"]},
+    {title:"Conheça a ESEO",subtitle:"História, identidade, proposta e estrutura",icon:"E",url:PORTAL + "/SitePages/Sobre-a-ESEO.aspx",keywords:["historia","identidade","proposta","estrutura"]},
+    {title:"Oferta de cursos online",subtitle:"Página central de cursos e orientações",icon:"O",url:PORTAL + "/SitePages/What's-happening.aspx",keywords:["oferta","curso","cursos","catalogo","portfolio","bussola"]},
+    {title:"Portfólio de cursos",subtitle:"Consulte cursos, códigos, formatos e materiais",icon:"P",url:GITHUB_PAGES + "/eseo-catalogo-cursos.html",keywords:["portfolio","catalogo","curso","cursos","codigo","sgset"]},
+    {title:"Bússola EAD",subtitle:"Encontre a oferta indicada para cada necessidade",icon:"B",url:GITHUB_PAGES + "/bussola-ead.html",keywords:["bussola","orientacao","curso","oferta","modalidade","estrategia"]},
+    {title:"Proposta Pedagógica da ESEO",subtitle:"Documento institucional em versão interativa",icon:"P",url:GITHUB_PAGES + "/proposta-pedagogica-eseo-interativa.html",keywords:["proposta","proposta pedagogica","documento institucional","metodologia","diretrizes"]},
     {title:"Liberar turma no SGSET",subtitle:"Solicitação de liberação de turma",icon:"L",url:"https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u",keywords:["liberar","turma","sgset","forms"]},
-    {title:"Soluções EAD",subtitle:"Novos cursos e ofertas personalizadas",icon:"S",url:"https://outlook.office.com/mail/deeplink/compose?to=eadempresas%40sp.senai.br",keywords:["solucoes","ead","personalizado","novo curso","empresa"]}
+    {title:"Soluções EAD",subtitle:"Novos cursos e ofertas personalizadas",icon:"S",url:SOLUTIONS_EMAIL,keywords:["solucoes","ead","personalizado","personalizacao","novo curso","empresa"]},
+    {title:"Parceria AQV e ESEO",subtitle:"Solicite uma ação conjunta para sua unidade",icon:"A",url:AQV_EMAIL,keywords:["parceria","aqv","eseo","acao","unidade"]}
   ];
 
   function normalize(v){
@@ -349,15 +357,13 @@ body{overflow-x:hidden}
       const r = await fetch(INDEX_URL + "?v=" + Date.now(), {cache:"no-store"});
       if(!r.ok) throw new Error("índice indisponível");
       const data = await r.json();
-      items = Array.isArray(data) ? data : (Array.isArray(data.items) ? data.items : fallback);
-      const proposalUrl = "https://marciosqueiroz.github.io/portal-eseo-webparts/eseo-proposta-pedagogica-transparente.html";
-      items = items.filter(item => !normalize(item.title).includes("proposta pedagogica"));
-      items.unshift({
-        title:"Proposta Pedagógica ESEO",
-        subtitle:"Documento institucional em versão interativa",
-        icon:"P",
-        url:proposalUrl,
-        keywords:["proposta","proposta pedagogica","documento institucional","metodologia","diretrizes"]
+      const indexed = Array.isArray(data) ? data : (Array.isArray(data.items) ? data.items : []);
+      const seen = new Set();
+      items = [...fallback, ...indexed].filter(item => {
+        const key = normalize(item.title);
+        if(!key || seen.has(key)) return false;
+        seen.add(key);
+        return true;
       });
     }catch(_){
       items = fallback;
@@ -392,7 +398,7 @@ body{overflow-x:hidden}
     if(!result.length){
       const searchUrl = PORTAL + "/_layouts/15/search.aspx/siteall?q=" + encodeURIComponent(q);
       suggestions.innerHTML =
-        '<a class="suggestion" target="_blank" rel="noopener noreferrer" href="' + searchUrl + '">' +
+        '<a class="suggestion" target="_top" href="' + searchUrl + '">' +
         '<span class="suggestion-icon">↗</span><span><strong>Pesquisar no Portal ESEO</strong>' +
         '<small>Ver todos os resultados para “' + escapeHtml(q) + '”</small></span></a>';
       suggestions.classList.add("show");
@@ -400,7 +406,7 @@ body{overflow-x:hidden}
     }
 
     suggestions.innerHTML = result.map(item => `
-      <a class="suggestion" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">
+      <a class="suggestion" href="${escapeHtml(item.url)}" target="_top">
         <span class="suggestion-icon">${escapeHtml(item.icon || "•")}</span>
         <span>
           <strong>${escapeHtml(item.title || "")}</strong>
@@ -430,11 +436,7 @@ body{overflow-x:hidden}
       return;
     }
 
-    window.open(
-      PORTAL + "/_layouts/15/search.aspx/siteall?q=" + encodeURIComponent(term),
-      "_blank",
-      "noopener,noreferrer"
-    );
+    window.open(PORTAL + "/_layouts/15/search.aspx/siteall?q=" + encodeURIComponent(term), "_top");
   });
 
   document.addEventListener("click", e => {
