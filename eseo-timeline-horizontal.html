@@ -1,345 +1,310 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nossa história — ESEO</title>
-  <style>
-    :root {
-      --navy: #0a2537;
-      --cyan: #0eb7d5;
-      --red: #970025;
-      --white: #ffffff;
-      --line: #d6e4ea;
-      --muted: #61717c;
-    }
-
-    * { box-sizing: border-box; }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-      background: transparent;
-      color: var(--navy);
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
-
-    .timeline {
-      width: 100%;
-      height: 100%;
-      min-height: 440px;
-      padding: 34px clamp(28px, 3vw, 58px) 28px;
-      background: var(--white);
-    }
-
-    .track {
-      position: relative;
-      height: 158px;
-      margin: 0 auto;
-    }
-
-    .track__line {
-      position: absolute;
-      right: 1.5%;
-      bottom: 35px;
-      left: 1.5%;
-      height: 5px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--navy), var(--cyan));
-    }
-
-    .point,
-    .terminal {
-      position: absolute;
-      bottom: 17px;
-      left: var(--x);
-      width: 38px;
-      height: 38px;
-      padding: 0;
-      border: 0;
-      background: transparent;
-      transform: translateX(-50%);
-    }
-
-    .point { cursor: pointer; }
-
-    .point__dot,
-    .terminal__dot {
-      position: absolute;
-      inset: 7px;
-      display: grid;
-      place-items: center;
-      border: 4px solid var(--white);
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 0 3px #1c819b;
-      transition: inset 180ms ease, background 180ms ease, box-shadow 180ms ease;
-    }
-
-    .point:hover .point__dot,
-    .point:focus-visible .point__dot,
-    .point.is-active .point__dot {
-      inset: 3px;
-      background: var(--navy);
-      box-shadow: 0 0 0 3px var(--navy), 0 7px 18px rgba(10, 37, 55, .2);
-    }
-
-    .point:focus-visible {
-      outline: 3px solid var(--cyan);
-      outline-offset: 5px;
-      border-radius: 50%;
-    }
-
-    .point__year,
-    .terminal__label {
-      position: absolute;
-      left: 50%;
-      bottom: 52px;
-      min-width: 66px;
-      padding: 6px 9px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      background: var(--white);
-      color: var(--navy);
-      font-size: 12px;
-      font-weight: 850;
-      line-height: 1.05;
-      text-align: center;
-      white-space: nowrap;
-      transform: translateX(-50%);
-      transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
-    }
-
-    .point:hover .point__year,
-    .point:focus-visible .point__year,
-    .point.is-active .point__year {
-      border-color: var(--cyan);
-      color: #007f9e;
-      transform: translateX(-50%) translateY(-4px);
-    }
-
-    .terminal__dot {
-      inset: 3px;
-      background: var(--red);
-      box-shadow: 0 0 0 3px var(--red);
-    }
-
-    .terminal--end .terminal__dot {
-      background: var(--cyan);
-      color: var(--navy);
-      box-shadow: 0 0 0 3px var(--navy);
-      font-size: 19px;
-      font-weight: 900;
-    }
-
-    .terminal__label {
-      border-color: rgba(151, 0, 37, .24);
-      color: var(--red);
-    }
-
-    .terminal--end .terminal__label {
-      border-color: rgba(14, 183, 213, .36);
-      color: var(--navy);
-    }
-
-    .story {
-      width: min(1040px, 100%);
-      min-height: 190px;
-      margin: 4px auto 0;
-      padding: 28px 36px 26px 42px;
-      border-top: 4px solid var(--cyan);
-      background: #f8fbfc;
-      box-shadow: 0 18px 38px rgba(10, 37, 55, .07);
-    }
-
-    .story__meta {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      margin-bottom: 11px;
-    }
-
-    .story__sequence {
-      color: #087f9c;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-    }
-
-    .story__year {
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: var(--navy);
-      color: var(--white);
-      font-size: 13px;
-      font-weight: 850;
-    }
-
-    .story h2 {
-      margin: 0 0 9px;
-      color: var(--navy);
-      font-size: clamp(26px, 2.4vw, 38px);
-      line-height: 1.08;
-      letter-spacing: -.025em;
-    }
-
-    .story p {
-      max-width: 950px;
-      margin: 0;
-      color: var(--muted);
-      font-size: clamp(15px, 1.25vw, 18px);
-      line-height: 1.55;
-    }
-
-    .hint {
-      margin: 17px 0 0;
-      color: #70808a;
-      font-size: 12px;
-      font-weight: 650;
-      text-align: center;
-    }
-
-    .hint::before {
-      display: inline-block;
-      width: 7px;
-      height: 7px;
-      margin: 0 8px 1px 0;
-      border-radius: 50%;
-      background: var(--cyan);
-      content: "";
-    }
-
-    @media (max-width: 900px) {
-      .timeline { padding-inline: 20px; overflow-x: auto; }
-      .track, .story, .hint { min-width: 1050px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition: none !important; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESEO — Linha do Tempo</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{
+  width:100%;height:100%;
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  background:transparent;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.hdr{
+  flex:0 0 56px;
+  display:flex;align-items:center;gap:14px;
+  padding:0 26px;
+  background:rgba(13,45,100,.6);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  z-index:10;
+}
+.hdr-logo{
+  width:36px;height:36px;background:#E30613;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;font-weight:900;color:#fff;
+  font-family:'Arial Black',Arial,sans-serif;
+  box-shadow:0 0 16px rgba(227,6,19,.4);
+}
+.hdr-brand{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.45);flex-shrink:0}
+.hdr-sep{width:1px;height:26px;background:rgba(255,255,255,.15);flex-shrink:0}
+.hdr-title{flex:1;font-size:16px;font-weight:700;color:#fff}
+.hdr-hint{font-size:12px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;flex-shrink:0}
+.wall{
+  flex:1;min-height:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:14px 18px;
+  overflow:hidden;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(3,1fr);
+  gap:12px;
+  width:100%;height:100%;
+  max-width:1060px;
+}
+.grid .card:nth-child(9)  {grid-column:1}
+.grid .card:nth-child(10) {grid-column:2}
+.grid .card:nth-child(11) {grid-column:3}
+.card{
+  perspective:1100px;
+  cursor:pointer;
+  border-radius:14px;
+  min-height:0;
+}
+.card-inner{
+  width:100%;height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .75s cubic-bezier(.4,0,.2,1);
+}
+.card.flipped .card-inner{
+  transform:rotateY(180deg);
+}
+.front,.back{
+  position:absolute;
+  inset:0;
+  width:100%;height:100%;
+  border-radius:14px;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  overflow:hidden;
+}
+.front{
+  background:#1a4f8a;
+  transition:filter .28s;
+}
+.card:hover:not(.flipped) .front{filter:brightness(1.09)}
+.front svg.geo{
+  position:absolute;
+  inset:0;width:100%;height:100%;
+  display:block;
+}
+.front .cover-content{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  z-index:2;
+  padding:12px;
+}
+/* Logo: pílula branca SEM riscos — só o texto SENAI */
+.brand-pill{
+  background:#fff;
+  border-radius:6px;
+  padding:5px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.brand-name{
+  font-size:clamp(13px,1.6vw,18px);
+  font-weight:900;color:#1a4f8a;
+  font-family:'Arial Black',Arial,sans-serif;
+  letter-spacing:.5px;line-height:1;
+}
+.cover-div{
+  width:32px;height:1.5px;
+  background:rgba(255,255,255,.3);
+  border-radius:2px;flex-shrink:0;
+}
+.f-year{
+  font-size:clamp(24px,3.2vw,44px);
+  font-weight:900;
+  font-family:'Arial Black',Arial,sans-serif;
+  color:#ffffff;
+  line-height:1;letter-spacing:-1.5px;
+  text-align:center;
+  text-shadow:0 2px 16px rgba(0,0,60,.35);
+}
+.f-hint{
+  position:absolute;
+  bottom:10px;left:0;right:0;
+  text-align:center;
+  font-size:9px;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;
+  color:rgba(255,255,255,.28);
+  z-index:2;
+  transition:color .25s;
+}
+.card:hover:not(.flipped) .f-hint{color:rgba(255,255,255,.7)}
+.back{
+  transform:rotateY(180deg);
+  background:#ffffff;
+  border:2.5px solid #1a4f8a;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:18px 16px 14px;
+  gap:6px;
+  text-align:center;
+}
+.back::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:4px;
+  border-radius:0;
+}
+.back-pioneer::before{background:linear-gradient(90deg,#1a4f8a,#5b9bd5)}
+.back-digital::before {background:linear-gradient(90deg,#1a4f8a,#E30613)}
+.back-eseo::before    {background:linear-gradient(90deg,#E30613,#1a4f8a)}
+.b-zone{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  padding:3px 11px;border-radius:20px;width:fit-content;
+}
+.back-pioneer .b-zone{background:rgba(26,79,138,.07);color:#1a4f8a;border:1px solid rgba(26,79,138,.2)}
+.back-digital  .b-zone{background:rgba(26,79,138,.07);color:#1a4f8a;border:1px solid rgba(26,79,138,.2)}
+.back-eseo     .b-zone{background:rgba(227,6,19,.06);color:#c00010;border:1px solid rgba(227,6,19,.18)}
+.b-year{
+  font-size:clamp(26px,3.2vw,46px);
+  font-weight:900;
+  font-family:'Arial Black',Arial,sans-serif;
+  line-height:1;letter-spacing:-2px;
+  color:#1a4f8a;
+}
+.back-eseo .b-year{color:#E30613}
+.b-div{
+  width:36px;height:2px;
+  background:#1a4f8a;border-radius:2px;
+  opacity:.2;flex-shrink:0;
+}
+.back-eseo .b-div{background:#E30613}
+.b-title{
+  font-size:clamp(12px,1.25vw,15px);
+  font-weight:700;color:#111827;line-height:1.3;
+}
+.b-desc{
+  font-size:clamp(10px,.95vw,12px);
+  color:#6b7280;line-height:1.72;overflow:hidden;
+}
+.ftr{
+  flex:0 0 42px;
+  display:flex;align-items:center;padding:0 26px;gap:14px;
+  background:rgba(13,45,100,.5);
+  border-top:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.fpw{flex:1;height:3px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden}
+.fp{height:100%;background:linear-gradient(90deg,#4a90d9,#1a4f8a);border-radius:2px;transition:width .5s ease}
+.f-count{font-size:12px;font-weight:700;color:rgba(255,255,255,.45);flex-shrink:0;white-space:nowrap}
+.f-reset{
+  font-size:11px;font-weight:700;color:rgba(255,255,255,.38);
+  background:none;border:1px solid rgba(255,255,255,.18);
+  padding:4px 14px;border-radius:14px;cursor:pointer;transition:all .2s;flex-shrink:0;
+}
+.f-reset:hover{color:#fff;border-color:rgba(255,255,255,.5)}
+</style>
 </head>
 <body>
-  <section class="timeline" aria-label="Linha do tempo da Escola SENAI de Educação Online">
-    <div class="track" id="track">
-      <div class="track__line" aria-hidden="true"></div>
-
-      <span class="terminal terminal--start" style="--x:1.5%;" aria-hidden="true">
-        <span class="terminal__dot"></span>
-        <span class="terminal__label">INÍCIO</span>
-      </span>
-
-      <span class="terminal terminal--end" style="--x:98.5%;" aria-hidden="true">
-        <span class="terminal__dot">→</span>
-        <span class="terminal__label">CONTINUA</span>
-      </span>
-    </div>
-
-    <article class="story" id="story" aria-live="polite">
-      <div class="story__meta">
-        <span class="story__sequence" id="storySequence">Marco 01 de 11</span>
-        <span class="story__year" id="storyYear">1979</span>
+<header class="hdr">
+  <div class="hdr-logo">S</div>
+  <span class="hdr-brand">SENAI</span>
+  <div class="hdr-sep"></div>
+  <span class="hdr-title">ESEO — Linha do Tempo</span>
+  <span class="hdr-hint">Clique nos cards para revelar</span>
+</header>
+<main class="wall">
+  <div class="grid" id="grid"></div>
+</main>
+<footer class="ftr">
+  <div class="fpw"><div class="fp" id="fp" style="width:0%"></div></div>
+  <span class="f-count" id="fcount">0 de 11 revelados</span>
+  <button class="f-reset" id="resetBtn">↺ Reiniciar</button>
+</footer>
+<script>
+function geoSVG(){
+  return `<svg class="geo" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="300" height="200" fill="#1a4f8a"/>
+    <polygon points="0,0 80,0 0,80"           fill="rgba(30,70,135,.65)"/>
+    <polygon points="300,0 220,0 300,80"      fill="rgba(12,38,90,.7)"/>
+    <polygon points="0,200 80,200 0,120"      fill="rgba(12,38,90,.65)"/>
+    <polygon points="300,200 220,200 300,120" fill="rgba(30,70,135,.6)"/>
+    <polygon points="110,0 170,0 140,38"      fill="rgba(40,85,160,.5)"/>
+    <polygon points="0,90 38,60 38,90"        fill="rgba(10,34,85,.6)"/>
+    <polygon points="300,90 262,60 262,90"    fill="rgba(40,85,160,.5)"/>
+    <polygon points="0,110 38,140 0,140"      fill="rgba(10,34,85,.55)"/>
+    <polygon points="300,110 262,140 300,140" fill="rgba(40,85,160,.5)"/>
+    <polygon points="110,200 170,200 140,162" fill="rgba(40,85,160,.5)"/>
+    <polygon points="42,78 58,100 42,122 50,122 66,100 50,78"  fill="rgba(255,255,255,.07)"/>
+    <polygon points="62,78 78,100 62,122 70,122 86,100 70,78"  fill="rgba(255,255,255,.05)"/>
+    <polygon points="214,78 230,100 214,122 222,122 238,100 222,78" fill="rgba(255,255,255,.07)"/>
+    <polygon points="234,78 250,100 234,122 242,122 258,100 242,78" fill="rgba(255,255,255,.05)"/>
+    <rect x="36"  y="22"  width="14" height="14" transform="rotate(45 43 29)"  fill="rgba(255,255,255,.07)"/>
+    <rect x="250" y="22"  width="14" height="14" transform="rotate(45 257 29)" fill="rgba(255,255,255,.07)"/>
+    <rect x="36"  y="164" width="14" height="14" transform="rotate(45 43 171)" fill="rgba(255,255,255,.07)"/>
+    <rect x="250" y="164" width="14" height="14" transform="rotate(45 257 171)" fill="rgba(255,255,255,.07)"/>
+    <rect x="124" y="5"   width="52" height="26" fill="rgba(40,85,160,.45)" rx="2"/>
+    <rect x="124" y="169" width="52" height="26" fill="rgba(40,85,160,.45)" rx="2"/>
+  </svg>`;
+}
+const EV = [
+  {n:1,  year:'1979',    title:'O Primeiro Marco',        desc:'Leitura e Interpretação de Desenho Técnico-Mecânico com módulos impressos e televisores. O ponto de partida da jornada EaD do SENAI.', era:'pioneer'},
+  {n:2,  year:'1990',    title:'Modelo Híbrido',          desc:'Consolidação do catálogo com materiais impressos e videoaulas, ampliando o alcance da educação profissional para além das escolas físicas.', era:'pioneer'},
+  {n:3,  year:'1995',    title:'Telecurso 2000',          desc:'SENAI-SP participa do Telecurso 2000 Profissionalizante em Mecânica — EaD com alcance nacional e impacto transformador.', era:'pioneer'},
+  {n:4,  year:'2007',    title:'Nasce o Centro de EaD',   desc:'Criação do grupo que originou o Centro SENAI de Educação a Distância — início formal da era digital.', era:'pioneer'},
+  {n:5,  year:'2010',    title:'Pioneirismo no Superior', desc:'Tecnologia de Produção Gráfica oferta UC a distância — primeiro modelo híbrido na graduação SENAI-SP.', era:'digital'},
+  {n:6,  year:'2010–17', title:'Era da Escala',           desc:'O SENAI-SP alcança 1,5 milhão de alunos em cursos a distância. A cultura digital consolida-se em todo o estado.', era:'digital'},
+  {n:7,  year:'2017',    title:'Técnico Semipresencial',  desc:'Primeiro técnico semipresencial em Santos, expandindo para 7 cursos e 19 turmas em São Paulo.', era:'digital'},
+  {n:8,  year:'2019',    title:'Pós-graduação',           desc:'Especialização em Inovação e Competitividade Industrial — o EaD chega ao ensino de pós-graduação do SENAI-SP.', era:'digital'},
+  {n:9,  year:'2020',    title:'Aceleração Digital',      desc:'Mais de 800 mil matrículas online. O SENAI-SP lidera a resposta educacional à pandemia com excelência e escala.', era:'eseo'},
+  {n:10, year:'2022',    title:'Nasce a ESEO',            desc:'Escola SENAI de Educação Online — nome oficial que consolida décadas de inovação e posiciona o SENAI-SP como referência nacional.', era:'eseo'},
+  {n:11, year:'2025',    title:'Novo Marco Regulatório',  desc:'Decreto nº 12.456/2025 — redefine padrões de qualidade, presencialidade e infraestrutura. A ESEO pronta para o futuro.', era:'eseo'},
+];
+const ZONE = {pioneer:'🕰️ Era Pioneira', digital:'💻 Era Digital', eseo:'🚀 Era ESEO'};
+let flipped = 0;
+const grid = document.getElementById('grid');
+const fpEl = document.getElementById('fp');
+const fcEl = document.getElementById('fcount');
+EV.forEach(ev => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="card-inner">
+      <div class="front">
+        ${geoSVG()}
+        <div class="cover-content">
+          <div class="brand-pill">
+            <span class="brand-name">SENAI</span>
+          </div>
+          <div class="cover-div"></div>
+          <div class="f-year">${ev.year}</div>
+        </div>
+        <div class="f-hint">Clique para revelar</div>
       </div>
-      <h2 id="storyTitle">O primeiro marco: Desenho Técnico-Mecânico</h2>
-      <p id="storyDescription">Lançamento do curso de Leitura e Interpretação de Desenho Técnico-Mecânico, combinando módulos impressos com salas equipadas com televisores.</p>
-    </article>
-
-    <p class="hint">Passe o cursor pelas datas, clique ou use as setas do teclado.</p>
-  </section>
-
-  <script>
-    (function () {
-      const events = [
-        ["1979", "O primeiro marco: Desenho Técnico-Mecânico", "Lançamento do curso de Leitura e Interpretação de Desenho Técnico-Mecânico, combinando módulos impressos com salas equipadas com televisores."],
-        ["1990", "Expansão do modelo híbrido", "Consolidação do catálogo e expansão do modelo baseado em materiais impressos e videoaulas."],
-        ["1995", "A era do Telecurso 2000", "O SENAI-SP participa do desenvolvimento do Telecurso 2000 Profissionalizante em Mecânica, experiência marcante da Educação a Distância."],
-        ["2007", "Nascimento do Centro de EaD", "Criação do grupo que daria origem ao Centro SENAI de Educação a Distância e início da transição para recursos digitais."],
-        ["2010", "Pioneirismo no ensino superior", "O curso de Tecnologia de Produção Gráfica passa a ofertar unidades curriculares a distância, introduzindo o modelo híbrido na graduação."],
-        ["2010–2017", "A virada digital e a escala", "A cultura digital se consolida e o SENAI-SP alcança 1,5 milhão de alunos em cursos a distância ao longo de pouco mais de dez anos."],
-        ["2017", "Primeiro curso técnico semipresencial", "A primeira oferta é implantada em Santos e rapidamente se expande para sete cursos e 19 turmas."],
-        ["2019", "Expansão para a pós-graduação", "A especialização em Inovação e Competitividade Industrial abre caminho para novas ofertas digitais no ensino superior."],
-        ["2020", "Aceleração durante a pandemia", "O SENAI-SP amplia rapidamente as soluções online e registra mais de 800 mil matrículas em diferentes tipos de cursos."],
-        ["2022", "Consolidação da ESEO", "A estrutura de EaD passa a ser oficialmente nomeada Escola SENAI de Educação Online e amplia sua atuação em soluções educacionais digitais."],
-        ["2025", "Novo marco regulatório", "O Decreto nº 12.456/2025 redefine formatos, exigências presenciais, infraestrutura e critérios de qualidade no Ensino Superior."]
-      ];
-
-      const track = document.getElementById("track");
-      const sequence = document.getElementById("storySequence");
-      const year = document.getElementById("storyYear");
-      const title = document.getElementById("storyTitle");
-      const description = document.getElementById("storyDescription");
-      let activeIndex = 0;
-
-      events.forEach(function (event, index) {
-        const point = document.createElement("button");
-        /*
-          INÍCIO + 11 marcos + CONTINUA = 13 posições.
-          Cada item ocupa exatamente um dos 12 intervalos iguais da linha.
-        */
-        const first = 1.5;
-        const last = 98.5;
-        const interval = (last - first) / (events.length + 1);
-        const x = first + (interval * (index + 1));
-        point.className = "point" + (index === 0 ? " is-active" : "");
-        point.type = "button";
-        point.style.setProperty("--x", x + "%");
-        point.dataset.index = index;
-        point.setAttribute("aria-label", event[0] + ": " + event[1]);
-        point.setAttribute("aria-pressed", index === 0 ? "true" : "false");
-        point.innerHTML =
-          '<span class="point__dot" aria-hidden="true"></span>' +
-          '<span class="point__year">' + event[0] + '</span>';
-        track.appendChild(point);
-      });
-
-      const points = [...track.querySelectorAll(".point")];
-
-      function activate(index, focus) {
-        activeIndex = (index + events.length) % events.length;
-        const event = events[activeIndex];
-
-        points.forEach(function (point, pointIndex) {
-          const active = pointIndex === activeIndex;
-          point.classList.toggle("is-active", active);
-          point.setAttribute("aria-pressed", active ? "true" : "false");
-        });
-
-        sequence.textContent = "Marco " + String(activeIndex + 1).padStart(2, "0") + " de " + events.length;
-        year.textContent = event[0];
-        title.textContent = event[1];
-        description.textContent = event[2];
-        if (focus) points[activeIndex].focus();
-      }
-
-      points.forEach(function (point, index) {
-        point.addEventListener("mouseenter", function () { activate(index, false); });
-        point.addEventListener("focus", function () { activate(index, false); });
-        point.addEventListener("click", function () { activate(index, true); });
-      });
-
-      track.addEventListener("keydown", function (event) {
-        if (event.key === "ArrowRight") {
-          event.preventDefault();
-          activate(activeIndex + 1, true);
-        }
-        if (event.key === "ArrowLeft") {
-          event.preventDefault();
-          activate(activeIndex - 1, true);
-        }
-        if (event.key === "Home") {
-          event.preventDefault();
-          activate(0, true);
-        }
-        if (event.key === "End") {
-          event.preventDefault();
-          activate(events.length - 1, true);
-        }
-      });
-    })();
-  </script>
+      <div class="back back-${ev.era}">
+        <div class="b-zone">${ZONE[ev.era]}</div>
+        <div class="b-year">${ev.year}</div>
+        <div class="b-div"></div>
+        <div class="b-title">${ev.title}</div>
+        <div class="b-desc">${ev.desc}</div>
+      </div>
+    </div>`;
+  card.addEventListener('click', () => {
+    if (card.classList.contains('flipped')) return;
+    card.classList.add('flipped');
+    flipped++;
+    fpEl.style.width = (flipped / EV.length * 100) + '%';
+    fcEl.textContent = flipped === EV.length
+      ? '✅ Todos os marcos revelados!'
+      : `${flipped} de ${EV.length} revelados`;
+  });
+  grid.appendChild(card);
+});
+document.getElementById('resetBtn').addEventListener('click', () => {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('flipped'));
+  flipped = 0;
+  fpEl.style.width = '0%';
+  fcEl.textContent = '0 de 11 revelados';
+});
+</script>
 </body>
 </html>
