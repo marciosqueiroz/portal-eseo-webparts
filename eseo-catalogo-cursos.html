@@ -469,12 +469,120 @@
   .course-hours-title{font-size:.72em}
 }
 
+/* V62 — ações compactas, ordenação bidirecional e ajuda contextual. */
+.search-panel{overflow:visible}
+.search-row{
+  grid-template-columns:minmax(300px,1.55fr) 48px minmax(150px,.58fr) minmax(245px,.82fr);
+  gap:10px;
+}
+.filters{
+  grid-template-columns:repeat(5,minmax(120px,1fr)) minmax(104px,.42fr);
+}
+.filter-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+}
+.filter-actions .reset-button,
+.filter-actions .show-all-courses{width:48px;padding:0}
+.icon-action{
+  position:relative;
+  display:inline-grid;
+  width:48px;
+  min-width:48px;
+  height:48px;
+  min-height:48px;
+  place-items:center;
+  padding:0;
+  border:1px solid #cbd8df;
+  border-radius:13px;
+  background:#fff;
+  color:var(--navy);
+  cursor:pointer;
+  transition:border-color .18s ease,background .18s ease,color .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.icon-action svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+.icon-action:hover{
+  border-color:var(--teal);
+  background:#f3f8f8;
+  transform:translateY(-1px);
+  box-shadow:0 7px 18px rgba(11,53,88,.10);
+}
+.icon-action:focus-visible{outline:3px solid rgba(0,125,120,.22);outline-offset:2px}
+.icon-action::after{
+  content:attr(data-tooltip);
+  position:absolute;
+  z-index:40;
+  left:50%;
+  bottom:calc(100% + 9px);
+  max-width:230px;
+  padding:7px 9px;
+  border-radius:8px;
+  background:#092f4d;
+  color:#fff;
+  font-size:11px;
+  font-weight:750;
+  line-height:1.25;
+  text-align:center;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transform:translate(-50%,4px);
+  transition:opacity .16s ease,transform .16s ease;
+}
+.icon-action:hover::after,.icon-action:focus-visible::after{opacity:1;transform:translate(-50%,0)}
+.favorites-toggle.favorite-action{
+  min-width:48px;
+  min-height:48px;
+  padding:0;
+  border:1px solid #cbd8df;
+  background:#fff;
+}
+.favorites-toggle.favorite-action.active{
+  border-color:#e30613;
+  background:#e30613;
+  color:#fff;
+  box-shadow:0 7px 18px rgba(227,6,19,.17);
+}
+.favorite-action.active svg{fill:currentColor}
+.sort-group{min-width:0}
+.sort-control{display:flex;align-items:center;gap:7px}
+.sort-control .toolbar-select{min-width:0;flex:1}
+.sort-direction svg{transition:transform .2s ease}
+.sort-direction.is-desc svg{transform:rotate(180deg)}
+.filter-actions .show-all-courses{
+  border-color:var(--navy);
+  background:var(--navy);
+  color:#fff;
+}
+.filter-actions .show-all-courses:hover{border-color:#164e78;background:#164e78}
+.filter-actions .icon-action::after{right:0;left:auto;transform:translateY(4px)}
+.filter-actions .icon-action:hover::after,.filter-actions .icon-action:focus-visible::after{transform:translateY(0)}
+@media(max-width:1080px){
+  .search-row{grid-template-columns:minmax(280px,1fr) 48px minmax(180px,.7fr) minmax(245px,.9fr)}
+  .filters{grid-template-columns:repeat(3,minmax(140px,1fr))}
+  .filter-actions{grid-column:auto}
+}
+@media(max-width:860px){
+  .search-row{grid-template-columns:minmax(0,1fr) 48px}
+  .search-row>.toolbar-group{grid-column:span 1}
+  .filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .filter-actions{grid-column:1/-1;justify-content:flex-end}
+}
+@media(max-width:520px){
+  .search-row{grid-template-columns:minmax(0,1fr) 48px}
+  .search-row>.toolbar-group{grid-column:1/-1}
+  .filters{grid-template-columns:1fr}
+  .filter-actions{grid-column:auto}
+  .icon-action::after{display:none}
+}
+
 </style>
 </head>
 <body>
 <main class="app">
 <section class="hero"><div><p class="eyebrow">Portal ESEO</p><h1>Portfólio de cursos</h1></div><div><div class="metrics"><article class="metric"><span class="metric-label">Cursos cadastrados</span><strong class="metric-value" id="metricTotal">0</strong></article><article class="metric"><span class="metric-label">Resultados encontrados</span><strong class="metric-value" id="metricFound">0</strong></article><article class="metric"><span class="metric-label">Níveis disponíveis</span><strong class="metric-value" id="metricLevels">0</strong></article><article class="metric"><span class="metric-label">Áreas tecnológicas</span><strong class="metric-value" id="metricAreas">0</strong></article></div><p class="metrics-note">* Resultados, níveis e áreas são atualizados conforme a pesquisa e os filtros.</p></div></section>
-<section class="workspace"><p class="search-guidance">Consulte as ofertas EAD disponíveis e identifique a solução mais adequada para sua escola.</p><div class="search-panel"><div class="search-row"><div class="search-wrap"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.7"></circle><path d="m15.5 15.5 5 5"></path></svg><input id="searchInput" class="search-input" type="text" autocomplete="off" placeholder="Nome ou código SGSET"><button id="clearSearch" class="clear-search" type="button" aria-label="Limpar pesquisa">×</button></div><button id="favoritesToggle" class="favorites-toggle" type="button" aria-pressed="false">☆ Favoritos desta sessão</button><label class="toolbar-group"><span>Disponibilidade</span><select id="availabilityFilter" class="toolbar-select"><option value="">Todos</option><option value="ready">Pronto para ofertar</option><option value="consultation">Sob consulta</option></select></label><label class="toolbar-group"><span>Ordenação</span><select id="sortSelect" class="toolbar-select"><option value="codeAsc">Código SGSET crescente</option><option value="az">Ordem alfabética</option><option value="hoursAsc">Menor carga horária</option><option value="hoursDesc">Maior carga horária</option></select></label></div><div class="filters"><label class="filter-group"><span>Nível</span><select id="levelFilter" class="filter-select"></select></label><label class="filter-group"><span>Área</span><select id="areaFilter" class="filter-select"></select></label><label class="filter-group"><span>Estratégia</span><select id="formatFilter" class="filter-select"></select></label><label class="filter-group"><span>Modelo</span><select id="modelFilter" class="filter-select"></select></label><label class="filter-group"><span>Carga horária</span><select id="hoursFilter" class="filter-select"><option value="">Qualquer duração</option><option value="short">Até 20 h</option><option value="medium">21 a 200 h</option><option value="long">Acima de 200 h</option></select></label><div class="filter-actions"><button id="resetFilters" class="reset-button" type="button">Limpar filtros</button><button id="showAllCourses" class="show-all-courses" type="button">Ver todos os cursos</button></div></div></div><div class="results-toolbar"><div><h2 class="results-title">Cursos encontrados</h2><div id="resultsCount" class="results-count">0 cursos no portfólio</div></div></div><div id="courseGrid" class="course-grid"></div><div id="emptyState" class="empty-state"><strong>Nenhum curso apareceu.</strong><span>Tente remover um filtro ou pesquisar com uma palavra mais ampla.</span></div><div id="loadMoreWrap" class="load-more-wrap"><button id="loadMore" class="load-more" type="button">Exibir mais cursos</button></div></section>
+<section class="workspace"><p class="search-guidance">Consulte as ofertas EAD disponíveis e identifique a solução mais adequada para sua escola.</p><div class="search-panel"><div class="search-row"><div class="search-wrap"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.7"></circle><path d="m15.5 15.5 5 5"></path></svg><input id="searchInput" class="search-input" type="text" autocomplete="off" placeholder="Nome ou código SGSET"><button id="clearSearch" class="clear-search" type="button" aria-label="Limpar pesquisa">×</button></div><button id="favoritesToggle" class="favorites-toggle favorite-action icon-action" type="button" aria-pressed="false" aria-label="Mostrar apenas favoritos" title="Favoritos" data-tooltip="Mostrar apenas favoritos"><svg viewBox="0 0 24 24" stroke-width="1.9" aria-hidden="true"><path d="m12 3 2.8 5.67 6.26.91-4.53 4.42 1.07 6.24L12 17.3l-5.6 2.94L7.47 14 2.94 9.58l6.26-.91L12 3Z"></path></svg></button><label class="toolbar-group"><span>Disponibilidade</span><select id="availabilityFilter" class="toolbar-select"><option value="">Todos</option><option value="ready">Pronto para ofertar</option><option value="consultation">Sob consulta</option></select></label><div class="toolbar-group sort-group"><span>Ordenação</span><div class="sort-control"><select id="sortSelect" class="toolbar-select" aria-label="Critério de ordenação"><option value="code">Código SGSET</option><option value="title">Nome do curso</option><option value="hours">Carga horária</option></select><button id="sortDirection" class="sort-direction icon-action" type="button" aria-label="Ordem crescente; clique para usar decrescente" title="Alternar direção da ordenação" data-tooltip="Ordem crescente"><svg viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path d="M12 19V5"></path><path d="m6 11 6-6 6 6"></path></svg></button></div></div></div><div class="filters"><label class="filter-group"><span>Nível</span><select id="levelFilter" class="filter-select"></select></label><label class="filter-group"><span>Área</span><select id="areaFilter" class="filter-select"></select></label><label class="filter-group"><span>Estratégia</span><select id="formatFilter" class="filter-select"></select></label><label class="filter-group"><span>Modelo</span><select id="modelFilter" class="filter-select"></select></label><label class="filter-group"><span>Carga horária</span><select id="hoursFilter" class="filter-select"><option value="">Qualquer duração</option><option value="short">Até 20 h</option><option value="medium">21 a 200 h</option><option value="long">Acima de 200 h</option></select></label><div class="filter-actions"><button id="resetFilters" class="reset-button icon-action" type="button" aria-label="Limpar pesquisa e filtros" title="Limpar pesquisa e filtros" data-tooltip="Limpar pesquisa e filtros"><svg viewBox="0 0 24 24" stroke-width="1.9" aria-hidden="true"><path d="M21 3 10.5 13.5"></path><path d="m8.5 12 3.5 3.5"></path><path d="M7.2 13.3 11 17.1 7.1 21H3v-4.1l4.2-3.6Z"></path><path d="M4.6 18.2h4.6"></path></svg></button><button id="showAllCourses" class="show-all-courses icon-action" type="button" aria-label="Ver todos os 158 cursos" title="Ver todos os cursos" data-tooltip="Ver todos os 158 cursos"><svg viewBox="0 0 24 24" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg></button></div></div></div><div class="results-toolbar"><div><h2 class="results-title">Cursos encontrados</h2><div id="resultsCount" class="results-count">0 cursos no portfólio</div></div></div><div id="courseGrid" class="course-grid"></div><div id="emptyState" class="empty-state"><strong>Nenhum curso apareceu.</strong><span>Tente remover um filtro ou pesquisar com uma palavra mais ampla.</span></div><div id="loadMoreWrap" class="load-more-wrap"><button id="loadMore" class="load-more" type="button">Exibir mais cursos</button></div></section>
 </main>
 <nav class="catalog-direct-bar" aria-label="Atalhos do Portfólio ESEO">
   <a class="catalog-direct-link catalog-direct-link--compass" href="https://marciosqueiroz.github.io/portal-eseo-webparts/bussola-ead.html" target="_top">
@@ -763,7 +871,7 @@ function directCourseReference(){
   return '';
 }
 function favoriteKey(c){return favoriteCourseCode(c)}
-const state={search:'',level:'',area:'',format:'',model:'',hours:'',availability:'',sort:'codeAsc',favoritesOnly:false,showAll:false,visible:PAGE_SIZE,favorites:new Set(loadFavorites())};
+const state={search:'',level:'',area:'',format:'',model:'',hours:'',availability:'',sort:'code',sortDirection:'asc',favoritesOnly:false,showAll:false,visible:PAGE_SIZE,favorites:new Set(loadFavorites())};
 function requestParentFavorites(){
   if(!IS_EMBEDDED) return;
   try{window.parent.postMessage({type:'ESEO_PORTFOLIO_FAVORITES_REQUEST'},'*')}catch(_){}
@@ -781,12 +889,12 @@ window.addEventListener('message',event=>{
     }
   }
 });
-const $=id=>document.getElementById(id);const elements={search:$('searchInput'),clear:$('clearSearch'),favorites:$('favoritesToggle'),showAll:$('showAllCourses'),level:$('levelFilter'),area:$('areaFilter'),format:$('formatFilter'),model:$('modelFilter'),hours:$('hoursFilter'),availability:$('availabilityFilter'),sort:$('sortSelect'),reset:$('resetFilters'),grid:$('courseGrid'),empty:$('emptyState'),count:$('resultsCount'),loadMoreWrap:$('loadMoreWrap'),loadMore:$('loadMore'),metricTotal:$('metricTotal'),metricFound:$('metricFound'),metricLevels:$('metricLevels'),metricAreas:$('metricAreas')};
+const $=id=>document.getElementById(id);const elements={search:$('searchInput'),clear:$('clearSearch'),favorites:$('favoritesToggle'),showAll:$('showAllCourses'),level:$('levelFilter'),area:$('areaFilter'),format:$('formatFilter'),model:$('modelFilter'),hours:$('hoursFilter'),availability:$('availabilityFilter'),sort:$('sortSelect'),sortDirection:$('sortDirection'),reset:$('resetFilters'),grid:$('courseGrid'),empty:$('emptyState'),count:$('resultsCount'),loadMoreWrap:$('loadMoreWrap'),loadMore:$('loadMore'),metricTotal:$('metricTotal'),metricFound:$('metricFound'),metricLevels:$('metricLevels'),metricAreas:$('metricAreas')};
 function normalize(v){return String(v||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().trim()}function esc(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 function availability(c){return normalize(c.offerStatus).includes('pronto')?{key:'ready',label:'Pronto para ofertar'}:{key:'consultation',label:'Sob consulta'}}
 function areaText(c){const a=String(c.area||'').trim(),s=String(c.segment||'').trim();if(!a)return s;if(!s)return a;const na=normalize(a),ns=normalize(s);if(na===ns||na.endsWith(' '+ns)||ns.endsWith(' '+na))return a.length>=s.length?a:s;return a+' · '+s}
 function totalHours(c){const n=Number(c.hours);return Number.isFinite(n)?n:null}function hasSelection(){return Boolean(state.showAll||state.search||state.level||state.area||state.format||state.model||state.hours||state.availability||state.favoritesOnly)}function matchesHours(c){const h=totalHours(c);if(!state.hours)return true;if(h===null)return false;if(state.hours==='short')return h<=20;if(state.hours==='medium')return h>=21&&h<=200;if(state.hours==='long')return h>200;return true}
-function filteredCourses(){if(!hasSelection())return[];const raw=String(state.search||'').trim(),q=normalize(raw),numeric=/^\d+$/.test(raw);const r=COURSES.filter(c=>{const code=normalize(c.courseCode),hay=normalize([c.title,c.level,c.catalogGroup,c.searchAliases,c.area,c.segment,c.format,c.model,c.description].join(' '));const qm=!q||(numeric?(code===q||code.startsWith(q)):(hay.includes(q)||code.includes(q)));return qm&&(!state.level||c.level===state.level)&&(!state.area||c.area===state.area)&&(!state.format||c.format===state.format)&&(!state.model||c.model===state.model)&&(!state.availability||availability(c).key===state.availability)&&matchesHours(c)&&(!state.favoritesOnly||state.favorites.has(favoriteKey(c)))});if(state.sort==='az')r.sort((a,b)=>a.title.localeCompare(b.title,'pt-BR'));else if(state.sort==='hoursAsc')r.sort((a,b)=>(totalHours(a)??999999)-(totalHours(b)??999999));else if(state.sort==='hoursDesc')r.sort((a,b)=>(totalHours(b)??-1)-(totalHours(a)??-1));else r.sort((a,b)=>String(a.courseCode||a.code||'').localeCompare(String(b.courseCode||b.code||''),'pt-BR',{numeric:true}));return r}
+function filteredCourses(){if(!hasSelection())return[];const raw=String(state.search||'').trim(),q=normalize(raw),numeric=/^\d+$/.test(raw);const r=COURSES.filter(c=>{const code=normalize(c.courseCode),hay=normalize([c.title,c.level,c.catalogGroup,c.searchAliases,c.area,c.segment,c.format,c.model,c.description].join(' '));const qm=!q||(numeric?(code===q||code.startsWith(q)):(hay.includes(q)||code.includes(q)));return qm&&(!state.level||c.level===state.level)&&(!state.area||c.area===state.area)&&(!state.format||c.format===state.format)&&(!state.model||c.model===state.model)&&(!state.availability||availability(c).key===state.availability)&&matchesHours(c)&&(!state.favoritesOnly||state.favorites.has(favoriteKey(c)))});const direction=state.sortDirection==='desc'?-1:1;if(state.sort==='title')r.sort((a,b)=>direction*a.title.localeCompare(b.title,'pt-BR'));else if(state.sort==='hours')r.sort((a,b)=>{const ah=totalHours(a),bh=totalHours(b);if(ah===null&&bh===null)return 0;if(ah===null)return 1;if(bh===null)return -1;return direction*(ah-bh)});else r.sort((a,b)=>direction*String(a.courseCode||a.code||'').localeCompare(String(b.courseCode||b.code||''),'pt-BR',{numeric:true}));return r}
 function fill(select,values,label){select.innerHTML='<option value="">'+label+'</option>'+[...new Set(values.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR')).map(v=>'<option>'+esc(v)+'</option>').join('')}function payload(c){return{...c,courseCode:c.courseCode||c.code||'',areaText:areaText(c)}}function notify(type,c,anchor){
   if(type==='ESEO_SHOW_COURSE_DETAILS'){
     if(!IS_EMBEDDED){
@@ -826,7 +934,14 @@ function render(){
   elements.count.textContent=result.length+' curso'+(result.length===1?'':'s')+' no portfólio';
   elements.favorites.classList.toggle('active',state.favoritesOnly);
   elements.favorites.setAttribute('aria-pressed',String(state.favoritesOnly));
-  elements.favorites.textContent=state.favoritesOnly?'★ Favoritos desta sessão':'☆ Favoritos desta sessão';
+  const favoriteLabel=state.favoritesOnly?'Exibindo apenas favoritos; clique para mostrar todos':'Mostrar apenas favoritos';
+  elements.favorites.setAttribute('aria-label',favoriteLabel);
+  elements.favorites.dataset.tooltip=state.favoritesOnly?'Somente favoritos':'Mostrar apenas favoritos';
+  const descending=state.sortDirection==='desc';
+  elements.sortDirection.classList.toggle('is-desc',descending);
+  elements.sortDirection.setAttribute('aria-pressed',String(descending));
+  elements.sortDirection.setAttribute('aria-label',descending?'Ordem decrescente; clique para usar crescente':'Ordem crescente; clique para usar decrescente');
+  elements.sortDirection.dataset.tooltip=descending?'Ordem decrescente':'Ordem crescente';
   elements.grid.innerHTML=visible.map(c=>{
     const st=availability(c);
     const fav=state.favorites.has(favoriteKey(c));
@@ -871,8 +986,8 @@ function render(){
   });
   requestAnimationFrame(sendHeight);
 }
-function clearPortfolioFilters(showAll=false){state.search=state.level=state.area=state.format=state.model=state.hours=state.availability='';state.sort='codeAsc';state.favoritesOnly=false;state.showAll=showAll;state.visible=showAll?COURSES.length:PAGE_SIZE;elements.search.value='';[elements.level,elements.area,elements.format,elements.model,elements.hours,elements.availability].forEach(e=>e.value='');elements.sort.value='codeAsc';render()}
-function bind(){elements.search.oninput=()=>{state.showAll=false;state.search=elements.search.value;state.visible=PAGE_SIZE;render()};elements.clear.onclick=()=>{state.showAll=false;elements.search.value='';state.search='';state.visible=PAGE_SIZE;render();elements.search.focus()};elements.favorites.onclick=()=>{state.showAll=false;state.favoritesOnly=!state.favoritesOnly;state.visible=PAGE_SIZE;render()};[['level',elements.level],['area',elements.area],['format',elements.format],['model',elements.model],['hours',elements.hours],['availability',elements.availability]].forEach(([k,e])=>e.onchange=()=>{state.showAll=false;state[k]=e.value;state.visible=PAGE_SIZE;render()});elements.sort.onchange=()=>{state.sort=elements.sort.value;if(!state.search&&!state.level&&!state.area&&!state.format&&!state.model&&!state.hours&&!state.availability&&!state.favoritesOnly)state.showAll=true;state.visible=state.showAll?COURSES.length:PAGE_SIZE;render()};elements.reset.onclick=()=>clearPortfolioFilters(false);elements.showAll.onclick=()=>clearPortfolioFilters(true);elements.loadMore.onclick=()=>{state.visible+=PAGE_SIZE;render()};window.addEventListener('resize',()=>requestAnimationFrame(sendHeight))}
+function clearPortfolioFilters(showAll=false){state.search=state.level=state.area=state.format=state.model=state.hours=state.availability='';state.sort='code';state.sortDirection='asc';state.favoritesOnly=false;state.showAll=showAll;state.visible=showAll?COURSES.length:PAGE_SIZE;elements.search.value='';[elements.level,elements.area,elements.format,elements.model,elements.hours,elements.availability].forEach(e=>e.value='');elements.sort.value='code';render()}
+function bind(){elements.search.oninput=()=>{state.showAll=false;state.search=elements.search.value;state.visible=PAGE_SIZE;render()};elements.clear.onclick=()=>{state.showAll=false;elements.search.value='';state.search='';state.visible=PAGE_SIZE;render();elements.search.focus()};elements.favorites.onclick=()=>{state.showAll=false;state.favoritesOnly=!state.favoritesOnly;state.visible=PAGE_SIZE;render()};[['level',elements.level],['area',elements.area],['format',elements.format],['model',elements.model],['hours',elements.hours],['availability',elements.availability]].forEach(([k,e])=>e.onchange=()=>{state.showAll=false;state[k]=e.value;state.visible=PAGE_SIZE;render()});elements.sort.onchange=()=>{state.sort=elements.sort.value;if(!state.search&&!state.level&&!state.area&&!state.format&&!state.model&&!state.hours&&!state.availability&&!state.favoritesOnly)state.showAll=true;state.visible=state.showAll?COURSES.length:PAGE_SIZE;render()};elements.sortDirection.onclick=()=>{state.sortDirection=state.sortDirection==='asc'?'desc':'asc';if(!state.search&&!state.level&&!state.area&&!state.format&&!state.model&&!state.hours&&!state.availability&&!state.favoritesOnly)state.showAll=true;state.visible=state.showAll?COURSES.length:PAGE_SIZE;render()};elements.reset.onclick=()=>clearPortfolioFilters(false);elements.showAll.onclick=()=>clearPortfolioFilters(true);elements.loadMore.onclick=()=>{state.visible+=PAGE_SIZE;render()};window.addEventListener('resize',()=>requestAnimationFrame(sendHeight))}
 function openCourseFromLink(){
   const reference=directCourseReference();
   if(!reference) return;
