@@ -3,308 +3,552 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ESEO — Linha do Tempo</title>
+<title>ESEO — Nossa Jornada</title>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html,body{
-  width:100%;height:100%;
+html,body{width:100%;height:100%;overflow:hidden;
   font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
-  background:transparent;
-  overflow:hidden;
-  display:flex;flex-direction:column;
+  background:#f7f8fc;
 }
-.hdr{
-  flex:0 0 56px;
-  display:flex;align-items:center;gap:14px;
-  padding:0 26px;
-  background:rgba(13,45,100,.6);
-  border-bottom:1px solid rgba(255,255,255,.12);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  z-index:10;
-}
-.hdr-logo{
-  width:36px;height:36px;background:#E30613;border-radius:8px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:17px;font-weight:900;color:#fff;
-  font-family:'Arial Black',Arial,sans-serif;
-  box-shadow:0 0 16px rgba(227,6,19,.4);
-}
-.hdr-brand{font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.45);flex-shrink:0}
-.hdr-sep{width:1px;height:26px;background:rgba(255,255,255,.15);flex-shrink:0}
-.hdr-title{flex:1;font-size:16px;font-weight:700;color:#fff}
-.hdr-hint{font-size:12px;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);padding:5px 14px;border-radius:20px;flex-shrink:0}
-.wall{
-  flex:1;min-height:0;
-  display:flex;align-items:center;justify-content:center;
-  padding:14px 18px;
-  overflow:hidden;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  grid-template-rows:repeat(3,1fr);
-  gap:12px;
+
+/* ════════════════════════════════════════
+   LAYOUT PRINCIPAL — split left/right
+════════════════════════════════════════ */
+.wrap{
   width:100%;height:100%;
-  max-width:1060px;
+  display:flex;
 }
-.grid .card:nth-child(9)  {grid-column:1}
-.grid .card:nth-child(10) {grid-column:2}
-.grid .card:nth-child(11) {grid-column:3}
-.card{
-  perspective:1100px;
-  cursor:pointer;
-  border-radius:14px;
-  min-height:0;
-}
-.card-inner{
-  width:100%;height:100%;
+
+/* ════ PAINEL ESQUERDO ════ */
+.left{
+  flex:0 0 38%;
   position:relative;
-  transform-style:preserve-3d;
-  transition:transform .75s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  transition:background 1s ease;
+  background:#1a4f8a;
 }
-.card.flipped .card-inner{
-  transform:rotateY(180deg);
+
+/* Canvas de formas geométricas no painel esq */
+#geoCanvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;opacity:.18;
 }
-.front,.back{
-  position:absolute;
-  inset:0;
-  width:100%;height:100%;
-  border-radius:14px;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
+
+/* Logo topo */
+.left-logo{
+  position:relative;z-index:2;
+  padding:22px 28px;
+  display:flex;align-items:center;gap:10px;
+  flex-shrink:0;
+}
+.logo-box{
+  width:32px;height:32px;background:#E30613;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:900;color:#fff;
+  font-family:'Arial Black',Arial,sans-serif;
+  flex-shrink:0;
+}
+.logo-text{
+  font-size:11px;font-weight:800;letter-spacing:3px;
+  text-transform:uppercase;color:rgba(255,255,255,.5);
+}
+
+/* Conteúdo central esquerdo */
+.left-center{
+  flex:1;display:flex;flex-direction:column;
+  align-items:flex-start;justify-content:center;
+  padding:0 36px 0 36px;
+  position:relative;z-index:2;
+}
+
+/* ERA badge */
+.left-era{
+  font-size:11px;font-weight:800;
+  letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+  margin-bottom:14px;
+  transition:color .8s;
+}
+
+/* ANO — elemento hero */
+.left-year{
+  font-size:clamp(72px,10vw,130px);
+  font-weight:900;
+  font-family:'Arial Black',Arial,sans-serif;
+  color:#fff;
+  line-height:.92;
+  letter-spacing:-5px;
+  margin-bottom:22px;
+  position:relative;
   overflow:hidden;
 }
-.front{
-  background:#1a4f8a;
-  transition:filter .28s;
-}
-.card:hover:not(.flipped) .front{filter:brightness(1.09)}
-.front svg.geo{
-  position:absolute;
-  inset:0;width:100%;height:100%;
+/* clip-reveal do ano */
+.left-year span{
   display:block;
+  transform:translateY(110%);
+  transition:transform .7s cubic-bezier(.22,1,.36,1);
 }
-.front .cover-content{
+.left-year.visible span{transform:translateY(0)}
+
+/* Barra decorativa */
+.left-bar{
+  width:48px;height:3px;border-radius:2px;
+  background:rgba(255,255,255,.35);
+  transition:background 1s;
+}
+
+/* Número do total */
+.left-count{
+  margin-top:auto;
+  padding-bottom:28px;
+  font-size:11px;color:rgba(255,255,255,.28);
+  font-weight:600;letter-spacing:1px;
+}
+
+/* ════ DOTS DE PROGRESSO — dentro do painel esquerdo, canto direito ════ */
+.dots-bar{
+  position:absolute;right:14px;top:0;bottom:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:10px;
+  z-index:10;
+  padding:80px 0;
+}
+.vdot{
+  width:4px;height:4px;border-radius:50%;
+  background:rgba(255,255,255,.25);
+  cursor:pointer;
+  transition:all .35s;
+  flex-shrink:0;
+}
+.vdot.past{background:rgba(255,255,255,.55)}
+.vdot.active{
+  width:4px;height:22px;
+  border-radius:3px;
+  background:#fff;
+  box-shadow:0 0 8px rgba(255,255,255,.5);
+}
+
+/* ════ PAINEL DIREITO ════ */
+.right{
+  flex:1;
+  position:relative;
+  display:flex;flex-direction:column;
+  background:#f7f8fc;
+  overflow:hidden;
+}
+
+/* Textura geométrica suave no fundo direito */
+.right::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    radial-gradient(rgba(26,79,138,.04) 1px, transparent 1px);
+  background-size:28px 28px;
+  pointer-events:none;
+}
+
+/* Topo direito — intro + progresso */
+.right-top{
+  flex-shrink:0;
+  padding:22px 48px 0;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.intro-label{
+  display:flex;flex-direction:column;gap:3px;
+}
+.intro-main{
+  font-size:14px;font-weight:700;color:#111827;letter-spacing:.2px;
+}
+.intro-sub{
+  font-size:12px;color:#9ca3af;
+}
+.right-ctr{
+  font-size:13px;font-weight:700;color:#d1d5db;
+  font-family:'Arial Black',Arial,sans-serif;
+  letter-spacing:.5px;
+}
+
+/* Barra de progresso */
+.prog-wrap{
+  flex-shrink:0;
+  margin:14px 48px 0;
+  height:2px;background:#e5e7eb;border-radius:2px;overflow:hidden;
+}
+.prog-fill{
+  height:100%;border-radius:2px;
+  transition:width .8s ease,background .8s ease;
+}
+
+/* Conteúdo central direito */
+.right-center{
+  flex:1;display:flex;flex-direction:column;
+  justify-content:center;
+  padding:0 80px 60px 56px;
+  position:relative;
+}
+
+/* Slide */
+.rslide{
   position:absolute;
   inset:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  z-index:2;
-  padding:12px;
+  padding:0 80px 60px 56px;
+  display:flex;flex-direction:column;justify-content:center;
+  opacity:0;pointer-events:none;
 }
-/* Logo: pílula branca SEM riscos — só o texto SENAI */
-.brand-pill{
-  background:#fff;
-  border-radius:6px;
-  padding:5px 14px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.rslide.active{opacity:1;pointer-events:auto}
+
+/* Animações direita */
+.rslide.enter-up   .ri{animation:riEnterUp   .72s cubic-bezier(.22,1,.36,1) forwards}
+.rslide.enter-down .ri{animation:riEnterDown .72s cubic-bezier(.22,1,.36,1) forwards}
+.rslide.exit-up    .ri{animation:riExitUp    .48s ease forwards}
+.rslide.exit-down  .ri{animation:riExitDown  .48s ease forwards}
+@keyframes riEnterUp  {from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)}}
+@keyframes riEnterDown{from{opacity:0;transform:translateY(-40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes riExitUp   {from{opacity:1;transform:translateY(0)}     to{opacity:0;transform:translateY(-32px)}}
+@keyframes riExitDown {from{opacity:1;transform:translateY(0)}     to{opacity:0;transform:translateY(32px)}}
+.ri{opacity:0}
+
+/* Linha acento */
+.r-accent{
+  width:40px;height:3px;border-radius:2px;
+  margin-bottom:28px;
+  transition:background .8s;
 }
-.brand-name{
-  font-size:clamp(13px,1.6vw,18px);
-  font-weight:900;color:#1a4f8a;
-  font-family:'Arial Black',Arial,sans-serif;
-  letter-spacing:.5px;line-height:1;
+
+/* Título */
+.r-title{
+  font-size:clamp(26px,3.2vw,44px);
+  font-weight:800;color:#111827;
+  line-height:1.2;letter-spacing:-.5px;
+  margin-bottom:22px;
 }
-.cover-div{
-  width:32px;height:1.5px;
-  background:rgba(255,255,255,.3);
-  border-radius:2px;flex-shrink:0;
+
+/* Divisor */
+.r-div{
+  width:1px;height:36px;
+  margin-bottom:22px;
+  transition:background .8s;
 }
-.f-year{
-  font-size:clamp(24px,3.2vw,44px);
-  font-weight:900;
-  font-family:'Arial Black',Arial,sans-serif;
-  color:#ffffff;
-  line-height:1;letter-spacing:-1.5px;
-  text-align:center;
-  text-shadow:0 2px 16px rgba(0,0,60,.35);
+
+/* Descrição */
+.r-desc{
+  font-size:clamp(15px,1.6vw,20px);
+  color:#6b7280;line-height:1.85;
+  max-width:520px;
 }
-.f-hint{
-  position:absolute;
-  bottom:10px;left:0;right:0;
-  text-align:center;
-  font-size:9px;font-weight:700;
-  letter-spacing:1.8px;text-transform:uppercase;
-  color:rgba(255,255,255,.28);
-  z-index:2;
-  transition:color .25s;
+
+/* ════ NAVEGAÇÃO SETAS — no painel esquerdo, sempre visíveis ════ */
+.nav{
+  position:relative;z-index:5;
+  flex-shrink:0;
+  display:flex;gap:10px;align-items:center;
+  padding:0 28px 28px;
 }
-.card:hover:not(.flipped) .f-hint{color:rgba(255,255,255,.7)}
-.back{
-  transform:rotateY(180deg);
-  background:#ffffff;
-  border:2.5px solid #1a4f8a;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:18px 16px 14px;
-  gap:6px;
-  text-align:center;
+.nbtn{
+  width:40px;height:40px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.35);
+  background:rgba(255,255,255,.12);
+  color:rgba(255,255,255,.8);
+  cursor:pointer;font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+  backdrop-filter:blur(8px);
 }
-.back::before{
-  content:'';
-  position:absolute;top:0;left:0;right:0;height:4px;
-  border-radius:0;
+.nbtn:hover:not(:disabled){
+  background:rgba(255,255,255,.25);
+  border-color:rgba(255,255,255,.7);
+  color:#fff;
+  transform:scale(1.08);
 }
-.back-pioneer::before{background:linear-gradient(90deg,#1a4f8a,#5b9bd5)}
-.back-digital::before {background:linear-gradient(90deg,#1a4f8a,#E30613)}
-.back-eseo::before    {background:linear-gradient(90deg,#E30613,#1a4f8a)}
-.b-zone{
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
-  padding:3px 11px;border-radius:20px;width:fit-content;
+.nbtn:disabled{opacity:.2;cursor:default;transform:none!important}
+
+/* Hint scroll */
+.scroll-hint{
+  position:absolute;bottom:34px;left:56px;
+  font-size:11px;color:#d1d5db;
+  letter-spacing:1px;
+  display:flex;gap:6px;align-items:center;
 }
-.back-pioneer .b-zone{background:rgba(26,79,138,.07);color:#1a4f8a;border:1px solid rgba(26,79,138,.2)}
-.back-digital  .b-zone{background:rgba(26,79,138,.07);color:#1a4f8a;border:1px solid rgba(26,79,138,.2)}
-.back-eseo     .b-zone{background:rgba(227,6,19,.06);color:#c00010;border:1px solid rgba(227,6,19,.18)}
-.b-year{
-  font-size:clamp(26px,3.2vw,46px);
-  font-weight:900;
-  font-family:'Arial Black',Arial,sans-serif;
-  line-height:1;letter-spacing:-2px;
-  color:#1a4f8a;
-}
-.back-eseo .b-year{color:#E30613}
-.b-div{
-  width:36px;height:2px;
-  background:#1a4f8a;border-radius:2px;
-  opacity:.2;flex-shrink:0;
-}
-.back-eseo .b-div{background:#E30613}
-.b-title{
-  font-size:clamp(12px,1.25vw,15px);
-  font-weight:700;color:#111827;line-height:1.3;
-}
-.b-desc{
-  font-size:clamp(10px,.95vw,12px);
-  color:#6b7280;line-height:1.72;overflow:hidden;
-}
-.ftr{
-  flex:0 0 42px;
-  display:flex;align-items:center;padding:0 26px;gap:14px;
-  background:rgba(13,45,100,.5);
-  border-top:1px solid rgba(255,255,255,.08);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-}
-.fpw{flex:1;height:3px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden}
-.fp{height:100%;background:linear-gradient(90deg,#4a90d9,#1a4f8a);border-radius:2px;transition:width .5s ease}
-.f-count{font-size:12px;font-weight:700;color:rgba(255,255,255,.45);flex-shrink:0;white-space:nowrap}
-.f-reset{
-  font-size:11px;font-weight:700;color:rgba(255,255,255,.38);
-  background:none;border:1px solid rgba(255,255,255,.18);
-  padding:4px 14px;border-radius:14px;cursor:pointer;transition:all .2s;flex-shrink:0;
-}
-.f-reset:hover{color:#fff;border-color:rgba(255,255,255,.5)}
+.sk{border:1px solid #e5e7eb;border-radius:4px;padding:2px 7px;font-size:10px;color:#d1d5db}
 </style>
 </head>
 <body>
-<header class="hdr">
-  <div class="hdr-logo">S</div>
-  <span class="hdr-brand">SENAI</span>
-  <div class="hdr-sep"></div>
-  <span class="hdr-title">ESEO — Linha do Tempo</span>
-  <span class="hdr-hint">Clique nos cards para revelar</span>
-</header>
-<main class="wall">
-  <div class="grid" id="grid"></div>
-</main>
-<footer class="ftr">
-  <div class="fpw"><div class="fp" id="fp" style="width:0%"></div></div>
-  <span class="f-count" id="fcount">0 de 11 revelados</span>
-  <button class="f-reset" id="resetBtn">↺ Reiniciar</button>
-</footer>
+<div class="wrap">
+
+  <!-- ════ ESQUERDO ════ -->
+  <div class="left" id="leftPanel">
+    <canvas id="geoCanvas"></canvas>
+
+    <div class="left-logo">
+      <div class="logo-box">S</div>
+
+    </div>
+
+    <div class="left-center">
+      <div class="left-era" id="leftEra">Era Pioneira</div>
+      <div class="left-year" id="leftYear"><span id="yearTxt">1979</span></div>
+      <div class="left-bar" id="leftBar"></div>
+    </div>
+
+    <!-- Navegação — dentro do painel esquerdo, sempre legível -->
+    <div class="nav">
+      <button class="nbtn" id="btnP">↑</button>
+      <button class="nbtn" id="btnN">↓</button>
+    </div>
+
+    <div class="left-count" id="leftCount">01 / 11</div>
+
+    <!-- Dots verticais na borda direita -->
+    <div class="dots-bar" id="dotsBar"></div>
+  </div>
+
+  <!-- ════ DIREITO ════ -->
+  <div class="right">
+
+    <div class="right-top">
+      <div class="intro-label">
+        <div class="intro-main">Nossa Jornada na Educação a Distância</div>
+        <div class="intro-sub">SENAI-SP · Navegue pelos marcos históricos</div>
+      </div>
+      <div class="right-ctr" id="rightCtr">01<span style="color:#e5e7eb;font-weight:400"> / </span>11</div>
+    </div>
+
+    <div class="prog-wrap">
+      <div class="prog-fill" id="progFill" style="width:0%"></div>
+    </div>
+
+    <!-- Slides direito -->
+    <div style="position:relative;flex:1" id="rslides"></div>
+
+    <div class="scroll-hint">
+      <span class="sk">↑</span><span class="sk">↓</span>
+      <span>ou scroll</span>
+    </div>
+
+  </div>
+</div>
+
 <script>
-function geoSVG(){
-  return `<svg class="geo" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <rect width="300" height="200" fill="#1a4f8a"/>
-    <polygon points="0,0 80,0 0,80"           fill="rgba(30,70,135,.65)"/>
-    <polygon points="300,0 220,0 300,80"      fill="rgba(12,38,90,.7)"/>
-    <polygon points="0,200 80,200 0,120"      fill="rgba(12,38,90,.65)"/>
-    <polygon points="300,200 220,200 300,120" fill="rgba(30,70,135,.6)"/>
-    <polygon points="110,0 170,0 140,38"      fill="rgba(40,85,160,.5)"/>
-    <polygon points="0,90 38,60 38,90"        fill="rgba(10,34,85,.6)"/>
-    <polygon points="300,90 262,60 262,90"    fill="rgba(40,85,160,.5)"/>
-    <polygon points="0,110 38,140 0,140"      fill="rgba(10,34,85,.55)"/>
-    <polygon points="300,110 262,140 300,140" fill="rgba(40,85,160,.5)"/>
-    <polygon points="110,200 170,200 140,162" fill="rgba(40,85,160,.5)"/>
-    <polygon points="42,78 58,100 42,122 50,122 66,100 50,78"  fill="rgba(255,255,255,.07)"/>
-    <polygon points="62,78 78,100 62,122 70,122 86,100 70,78"  fill="rgba(255,255,255,.05)"/>
-    <polygon points="214,78 230,100 214,122 222,122 238,100 222,78" fill="rgba(255,255,255,.07)"/>
-    <polygon points="234,78 250,100 234,122 242,122 258,100 242,78" fill="rgba(255,255,255,.05)"/>
-    <rect x="36"  y="22"  width="14" height="14" transform="rotate(45 43 29)"  fill="rgba(255,255,255,.07)"/>
-    <rect x="250" y="22"  width="14" height="14" transform="rotate(45 257 29)" fill="rgba(255,255,255,.07)"/>
-    <rect x="36"  y="164" width="14" height="14" transform="rotate(45 43 171)" fill="rgba(255,255,255,.07)"/>
-    <rect x="250" y="164" width="14" height="14" transform="rotate(45 257 171)" fill="rgba(255,255,255,.07)"/>
-    <rect x="124" y="5"   width="52" height="26" fill="rgba(40,85,160,.45)" rx="2"/>
-    <rect x="124" y="169" width="52" height="26" fill="rgba(40,85,160,.45)" rx="2"/>
-  </svg>`;
-}
+/* ═══════════════════════
+   DADOS
+═══════════════════════ */
 const EV = [
-  {n:1,  year:'1979',    title:'O Primeiro Marco',        desc:'Leitura e Interpretação de Desenho Técnico-Mecânico com módulos impressos e televisores. O ponto de partida da jornada EaD do SENAI.', era:'pioneer'},
-  {n:2,  year:'1990',    title:'Modelo Híbrido',          desc:'Consolidação do catálogo com materiais impressos e videoaulas, ampliando o alcance da educação profissional para além das escolas físicas.', era:'pioneer'},
-  {n:3,  year:'1995',    title:'Telecurso 2000',          desc:'SENAI-SP participa do Telecurso 2000 Profissionalizante em Mecânica — EaD com alcance nacional e impacto transformador.', era:'pioneer'},
-  {n:4,  year:'2007',    title:'Nasce o Centro de EaD',   desc:'Criação do grupo que originou o Centro SENAI de Educação a Distância — início formal da era digital.', era:'pioneer'},
-  {n:5,  year:'2010',    title:'Pioneirismo no Superior', desc:'Tecnologia de Produção Gráfica oferta UC a distância — primeiro modelo híbrido na graduação SENAI-SP.', era:'digital'},
-  {n:6,  year:'2010–17', title:'Era da Escala',           desc:'O SENAI-SP alcança 1,5 milhão de alunos em cursos a distância. A cultura digital consolida-se em todo o estado.', era:'digital'},
-  {n:7,  year:'2017',    title:'Técnico Semipresencial',  desc:'Primeiro técnico semipresencial em Santos, expandindo para 7 cursos e 19 turmas em São Paulo.', era:'digital'},
-  {n:8,  year:'2019',    title:'Pós-graduação',           desc:'Especialização em Inovação e Competitividade Industrial — o EaD chega ao ensino de pós-graduação do SENAI-SP.', era:'digital'},
-  {n:9,  year:'2020',    title:'Aceleração Digital',      desc:'Mais de 800 mil matrículas online. O SENAI-SP lidera a resposta educacional à pandemia com excelência e escala.', era:'eseo'},
-  {n:10, year:'2022',    title:'Nasce a ESEO',            desc:'Escola SENAI de Educação Online — nome oficial que consolida décadas de inovação e posiciona o SENAI-SP como referência nacional.', era:'eseo'},
-  {n:11, year:'2025',    title:'Novo Marco Regulatório',  desc:'Decreto nº 12.456/2025 — redefine padrões de qualidade, presencialidade e infraestrutura. A ESEO pronta para o futuro.', era:'eseo'},
+  {year:'1979',    era:'Era Pioneira',   ec:'#1a4f8a',
+   title:'O Primeiro Marco',
+   desc:'Leitura e Interpretação de Desenho Técnico-Mecânico com módulos impressos e televisores. O ponto de partida de toda a jornada EaD do SENAI-SP.'},
+  {year:'1990',    era:'Era Pioneira',   ec:'#1a4f8a',
+   title:'Modelo Híbrido',
+   desc:'Consolidação do catálogo com materiais impressos e videoaulas, ampliando o alcance da educação profissional para além das escolas físicas.'},
+  {year:'1995',    era:'Era Pioneira',   ec:'#1a4f8a',
+   title:'Telecurso 2000',
+   desc:'SENAI-SP participa do Telecurso 2000 Profissionalizante em Mecânica — educação a distância com alcance nacional e impacto transformador.'},
+  {year:'2007',    era:'Era Pioneira',   ec:'#1a4f8a',
+   title:'Nasce o Centro de EaD',
+   desc:'Criação do grupo que originou o Centro SENAI de Educação a Distância — o início formal da transição para a era digital.'},
+  {year:'2010',    era:'Era Digital',    ec:'#6d28d9',
+   title:'Pioneirismo no Superior',
+   desc:'Tecnologia de Produção Gráfica oferta unidades curriculares a distância — o primeiro modelo híbrido na graduação SENAI-SP.'},
+  {year:'2010–17', era:'Era Digital',    ec:'#6d28d9',
+   title:'A Era da Escala',
+   desc:'O SENAI-SP alcança 1,5 milhão de alunos em cursos a distância. A cultura digital consolida-se definitivamente em todo o estado.'},
+  {year:'2017',    era:'Era Digital',    ec:'#6d28d9',
+   title:'Técnico Semipresencial',
+   desc:'Primeiro curso técnico semipresencial implantado em Santos, expandindo para 7 cursos e 19 turmas em São Paulo.'},
+  {year:'2019',    era:'Era Digital',    ec:'#6d28d9',
+   title:'Chegada à Pós-graduação',
+   desc:'Especialização em Inovação e Competitividade Industrial — o EaD chega ao ensino de pós-graduação do SENAI-SP.'},
+  {year:'2020',    era:'Era ESEO',       ec:'#059669',
+   title:'Aceleração Digital',
+   desc:'Mais de 800 mil matrículas online. O SENAI-SP lidera a resposta educacional à pandemia — e prova a força do EaD em escala nacional.'},
+  {year:'2022',    era:'Era ESEO',       ec:'#E30613',
+   title:'Nasce a ESEO',
+   desc:'Escola SENAI de Educação Online — o nome oficial que consolida décadas de inovação e posiciona o SENAI-SP como referência nacional em EaD.'},
+  {year:'2025',    era:'Era ESEO',       ec:'#E30613',
+   title:'Novo Marco Regulatório',
+   desc:'Decreto nº 12.456/2025 redefine padrões de qualidade, presencialidade e infraestrutura. A ESEO está preparada para o futuro.'},
 ];
-const ZONE = {pioneer:'🕰️ Era Pioneira', digital:'💻 Era Digital', eseo:'🚀 Era ESEO'};
-let flipped = 0;
-const grid = document.getElementById('grid');
-const fpEl = document.getElementById('fp');
-const fcEl = document.getElementById('fcount');
-EV.forEach(ev => {
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.innerHTML = `
-    <div class="card-inner">
-      <div class="front">
-        ${geoSVG()}
-        <div class="cover-content">
-          <div class="brand-pill">
-            <span class="brand-name">SENAI</span>
-          </div>
-          <div class="cover-div"></div>
-          <div class="f-year">${ev.year}</div>
-        </div>
-        <div class="f-hint">Clique para revelar</div>
-      </div>
-      <div class="back back-${ev.era}">
-        <div class="b-zone">${ZONE[ev.era]}</div>
-        <div class="b-year">${ev.year}</div>
-        <div class="b-div"></div>
-        <div class="b-title">${ev.title}</div>
-        <div class="b-desc">${ev.desc}</div>
-      </div>
-    </div>`;
-  card.addEventListener('click', () => {
-    if (card.classList.contains('flipped')) return;
-    card.classList.add('flipped');
-    flipped++;
-    fpEl.style.width = (flipped / EV.length * 100) + '%';
-    fcEl.textContent = flipped === EV.length
-      ? '✅ Todos os marcos revelados!'
-      : `${flipped} de ${EV.length} revelados`;
+
+const N = EV.length;
+let cur = 0, animating = false;
+
+/* ═══════════════════════
+   GEO CANVAS (painel esq)
+═══════════════════════ */
+const gc = document.getElementById('geoCanvas');
+const gx = gc.getContext('2d');
+function resizeGeo(){gc.width=gc.offsetWidth;gc.height=gc.offsetHeight}
+resizeGeo();
+window.addEventListener('resize',resizeGeo);
+
+const gshapes=[];
+for(let i=0;i<18;i++){
+  gshapes.push({
+    type:['tri','dia','chev','rect'][i%4],
+    x:Math.random()*100,y:Math.random()*100,
+    sz:16+Math.random()*48,
+    a:Math.random()*Math.PI*2,
+    rs:(Math.random()-.5)*.007,
+    dx:(Math.random()-.5)*.012,
+    dy:(Math.random()-.5)*.01,
   });
-  grid.appendChild(card);
+}
+function drawGeo(){
+  gx.clearRect(0,0,gc.width,gc.height);
+  gshapes.forEach(s=>{
+    const x=s.x/100*gc.width,y=s.y/100*gc.height;
+    gx.save();gx.translate(x,y);gx.rotate(s.a);
+    gx.strokeStyle='#fff';gx.lineWidth=1.2;gx.globalAlpha=1;
+    const z=s.sz;
+    if(s.type==='tri'){gx.beginPath();gx.moveTo(0,-z);gx.lineTo(z*.87,z*.5);gx.lineTo(-z*.87,z*.5);gx.closePath();gx.stroke();}
+    else if(s.type==='dia'){gx.beginPath();gx.moveTo(0,-z);gx.lineTo(z*.6,0);gx.lineTo(0,z);gx.lineTo(-z*.6,0);gx.closePath();gx.stroke();}
+    else if(s.type==='chev'){gx.beginPath();gx.moveTo(-z*.5,-z*.35);gx.lineTo(0,z*.35);gx.lineTo(z*.5,-z*.35);gx.lineWidth=1.8;gx.stroke();}
+    else{gx.strokeRect(-z*.4,-z*.28,z*.8,z*.56);}
+    gx.restore();
+    s.x+=s.dx;s.y+=s.dy;s.a+=s.rs;
+    if(s.x<-5)s.x=105;if(s.x>105)s.x=-5;
+    if(s.y<-5)s.y=105;if(s.y>105)s.y=-5;
+  });
+  requestAnimationFrame(drawGeo);
+}
+drawGeo();
+
+/* ═══════════════════════
+   BUILD SLIDES DIREITO
+═══════════════════════ */
+const rslidesEl=document.getElementById('rslides');
+EV.forEach((ev,i)=>{
+  const sl=document.createElement('div');
+  sl.className='rslide'+(i===0?' active':'');
+  sl.dataset.i=i;
+  sl.innerHTML=`<div class="ri">
+    <div class="r-accent" style="background:${ev.ec}"></div>
+    <div class="r-title">${ev.title}</div>
+    <div class="r-div" style="background:linear-gradient(180deg,${ev.ec},transparent)"></div>
+    <div class="r-desc">${ev.desc}</div>
+  </div>`;
+  rslidesEl.appendChild(sl);
 });
-document.getElementById('resetBtn').addEventListener('click', () => {
-  document.querySelectorAll('.card').forEach(c => c.classList.remove('flipped'));
-  flipped = 0;
-  fpEl.style.width = '0%';
-  fcEl.textContent = '0 de 11 revelados';
+// Animate first
+document.querySelector('.rslide.active .ri').style.animation='riEnterUp .72s cubic-bezier(.22,1,.36,1) forwards';
+
+/* ═══════════════════════
+   BUILD DOTS
+═══════════════════════ */
+const dotsBar=document.getElementById('dotsBar');
+EV.forEach((_,i)=>{
+  const d=document.createElement('div');
+  d.className='vdot'+(i===0?' active':'');
+  d.addEventListener('click',()=>goTo(i));
+  dotsBar.appendChild(d);
 });
+const dotEls=[...dotsBar.children];
+
+/* ═══════════════════════
+   NAVIGATE
+═══════════════════════ */
+function goTo(next){
+  if(animating||next===cur||next<0||next>=N)return;
+  animating=true;
+  const going=next>cur;
+
+  // Animate left year out
+  const yearEl=document.getElementById('leftYear');
+  yearEl.classList.remove('visible');
+
+  // Animate right slide out
+  const prevRsl=document.querySelector('.rslide.active');
+  const prevRi=prevRsl.querySelector('.ri');
+  prevRi.style.animation='none';void prevRi.offsetWidth;
+  prevRi.style.animation=going?'riExitUp .45s ease forwards':'riExitDown .45s ease forwards';
+
+  setTimeout(()=>{
+    prevRsl.classList.remove('active');
+    cur=next;
+    updateLeft();
+
+    // Animate right slide in
+    const nextRsl=document.querySelector(`.rslide[data-i="${cur}"]`);
+    const nextRi=nextRsl.querySelector('.ri');
+    nextRsl.classList.add('active');
+    nextRi.style.animation='none';void nextRi.offsetWidth;
+    nextRi.style.animation=going?'riEnterUp .72s cubic-bezier(.22,1,.36,1) forwards':'riEnterDown .72s cubic-bezier(.22,1,.36,1) forwards';
+
+    // Animate year in (after short delay for drama)
+    setTimeout(()=>{
+      yearEl.classList.add('visible');
+    },80);
+
+    updateDots();
+    updateProgress();
+    setTimeout(()=>animating=false,750);
+  },420);
+}
+
+function updateLeft(){
+  const ev=EV[cur];
+  document.getElementById('leftPanel').style.background=ev.ec;
+  document.getElementById('leftEra').textContent=ev.era;
+  document.getElementById('yearTxt').textContent=ev.year;
+  document.getElementById('leftBar').style.background='rgba(255,255,255,.35)';
+  document.getElementById('leftCount').textContent=
+    String(cur+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');
+}
+
+function updateDots(){
+  dotEls.forEach((d,i)=>{
+    d.classList.toggle('active',i===cur);
+    d.classList.toggle('past',i<cur);
+  });
+}
+
+function updateProgress(){
+  const pct=N<=1?100:(cur/(N-1))*100;
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progFill').style.background=EV[cur].ec;
+  document.getElementById('rightCtr').innerHTML=
+    String(cur+1).padStart(2,'0')+'<span style="color:#e5e7eb;font-weight:400"> / </span>'+String(N).padStart(2,'0');
+  document.getElementById('btnP').disabled=cur===0;
+  document.getElementById('btnN').disabled=cur===N-1;
+}
+
+/* ═══════════════════════
+   INIT
+═══════════════════════ */
+setTimeout(()=>{
+  document.getElementById('leftYear').classList.add('visible');
+},200);
+updateLeft();
+updateDots();
+updateProgress();
+
+/* ═══════════════════════
+   EVENTS
+═══════════════════════ */
+document.getElementById('btnP').addEventListener('click',()=>goTo(cur-1));
+document.getElementById('btnN').addEventListener('click',()=>goTo(cur+1));
+
+document.addEventListener('keydown',e=>{
+  if(['ArrowUp','ArrowLeft'].includes(e.key)){e.preventDefault();goTo(cur-1)}
+  if(['ArrowDown','ArrowRight'].includes(e.key)){e.preventDefault();goTo(cur+1)}
+  if(e.key==='Home'){e.preventDefault();goTo(0)}
+  if(e.key==='End'){e.preventDefault();goTo(N-1)}
+});
+
+let scrollTimer,ty=0;
+window.addEventListener('wheel',e=>{
+  clearTimeout(scrollTimer);
+  scrollTimer=setTimeout(()=>{
+    if(e.deltaY>25)goTo(cur+1);
+    else if(e.deltaY<-25)goTo(cur-1);
+  },30);
+},{passive:true});
+
+document.addEventListener('touchstart',e=>{ty=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dy=ty-e.changedTouches[0].clientY;
+  if(Math.abs(dy)>50){if(dy>0)goTo(cur+1);else goTo(cur-1);}
+},{passive:true});
 </script>
 </body>
 </html>
