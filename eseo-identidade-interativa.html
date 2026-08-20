@@ -53,11 +53,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-u
   display:flex;align-items:center;gap:5px;white-space:nowrap}
 .timer.warn{color:#E30613;border-color:rgba(227,6,19,.3);background:rgba(227,6,19,.05);animation:timerWarn 1s ease-in-out infinite}
 @keyframes timerWarn{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-/* Botão ajuda */
-.btn-help{width:30px;height:30px;border-radius:50%;border:1.5px solid #e5e7eb;
-  background:#f9fafb;color:#7d8795;cursor:pointer;font-size:13px;font-weight:850;
-  display:flex;align-items:center;justify-content:center;transition:all .2s;flex:0 0 auto}
-.btn-help:hover{background:#eff6ff;color:#1a4f8a;border-color:#bfdbfe}
 .g-head-bottom{display:grid;grid-template-columns:auto minmax(90px,1fr);gap:12px;align-items:center;min-width:0}
 /* Palavra atual */
 .g-word-tag{display:flex;align-items:center;gap:7px;background:#eff6ff;
@@ -75,7 +70,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-u
   .g-head-status{gap:5px}
   .score-pill{font-size:10px;padding:4px 8px}
   .timer{font-size:10px;padding:4px 8px}
-  .btn-help{width:27px;height:27px;font-size:12px}
   .g-head-bottom{gap:8px}
   .g-word-tag{padding:4px 9px}
   .g-word-tag-label{display:none}
@@ -109,53 +103,12 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-u
 .letter.found{background:#1a4f8a;color:#fff;border-color:#1a4f8a;box-shadow:0 2px 10px rgba(26,79,138,.3)}
 @keyframes lReveal{0%{transform:scale(1.4) rotate(8deg);background:#4a90d9}60%{transform:scale(.93) rotate(-2deg)}100%{transform:scale(1)}}
 .letter.found-pop{animation:lReveal .5s cubic-bezier(.22,1,.36,1) forwards}
-/* Pista */
+/* Dica */
 @keyframes hintP{0%,100%{box-shadow:0 0 0 0 rgba(245,168,0,.5),inset 0 0 0 2px #f5a800}50%{box-shadow:0 0 0 6px rgba(245,168,0,.15),inset 0 0 0 2.5px #f5a800}}
 .letter.hint-on{background:rgba(245,168,0,.12);color:#a07000;border-color:#f5a800;animation:hintP 1s ease-in-out 2}
 /* Erro */
 @keyframes wShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 .letter.wrong{animation:wShake .28s ease;background:rgba(220,38,38,.07);border-color:rgba(220,38,38,.2);color:#dc2626}
-
-/* ══ GAVETA LATERAL ══ */
-.drawer{position:absolute;top:0;right:-340px;width:320px;height:100%;
-  background:#fff;border-left:1px solid #e5e7eb;z-index:100;
-  display:flex;flex-direction:column;border-radius:0 18px 18px 0;
-  box-shadow:-8px 0 32px rgba(0,0,0,.1);
-  transition:right .42s cubic-bezier(.22,1,.36,1)}
-.drawer.open{right:0}
-.d-head{flex-shrink:0;background:#1a4f8a;border-radius:0 18px 0 0;
-  padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
-.d-head-title{font-size:14px;font-weight:800;color:#fff;letter-spacing:.2px}
-.btn-close-drawer{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);
-  background:rgba(255,255,255,.1);color:#fff;cursor:pointer;font-size:12px;
-  display:flex;align-items:center;justify-content:center;transition:all .2s}
-.btn-close-drawer:hover{background:rgba(255,255,255,.22)}
-.d-body{flex:1;overflow-y:auto;padding:20px}
-.d-section{margin-bottom:20px}
-.d-section-label{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
-  color:#9ca3af;margin-bottom:10px}
-.d-rule{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13px;color:#374151;line-height:1.55}
-.d-rule-icon{font-size:18px;flex-shrink:0;margin-top:1px}
-/* Palavra na gaveta */
-.d-word{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;
-  background:#f8faff;border:1.5px solid #e0eaff;margin-bottom:8px}
-.d-word-bullet{width:10px;height:10px;border-radius:50%;background:#1a4f8a;flex-shrink:0}
-.d-word-bullet.found{background:#22c55e}
-.d-word-name{font-size:13px;font-weight:700;color:#1a4f8a;flex:1}
-.d-word-check{font-size:16px;opacity:0;transition:opacity .3s}
-.d-word-check.show{opacity:1}
-/* Controles na gaveta */
-.d-ctrl{flex-shrink:0;padding:14px 20px 16px;border-top:1px solid #f0f0f0;display:flex;gap:8px;flex-direction:column}
-.btn-hint-drawer{height:38px;border-radius:50px;border:1.5px solid rgba(245,168,0,.5);
-  background:rgba(245,168,0,.08);color:#a07000;cursor:pointer;
-  font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:7px;
-  transition:all .2s;letter-spacing:.3px}
-.btn-hint-drawer:hover:not(:disabled){background:rgba(245,168,0,.16);border-color:#f5a800}
-.btn-hint-drawer:disabled{opacity:.22;cursor:default;color:#9ca3af;border-color:#e5e7eb;background:transparent}
-.btn-close-help{height:38px;border-radius:50px;border:1.5px solid #e5e7eb;
-  background:#f9fafb;color:#6b7280;cursor:pointer;font-size:12px;font-weight:700;
-  display:flex;align-items:center;justify-content:center;transition:all .2s}
-.btn-close-help:hover{background:#eff6ff;color:#1a4f8a;border-color:#bfdbfe}
 
 /* ══ POPUP ENCONTROU ══ */
 .pop-ov{position:absolute;inset:0;z-index:250;display:flex;align-items:center;justify-content:center;
@@ -266,15 +219,69 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-u
 .btn-restart:hover{background:#ffc72c;border-color:#ffc72c}
 .e-logo img{height:30px;max-width:min(390px,80vw);width:auto}
 
+/* ══ AJUSTE V2 — dica sempre visível + intro com mais presença ══ */
+.i-logo img{height:40px}
+.i-eyebrow{font-size:12px;letter-spacing:3.2px;margin-bottom:14px}
+.i-title{font-size:clamp(36px,4.8vw,58px);max-width:680px;margin-bottom:14px;line-height:1.08}
+.i-desc{font-size:clamp(16px,1.55vw,19px);max-width:620px;line-height:1.55;margin-bottom:26px}
+.btn-play{font-size:17px;padding:16px 34px}
+.challenge-kicker{font-size:12px;letter-spacing:2.2px;margin-bottom:6px}
+.bonus-card{padding:15px 17px;grid-template-columns:38px 1fr auto;gap:13px}
+.bonus-icon{font-size:22px}
+.bonus-copy{font-size:15px}
+.bonus-card strong{font-size:16px}
+
+.btn-hint-top{height:34px;border-radius:999px;border:1.5px solid rgba(245,180,0,.7);
+  background:#f5b400;color:#071426;cursor:pointer;font-size:12px;font-weight:900;
+  padding:0 11px 0 12px;display:flex;align-items:center;justify-content:center;gap:7px;
+  white-space:nowrap;box-shadow:0 4px 12px rgba(245,180,0,.22);transition:all .2s;flex:0 0 auto}
+.btn-hint-top:hover:not(:disabled){background:#ffc72c;color:#071426;border-color:#ffc72c;transform:translateY(-1px);box-shadow:0 6px 16px rgba(245,180,0,.3)}
+.btn-hint-top:disabled{opacity:.45;cursor:default;box-shadow:none}
+.hint-count-top{min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:rgba(122,82,0,.12);
+  display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:950}
+
+.hint-ov{position:absolute;inset:0;z-index:230;display:flex;align-items:center;justify-content:center;
+  background:rgba(10,26,48,.58);backdrop-filter:blur(7px);border-radius:18px;
+  opacity:0;pointer-events:none;transition:opacity .28s}
+.hint-ov.show{opacity:1;pointer-events:auto}
+.hint-box{background:#fff;border-radius:22px;padding:28px 30px 26px;max-width:480px;width:min(90%,480px);
+  text-align:center;box-shadow:0 22px 70px rgba(0,0,0,.28);transform:scale(.9) translateY(14px);
+  transition:transform .34s cubic-bezier(.22,1,.36,1)}
+.hint-ov.show .hint-box{transform:scale(1) translateY(0)}
+.hint-icon{font-size:38px;margin-bottom:8px}
+.hint-title{font-size:21px;font-weight:950;color:#0d1f3c;margin-bottom:10px}
+.hint-warning{display:inline-flex;align-items:center;justify-content:center;padding:7px 13px;border-radius:999px;
+  background:#fff5d6;border:1px solid #f5d36a;color:#8a5c00;font-size:13px;font-weight:800;margin-bottom:12px}
+.hint-warning strong{font-size:15px;margin-right:4px;color:#a15f00}
+.hint-sub{font-size:14px;color:#5f6b7a;line-height:1.6;max-width:390px;margin:0 auto 22px}
+.hint-actions{display:grid;grid-template-columns:1fr 1.25fr;gap:10px}
+.btn-hint-cancel,.btn-hint-confirm{height:43px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:850;transition:all .2s}
+.btn-hint-cancel{background:#f8fafc;color:#64748b;border:1.5px solid #e2e8f0}
+.btn-hint-cancel:hover{background:#f1f5f9;color:#334155}
+.btn-hint-confirm{background:#f5b400;color:#071426;border:1.5px solid #f5b400}
+.btn-hint-confirm:hover{background:#ffc72c;border-color:#ffc72c;transform:translateY(-1px)}
+
+@media(max-width:430px){
+  #hintLabelTop{display:none}
+  .btn-hint-top{padding:0 8px}
+}
+
 @media(max-width:760px){
   .intro{padding:22px 20px}
   .intro-layout{grid-template-columns:1fr;gap:20px;text-align:center}
   .intro-main{display:flex;flex-direction:column;align-items:center}
   .i-title,.i-desc{text-align:center}
   .i-logo{margin-bottom:12px}
+  .i-logo img{height:35px}
+  .i-eyebrow{font-size:10px}
+  .i-title{font-size:clamp(31px,8vw,44px)}
+  .i-desc{font-size:15px}
   .intro-side{width:min(100%,520px);margin:auto;gap:7px}
   .bonus-card{padding:10px 12px;grid-template-columns:30px 1fr auto}
-  .bonus-copy{font-size:12px;text-align:left}
+  .bonus-copy{font-size:13px;text-align:left}
+  .bonus-card strong{font-size:14px}
+  .btn-hint-top{height:31px;padding:0 9px;font-size:11px;gap:5px}
+  .hint-count-top{min-width:17px;height:17px;font-size:9px}
   .grid{width:100%;aspect-ratio:1.28 / 1}
   .letter{font-size:clamp(15px,3.4vw,21px)}
   .pop{width:94%;padding:28px 24px 24px}
@@ -299,7 +306,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-u
     <div class="intro-side" aria-label="Como conquistar as 5 estrelas">
       <div class="challenge-kicker">Desafio · até 5 estrelas</div>
       <div class="bonus-card"><span class="bonus-icon">🔎</span><span class="bonus-copy">Encontre as 3 palavras</span><strong>3 ⭐</strong></div>
-      <div class="bonus-card"><span class="bonus-icon">💡</span><span class="bonus-copy">Sem usar pistas</span><strong>+1 ⭐</strong></div>
+      <div class="bonus-card"><span class="bonus-icon">💡</span><span class="bonus-copy">Sem usar dicas</span><strong>+1 ⭐</strong></div>
       <div class="bonus-card"><span class="bonus-icon">⚡</span><span class="bonus-copy">Concluir em menos de 1 minuto</span><strong>+1 ⭐</strong></div>
     </div>
   </div>
@@ -314,11 +321,25 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-u
     <div class="help-rules">
       <div class="help-rule"><span class="help-rule-icon">🔍</span><span>Encontre <strong>Missão, Visão e Valores</strong>. Cada palavra vale <strong>1 estrela</strong>.</span></div>
       <div class="help-rule"><span class="help-rule-icon">🧩</span><span>As palavras mudam de posição a cada partida e podem aparecer na <strong>horizontal, vertical ou diagonal</strong>.</span></div>
-      <div class="help-rule"><span class="help-rule-icon">💡</span><span>Você tem <strong>2 pistas</strong>. Se terminar sem usar nenhuma, ganha <strong>+1 estrela bônus</strong>.</span></div>
+      <div class="help-rule"><span class="help-rule-icon">💡</span><span>Você tem <strong>2 dicas</strong>. Ao usar qualquer uma delas, você abre mão do bônus de <strong>+1 estrela</strong>.</span></div>
       <div class="help-rule"><span class="help-rule-icon">⚡</span><span>Conclua o desafio em <strong>menos de 1 minuto</strong> e ganhe <strong>+1 estrela bônus</strong>.</span></div>
       <div class="help-rule"><span class="help-rule-icon">🏆</span><span>Pontuação máxima: <strong>5 estrelas</strong>. O cronômetro pausa enquanto você lê as explicações.</span></div>
     </div>
     <button class="btn-got-it" id="btnGotIt">Entendi, vamos lá! →</button>
+  </div>
+</div>
+
+<!-- CONFIRMAÇÃO DE DICA -->
+<div class="hint-ov" id="hintOv" aria-hidden="true">
+  <div class="hint-box" role="dialog" aria-modal="true" aria-labelledby="hintTitle">
+    <div class="hint-icon">💡</div>
+    <div class="hint-title" id="hintTitle">Usar dica?</div>
+    <div class="hint-warning" id="hintWarning"><strong>−1 estrela</strong> no bônus</div>
+    <div class="hint-sub" id="hintWarningSub">Ao usar uma dica, o bônus “Sem usar dicas” deixa de valer.</div>
+    <div class="hint-actions">
+      <button class="btn-hint-cancel" id="btnHintCancel" type="button">Agora não</button>
+      <button class="btn-hint-confirm" id="btnHintConfirm" type="button">Usar dica →</button>
+    </div>
   </div>
 </div>
 
@@ -332,7 +353,7 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-u
       <div class="g-head-status">
         <div class="score-pill">⭐ <span id="scoreBase">0</span>/3</div>
         <div class="timer" id="timerEl">⏱ 00:00</div>
-        <button class="btn-help" id="btnHelp" aria-label="Ajuda">?</button>
+        <button class="btn-hint-top" id="btnHintTop" type="button" aria-label="Obter dica"><span aria-hidden="true">💡</span><span id="hintLabelTop">Obter dica</span><span class="hint-count-top" id="hintCountTop">2</span></button>
       </div>
     </div>
     <div class="g-head-bottom">
@@ -348,48 +369,6 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'Segoe UI',system-u
   </div>
 
   <div class="grid-area"><div class="grid" id="grid"></div></div>
-
-  <!-- GAVETA -->
-  <div class="drawer" id="drawer">
-    <div class="d-head">
-      <div class="d-head-title">🧩 Ajuda & Progresso</div>
-      <button class="btn-close-drawer" id="btnCloseDrawer">✕</button>
-    </div>
-    <div class="d-body">
-      <div class="d-section">
-        <div class="d-section-label">Como jogar</div>
-        <div class="d-rule"><span class="d-rule-icon">🔍</span><span>Encontre as palavras na grade — horizontal, vertical ou diagonal</span></div>
-        <div class="d-rule"><span class="d-rule-icon">🖱️</span><span>Clique em qualquer letra da palavra para revelá-la</span></div>
-        <div class="d-rule"><span class="d-rule-icon">⭐</span><span>Cada palavra encontrada vale <strong>1 estrela</strong>.</span></div>
-        <div class="d-rule"><span class="d-rule-icon">💡</span><span>Sem usar pistas até o fim = <strong>+1 estrela</strong>.</span></div>
-        <div class="d-rule"><span class="d-rule-icon">⚡</span><span>Concluir em menos de 1 minuto = <strong>+1 estrela</strong>.</span></div>
-      </div>
-      <div class="d-section">
-        <div class="d-section-label">Palavras do jogo</div>
-        <div class="d-word" id="dw0">
-          <div class="d-word-bullet" id="dwb0"></div>
-          <div class="d-word-name">Missão</div>
-          <div class="d-word-check" id="dwc0">✅</div>
-        </div>
-        <div class="d-word" id="dw1">
-          <div class="d-word-bullet" id="dwb1"></div>
-          <div class="d-word-name">Visão</div>
-          <div class="d-word-check" id="dwc1">✅</div>
-        </div>
-        <div class="d-word" id="dw2">
-          <div class="d-word-bullet" id="dwb2"></div>
-          <div class="d-word-name">Valores</div>
-          <div class="d-word-check" id="dwc2">✅</div>
-        </div>
-      </div>
-    </div>
-    <div class="d-ctrl">
-      <button class="btn-hint-drawer" id="btnHintDrawer">💡 Usar Pista <span id="hintCountD">(2 restantes)</span></button>
-      <button class="btn-close-help" id="btnCloseDrawer2">Fechar ✕</button>
-    </div>
-  </div>
-
-</div>
 
 <!-- POPUP ENCONTROU -->
 <div class="pop-ov" id="popOv">
@@ -556,9 +535,6 @@ function doFound(w){
           // Estrela
           starEarned[curIdx]=true;
           foundCount++;updateProg();
-          // Gaveta
-          document.getElementById('dwb'+curIdx).classList.add('found');
-          document.getElementById('dwc'+curIdx).classList.add('show');
           setTimeout(()=>showPop(w),cells.length*55+380);
         },220);
       }
@@ -585,6 +561,8 @@ function showPop(w){
 }
 document.getElementById('popBtn').addEventListener('click',()=>{
   document.getElementById('popOv').classList.remove('show');
+  document.getElementById('hintOv').classList.remove('show');
+  document.getElementById('hintOv').setAttribute('aria-hidden','true');
   if(curIdx===WORDS.length-1){
     stopTimer();
     setTimeout(()=>showEnd(),400);
@@ -619,14 +597,43 @@ function showEnd(){
     'Muito bem! 3 de 5 estrelas!';
   document.getElementById('eTime').textContent='⏱ Tempo de busca: '+fmtTime(timerSec);
 
-  const bonusHint=noHintBonus?'💡 Sem pistas: +1 ⭐':'💡 Pista usada: bônus não conquistado';
+  const bonusHint=noHintBonus?'💡 Sem dicas: +1 ⭐':'💡 Dica usada: −1 ⭐ no bônus';
   const bonusTime=speedBonus?'⚡ Menos de 1 min: +1 ⭐':'⏱ 1 min ou mais: bônus não conquistado';
   document.getElementById('eHintPenalty').textContent=bonusHint+'  ·  '+bonusTime;
   playWin();
   document.getElementById('endScreen').classList.add('show');
 }
 
-/* ── HINT ── */
+/* ── DICA VISÍVEL + CONFIRMAÇÃO ── */
+let resumeAfterHintModal=false;
+
+function openHintConfirm(){
+  if(phase!=='searching'||hintsLeft<=0)return;
+  resumeAfterHintModal=!!timerInt;
+  if(resumeAfterHintModal)pauseTimer();
+
+  const firstHint=!usedAnyHint;
+  document.getElementById('hintTitle').textContent=firstHint?'Usar dica e perder 1 estrela?':'Usar outra dica?';
+  document.getElementById('hintWarning').innerHTML=firstHint
+    ?'<strong>−1 estrela</strong> no bônus'
+    :'<strong>Bônus já perdido</strong>';
+  document.getElementById('hintWarningSub').textContent=firstHint
+    ?'Ao usar uma dica, o bônus “Sem usar dicas” deixa de valer. Sua pontuação máxima passa de 5 para 4 estrelas.'
+    :'Você já abriu mão do bônus de 1 estrela. Esta dica não desconta outra estrela.';
+
+  const ov=document.getElementById('hintOv');
+  ov.classList.add('show');
+  ov.setAttribute('aria-hidden','false');
+}
+
+function closeHintConfirm(resume=true){
+  const ov=document.getElementById('hintOv');
+  ov.classList.remove('show');
+  ov.setAttribute('aria-hidden','true');
+  if(resume&&resumeAfterHintModal&&phase==='searching')startTimer();
+  resumeAfterHintModal=false;
+}
+
 function useHint(){
   if(phase!=='searching'||hintsLeft<=0)return;
   hintsLeft--;hintUsedThis=true;usedAnyHint=true;
@@ -634,23 +641,31 @@ function useHint(){
   const p=cw().pl,b=lEls[p.row+'-'+p.col];
   b.classList.remove('hint-on');void b.offsetWidth;b.classList.add('hint-on');
   setTimeout(()=>b.classList.remove('hint-on'),2800);
-  closeDrawer();
 }
-function updateHintUI(){
-  const txt='('+hintsLeft+' restante'+(hintsLeft!==1?'s':'')+')';
-  document.getElementById('hintCountD').textContent=txt;
-  const bd=document.getElementById('btnHintDrawer');
-  bd.disabled=hintsLeft<=0;
-  if(hintsLeft<=0){bd.textContent='💡 Pistas esgotadas';}
-}
-document.getElementById('btnHintDrawer').addEventListener('click',useHint);
 
-/* ── GAVETA ── */
-function openDrawer(){document.getElementById('drawer').classList.add('open')}
-function closeDrawer(){document.getElementById('drawer').classList.remove('open')}
-document.getElementById('btnHelp').addEventListener('click',openDrawer);
-document.getElementById('btnCloseDrawer').addEventListener('click',closeDrawer);
-document.getElementById('btnCloseDrawer2').addEventListener('click',closeDrawer);
+function updateHintUI(){
+  const btn=document.getElementById('btnHintTop');
+  const label=document.getElementById('hintLabelTop');
+  const count=document.getElementById('hintCountTop');
+  if(!btn||!label||!count)return;
+  btn.disabled=hintsLeft<=0;
+  label.textContent=hintsLeft>0?'Obter dica':'Dicas esgotadas';
+  count.textContent=hintsLeft;
+  count.style.display=hintsLeft>0?'inline-flex':'none';
+}
+
+document.getElementById('btnHintTop').addEventListener('click',openHintConfirm);
+document.getElementById('btnHintCancel').addEventListener('click',()=>closeHintConfirm(true));
+document.getElementById('btnHintConfirm').addEventListener('click',()=>{
+  const shouldResume=resumeAfterHintModal;
+  const ov=document.getElementById('hintOv');
+  ov.classList.remove('show');
+  ov.setAttribute('aria-hidden','true');
+  resumeAfterHintModal=false;
+  useHint();
+  if(shouldResume&&phase==='searching')startTimer();
+});
+document.getElementById('hintOv').addEventListener('click',e=>{if(e.target===e.currentTarget)closeHintConfirm(true)});
 
 /* ── AJUDA POPUP ── */
 document.getElementById('btnGotIt').addEventListener('click',()=>{
@@ -683,11 +698,10 @@ document.getElementById('btnRestart').addEventListener('click',()=>{
   updateProg();updateHintUI();
   // Reset end stars
   [0,1,2,3,4].forEach(i=>{const st=document.getElementById('es'+i);st.classList.remove('show');st.textContent='⭐';st.style.opacity='';st.style.transform='';});
-  // Reset gaveta
-  [0,1,2].forEach(i=>{document.getElementById('dwb'+i).classList.remove('found');document.getElementById('dwc'+i).classList.remove('show');});
   document.getElementById('timerEl').textContent='⏱ 00:00';document.getElementById('timerEl').classList.remove('warn');
   document.getElementById('popOv').classList.remove('show');
-  closeDrawer();
+  document.getElementById('hintOv').classList.remove('show');
+  document.getElementById('hintOv').setAttribute('aria-hidden','true');
   buildGrid();renderGrid();
   document.getElementById('gWordTag').textContent=cw().display;
   // Volta para intro
