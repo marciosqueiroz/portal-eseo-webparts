@@ -89,6 +89,7 @@ a{color:inherit}
   filter:blur(2px);transform:skewX(-12deg);opacity:0;pointer-events:none
 }
 .slide.active{opacity:1;visibility:visible;transform:translate3d(0,0,0);z-index:3}
+.slide.wa-moving{visibility:visible!important;transition:none!important;will-change:transform,opacity,filter}
 .slide.active::after{animation:lightSweep 1.05s .08s cubic-bezier(.2,.78,.2,1) both}
 .slide.from-left{visibility:visible;transform:translate3d(-106%,0,0)}
 .slide.from-right{visibility:visible;transform:translate3d(106%,0,0)}
@@ -331,20 +332,48 @@ a{color:inherit}
     const fromClass=direction>0?'from-right':'from-left';
     const exitClass=direction>0?'exit-left':'exit-right';
 
-    incoming.classList.remove('active','from-left','from-right','exit-left','exit-right');
-    incoming.classList.add(fromClass);
-    incoming.getBoundingClientRect();
+    if(typeof incoming.animate!=='function'){
+      incoming.classList.remove('active','from-left','from-right','exit-left','exit-right');
+      incoming.classList.add(fromClass);
+      incoming.getBoundingClientRect();
+      previous.classList.remove('active');
+      previous.classList.add(exitClass);
+      incoming.classList.remove(fromClass);
+      incoming.classList.add('active');
+      current=next;
+      updateUI();
+      setTimeout(()=>{
+        previous.classList.remove(exitClass);
+        moving=false;
+      },900);
+      return;
+    }
+
+    previous.classList.add('wa-moving');
+    incoming.classList.remove('from-left','from-right','exit-left','exit-right');
+    incoming.classList.add('active','wa-moving');
     previous.classList.remove('active');
-    previous.classList.add(exitClass);
-    incoming.classList.remove(fromClass);
-    incoming.classList.add('active');
     current=next;
     updateUI();
 
-    setTimeout(()=>{
-      previous.classList.remove(exitClass);
+    const timing={duration:980,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'};
+    const outgoing=previous.animate([
+      {transform:'translate3d(0,0,0)',opacity:1,filter:'blur(0)'},
+      {transform:`translate3d(${-direction*104}%,0,0)`,opacity:.08,filter:'blur(5px)'}
+    ],timing);
+    const arriving=incoming.animate([
+      {transform:`translate3d(${direction*104}%,0,0)`,opacity:.14,filter:'blur(5px)'},
+      {transform:'translate3d(0,0,0)',opacity:1,filter:'blur(0)'}
+    ],timing);
+
+    Promise.allSettled([outgoing.finished,arriving.finished]).then(()=>{
+      outgoing.cancel();
+      arriving.cancel();
+      previous.getBoundingClientRect();
+      previous.classList.remove('wa-moving');
+      incoming.classList.remove('wa-moving');
       moving=false;
-    },760);
+    });
   }
 
   prevBtn.addEventListener('click',()=>goTo(current-1));
