@@ -9,8 +9,6 @@
 :root{
   --red:#e30613;
   --cyan:#63dce7;
-  --navy:#062b3e;
-  --navy-2:#0a4054;
   --white:#fff;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -67,10 +65,9 @@ a{color:inherit}
 .intro p{max-width:920px;color:#fff;font-size:14px;line-height:1.65}
 
 .story{min-height:0;margin-top:34px;display:flex;flex:0 0 auto;flex-direction:column}
-.story-top{height:24px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.story-label{display:flex;align-items:center;gap:12px;color:var(--cyan);font-size:10px;font-weight:900;letter-spacing:.2em;text-transform:uppercase}
-.story-label::before{content:"";width:27px;height:3px;border-radius:99px;background:var(--red)}
-.chapter-name{color:#fff;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.story-top{height:24px;display:flex;align-items:center;margin-bottom:10px}
+.story-label{display:flex;align-items:center;gap:12px;color:#fff;font-size:10px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.story-label::before{content:"";width:27px;height:3px;border-radius:99px;background:var(--cyan)}
 
 .stage{
   position:relative;flex:0 0 400px;min-height:380px;overflow:hidden;
@@ -86,25 +83,37 @@ a{color:inherit}
   padding:12px 50px 12px 14px;opacity:0;visibility:hidden;transform:translate3d(106%,0,0);
   transition:transform .72s cubic-bezier(.22,1,.36,1),opacity .48s ease,visibility .72s
 }
+.slide::after{
+  content:"";position:absolute;z-index:0;top:-12%;bottom:-12%;left:-180px;width:150px;
+  background:linear-gradient(90deg,transparent,rgba(99,220,231,.085),rgba(255,255,255,.09),transparent);
+  filter:blur(2px);transform:skewX(-12deg);opacity:0;pointer-events:none
+}
 .slide.active{opacity:1;visibility:visible;transform:translate3d(0,0,0);z-index:3}
+.slide.active::after{animation:lightSweep 1.05s .08s cubic-bezier(.2,.78,.2,1) both}
 .slide.from-left{visibility:visible;transform:translate3d(-106%,0,0)}
 .slide.from-right{visibility:visible;transform:translate3d(106%,0,0)}
 .slide.exit-left{opacity:0;visibility:visible;transform:translate3d(-106%,0,0);z-index:2}
 .slide.exit-right{opacity:0;visibility:visible;transform:translate3d(106%,0,0);z-index:2}
 .slide-num{
-  position:relative;display:block;width:max-content;margin:0 0 10px -4px;color:transparent;
-  -webkit-text-stroke:2px color-mix(in srgb,var(--accent) 78%,transparent);
+  position:relative;display:block;width:max-content;margin:0 0 24px -4px;color:transparent;
+  -webkit-text-stroke:2px rgba(255,255,255,.46);
   font:900 clamp(126px,13vw,184px)/.72 'Arial Black',Arial,sans-serif;letter-spacing:-.085em;user-select:none
 }
 .slide-copy{position:relative;z-index:2}
-.slide-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;padding:5px 12px;border:1px solid color-mix(in srgb,var(--accent) 72%,transparent);border-radius:999px;color:var(--accent);font-size:9px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
-.slide-badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 13%,transparent)}
-.badge-icon{display:none}
+.slide.active .slide-copy{animation:copyIn .7s .06s cubic-bezier(.22,1,.36,1) both}
+.slide.active .slide-num{animation:numberIn .78s .02s cubic-bezier(.22,1,.36,1) both}
+.slide.active h2{animation:titleReveal .66s .16s cubic-bezier(.22,1,.36,1) both}
+.slide.active .slide-copy>p{animation:textIn .58s .26s ease both}
 .slide h2{max-width:445px;color:#fff;font-size:clamp(30px,3.25vw,46px);font-weight:900;letter-spacing:-.05em;line-height:1.04}
 .slide-copy p{max-width:445px;margin-top:18px;color:#fff;font-size:14px;line-height:1.7}
 .accent-line{width:0;height:3px;margin-top:27px;border-radius:99px;background:linear-gradient(90deg,var(--accent),transparent)}
 .slide.active .accent-line{animation:lineGrow .7s .2s ease forwards}
 @keyframes lineGrow{to{width:72px}}
+@keyframes lightSweep{0%{left:-180px;opacity:0}18%{opacity:1}78%{opacity:.7}100%{left:calc(100% + 60px);opacity:0}}
+@keyframes copyIn{from{opacity:0;transform:translateX(-38px)}to{opacity:1;transform:translateX(0)}}
+@keyframes numberIn{from{opacity:0;transform:translateX(-56px) scale(.94);-webkit-text-stroke-color:rgba(99,220,231,0)}to{opacity:1;transform:translateX(0) scale(1);-webkit-text-stroke-color:rgba(255,255,255,.46)}}
+@keyframes titleReveal{from{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-18px)}to{opacity:1;clip-path:inset(0 0 0 0);transform:translateX(0)}}
+@keyframes textIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
 .benefits{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;gap:21px}
 .benefit{
@@ -116,7 +125,7 @@ a{color:inherit}
 .slide.active .benefit{animation:itemIn .52s cubic-bezier(.22,1,.36,1) forwards;animation-delay:var(--delay)}
 @keyframes itemIn{from{opacity:0;transform:translateX(34px)}to{opacity:1;transform:translateX(0)}}
 .benefit:hover{transform:translateX(6px)!important}
-.benefit-num{width:42px;height:42px;border:1px solid color-mix(in srgb,var(--accent) 62%,transparent);border-radius:12px;background:color-mix(in srgb,var(--accent) 7%,transparent);color:var(--accent);display:grid;place-items:center;font-size:12px;font-weight:900}
+.benefit-num{width:42px;height:42px;border:1px solid rgba(255,255,255,.3);border-radius:12px;background:rgba(255,255,255,.035);color:var(--cyan);display:grid;place-items:center;font-size:12px;font-weight:900}
 .benefit-text{min-width:0}
 .benefit strong{display:block;color:#fff;font-size:14px;font-weight:900;line-height:1.3}
 .benefit p{margin-top:5px;color:#fff;font-size:12px;line-height:1.5}
@@ -126,20 +135,15 @@ a{color:inherit}
 .dot{width:7px;height:7px;padding:0;border:0;border-radius:99px;background:rgba(255,255,255,.38);cursor:pointer;transition:width .3s,background .3s,transform .2s}
 .dot:hover{transform:scale(1.3);background:#fff}
 .dot.active{width:33px;background:var(--cyan)}
-.counter{margin-left:6px;color:#fff;font-size:11px;font-weight:900;font-variant-numeric:tabular-nums}
-.counter span{color:var(--cyan)}
 .last-actions{display:none;align-items:center;gap:13px;margin-left:auto}
 .last-actions.show{display:flex;animation:actionsIn .35s cubic-bezier(.22,1,.36,1) both}
 @keyframes actionsIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
-.continue-cue{display:flex;align-items:center;gap:8px;color:#fff;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
-.continue-cue i{width:27px;height:27px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-style:normal;animation:bob 1.6s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
-.restart-btn{padding:8px 12px;border:1px solid rgba(99,220,231,.5);border-radius:10px;background:rgba(6,43,62,.72);color:#fff;font-size:10px;font-weight:800;cursor:pointer;transition:background .2s,transform .2s}
-.restart-btn:hover{background:#0a4054;transform:translateY(-2px)}
+.restart-btn{padding:8px 12px;border:1px solid rgba(255,255,255,.3);border-radius:10px;background:rgba(255,255,255,.045);color:#fff;font-size:10px;font-weight:800;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.restart-btn:hover{border-color:var(--cyan);background:rgba(99,220,231,.12);transform:translateY(-2px)}
 .arrows{display:flex;gap:9px;margin-left:auto}
 .last-actions.show+.arrows{margin-left:0}
-.arrow-btn{width:39px;height:39px;border:1px solid rgba(99,220,231,.42);border-radius:50%;background:rgba(6,43,62,.92);color:#fff;display:grid;place-items:center;cursor:pointer;transition:transform .2s,background .2s,border-color .2s,opacity .2s}
-.arrow-btn:hover:not(:disabled){transform:scale(1.08);background:#0a4054;border-color:var(--cyan)}
+.arrow-btn{width:39px;height:39px;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:rgba(255,255,255,.055);color:#fff;display:grid;place-items:center;cursor:pointer;transition:transform .2s,background .2s,border-color .2s,opacity .2s}
+.arrow-btn:hover:not(:disabled){transform:scale(1.08);background:rgba(99,220,231,.14);border-color:var(--cyan)}
 .arrow-btn:disabled{opacity:.24;cursor:default}
 .arrow-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
@@ -222,20 +226,15 @@ a{color:inherit}
     <p>Em parceria com as Escolas e Faculdades SENAI-SP, a ESEO desenvolve e apoia soluções online e semipresenciais para a educação profissional.</p>
   </section>
 
-  <section class="story" aria-label="O que a ESEO entrega">
+  <section class="story" aria-label="Três frentes para apoiar sua oferta EAD">
     <div class="story-top">
-      <div class="story-label">O que a ESEO entrega</div>
-      <div class="chapter-name" id="chapterName" aria-live="polite">Frente 01 · Valor</div>
+      <div class="story-label">Três frentes para apoiar sua oferta EAD</div>
     </div>
 
     <div class="stage" id="stage" tabindex="0" aria-roledescription="carrossel" aria-label="Frentes de atuação da ESEO">
       <article class="slide active" data-slide="0" style="--accent:#63dce7" aria-hidden="false">
         <div class="slide-copy">
           <div class="slide-num" aria-hidden="true">01</div>
-          <div class="slide-badge">
-            <span class="badge-icon"><svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2"></path><path d="m5 7 5-4 5 5 5-4"></path></svg></span>
-            Frente 01
-          </div>
           <h2>Diferenciais que geram valor</h2>
           <p>Mais alcance e possibilidades de oferta, com flexibilidade para atender diferentes realidades.</p>
           <div class="accent-line"></div>
@@ -251,10 +250,6 @@ a{color:inherit}
       <article class="slide" data-slide="1" style="--accent:#63dce7" aria-hidden="true">
         <div class="slide-copy">
           <div class="slide-num" aria-hidden="true">02</div>
-          <div class="slide-badge">
-            <span class="badge-icon"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 17V9l6-5 6 5v8M9 20v-6h6v6"></path></svg></span>
-            Frente 02
-          </div>
           <h2>Apoio estratégico às escolas</h2>
           <p>Da necessidade da escola à oferta estruturada, com orientação especializada em cada decisão.</p>
           <div class="accent-line"></div>
@@ -270,10 +265,6 @@ a{color:inherit}
       <article class="slide" data-slide="2" style="--accent:#63dce7" aria-hidden="true">
         <div class="slide-copy">
           <div class="slide-num" aria-hidden="true">03</div>
-          <div class="slide-badge">
-            <span class="badge-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"></path></svg></span>
-            Frente 03
-          </div>
           <h2>Soluções que impulsionam resultados</h2>
           <p>Qualidade pedagógica, experiência educacional e conexão com o mercado no mesmo movimento.</p>
           <div class="accent-line"></div>
@@ -289,10 +280,8 @@ a{color:inherit}
 
     <div class="controls" aria-label="Controles das frentes">
       <div class="progress" id="progress"></div>
-      <div class="counter" id="counter"><span>01</span> / 03</div>
       <div class="last-actions" id="lastActions">
         <button class="restart-btn" id="restartBtn" type="button">Rever frentes</button>
-        <div class="continue-cue">Continue descendo <i>↓</i></div>
       </div>
       <div class="arrows">
         <button class="arrow-btn" id="prevBtn" type="button" aria-label="Frente anterior" disabled><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"></path></svg></button>
@@ -307,13 +296,10 @@ a{color:inherit}
   const slides=[...document.querySelectorAll('.slide')];
   const stage=document.getElementById('stage');
   const progress=document.getElementById('progress');
-  const counter=document.getElementById('counter');
-  const chapterName=document.getElementById('chapterName');
   const prevBtn=document.getElementById('prevBtn');
   const nextBtn=document.getElementById('nextBtn');
   const restartBtn=document.getElementById('restartBtn');
   const lastActions=document.getElementById('lastActions');
-  const labels=['Frente 01 · Valor','Frente 02 · Estratégia','Frente 03 · Resultados'];
   let current=0;
   let moving=false;
   let wheelLock=false;
@@ -330,8 +316,6 @@ a{color:inherit}
 
   function updateUI(){
     dots.forEach((dot,index)=>dot.classList.toggle('active',index===current));
-    counter.innerHTML=`<span>${String(current+1).padStart(2,'0')}</span> / ${String(slides.length).padStart(2,'0')}`;
-    chapterName.textContent=labels[current];
     prevBtn.disabled=current===0;
     nextBtn.disabled=current===slides.length-1;
     lastActions.classList.toggle('show',current===slides.length-1);
