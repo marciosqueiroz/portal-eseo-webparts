@@ -1039,26 +1039,95 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 </style>
 
 
-<style id="v23-documentos-tela-cheia">
-/* V23 — leitura em tela cheia dos documentos incorporados */
+
+<style id="v24-documentos-tela-cheia">
+/* V24 — cabeçalho do documento + controles alinhados + fullscreen real do visualizador */
 .embedded-doc{position:relative}
 
+/* Fechado: linha limpa e discreta */
+.embedded-doc > summary{
+  position:relative;
+}
+.embedded-doc:not([open]) > summary{
+  background:#fff !important;
+}
+.embedded-doc:not([open]) .embedded-doc-action{
+  color:var(--navy-900);
+  background:#eef3f6;
+  border:1px solid #d3dce3;
+}
+
+/* Aberto: destaque azul-escuro com letras brancas */
+.embedded-doc[open] > summary{
+  min-height:66px;
+  padding-right:230px !important;
+  background:var(--navy-900) !important;
+  border-bottom:0 !important;
+  color:#fff !important;
+}
+.embedded-doc[open] > summary:hover{
+  background:var(--navy-900) !important;
+  color:#fff !important;
+}
+.embedded-doc[open] .embedded-doc-copy strong{
+  color:#fff !important;
+}
+.embedded-doc[open] .embedded-doc-copy small{
+  color:#cbd8e3 !important;
+}
+.embedded-doc[open] .embedded-doc-icon{
+  color:var(--red-600) !important;
+  background:#fff !important;
+}
+
+/* ABRIR / RECOLHER fica no mesmo eixo do botão TELA CHEIA */
+.embedded-doc .embedded-doc-action{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:86px;
+  min-height:34px;
+  padding:7px 12px;
+  border-radius:999px;
+  line-height:1;
+}
+.embedded-doc .embedded-doc-action::after{
+  content:" +" !important;
+  margin-left:3px;
+  color:currentColor !important;
+  font-size:13px;
+}
+.embedded-doc[open] .embedded-doc-action{
+  position:absolute;
+  top:50%;
+  right:14px;
+  transform:translateY(-50%);
+  color:#fff !important;
+  background:rgba(255,255,255,.12) !important;
+  border:1px solid rgba(255,255,255,.38) !important;
+}
+.embedded-doc[open] .embedded-doc-action::after{
+  content:" −" !important;
+}
+
+/* Botão de tela cheia no cabeçalho, perfeitamente alinhado ao Recolher */
 .embedded-doc-fullscreen{
   display:none;
   position:absolute;
-  top:8px;
-  right:88px;
-  z-index:6;
+  top:16px;
+  right:112px;
+  z-index:8;
   align-items:center;
   justify-content:center;
-  gap:6px;
+  gap:7px;
+  min-width:104px;
   min-height:34px;
-  padding:7px 11px;
-  border:1px solid #d4dde4;
+  padding:7px 12px;
+  border:1px solid rgba(255,255,255,.42);
   border-radius:999px;
-  background:#fff;
-  color:var(--navy-900);
-  box-shadow:0 5px 13px rgba(6,24,39,.06);
+  background:rgba(255,255,255,.12);
+  color:#fff;
+  box-shadow:none;
   font:inherit;
   font-size:9px;
   line-height:1;
@@ -1066,29 +1135,25 @@ dialog[open] { animation: modal-in .24s ease-out both; }
   letter-spacing:.055em;
   text-transform:uppercase;
   cursor:pointer;
-  transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease;
 }
+.embedded-doc[open] > .embedded-doc-fullscreen{display:inline-flex}
 .embedded-doc-fullscreen:hover,
 .embedded-doc-fullscreen:focus-visible{
-  color:#fff;
   background:var(--red-600);
   border-color:var(--red-600);
-  box-shadow:0 9px 20px rgba(227,6,19,.16);
   transform:translateY(-1px);
   outline:none;
 }
-.embedded-doc-fullscreen .fs-icon{
-  font-size:15px;
-  line-height:1;
-  font-weight:700;
-}
-.embedded-doc[open] > .embedded-doc-fullscreen{display:inline-flex}
-.embedded-doc[open] > summary{padding-right:190px}
+.embedded-doc-fullscreen .fs-icon{font-size:15px;line-height:1}
 
-/* O próprio bloco do documento ocupa a tela; o iframe cresce junto. */
-.embedded-doc:fullscreen,
-.embedded-doc:-webkit-full-screen,
-.embedded-doc.fullscreen-fallback{
+/* O fullscreen agora é aplicado ao VISUALIZADOR, não ao acordeão inteiro. */
+.embedded-doc-frame{
+  position:relative;
+}
+.embedded-doc-frame:fullscreen,
+.embedded-doc-frame:-webkit-full-screen,
+.embedded-doc-frame.fullscreen-fallback{
   width:100vw !important;
   max-width:none !important;
   height:100vh !important;
@@ -1098,78 +1163,275 @@ dialog[open] { animation: modal-in .24s ease-out both; }
   border:0 !important;
   border-radius:0 !important;
   background:#fff !important;
-  box-shadow:none !important;
-  display:flex !important;
-  flex-direction:column !important;
   overflow:hidden !important;
 }
-.embedded-doc:fullscreen > summary,
-.embedded-doc:-webkit-full-screen > summary,
-.embedded-doc.fullscreen-fallback > summary{
-  flex:0 0 auto;
-  width:100%;
-  min-height:58px;
-  border-radius:0;
-  background:#fff;
-  border-bottom:1px solid #d9e0e5;
-  padding-left:18px;
-}
-.embedded-doc:fullscreen > .embedded-doc-body,
-.embedded-doc:-webkit-full-screen > .embedded-doc-body,
-.embedded-doc.fullscreen-fallback > .embedded-doc-body{
-  flex:1 1 auto;
-  min-height:0;
-  width:100%;
-  padding:0 !important;
-  display:flex;
-  background:#eef1f3;
-}
-.embedded-doc:fullscreen .embedded-doc-frame,
-.embedded-doc:-webkit-full-screen .embedded-doc-frame,
-.embedded-doc.fullscreen-fallback .embedded-doc-frame{
-  flex:1 1 auto;
-  width:100% !important;
-  height:auto !important;
-  min-height:0 !important;
-  border-radius:0 !important;
-}
-.embedded-doc:fullscreen .embedded-doc-frame iframe,
-.embedded-doc:-webkit-full-screen .embedded-doc-frame iframe,
-.embedded-doc.fullscreen-fallback .embedded-doc-frame iframe{
-  width:100% !important;
-  height:100% !important;
-  min-height:0 !important;
-}
-.embedded-doc:fullscreen .embedded-doc-fullscreen,
-.embedded-doc:-webkit-full-screen .embedded-doc-fullscreen,
-.embedded-doc.fullscreen-fallback .embedded-doc-fullscreen{
-  top:12px;
-  right:104px;
-}
-html.eseo-doc-fallback-active,
-body.eseo-doc-fallback-active{overflow:hidden !important}
-.embedded-doc.fullscreen-fallback{
-  position:fixed !important;
+.embedded-doc-frame:fullscreen iframe,
+.embedded-doc-frame:-webkit-full-screen iframe,
+.embedded-doc-frame.fullscreen-fallback iframe{
+  position:absolute !important;
   inset:0 !important;
-  z-index:2147483647 !important;
+  display:block !important;
+  width:100vw !important;
+  height:100vh !important;
+  min-width:100vw !important;
+  min-height:100vh !important;
+  max-width:none !important;
+  max-height:none !important;
+  border:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:#fff !important;
 }
 
-/* Em telas estreitas, preserva espaço para os dois controles sem esmagar o título. */
+/* Controle para sair continua disponível sobre o documento */
+.doc-fullscreen-exit{
+  display:none;
+  position:absolute;
+  top:12px;
+  right:14px;
+  z-index:2147483647;
+  min-height:38px;
+  padding:8px 14px;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:999px;
+  background:rgba(6,24,39,.90);
+  color:#fff;
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+  font:inherit;
+  font-size:10px;
+  font-weight:950;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.embedded-doc-frame:fullscreen .doc-fullscreen-exit,
+.embedded-doc-frame:-webkit-full-screen .doc-fullscreen-exit,
+.embedded-doc-frame.fullscreen-fallback .doc-fullscreen-exit{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.doc-fullscreen-exit:hover{background:var(--red-600);border-color:var(--red-600)}
+
+html.eseo-doc-fallback-active,
+body.eseo-doc-fallback-active{overflow:hidden !important}
+.embedded-doc-frame.fullscreen-fallback{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:2147483646 !important;
+}
+
+/* SharePoint estreito: mantém os dois controles sem atropelar o título */
 @media(max-width:760px){
-  .embedded-doc[open] > summary{padding-right:92px}
-  .embedded-doc-fullscreen{
-    right:49px;
-    top:8px;
-    width:34px;
-    min-width:34px;
-    height:34px;
-    padding:0;
+  .embedded-doc[open] > summary{
+    padding-right:94px !important;
+    padding-bottom:48px !important;
   }
-  .embedded-doc-fullscreen .fs-label{display:none}
-  .embedded-doc-fullscreen .fs-icon{font-size:16px}
-  .embedded-doc:fullscreen .embedded-doc-fullscreen,
-  .embedded-doc:-webkit-full-screen .embedded-doc-fullscreen,
-  .embedded-doc.fullscreen-fallback .embedded-doc-fullscreen{right:53px}
+  .embedded-doc[open] .embedded-doc-action{
+    top:auto;
+    bottom:9px;
+    right:12px;
+    transform:none;
+    min-width:78px;
+    min-height:30px;
+    padding:6px 9px;
+  }
+  .embedded-doc-fullscreen{
+    top:auto;
+    bottom:9px;
+    right:98px;
+    min-width:92px;
+    min-height:30px;
+    padding:6px 9px;
+  }
+}
+</style>
+
+
+<style id="v25-refino-visual">
+/* V25 — refinamento visual: menos "puxadinho", ações claras e tipografia consistente */
+
+/* 1. Listas "Antes de começar": mesma escala, ritmo e ocupação em todas as ofertas. */
+.course-body > .number-list{
+  gap:0 !important;
+  margin:14px 0 24px !important;
+}
+.course-body > .number-list li{
+  display:flex;
+  align-items:center;
+  min-height:52px;
+  margin:0 !important;
+  padding:11px 0 11px 54px !important;
+  font-size:15px;
+  line-height:1.45;
+}
+.course-body > .number-list li::before{
+  top:50% !important;
+  transform:translateY(-50%);
+}
+
+/* Remove a compactação específica que fazia CAITEC parecer ter outra escala. */
+@media (min-width:860px){
+  #caitec .number-list{margin:14px 0 24px !important}
+  #caitec .number-list li{margin:0 !important}
+}
+
+/* 2. Aperfeiçoamento: "Mais detalhes" passa a ser ação de verdade, não texto solto. */
+#aperfeicoamento .mini-course{
+  border-color:#dbe3e9;
+  box-shadow:0 5px 18px rgba(6,24,39,.035);
+  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+#aperfeicoamento .mini-course:hover{
+  border-color:#bdcfdd;
+  box-shadow:0 10px 24px rgba(6,24,39,.07);
+  transform:translateY(-1px);
+}
+#aperfeicoamento .mini-course > summary{
+  min-height:58px;
+  padding:12px 14px 12px 16px;
+  background:#fff;
+}
+#aperfeicoamento .mini-action{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:112px;
+  min-height:34px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:var(--navy-900);
+  color:#fff;
+  font-size:9.5px;
+  font-weight:950;
+  letter-spacing:.055em;
+  transition:background .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+#aperfeicoamento .mini-course > summary:hover .mini-action{
+  background:var(--red-600);
+  box-shadow:0 7px 16px rgba(227,6,19,.16);
+  transform:translateY(-1px);
+}
+#aperfeicoamento .mini-course[open] > summary{
+  background:#f4f8fb;
+  border-bottom:1px solid #dbe3e9;
+}
+#aperfeicoamento .mini-course[open] .mini-action{
+  background:var(--red-600);
+}
+#aperfeicoamento .mini-course[open] .mini-action:after{
+  color:#fff;
+}
+
+/* 3. Documentos: card único e integrado. Nada de avançar para fora do conteúdo. */
+.embedded-doc,
+.embedded-doc[open]{
+  width:100% !important;
+  margin:16px 0 !important;
+  border:1px solid #ccd8e1 !important;
+  border-radius:16px !important;
+  overflow:hidden !important;
+  box-shadow:0 8px 22px rgba(6,24,39,.055);
+}
+.embedded-doc[open]{
+  box-shadow:0 14px 30px rgba(6,24,39,.09);
+}
+.embedded-doc-body{
+  padding:0 !important;
+  background:#eef2f5 !important;
+}
+.embedded-doc-frame{
+  border-radius:0 0 15px 15px !important;
+}
+
+/* Fechado: ABRIR vira botão evidente. */
+.embedded-doc:not([open]) .embedded-doc-action{
+  color:#fff !important;
+  background:var(--navy-900) !important;
+  border:1px solid var(--navy-900) !important;
+  box-shadow:0 5px 12px rgba(6,24,39,.10);
+}
+.embedded-doc:not([open]) > summary:hover .embedded-doc-action{
+  background:var(--red-600) !important;
+  border-color:var(--red-600) !important;
+}
+
+/* Aberto: cabeçalho institucional e dois controles brancos alinhados. */
+.embedded-doc[open] > summary{
+  background:linear-gradient(100deg,var(--navy-950),var(--navy-800)) !important;
+  min-height:64px;
+  padding-right:236px !important;
+}
+.embedded-doc[open] .embedded-doc-action,
+.embedded-doc[open] > .embedded-doc-fullscreen{
+  background:#fff !important;
+  color:var(--navy-900) !important;
+  border:1px solid rgba(255,255,255,.9) !important;
+  box-shadow:0 4px 12px rgba(0,0,0,.10);
+}
+.embedded-doc[open] .embedded-doc-action:hover,
+.embedded-doc[open] > .embedded-doc-fullscreen:hover{
+  background:var(--red-600) !important;
+  color:#fff !important;
+  border-color:var(--red-600) !important;
+}
+.embedded-doc[open] .embedded-doc-action::after{
+  color:currentColor !important;
+}
+
+/* 4. Aprendizagem: cabeçalho/“botão” continua branco; somente o conteúdo aberto ganha azul. */
+#aprendizagem > summary,
+#aprendizagem[open] > summary{
+  background:#fff !important;
+  border-bottom:0 !important;
+}
+#aprendizagem .course-body{
+  padding:clamp(26px,4vw,42px);
+  background:
+    linear-gradient(135deg,rgba(234,246,254,.98),rgba(242,249,253,.98));
+  border-top:1px solid #cfe3f1;
+}
+#aprendizagem .course-body h2{
+  margin:0 0 14px;
+  color:var(--navy-900);
+}
+#aprendizagem .course-body p{
+  margin:0 0 14px;
+  max-width:1060px;
+  color:#183347;
+  font-size:15.5px;
+  line-height:1.62;
+}
+#aprendizagem .course-body p:last-child{margin-bottom:0}
+#aprendizagem .course-body a{
+  color:#075fa9;
+  text-decoration-thickness:1.5px;
+  text-underline-offset:3px;
+}
+#aprendizagem .course-body a:hover{color:var(--red-700)}
+
+/* 5. Pequeno refinamento para os botões finais: todos respondem visualmente. */
+.actions .button,
+.normative-links .button{
+  transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.actions .button:hover,
+.normative-links .button:hover{
+  transform:translateY(-1px) !important;
+}
+
+/* Mobile: ações não disputam espaço com o título. */
+@media(max-width:760px){
+  #aperfeicoamento .mini-course > summary{
+    gap:10px;
+  }
+  #aperfeicoamento .mini-action{
+    min-width:104px;
+  }
+  .embedded-doc[open] > summary{
+    padding-right:96px !important;
+  }
 }
 </style>
 
@@ -1321,15 +1583,9 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 </details><details class="course-accordion" id="aprendizagem">
 <summary>APRENDIZAGEM INDUSTRIAL</summary>
 <div class="course-body">
-<h2>SOBRE A OFERTA</h2>
-<div class="availability-warning">
-<span aria-hidden="true" class="status-dot"></span>
-<div>
-<strong>SITUAÇÃO ATUAL</strong>
-<p>No momento, não há cursos de Aprendizagem Industrial autorizados para realização com estratégia a distância e participação da ESEO. Quando houver ofertas disponíveis, as orientações serão publicadas nesta seção.</p>
-<p>A <strong>formação dos profissionais que acompanham aprendizes nas empresas</strong> é um processo distinto desta oferta. Para essa finalidade, consulte <a href="#monitoria-aprendizes"><strong>Fundamentos para a Monitoria de Aprendizes (antigo OPE)</strong></a>, disponível na seção Aperfeiçoamento.</p>
-</div>
-</div>
+<h2>SITUAÇÃO ATUAL</h2>
+<p>No momento, não há cursos de <strong>Aprendizagem Industrial</strong> autorizados para realização com estratégia a distância e participação da ESEO. Quando houver ofertas disponíveis, as orientações serão publicadas nesta seção.</p>
+<p>A <strong>formação dos profissionais que acompanham aprendizes nas empresas</strong> é um processo distinto desta oferta. Para essa finalidade, consulte <a href="#monitoria-aprendizes"><strong>Fundamentos para a Monitoria de Aprendizes (antigo OPE)</strong></a>, disponível em Aperfeiçoamento.</p>
 </div>
 </details><details class="course-accordion" id="autoinstrucionais">
 <summary>AUTOINSTRUCIONAL</summary>
@@ -1752,52 +2008,38 @@ certificateTabs.forEach(tab => tab.addEventListener('click', () => {
 }
 </script>
 
-<script id="v23-documentos-tela-cheia-script">
+
+<script id="v24-documentos-tela-cheia-script">
 (() => {
   const docs = [...document.querySelectorAll('[data-embedded-doc]')];
 
-  const isNativeFullscreen = (block) =>
-    document.fullscreenElement === block ||
-    document.webkitFullscreenElement === block;
-
-  const isFallbackFullscreen = (block) =>
-    block.classList.contains('fullscreen-fallback');
-
-  const isFullscreen = (block) =>
-    isNativeFullscreen(block) || isFallbackFullscreen(block);
-
   const loadFrame = (block) => {
-    const frame = block.querySelector('iframe[data-src]');
-    if (frame && (!frame.getAttribute('src') || frame.getAttribute('src') === 'about:blank')) {
-      frame.src = frame.dataset.src;
+    const iframe = block.querySelector('iframe[data-src]');
+    if (iframe && (!iframe.getAttribute('src') || iframe.getAttribute('src') === 'about:blank')) {
+      iframe.src = iframe.dataset.src;
     }
   };
 
-  const closeFallback = (block) => {
-    if (!block || !block.classList.contains('fullscreen-fallback')) return;
-    block.classList.remove('fullscreen-fallback');
+  const updateAction = (block) => {
+    const action = block.querySelector('.embedded-doc-action');
+    if (action) action.textContent = block.open ? 'RECOLHER' : 'ABRIR';
+  };
+
+  const isFrameFullscreen = (frame) =>
+    document.fullscreenElement === frame ||
+    document.webkitFullscreenElement === frame ||
+    frame.classList.contains('fullscreen-fallback');
+
+  const closeFallback = (frame) => {
+    if (!frame || !frame.classList.contains('fullscreen-fallback')) return;
+    frame.classList.remove('fullscreen-fallback');
     document.documentElement.classList.remove('eseo-doc-fallback-active');
     document.body.classList.remove('eseo-doc-fallback-active');
   };
 
-  const syncButtons = () => {
-    docs.forEach(block => {
-      const button = block.querySelector('.embedded-doc-fullscreen');
-      if (!button) return;
-      const active = isFullscreen(block);
-      button.setAttribute('aria-label', active ? 'Sair da tela cheia' : 'Abrir documento em tela cheia');
-      button.setAttribute('title', active ? 'Sair da tela cheia' : 'Abrir documento em tela cheia');
-      const label = button.querySelector('.fs-label');
-      const icon = button.querySelector('.fs-icon');
-      if (label) label.textContent = active ? 'SAIR DA TELA CHEIA' : 'TELA CHEIA';
-      if (icon) icon.textContent = active ? '×' : '⛶';
-    });
-  };
-
-  const exitCurrentFullscreen = async (block) => {
-    if (isFallbackFullscreen(block)) {
-      closeFallback(block);
-      syncButtons();
+  const exitFullscreen = async (frame) => {
+    if (frame.classList.contains('fullscreen-fallback')) {
+      closeFallback(frame);
       return;
     }
     try {
@@ -1807,76 +2049,87 @@ certificateTabs.forEach(tab => tab.addEventListener('click', () => {
         document.webkitExitFullscreen();
       }
     } catch (_) {}
-    syncButtons();
   };
 
   const enterFullscreen = async (block) => {
     if (!block.open) block.open = true;
     loadFrame(block);
 
-    if (isFullscreen(block)) {
-      await exitCurrentFullscreen(block);
+    const frame = block.querySelector('.embedded-doc-frame');
+    if (!frame) return;
+
+    if (isFrameFullscreen(frame)) {
+      await exitFullscreen(frame);
       return;
     }
 
     try {
-      if (block.requestFullscreen) {
-        await block.requestFullscreen();
-      } else if (block.webkitRequestFullscreen) {
-        block.webkitRequestFullscreen();
+      /* Fullscreen no visualizador: o iframe recebe o viewport inteiro. */
+      if (frame.requestFullscreen) {
+        await frame.requestFullscreen();
+      } else if (frame.webkitRequestFullscreen) {
+        frame.webkitRequestFullscreen();
       } else {
         throw new Error('Fullscreen API indisponível');
       }
     } catch (_) {
-      /* Fallback: ocupa toda a área visível do HTML caso o navegador/SharePoint bloqueie a Fullscreen API. */
-      docs.forEach(closeFallback);
-      block.classList.add('fullscreen-fallback');
+      /* Fallback caso o navegador ou o host do SharePoint negue a Fullscreen API. */
+      document.querySelectorAll('.embedded-doc-frame.fullscreen-fallback').forEach(closeFallback);
+      frame.classList.add('fullscreen-fallback');
       document.documentElement.classList.add('eseo-doc-fallback-active');
       document.body.classList.add('eseo-doc-fallback-active');
     }
-    syncButtons();
   };
 
   docs.forEach(block => {
-    if (block.querySelector('.embedded-doc-fullscreen')) return;
+    updateAction(block);
 
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'embedded-doc-fullscreen';
-    button.innerHTML = '<span class="fs-icon" aria-hidden="true">⛶</span><span class="fs-label">TELA CHEIA</span>';
-    button.setAttribute('aria-label', 'Abrir documento em tela cheia');
-    button.setAttribute('title', 'Abrir documento em tela cheia');
+    let fullBtn = block.querySelector('.embedded-doc-fullscreen');
+    if (!fullBtn) {
+      fullBtn = document.createElement('button');
+      fullBtn.type = 'button';
+      fullBtn.className = 'embedded-doc-fullscreen';
+      fullBtn.innerHTML = '<span class="fs-icon" aria-hidden="true">⛶</span><span>TELA CHEIA</span>';
+      fullBtn.setAttribute('aria-label', 'Abrir documento em tela cheia');
+      fullBtn.setAttribute('title', 'Abrir documento em tela cheia');
+      const summary = block.querySelector(':scope > summary');
+      if (summary) summary.insertAdjacentElement('afterend', fullBtn);
+      else block.prepend(fullBtn);
+    }
 
-    const summary = block.querySelector(':scope > summary');
-    if (summary) summary.insertAdjacentElement('afterend', button);
-    else block.prepend(button);
+    const frame = block.querySelector('.embedded-doc-frame');
+    if (frame && !frame.querySelector('.doc-fullscreen-exit')) {
+      const exitBtn = document.createElement('button');
+      exitBtn.type = 'button';
+      exitBtn.className = 'doc-fullscreen-exit';
+      exitBtn.innerHTML = '<span aria-hidden="true">↙</span> SAIR DA TELA CHEIA';
+      exitBtn.setAttribute('aria-label', 'Sair da tela cheia');
+      exitBtn.addEventListener('click', async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        await exitFullscreen(frame);
+      });
+      frame.appendChild(exitBtn);
+    }
 
-    button.addEventListener('click', async (event) => {
+    fullBtn.addEventListener('click', async (event) => {
       event.preventDefault();
       event.stopPropagation();
       await enterFullscreen(block);
     });
 
-    /* Se recolher o documento enquanto ele estiver ampliado, também sai da tela cheia. */
     block.addEventListener('toggle', () => {
-      if (!block.open && isFullscreen(block)) exitCurrentFullscreen(block);
+      updateAction(block);
+      if (block.open) loadFrame(block);
+      if (!block.open && frame && isFrameFullscreen(frame)) exitFullscreen(frame);
     });
   });
 
-  document.addEventListener('fullscreenchange', syncButtons);
-  document.addEventListener('webkitfullscreenchange', syncButtons);
-
-  /* ESC também fecha o fallback CSS quando a Fullscreen API não estiver disponível. */
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
-    const fallback = document.querySelector('.embedded-doc.fullscreen-fallback');
-    if (fallback) {
-      closeFallback(fallback);
-      syncButtons();
-    }
+    const fallback = document.querySelector('.embedded-doc-frame.fullscreen-fallback');
+    if (fallback) closeFallback(fallback);
   });
-
-  syncButtons();
 })();
 </script>
 
