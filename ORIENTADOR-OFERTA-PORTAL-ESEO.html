@@ -62,7 +62,16 @@ button, a { font: inherit; }
 .intro-row {
   padding: 19px 4px 24px;
 }
-#page-intro { max-width: none; margin: 0; color: #273746; font-size: clamp(16px, 1.75vw, 21px); font-weight: 650; white-space: nowrap; }
+#page-intro {
+  max-width: none;
+  margin: 0;
+  color: #273746;
+  font-size: clamp(16px, 1.75vw, 21px);
+  font-weight: 650;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
 .utility-row {
   display: flex;
   justify-content: flex-end;
@@ -812,17 +821,31 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 }
 .embedded-doc-action::after{content:" +";font-size:14px;vertical-align:-1px}
 .embedded-doc[open] .embedded-doc-action::after{content:" −"}
-.embedded-doc-body{padding:14px;background:#f3f4f5}
-.embedded-doc-note{margin:0 0 10px;color:#5d666d;font-size:11.5px;line-height:1.45}
+.embedded-doc-body{padding:0;background:#eef1f3}
+.embedded-doc-note{margin:0;padding:10px 14px;color:#5d666d;font-size:11.5px;line-height:1.45;border-bottom:1px solid #dfe3e6;background:#f7f8f9}
+.embedded-doc[open]{
+  width:calc(100% + 64px);
+  margin-left:-32px;
+  margin-right:-32px;
+  border-radius:16px;
+}
 .embedded-doc-frame{
-  height:min(72vh,760px);
-  min-height:500px;
+  width:100%;
+  height:min(82vh,920px);
+  min-height:620px;
   background:#e7e8ea;
-  border:1px solid #d5d6d8;
-  border-radius:12px;
+  border:0;
+  border-radius:0 0 16px 16px;
   overflow:hidden;
 }
-.embedded-doc-frame iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.embedded-doc-frame iframe{
+  display:block;
+  width:100%;
+  min-width:100%;
+  height:100%;
+  border:0;
+  background:#fff;
+}
 
 .inline-support{
   margin:18px 0 22px;
@@ -995,6 +1018,159 @@ dialog[open] { animation: modal-in .24s ease-out both; }
   .embedded-doc-icon{width:34px;height:34px}
   .embedded-doc-copy small{display:none}
 }
+
+@media (max-width: 980px) {
+  .embedded-doc[open]{
+    width:calc(100% + 28px);
+    margin-left:-14px;
+    margin-right:-14px;
+  }
+  .embedded-doc-frame{height:min(80vh,860px);min-height:560px}
+}
+@media (max-width: 620px) {
+  .embedded-doc[open]{
+    width:calc(100% + 12px);
+    margin-left:-6px;
+    margin-right:-6px;
+  }
+  .embedded-doc-frame{height:72vh;min-height:480px}
+}
+
+</style>
+
+
+<style id="v23-documentos-tela-cheia">
+/* V23 — leitura em tela cheia dos documentos incorporados */
+.embedded-doc{position:relative}
+
+.embedded-doc-fullscreen{
+  display:none;
+  position:absolute;
+  top:8px;
+  right:88px;
+  z-index:6;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  min-height:34px;
+  padding:7px 11px;
+  border:1px solid #d4dde4;
+  border-radius:999px;
+  background:#fff;
+  color:var(--navy-900);
+  box-shadow:0 5px 13px rgba(6,24,39,.06);
+  font:inherit;
+  font-size:9px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:background .18s ease,color .18s ease,border-color .18s ease,transform .18s ease,box-shadow .18s ease;
+}
+.embedded-doc-fullscreen:hover,
+.embedded-doc-fullscreen:focus-visible{
+  color:#fff;
+  background:var(--red-600);
+  border-color:var(--red-600);
+  box-shadow:0 9px 20px rgba(227,6,19,.16);
+  transform:translateY(-1px);
+  outline:none;
+}
+.embedded-doc-fullscreen .fs-icon{
+  font-size:15px;
+  line-height:1;
+  font-weight:700;
+}
+.embedded-doc[open] > .embedded-doc-fullscreen{display:inline-flex}
+.embedded-doc[open] > summary{padding-right:190px}
+
+/* O próprio bloco do documento ocupa a tela; o iframe cresce junto. */
+.embedded-doc:fullscreen,
+.embedded-doc:-webkit-full-screen,
+.embedded-doc.fullscreen-fallback{
+  width:100vw !important;
+  max-width:none !important;
+  height:100vh !important;
+  min-height:100vh !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  display:flex !important;
+  flex-direction:column !important;
+  overflow:hidden !important;
+}
+.embedded-doc:fullscreen > summary,
+.embedded-doc:-webkit-full-screen > summary,
+.embedded-doc.fullscreen-fallback > summary{
+  flex:0 0 auto;
+  width:100%;
+  min-height:58px;
+  border-radius:0;
+  background:#fff;
+  border-bottom:1px solid #d9e0e5;
+  padding-left:18px;
+}
+.embedded-doc:fullscreen > .embedded-doc-body,
+.embedded-doc:-webkit-full-screen > .embedded-doc-body,
+.embedded-doc.fullscreen-fallback > .embedded-doc-body{
+  flex:1 1 auto;
+  min-height:0;
+  width:100%;
+  padding:0 !important;
+  display:flex;
+  background:#eef1f3;
+}
+.embedded-doc:fullscreen .embedded-doc-frame,
+.embedded-doc:-webkit-full-screen .embedded-doc-frame,
+.embedded-doc.fullscreen-fallback .embedded-doc-frame{
+  flex:1 1 auto;
+  width:100% !important;
+  height:auto !important;
+  min-height:0 !important;
+  border-radius:0 !important;
+}
+.embedded-doc:fullscreen .embedded-doc-frame iframe,
+.embedded-doc:-webkit-full-screen .embedded-doc-frame iframe,
+.embedded-doc.fullscreen-fallback .embedded-doc-frame iframe{
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+}
+.embedded-doc:fullscreen .embedded-doc-fullscreen,
+.embedded-doc:-webkit-full-screen .embedded-doc-fullscreen,
+.embedded-doc.fullscreen-fallback .embedded-doc-fullscreen{
+  top:12px;
+  right:104px;
+}
+html.eseo-doc-fallback-active,
+body.eseo-doc-fallback-active{overflow:hidden !important}
+.embedded-doc.fullscreen-fallback{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:2147483647 !important;
+}
+
+/* Em telas estreitas, preserva espaço para os dois controles sem esmagar o título. */
+@media(max-width:760px){
+  .embedded-doc[open] > summary{padding-right:92px}
+  .embedded-doc-fullscreen{
+    right:49px;
+    top:8px;
+    width:34px;
+    min-width:34px;
+    height:34px;
+    padding:0;
+  }
+  .embedded-doc-fullscreen .fs-label{display:none}
+  .embedded-doc-fullscreen .fs-icon{font-size:16px}
+  .embedded-doc:fullscreen .embedded-doc-fullscreen,
+  .embedded-doc:-webkit-full-screen .embedded-doc-fullscreen,
+  .embedded-doc.fullscreen-fallback .embedded-doc-fullscreen{right:53px}
+}
 </style>
 
 </head>
@@ -1007,9 +1183,6 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 <span class="hero-eyebrow">SENAI | EDUCAÇÃO ONLINE</span>
 <h1 id="portal-hero-title">ORIENTAÇÕES PARA AS OFERTAS EAD</h1>
 <p>Escolha a oferta e consulte, no próprio fluxo, as regras, responsabilidades e os documentos vigentes necessários para executar cada etapa com participação da ESEO.</p>
-<div class="hero-actions">
-<a class="hero-button primary" href="#offer-search">ENCONTRAR UMA OFERTA</a>
-</div>
 </div>
 </div>
 </section>
@@ -1083,7 +1256,7 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=3a279739-8397-4b9e-a76f-53e4970b22e2" loading="lazy" src="about:blank" title="Fundamentos para a Monitoria de aprendizes"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=3a279739-8397-4b9e-a76f-53e4970b22e2&nb=true" loading="lazy" src="about:blank" title="Fundamentos para a Monitoria de aprendizes"></iframe></div>
 </div>
 </details></div>
 </details><details class="mini-course">
@@ -1116,7 +1289,7 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=70f50ee9-a16e-4364-867e-dd0459e86f67" loading="lazy" src="about:blank" title="Power BI Semipresencial – Manual Operacional"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=70f50ee9-a16e-4364-867e-dd0459e86f67&nb=true" loading="lazy" src="about:blank" title="Power BI Semipresencial – Manual Operacional"></iframe></div>
 </div>
 </details></div>
 </details><details class="mini-course">
@@ -1139,7 +1312,7 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=21ad995f-90fb-48ea-9bae-450bda9652cf" loading="lazy" src="about:blank" title="PEMSEP – Manual Operacional"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=21ad995f-90fb-48ea-9bae-450bda9652cf&nb=true" loading="lazy" src="about:blank" title="PEMSEP – Manual Operacional"></iframe></div>
 </div>
 </details></div>
 </details></div>
@@ -1174,7 +1347,7 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=3c89b2dd-9a2f-4c9f-95a3-5cb67b5be32d" loading="lazy" src="about:blank" title="Aluno Não Aparece no AVA – Orientações para Correção"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=3c89b2dd-9a2f-4c9f-95a3-5cb67b5be32d&nb=true" loading="lazy" src="about:blank" title="Aluno Não Aparece no AVA – Orientações para Correção"></iframe></div>
 </div>
 </details>
 <h2>ENCERRAMENTO DA OFERTA</h2>
@@ -1185,7 +1358,7 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=853c5d94-fbfd-40a3-b8a3-0247f0c4f6c8" loading="lazy" src="about:blank" title="Emissão do RMRF dos Cursos Autoinstrucionais"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=853c5d94-fbfd-40a3-b8a3-0247f0c4f6c8&nb=true" loading="lazy" src="about:blank" title="Emissão do RMRF dos Cursos Autoinstrucionais"></iframe></div>
 </div>
 </details><div class="normative-links"><a class="button secondary-link" href="https://sesisenaisp.sharepoint.com/sites/intranet/Gestao%20Documental/Documenta%C3%A7%C3%A3o%20SENAI-SP/%C3%81reas/Ger%C3%AAncia%20de%20Educa%C3%A7%C3%A3o/GED-003%20-%20Estrutura%C3%A7%C3%A3o%20e%20Implanta%C3%A7%C3%A3o%20de%20Cursos%20de%20Forma%C3%A7%C3%A3o%20Inicial%20e%20Continuada/GED-003.pdf" rel="noopener noreferrer" target="_blank" title="GED-003 — Estruturação e Implantação de Cursos de Formação Inicial e Continuada">CONSULTAR GED-003 ↗</a></div>
 </div>
@@ -1212,7 +1385,7 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=385659a1-3611-4131-ba16-5286c27a425a" loading="lazy" src="about:blank" title="Cadastro de Interlocutor do CAITEC no SGSET2"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=385659a1-3611-4131-ba16-5286c27a425a&nb=true" loading="lazy" src="about:blank" title="Cadastro de Interlocutor do CAITEC no SGSET2"></iframe></div>
 </div>
 </details><details class="embedded-doc" data-embedded-doc="">
 <summary>
@@ -1221,7 +1394,7 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=790e4fc0-1b2e-44cb-9ef0-a41926d01b4e" loading="lazy" src="about:blank" title="Cadastro de Interlocutor nas Turmas por Competência do CAITEC"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=790e4fc0-1b2e-44cb-9ef0-a41926d01b4e&nb=true" loading="lazy" src="about:blank" title="Cadastro de Interlocutor nas Turmas por Competência do CAITEC"></iframe></div>
 </div>
 </details><details class="embedded-doc" data-embedded-doc="">
 <summary>
@@ -1230,7 +1403,7 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=0d014c42-abf1-4274-9b0a-65bcde6ec153" loading="lazy" src="about:blank" title="Emissão do RMRF do CAITEC"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=0d014c42-abf1-4274-9b0a-65bcde6ec153&nb=true" loading="lazy" src="about:blank" title="Emissão do RMRF do CAITEC"></iframe></div>
 </div>
 </details><div class="actions multi-actions"><a class="button" href="https://portalindicadores.sp.senai.br/Home/Relatorio/b73346c54b8349a58fb2f89de755f0f3" rel="noopener noreferrer" target="_blank">CAITEC / NEM — PORTAL INDICADORES<span aria-hidden="true">↗</span></a><a class="button secondary-link" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/Documentos%20Compartilhados/Documentos%20da%20p%C3%A1gina%20ESEO/CAITEC%202026%20%E2%80%93%20Orienta%C3%A7%C3%B5es%20para%20as%20Escolas.pdf?web=1" rel="noopener noreferrer" target="_blank">ORIENTAÇÕES CAITEC 2026 <span aria-hidden="true">↗</span></a></div>
 </div>
@@ -1265,7 +1438,7 @@ dialog[open] { animation: modal-in .24s ease-out both; }
 <span class="embedded-doc-action">RECOLHER</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=c565836a-91d9-4957-989d-fc01f52a03bf" loading="lazy" src="about:blank" title="SEJA PRO para Escolas – Manual Operacional"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=c565836a-91d9-4957-989d-fc01f52a03bf&nb=true" loading="lazy" src="about:blank" title="SEJA PRO para Escolas – Manual Operacional"></iframe></div>
 </div>
 </details>
 <div class="actions multi-actions"><a class="button" href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u" rel="noopener noreferrer" target="_blank">SOLICITAR LIBERAÇÃO DA OFERTA<span aria-hidden="true">↗</span></a></div>
@@ -1578,5 +1751,134 @@ certificateTabs.forEach(tab => tab.addEventListener('click', () => {
   }
 }
 </script>
+
+<script id="v23-documentos-tela-cheia-script">
+(() => {
+  const docs = [...document.querySelectorAll('[data-embedded-doc]')];
+
+  const isNativeFullscreen = (block) =>
+    document.fullscreenElement === block ||
+    document.webkitFullscreenElement === block;
+
+  const isFallbackFullscreen = (block) =>
+    block.classList.contains('fullscreen-fallback');
+
+  const isFullscreen = (block) =>
+    isNativeFullscreen(block) || isFallbackFullscreen(block);
+
+  const loadFrame = (block) => {
+    const frame = block.querySelector('iframe[data-src]');
+    if (frame && (!frame.getAttribute('src') || frame.getAttribute('src') === 'about:blank')) {
+      frame.src = frame.dataset.src;
+    }
+  };
+
+  const closeFallback = (block) => {
+    if (!block || !block.classList.contains('fullscreen-fallback')) return;
+    block.classList.remove('fullscreen-fallback');
+    document.documentElement.classList.remove('eseo-doc-fallback-active');
+    document.body.classList.remove('eseo-doc-fallback-active');
+  };
+
+  const syncButtons = () => {
+    docs.forEach(block => {
+      const button = block.querySelector('.embedded-doc-fullscreen');
+      if (!button) return;
+      const active = isFullscreen(block);
+      button.setAttribute('aria-label', active ? 'Sair da tela cheia' : 'Abrir documento em tela cheia');
+      button.setAttribute('title', active ? 'Sair da tela cheia' : 'Abrir documento em tela cheia');
+      const label = button.querySelector('.fs-label');
+      const icon = button.querySelector('.fs-icon');
+      if (label) label.textContent = active ? 'SAIR DA TELA CHEIA' : 'TELA CHEIA';
+      if (icon) icon.textContent = active ? '×' : '⛶';
+    });
+  };
+
+  const exitCurrentFullscreen = async (block) => {
+    if (isFallbackFullscreen(block)) {
+      closeFallback(block);
+      syncButtons();
+      return;
+    }
+    try {
+      if (document.fullscreenElement && document.exitFullscreen) {
+        await document.exitFullscreen();
+      } else if (document.webkitFullscreenElement && document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    } catch (_) {}
+    syncButtons();
+  };
+
+  const enterFullscreen = async (block) => {
+    if (!block.open) block.open = true;
+    loadFrame(block);
+
+    if (isFullscreen(block)) {
+      await exitCurrentFullscreen(block);
+      return;
+    }
+
+    try {
+      if (block.requestFullscreen) {
+        await block.requestFullscreen();
+      } else if (block.webkitRequestFullscreen) {
+        block.webkitRequestFullscreen();
+      } else {
+        throw new Error('Fullscreen API indisponível');
+      }
+    } catch (_) {
+      /* Fallback: ocupa toda a área visível do HTML caso o navegador/SharePoint bloqueie a Fullscreen API. */
+      docs.forEach(closeFallback);
+      block.classList.add('fullscreen-fallback');
+      document.documentElement.classList.add('eseo-doc-fallback-active');
+      document.body.classList.add('eseo-doc-fallback-active');
+    }
+    syncButtons();
+  };
+
+  docs.forEach(block => {
+    if (block.querySelector('.embedded-doc-fullscreen')) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'embedded-doc-fullscreen';
+    button.innerHTML = '<span class="fs-icon" aria-hidden="true">⛶</span><span class="fs-label">TELA CHEIA</span>';
+    button.setAttribute('aria-label', 'Abrir documento em tela cheia');
+    button.setAttribute('title', 'Abrir documento em tela cheia');
+
+    const summary = block.querySelector(':scope > summary');
+    if (summary) summary.insertAdjacentElement('afterend', button);
+    else block.prepend(button);
+
+    button.addEventListener('click', async (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      await enterFullscreen(block);
+    });
+
+    /* Se recolher o documento enquanto ele estiver ampliado, também sai da tela cheia. */
+    block.addEventListener('toggle', () => {
+      if (!block.open && isFullscreen(block)) exitCurrentFullscreen(block);
+    });
+  });
+
+  document.addEventListener('fullscreenchange', syncButtons);
+  document.addEventListener('webkitfullscreenchange', syncButtons);
+
+  /* ESC também fecha o fallback CSS quando a Fullscreen API não estiver disponível. */
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const fallback = document.querySelector('.embedded-doc.fullscreen-fallback');
+    if (fallback) {
+      closeFallback(fallback);
+      syncButtons();
+    }
+  });
+
+  syncButtons();
+})();
+</script>
+
 </body>
 </html>
