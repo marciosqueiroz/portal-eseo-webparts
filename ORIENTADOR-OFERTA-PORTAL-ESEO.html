@@ -7,7 +7,7 @@
 <meta content="Portal ESEO — orientações das ofertas de Educação Online do SENAI-SP: Autoinstrucionais, CAITEC, Aperfeiçoamento, Qualificação, EJA / SEJA PRO, Aprendizagem Industrial, Cursos Técnicos, Graduação e Pós-graduação." name="description"/>
 <meta content="Portal ESEO, Oferta ESEO, SENAI-SP, Educação Online, EAD, EJA, SEJA PRO, CAITEC, Aperfeiçoamento, Aprendizagem Industrial, Cursos Técnicos, Graduação, Pós-graduação, Manuais Técnicos" name="keywords"/>
 <meta content="ESEO — Escola SENAI de Educação Online" name="author"/>
-<meta content="ESEO-OFERTA-HTML-0921-V19-MANUAIS-ABERTOS" name="eseo-validation-code"/>
+<meta content="ESEO-ORIENTADOR-V26-TRANSPARENTE" name="eseo-validation-code"/>
 <title>Portal ESEO | Ofertas de Educação Online</title>
 <style>
 :root {
@@ -1435,6 +1435,356 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 }
 </style>
 
+
+<style id="v26-orientador-limpo">
+/* =========================================================
+   V26 — ORIENTADOR DE OFERTAS | LIMPO + TRANSPARENTE
+   ========================================================= */
+
+/* O HTML passa a se integrar ao fundo da página do SharePoint. */
+html,
+body{
+  background:transparent !important;
+}
+body{
+  margin:0 !important;
+}
+.page{
+  background:transparent !important;
+  padding:6px 0 38px !important;
+}
+
+/* ---------- TOPO FINO ---------- */
+.hero-banner.hero-black{
+  width:min(1180px,calc(100% - 34px)) !important;
+  min-height:0 !important;
+  margin:0 auto 12px !important;
+  border-radius:18px !important;
+  box-shadow:0 12px 30px rgba(6,24,39,.12) !important;
+}
+.hero-black::before{
+  opacity:.14 !important;
+  background-size:36px 36px !important;
+}
+.hero-black-inner{
+  min-height:0 !important;
+  grid-template-columns:5px minmax(0,1fr) !important;
+  gap:18px !important;
+  padding:17px 24px !important;
+}
+.hero-accent{
+  min-height:76px !important;
+  box-shadow:none !important;
+}
+.hero-eyebrow{
+  margin-bottom:5px !important;
+  font-size:9px !important;
+  letter-spacing:.16em !important;
+}
+.hero-copy h1{
+  max-width:none !important;
+  font-size:clamp(25px,3.1vw,38px) !important;
+  line-height:1 !important;
+  letter-spacing:-.03em !important;
+}
+.hero-copy p{
+  max-width:980px !important;
+  margin:8px 0 0 !important;
+  font-size:13px !important;
+  line-height:1.42 !important;
+}
+.intro-row{
+  padding:8px 3px 10px !important;
+}
+#page-intro{
+  font-size:14px !important;
+  line-height:1.45 !important;
+}
+
+/* ---------- BUSCA / AÇÕES SUPERIORES ---------- */
+.offer-search{
+  margin:8px 0 12px !important;
+  padding:10px 12px !important;
+  background:rgba(255,255,255,.84) !important;
+  backdrop-filter:blur(4px);
+  box-shadow:0 7px 18px rgba(6,24,39,.04) !important;
+}
+.offer-search-field{
+  min-height:43px !important;
+}
+.offer-search-row .certificate-trigger{
+  min-height:43px !important;
+}
+
+/* Mantém certificado/seleção discretos, pois são utilidades de topo. */
+.offer-search-actions .certificate-trigger{
+  background:#fff !important;
+  color:var(--navy-900) !important;
+  border-color:#cbd8e3 !important;
+}
+.offer-search-actions .certificate-trigger:hover{
+  color:#fff !important;
+  background:var(--navy-900) !important;
+  border-color:var(--navy-900) !important;
+}
+
+/* ---------- ACORDEÕES PRINCIPAIS ---------- */
+.accordion-stack{
+  background:transparent !important;
+}
+.course-accordion{
+  background:#fff !important;
+  box-shadow:0 8px 22px rgba(6,24,39,.055) !important;
+}
+.course-accordion > summary{
+  background:#fff !important;
+}
+.course-accordion[open] > summary{
+  background:#fff !important;
+}
+
+/* ---------- BOTÕES: COR JÁ NO ESTADO INICIAL ---------- */
+/* Botões gerais do conteúdo */
+.actions .button,
+.normative-links .button,
+.button.secondary-link,
+.button.ghost-link{
+  background:var(--navy-900) !important;
+  color:#fff !important;
+  border:1px solid var(--navy-900) !important;
+  box-shadow:0 5px 14px rgba(6,24,39,.10) !important;
+}
+.actions .button:hover,
+.normative-links .button:hover,
+.button.secondary-link:hover,
+.button.ghost-link:hover{
+  background:var(--red-600) !important;
+  color:#fff !important;
+  border-color:var(--red-600) !important;
+}
+
+/* Aperfeiçoamento: "Mais detalhes" deixa de parecer texto solto. */
+#aperfeicoamento .mini-action{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:112px !important;
+  min-height:34px !important;
+  padding:7px 12px !important;
+  border-radius:999px !important;
+  background:var(--navy-900) !important;
+  color:#fff !important;
+  border:1px solid var(--navy-900) !important;
+  box-shadow:0 5px 12px rgba(6,24,39,.08) !important;
+  font-size:9.5px !important;
+  line-height:1 !important;
+}
+#aperfeicoamento .mini-course > summary:hover .mini-action{
+  background:var(--red-600) !important;
+  border-color:var(--red-600) !important;
+}
+#aperfeicoamento .mini-course[open] .mini-action{
+  background:var(--navy-900) !important;
+  color:#fff !important;
+}
+#aperfeicoamento .mini-course[open] .mini-action:after{
+  color:#fff !important;
+}
+
+/* Documentos: ABRIR já nasce azul. */
+.embedded-doc:not([open]) .embedded-doc-action{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:82px !important;
+  min-height:32px !important;
+  padding:6px 11px !important;
+  border-radius:999px !important;
+  background:var(--navy-900) !important;
+  color:#fff !important;
+  border:1px solid var(--navy-900) !important;
+  box-shadow:0 5px 12px rgba(6,24,39,.09) !important;
+}
+.embedded-doc:not([open]) > summary:hover .embedded-doc-action{
+  background:var(--red-600) !important;
+  border-color:var(--red-600) !important;
+  color:#fff !important;
+}
+.embedded-doc:not([open]) .embedded-doc-action::after{
+  color:#fff !important;
+}
+
+/* Documento aberto: cabeçalho institucional; controles brancos. */
+.embedded-doc[open] > summary{
+  background:linear-gradient(100deg,var(--navy-950),var(--navy-800)) !important;
+  color:#fff !important;
+}
+.embedded-doc[open] .embedded-doc-copy strong{
+  color:#fff !important;
+}
+.embedded-doc[open] .embedded-doc-copy small{
+  color:#d2dee7 !important;
+}
+.embedded-doc[open] .embedded-doc-icon{
+  background:#fff !important;
+  color:var(--red-600) !important;
+}
+.embedded-doc[open] .embedded-doc-action,
+.embedded-doc[open] > .embedded-doc-fullscreen{
+  background:#fff !important;
+  color:var(--navy-900) !important;
+  border-color:#fff !important;
+}
+.embedded-doc[open] .embedded-doc-action:hover,
+.embedded-doc[open] > .embedded-doc-fullscreen:hover{
+  background:var(--red-600) !important;
+  color:#fff !important;
+  border-color:var(--red-600) !important;
+}
+
+/* ---------- CAITEC: ORGANIZAÇÃO VISUAL ---------- */
+#caitec .course-body{
+  padding:clamp(24px,3.2vw,36px) !important;
+}
+#caitec .course-body > h2{
+  margin-top:28px !important;
+  margin-bottom:10px !important;
+}
+#caitec .course-body > h2:first-child{
+  margin-top:0 !important;
+}
+#caitec .course-body > p{
+  max-width:1080px;
+  line-height:1.55;
+}
+#caitec .note{
+  margin:11px 0 !important;
+  padding:11px 14px !important;
+  border-radius:12px !important;
+  background:#edf7fd !important;
+  border-color:#c9e7f7 !important;
+  box-shadow:none !important;
+}
+#caitec .callout{
+  margin:11px 0 20px !important;
+  padding:13px 15px !important;
+  border-radius:12px !important;
+  box-shadow:none !important;
+}
+#caitec .matrix-grid{
+  gap:12px !important;
+  margin:12px 0 22px !important;
+}
+#caitec .matrix-card{
+  box-shadow:0 8px 22px rgba(6,24,39,.055) !important;
+}
+#caitec .number-list{
+  margin-bottom:18px !important;
+}
+#caitec .number-list li{
+  min-height:47px !important;
+  padding-top:9px !important;
+  padding-bottom:9px !important;
+}
+
+/* Área própria dos documentos, sem parecer conteúdo "jogado" no fim. */
+.caitec-documents{
+  margin:22px 0 14px;
+  padding-top:19px;
+  border-top:1px solid #dce4ea;
+}
+.caitec-documents > h2{
+  margin:0 0 4px !important;
+}
+.caitec-docs-intro{
+  margin:0 0 12px !important;
+  color:#5c6a75;
+  font-size:12.5px;
+}
+#caitec .caitec-documents .embedded-doc{
+  margin:9px 0 !important;
+}
+#caitec .actions.multi-actions{
+  margin-top:12px !important;
+  padding-top:13px !important;
+  border-top:1px solid #e3e9ee;
+}
+
+/* ---------- APRENDIZAGEM ---------- */
+/* Cabeçalho recolhido permanece branco; somente conteúdo aberto recebe azul suave. */
+#aprendizagem > summary,
+#aprendizagem[open] > summary{
+  background:#fff !important;
+}
+#aprendizagem .course-body{
+  background:linear-gradient(135deg,#eaf6fe,#f6fbfe) !important;
+  border-top:1px solid #cce5f4 !important;
+}
+
+/* ---------- EJA ---------- */
+#eja > summary{
+  font-weight:900 !important;
+}
+
+/* ---------- IFRAME / DOCUMENTOS ---------- */
+/* Previews nativos do SharePoint, sem about:blank/data-src. */
+.embedded-doc-frame{
+  width:100% !important;
+  overflow:hidden !important;
+}
+.embedded-doc-frame iframe{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  border:0 !important;
+  background:#fff !important;
+}
+
+/* ---------- RESPONSIVO ---------- */
+@media(max-width:900px){
+  .hero-black-inner{
+    padding:15px 18px !important;
+  }
+  .hero-copy h1{
+    font-size:clamp(24px,6vw,34px) !important;
+  }
+  .offer-search{
+    backdrop-filter:none;
+  }
+}
+@media(max-width:760px){
+  .hero-banner.hero-black{
+    width:min(100% - 18px,1180px) !important;
+    border-radius:15px !important;
+  }
+  .hero-black-inner{
+    grid-template-columns:4px minmax(0,1fr) !important;
+    gap:13px !important;
+    padding:14px 15px !important;
+  }
+  .hero-accent{
+    min-height:68px !important;
+  }
+  .hero-copy p{
+    font-size:12.5px !important;
+  }
+  .offer-search{
+    padding:9px !important;
+  }
+  #aperfeicoamento .mini-action{
+    min-width:96px !important;
+  }
+  #caitec .course-body{
+    padding:20px 14px 26px !important;
+  }
+}
+
+/* impressão continua branca */
+@media print{
+  html,body,.page{background:#fff !important}
+}
+</style>
+
 </head>
 <body>
 <main class="page">
@@ -1518,7 +1868,7 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=3a279739-8397-4b9e-a76f-53e4970b22e2&nb=true" loading="lazy" src="about:blank" title="Fundamentos para a Monitoria de aprendizes"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" loading="lazy" src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=3a279739-8397-4b9e-a76f-53e4970b22e2" title="Fundamentos para a Monitoria de aprendizes"></iframe></div>
 </div>
 </details></div>
 </details><details class="mini-course">
@@ -1551,7 +1901,7 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=70f50ee9-a16e-4364-867e-dd0459e86f67&nb=true" loading="lazy" src="about:blank" title="Power BI Semipresencial – Manual Operacional"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" loading="lazy" src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=70f50ee9-a16e-4364-867e-dd0459e86f67" title="Power BI Semipresencial – Manual Operacional"></iframe></div>
 </div>
 </details></div>
 </details><details class="mini-course">
@@ -1574,7 +1924,7 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=21ad995f-90fb-48ea-9bae-450bda9652cf&nb=true" loading="lazy" src="about:blank" title="PEMSEP – Manual Operacional"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" loading="lazy" src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=21ad995f-90fb-48ea-9bae-450bda9652cf" title="PEMSEP – Manual Operacional"></iframe></div>
 </div>
 </details></div>
 </details></div>
@@ -1603,7 +1953,7 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=3c89b2dd-9a2f-4c9f-95a3-5cb67b5be32d&nb=true" loading="lazy" src="about:blank" title="Aluno Não Aparece no AVA – Orientações para Correção"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" loading="lazy" src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=3c89b2dd-9a2f-4c9f-95a3-5cb67b5be32d" title="Aluno Não Aparece no AVA – Orientações para Correção"></iframe></div>
 </div>
 </details>
 <h2>ENCERRAMENTO DA OFERTA</h2>
@@ -1614,7 +1964,7 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=853c5d94-fbfd-40a3-b8a3-0247f0c4f6c8&nb=true" loading="lazy" src="about:blank" title="Emissão do RMRF dos Cursos Autoinstrucionais"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" loading="lazy" src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=853c5d94-fbfd-40a3-b8a3-0247f0c4f6c8" title="Emissão do RMRF dos Cursos Autoinstrucionais"></iframe></div>
 </div>
 </details><div class="normative-links"><a class="button secondary-link" href="https://sesisenaisp.sharepoint.com/sites/intranet/Gestao%20Documental/Documenta%C3%A7%C3%A3o%20SENAI-SP/%C3%81reas/Ger%C3%AAncia%20de%20Educa%C3%A7%C3%A3o/GED-003%20-%20Estrutura%C3%A7%C3%A3o%20e%20Implanta%C3%A7%C3%A3o%20de%20Cursos%20de%20Forma%C3%A7%C3%A3o%20Inicial%20e%20Continuada/GED-003.pdf" rel="noopener noreferrer" target="_blank" title="GED-003 — Estruturação e Implantação de Cursos de Formação Inicial e Continuada">CONSULTAR GED-003 ↗</a></div>
 </div>
@@ -1634,14 +1984,14 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 </div>
 <h2>O QUE A ESCOLA PRECISA FAZER</h2>
 <ol class="number-list"><li>Aguardar a comunicação de liberação dos agrupamentos e cadastrar no SGSET2 o interlocutor da unidade responsável pelo acompanhamento da oferta.</li><li>Divulgar os cursos, incentivar a participação e, sempre que possível, disponibilizar computadores conectados à internet.</li><li>Acompanhar a participação e a conclusão dos estudantes pelo Portal Indicadores.</li><li>Repassar aos responsáveis e interlocutores as orientações vigentes sobre certificação.</li><li>Emitir o RMRF — relatório final do agrupamento — para arquivo e microfilmagem, conforme o procedimento vigente.</li></ol>
-<p>A ESEO define os cursos e os períodos, configura os agrupamentos e as matrículas automáticas e comunica às unidades a liberação da oferta.</p><details class="embedded-doc" data-embedded-doc="">
+<p>A ESEO define os cursos e os períodos, configura os agrupamentos e as matrículas automáticas e comunica às unidades a liberação da oferta.</p><section class="caitec-documents"><h2>DOCUMENTOS OPERACIONAIS</h2><p class="caitec-docs-intro">Abra somente o procedimento que você precisa consultar. Ao abrir outro documento, o anterior é recolhido automaticamente.</p><details class="embedded-doc" data-embedded-doc="">
 <summary>
 <span aria-hidden="true" class="embedded-doc-icon">DOC</span>
 <span class="embedded-doc-copy"><strong>Cadastro de Interlocutor do CAITEC no SGSET2</strong><small>Preparação da oferta · cadastro no SGSET2</small></span>
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=385659a1-3611-4131-ba16-5286c27a425a&nb=true" loading="lazy" src="about:blank" title="Cadastro de Interlocutor do CAITEC no SGSET2"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" loading="lazy" src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=385659a1-3611-4131-ba16-5286c27a425a" title="Cadastro de Interlocutor do CAITEC no SGSET2"></iframe></div>
 </div>
 </details><details class="embedded-doc" data-embedded-doc="">
 <summary>
@@ -1650,7 +2000,7 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=790e4fc0-1b2e-44cb-9ef0-a41926d01b4e&nb=true" loading="lazy" src="about:blank" title="Cadastro de Interlocutor nas Turmas por Competência do CAITEC"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" loading="lazy" src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=790e4fc0-1b2e-44cb-9ef0-a41926d01b4e" title="Cadastro de Interlocutor nas Turmas por Competência do CAITEC"></iframe></div>
 </div>
 </details><details class="embedded-doc" data-embedded-doc="">
 <summary>
@@ -1659,12 +2009,12 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 <span class="embedded-doc-action">ABRIR</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=0d014c42-abf1-4274-9b0a-65bcde6ec153&nb=true" loading="lazy" src="about:blank" title="Emissão do RMRF do CAITEC"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" loading="lazy" src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=0d014c42-abf1-4274-9b0a-65bcde6ec153" title="Emissão do RMRF do CAITEC"></iframe></div>
 </div>
-</details><div class="actions multi-actions"><a class="button" href="https://portalindicadores.sp.senai.br/Home/Relatorio/b73346c54b8349a58fb2f89de755f0f3" rel="noopener noreferrer" target="_blank">CAITEC / NEM — PORTAL INDICADORES<span aria-hidden="true">↗</span></a><a class="button secondary-link" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/Documentos%20Compartilhados/Documentos%20da%20p%C3%A1gina%20ESEO/CAITEC%202026%20%E2%80%93%20Orienta%C3%A7%C3%B5es%20para%20as%20Escolas.pdf?web=1" rel="noopener noreferrer" target="_blank">ORIENTAÇÕES CAITEC 2026 <span aria-hidden="true">↗</span></a></div>
+</details></section><div class="actions multi-actions"><a class="button" href="https://portalindicadores.sp.senai.br/Home/Relatorio/b73346c54b8349a58fb2f89de755f0f3" rel="noopener noreferrer" target="_blank">CAITEC / NEM — PORTAL INDICADORES<span aria-hidden="true">↗</span></a><a class="button secondary-link" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/Documentos%20Compartilhados/Documentos%20da%20p%C3%A1gina%20ESEO/CAITEC%202026%20%E2%80%93%20Orienta%C3%A7%C3%B5es%20para%20as%20Escolas.pdf?web=1" rel="noopener noreferrer" target="_blank">ORIENTAÇÕES CAITEC 2026 <span aria-hidden="true">↗</span></a></div>
 </div>
 </details><details class="course-accordion" id="eja">
-<summary>QUALIFICAÇÃO EJA | SEJA PRO+</summary>
+<summary>EJA | SEJA PRO+</summary>
 <div class="course-body">
 <h2>SOBRE A OFERTA</h2>
 <p>O <strong>SESI-SP</strong> oferece a Educação de Jovens e Adultos (EJA) para pessoas que desejam concluir sua escolarização. Dentro dessa oferta, a <strong>Nova EJA</strong> amplia as possibilidades de formação ao integrar a educação básica à qualificação profissional.</p>
@@ -1694,7 +2044,7 @@ body.eseo-doc-fallback-active{overflow:hidden !important}
 <span class="embedded-doc-action">RECOLHER</span>
 </summary>
 <div class="embedded-doc-body">
-<div class="embedded-doc-frame"><iframe allowfullscreen="" data-src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=c565836a-91d9-4957-989d-fc01f52a03bf&nb=true" loading="lazy" src="about:blank" title="SEJA PRO para Escolas – Manual Operacional"></iframe></div>
+<div class="embedded-doc-frame"><iframe allowfullscreen="" loading="lazy" src="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=c565836a-91d9-4957-989d-fc01f52a03bf" title="SEJA PRO para Escolas – Manual Operacional"></iframe></div>
 </div>
 </details>
 <div class="actions multi-actions"><a class="button" href="https://forms.office.com/pages/responsepage.aspx?id=3qZIQdENBE2kxXjjdOT21kx71JN6hW5Mh8ztNWPFnzFUQUVTNDNQNEhDVkFRODFPUkdJWTlPSzNZMS4u" rel="noopener noreferrer" target="_blank">SOLICITAR LIBERAÇÃO DA OFERTA<span aria-hidden="true">↗</span></a></div>
