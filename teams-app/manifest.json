@@ -1,0 +1,81 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.16/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.16",
+  "version": "1.0.0",
+  "id": "12345678-1234-1234-1234-123456789abc",
+  "packageName": "com.eseo.portal",
+  "name": {
+    "short": "Portal ESEO",
+    "full": "Portal ESEO - Portal Corporativo Inteligente"
+  },
+  "description": {
+    "short": "Acesso rápido ao Portal ESEO integrado com Microsoft 365",
+    "full": "O Portal ESEO é uma solução corporativa inteligente que integra serviços do Microsoft 365, oferecendo acesso centralizado a busca, notícias, cursos, calendário e muito mais, tudo integrado com Teams."
+  },
+  "icons": {
+    "outline": "outline.png",
+    "color": "color.png"
+  },
+  "accentColor": "#0eb7d5",
+  "developer": {
+    "name": "Portal ESEO Team",
+    "websiteUrl": "https://github.com/marciosqueiroz/portal-eseo-webparts",
+    "privacyUrl": "https://github.com/marciosqueiroz/portal-eseo-webparts/blob/main/README.md",
+    "termsOfUseUrl": "https://github.com/marciosqueiroz/portal-eseo-webparts/blob/main/README.md"
+  },
+  "defaultInstallScope": "personal",
+  "validDomains": [
+    "*.sharepoint.com",
+    "*.teams.microsoft.com",
+    "github.com",
+    "raw.githubusercontent.com",
+    "marciosqueiroz.github.io"
+  ],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "staticTabs": [
+    {
+      "entityId": "portal-eseo-main",
+      "name": "Portal ESEO",
+      "contentUrl": "https://raw.githubusercontent.com/marciosqueiroz/portal-eseo-webparts/main/eseo-home-busca.html",
+      "websiteUrl": "https://marciosqueiroz.github.io/portal-eseo-webparts/",
+      "scopes": [
+        "personal"
+      ],
+      "context": [
+        "personalTab"
+      ]
+    },
+    {
+      "entityId": "portal-eseo-search",
+      "name": "Busca",
+      "contentUrl": "https://raw.githubusercontent.com/marciosqueiroz/portal-eseo-webparts/main/eseo-busca-portal-v4.html",
+      "scopes": [
+        "personal"
+      ],
+      "context": [
+        "personalTab"
+      ]
+    },
+    {
+      "entityId": "portal-eseo-courses",
+      "name": "Cursos",
+      "contentUrl": "https://raw.githubusercontent.com/marciosqueiroz/portal-eseo-webparts/main/eseo-catalogo-cursos.html",
+      "scopes": [
+        "personal"
+      ],
+      "context": [
+        "personalTab"
+      ]
+    }
+  ],
+  "usageGuidelines": {
+    "isNotificationOnly": false
+  },
+  "webApplicationInfo": {
+    "id": "12345678-1234-1234-1234-123456789abc",
+    "resource": "api://portal-eseo"
+  }
+}
