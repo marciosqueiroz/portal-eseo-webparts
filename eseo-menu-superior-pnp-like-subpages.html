@@ -261,8 +261,8 @@ body{overflow-x:hidden}
     <header class="topbar">
       <nav class="nav" aria-label="Navegação principal do Portal ESEO">
         <a data-page="home" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/OrganizationHome.aspx" target="_blank" rel="noopener noreferrer">Home</a>
-        <a data-page="conheca" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx" target="_blank" rel="noopener noreferrer">Conheça a ESEO</a>
-        <a data-page="oferta" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx" target="_blank" rel="noopener noreferrer">Oferta de cursos online</a>
+        <a data-page="conheca" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Conheca_a_eseo.aspx" target="_blank" rel="noopener noreferrer">Conheça a ESEO</a>
+        <a data-page="oferta" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx" target="_blank" rel="noopener noreferrer">Oferta de cursos online</a>
       </nav>
 
       <div class="search-wrap" id="searchWrap">
@@ -313,8 +313,8 @@ body{overflow-x:hidden}
   let activePage = informedPage;
 
   if(!["home","conheca","oferta"].includes(activePage)){
-    if(referrer.includes("sobre-a-eseo")) activePage = "conheca";
-    else if(referrer.includes("what%27s-happening") || referrer.includes("what's-happening")) activePage = "oferta";
+    if(referrer.includes("conheca_a_eseo.aspx") || referrer.includes("sobre-a-eseo")) activePage = "conheca";
+    else if(referrer.includes("oferta.aspx") || referrer.includes("what%27s-happening") || referrer.includes("what's-happening")) activePage = "oferta";
     else if(!referrer || referrer.includes("chatgpt.com")) activePage = "conheca";
     else activePage = "";
   }
@@ -351,7 +351,7 @@ body{overflow-x:hidden}
     "title": "Conheça a ESEO",
     "subtitle": "História, identidade, proposta e estrutura",
     "icon": "E",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Sobre-a-ESEO.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Conheca_a_eseo.aspx",
     "keywords": [
       "historia",
       "identidade",
@@ -370,7 +370,7 @@ body{overflow-x:hidden}
     "title": "Oferta de cursos online",
     "subtitle": "Página central de cursos e orientações",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -383,7 +383,7 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "Portfólio de cursos",
@@ -435,7 +435,7 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "Cronograma dos processos seletivos",
@@ -507,7 +507,7 @@ body{overflow-x:hidden}
     "title": "EJA | SEJA PRO+",
     "subtitle": "Oferta de cursos online · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -518,13 +518,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "APERFEIÇOAMENTO",
     "subtitle": "Oferta de cursos online · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -533,13 +533,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "FUNDAMENTOS PARA A MONITORIA DE APRENDIZES | ANTIGO CURSO ORIENTADOR DE PRÁTICAS NA EMPRESA (OPE)",
     "subtitle": "APERFEIÇOAMENTO · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -547,13 +547,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "GERENCIAMENTO DE RISCOS",
     "subtitle": "APERFEIÇOAMENTO · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -561,13 +561,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "LGPD | LEI GERAL DE PROTEÇÃO DE DADOS PESSOAIS",
     "subtitle": "APERFEIÇOAMENTO · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -575,13 +575,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "MICROSOFT POWER BI | APERFEIÇOAMENTO PROFISSIONAL | SEMIPRESENCIAL",
     "subtitle": "APERFEIÇOAMENTO · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -589,13 +589,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "PEMSEP | PLANEJAMENTO DE ENSINO NA METODOLOGIA SENAI DE EDUCAÇÃO PROFISSIONAL",
     "subtitle": "APERFEIÇOAMENTO · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -603,13 +603,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "APRENDIZAGEM INDUSTRIAL",
     "subtitle": "Oferta de cursos online · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -618,13 +618,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "AUTOINSTRUCIONAL",
     "subtitle": "Oferta de cursos online · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -633,13 +633,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "CAITEC",
     "subtitle": "Oferta de cursos online · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -648,13 +648,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "QUALIFICAÇÃO PROFISSIONAL",
     "subtitle": "Oferta de cursos online · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -663,13 +663,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "SUPERIOR | GRADUAÇÃO",
     "subtitle": "Oferta de cursos online · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -678,13 +678,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "SUPERIOR | PÓS-GRADUAÇÃO",
     "subtitle": "Oferta de cursos online · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -693,13 +693,13 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "TÉCNICO",
     "subtitle": "Oferta de cursos online · orientações da oferta",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "oferta",
       "curso",
@@ -708,7 +708,7 @@ body{overflow-x:hidden}
     ],
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx"
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx"
   },
   {
     "title": "Proposta Pedagógica da ESEO v1.50",
@@ -734,7 +734,7 @@ body{overflow-x:hidden}
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
     "type": "Documento",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "embedUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=42518a46-2005-4d8b-9aaa-31cb90869ccd"
   },
   {
@@ -759,7 +759,7 @@ body{overflow-x:hidden}
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
     "type": "Documento",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "embedUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=70f50ee9-a16e-4364-867e-dd0459e86f67"
   },
   {
@@ -784,7 +784,7 @@ body{overflow-x:hidden}
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
     "type": "Documento",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "embedUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=21ad995f-90fb-48ea-9bae-450bda9652cf"
   },
   {
@@ -810,7 +810,7 @@ body{overflow-x:hidden}
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
     "type": "Documento",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "embedUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=594e47a7-5010-4221-b703-e58dee916468"
   },
   {
@@ -837,7 +837,7 @@ body{overflow-x:hidden}
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
     "type": "Documento",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "embedUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=3a279739-8397-4b9e-a76f-53e4970b22e2"
   },
   {
@@ -917,7 +917,7 @@ body{overflow-x:hidden}
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
     "type": "Documento",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "embedUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=385659a1-3611-4131-ba16-5286c27a425a"
   },
   {
@@ -942,7 +942,7 @@ body{overflow-x:hidden}
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario",
     "verification": "conteudo_consultado",
     "type": "Documento",
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "embedUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/_layouts/15/embed.aspx?UniqueId=790e4fc0-1b2e-44cb-9ef0-a41926d01b4e"
   },
   {
@@ -959,7 +959,7 @@ body{overflow-x:hidden}
       "procedimentos",
       "tutoriais"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1046,7 +1046,7 @@ body{overflow-x:hidden}
       "semipresencial",
       "rmrf"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1065,7 +1065,7 @@ body{overflow-x:hidden}
       "escolas",
       "2026"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "somente_link_localizado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1074,7 +1074,7 @@ body{overflow-x:hidden}
     "subtitle": "SEJA PRO / SEJA PRO+ · consulte a oferta e o manual para as condições atuais",
     "type": "Curso",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "eja",
       "seja pro",
@@ -1082,7 +1082,7 @@ body{overflow-x:hidden}
       "qualificacao profissional",
       "Almoxarife"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1091,7 +1091,7 @@ body{overflow-x:hidden}
     "subtitle": "SEJA PRO / SEJA PRO+ · consulte a oferta e o manual para as condições atuais",
     "type": "Curso",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "eja",
       "seja pro",
@@ -1099,7 +1099,7 @@ body{overflow-x:hidden}
       "qualificacao profissional",
       "Assistente de Recursos Humanos"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1108,7 +1108,7 @@ body{overflow-x:hidden}
     "subtitle": "SEJA PRO / SEJA PRO+ · consulte a oferta e o manual para as condições atuais",
     "type": "Curso",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "eja",
       "seja pro",
@@ -1116,7 +1116,7 @@ body{overflow-x:hidden}
       "qualificacao profissional",
       "Assistente de Controle de Qualidade"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1125,7 +1125,7 @@ body{overflow-x:hidden}
     "subtitle": "SEJA PRO / SEJA PRO+ · consulte a oferta e o manual para as condições atuais",
     "type": "Curso",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "eja",
       "seja pro",
@@ -1133,7 +1133,7 @@ body{overflow-x:hidden}
       "qualificacao profissional",
       "Inspetor de Qualidade"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1142,7 +1142,7 @@ body{overflow-x:hidden}
     "subtitle": "SEJA PRO / SEJA PRO+ · consulte a oferta e o manual para as condições atuais",
     "type": "Curso",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "eja",
       "seja pro",
@@ -1150,7 +1150,7 @@ body{overflow-x:hidden}
       "qualificacao profissional",
       "Costureiro sob Medida"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1159,7 +1159,7 @@ body{overflow-x:hidden}
     "subtitle": "SEJA PRO / SEJA PRO+ · consulte a oferta e o manual para as condições atuais",
     "type": "Curso",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "eja",
       "seja pro",
@@ -1167,7 +1167,7 @@ body{overflow-x:hidden}
       "qualificacao profissional",
       "Desenhista de Moda"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1176,7 +1176,7 @@ body{overflow-x:hidden}
     "subtitle": "SEJA PRO / SEJA PRO+ · consulte a oferta e o manual para as condições atuais",
     "type": "Curso",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "eja",
       "seja pro",
@@ -1184,7 +1184,7 @@ body{overflow-x:hidden}
       "qualificacao profissional",
       "Controlador e Programador de Produção"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1193,7 +1193,7 @@ body{overflow-x:hidden}
     "subtitle": "SEJA PRO / SEJA PRO+ · consulte a oferta e o manual para as condições atuais",
     "type": "Curso",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "eja",
       "seja pro",
@@ -1201,7 +1201,7 @@ body{overflow-x:hidden}
       "qualificacao profissional",
       "Operador de Computador"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1210,7 +1210,7 @@ body{overflow-x:hidden}
     "subtitle": "SEJA PRO / SEJA PRO+ · consulte a oferta e o manual para as condições atuais",
     "type": "Curso",
     "icon": "O",
-    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "url": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "keywords": [
       "eja",
       "seja pro",
@@ -1218,7 +1218,7 @@ body{overflow-x:hidden}
       "qualificacao profissional",
       "Eletricista e Instalador Predial"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "conteudo_consultado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   },
@@ -1235,7 +1235,7 @@ body{overflow-x:hidden}
       "acompanhamento",
       "conclusao"
     ],
-    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/What's-happening.aspx",
+    "sourceUrl": "https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx",
     "verification": "somente_link_localizado",
     "evidenceOrigin": "levantamento_copilot_fornecido_pelo_usuario"
   }
@@ -1327,4 +1327,5 @@ body{overflow-x:hidden}
 </script>
 </body>
 </html>
+
 
