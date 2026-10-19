@@ -430,7 +430,7 @@ h1{
   <div class="shell">
     <header class="topbar">
       <div class="search-wrap" id="searchWrap">
-        <form class="search is-open" id="searchForm" role="search" autocomplete="off">
+        <form class="search" id="searchForm" role="search" autocomplete="off">
           <input id="searchInput" type="search" placeholder="Pesquisar no Portal ESEO" aria-label="Pesquisar somente no Portal ESEO">
           <button type="submit" aria-label="Pesquisar">
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -1525,6 +1525,7 @@ h1{
   document.addEventListener("click", e => {
     if(!e.target.closest("#searchWrap")){
       suggestions.classList.remove("show");
+      form.classList.remove("is-open");
 
     }
   });
