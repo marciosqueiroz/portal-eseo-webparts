@@ -512,6 +512,21 @@ h1{
     else link.removeAttribute("aria-current");
   });
 
+  // Garantir que os links de navegação abram na mesma guia (previne overrides que abrem em nova guia)
+  document.querySelectorAll('.nav a').forEach(link => {
+    try {
+      link.target = '_self';
+      link.removeAttribute('rel');
+      // Se algum código posterior tentar interceptar o clique e abrir em nova guia, forçar abertura na mesma aba
+      link.addEventListener('click', e => {
+        // nada especial: deixar o comportamento padrão (mesma guia)
+      }, {capture: true});
+    } catch (err) {
+      // segurança: não quebrar a página
+      console.warn('Não foi possível forçar target para nav link', err);
+    }
+  });
+
   const fallback = [
   {
     "title": "Home do Portal ESEO",
