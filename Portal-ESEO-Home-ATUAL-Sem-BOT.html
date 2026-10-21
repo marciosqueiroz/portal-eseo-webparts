@@ -418,9 +418,9 @@ h1{
   <div class="shell">
     <header class="topbar">
       <nav class="nav" aria-label="Navegação principal do Portal ESEO">
-        <a data-page="home" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/OrganizationHome.aspx">Home</a>
-        <a data-page="conheca" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Conheca_a_eseo.aspx">Conheça a ESEO</a>
-        <a data-page="oferta" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx">Oferta de cursos online</a>
+        <a data-page="home" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/OrganizationHome.aspx" target="_parent">Home</a>
+        <a data-page="conheca" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Conheca_a_eseo.aspx" target="_parent">Conheça a ESEO</a>
+        <a data-page="oferta" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx" target="_parent">Oferta de cursos online</a>
       </nav>
 
       <div class="search-wrap" id="searchWrap">
@@ -510,21 +510,6 @@ h1{
   document.querySelectorAll(".nav a[data-page]").forEach(link => {
     if(link.dataset.page === activePage) link.setAttribute("aria-current","page");
     else link.removeAttribute("aria-current");
-  });
-
-  // Garantir que os links de navegação abram na mesma guia (previne overrides que abrem em nova guia)
-  document.querySelectorAll('.nav a').forEach(link => {
-    try {
-      link.target = '_self';
-      link.removeAttribute('rel');
-      // Se algum código posterior tentar interceptar o clique e abrir em nova guia, forçar abertura na mesma aba
-      link.addEventListener('click', e => {
-        // nada especial: deixar o comportamento padrão (mesma guia)
-      }, {capture: true});
-    } catch (err) {
-      // segurança: não quebrar a página
-      console.warn('Não foi possível forçar target para nav link', err);
-    }
   });
 
   const fallback = [
@@ -1553,41 +1538,47 @@ h1{
 </script>
 
 <script>
-/* Navegação segura quando este HTML está incorporado em um iframe do SharePoint. */
+/* Navegação segura dos links internos do Portal ESEO quando incorporado no SharePoint/Teams. */
 (() => {
-  function openSharePointSafeLink(url,target='_blank'){
-    let resolved='';
-    try{ resolved=new URL(url,window.location.href).href; }
-    catch(_){ resolved=String(url||''); }
-    if(!resolved) return;
-
-    const bridge=document.createElement('a');
-    bridge.href=resolved;
-    bridge.target=target||'_self';
-    bridge.rel='noopener noreferrer';
-    bridge.dataset.eseoBridge='1';
-    bridge.style.position='fixed';
-    bridge.style.left='-9999px';
-    bridge.style.top='-9999px';
-    bridge.textContent='Abrir';
-    document.body.appendChild(bridge);
-    bridge.click();
-    setTimeout(()=>bridge.remove(),1000);
+  function isInternalPortalUrl(url){
+    try{
+      const target = new URL(url, window.location.href);
+      return target.hostname === "sesisenaisp.sharepoint.com" &&
+             target.pathname.toLowerCase().startsWith("/sites/eseoconecta");
+    }catch(_){
+      return false;
+    }
   }
 
-  document.addEventListener('click',event=>{
-    const link=event.target.closest?.('a[href]');
-    if(!link || link.dataset.eseoBridge==='1' || link.hasAttribute('download')) return;
-    if(event.button!==0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-    const href=link.getAttribute('href')||'';
-    if(!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('data:')) return;
-    if(href.startsWith('mailto:') || href.startsWith('tel:')) return;
+  function navigateInternalPortal(url){
+    if(window.parent === window){
+      window.location.href = url;
+      return;
+    }
+
+    try{
+      window.parent.location.href = url;
+    }catch(_){
+      window.open(url, "_blank", "noopener");
+    }
+  }
+
+  document.addEventListener("click", event => {
+    const link = event.target.closest?.("a[href]");
+    if(!link || link.hasAttribute("download")) return;
+    if(event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+
+    const href = (link.getAttribute("href") || "").trim();
+    if(!href || href.startsWith("#") || /^javascript:/i.test(href)) return;
+    if(/^(mailto:|tel:)/i.test(href)) return;
+    if(!isInternalPortalUrl(href)) return;
+
     event.preventDefault();
-    openSharePointSafeLink(href,link.getAttribute('target')||'_self');
-  },true);
+    const url = new URL(href, window.location.href).href;
+    navigateInternalPortal(url);
+  }, true);
 })();
 </script>
 
 </body>
 </html>
-
