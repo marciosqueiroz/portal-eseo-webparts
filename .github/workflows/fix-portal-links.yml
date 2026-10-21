@@ -29,7 +29,6 @@ jobs:
           canonical_path = Path("Portal_ESEO_Home_app.html")
           text = source_path.read_text(encoding="utf-8")
 
-          # Passo 0: nunca editar uma captura do OneDrive/SharePoint Viewer.
           forbidden = [
               "_spPageContextInfo",
               "OneUp",
@@ -62,14 +61,12 @@ jobs:
                   'function navigateInternalPortal(url)' in html,
               ])
 
-          # RED: o arquivo atual precisa demonstrar o bug antes da alteração.
           if is_green(text):
               raise SystemExit("ABORTADO: o arquivo já satisfaz todos os critérios; nenhuma alteração foi aplicada.")
           print("RED confirmado: navegação atual ainda não satisfaz os critérios.")
 
           styles_before = re.findall(r"<style>.*?</style>", text, flags=re.S)
 
-          # 1) Somente os três links do menu superior do Portal ESEO recebem target=_parent.
           for page, url in menu_links.items():
               old = f'<a data-page="{page}" href="{url}">'
               new = f'<a data-page="{page}" href="{url}" target="_parent">'
@@ -77,7 +74,6 @@ jobs:
                   raise SystemExit(f"ABORTADO: link esperado não encontrado para {page}.")
               text = text.replace(old, new, 1)
 
-          # 2) Remover a lógica antiga que forçava target=_self nos links do menu.
           force_self_pattern = re.compile(
               r"\n  // Garantir que os links de navegação abram na mesma guia.*?\n  \}\);\n\n(?=  const fallback = \[)",
               flags=re.S,
@@ -86,7 +82,6 @@ jobs:
           if removed_self != 1:
               raise SystemExit(f"ABORTADO: bloco target=_self removido {removed_self} vez(es), esperado 1.")
 
-          # 3) Substituir apenas o listener de navegação legado por um único listener de captura.
           new_navigation_script = r'''<script>
           /* Navegação segura dos links internos do Portal ESEO quando incorporado no SharePoint/Teams. */
           (() => {
@@ -138,7 +133,6 @@ jobs:
           if replaced_listener != 1:
               raise SystemExit(f"ABORTADO: listener legado substituído {replaced_listener} vez(es), esperado 1.")
 
-          # GREEN: validar comportamento exigido e garantir que o CSS permaneceu idêntico.
           if not is_green(text):
               raise SystemExit("FALHA: o HTML corrigido não satisfez todos os critérios de navegação.")
 
@@ -149,6 +143,7 @@ jobs:
           if text.count('document.addEventListener("click", event => {') != 1:
               raise SystemExit("FALHA: esperado exatamente um listener de navegação em modo de captura.")
 
+          text = text.rstrip("\n") + "\n"
           source_path.write_text(text, encoding="utf-8", newline="\n")
           canonical_path.write_text(text, encoding="utf-8", newline="\n")
           print("GREEN confirmado: navegação corrigida e CSS preservado.")
