@@ -312,6 +312,9 @@ textarea:focus{outline:0;border-color:var(--senai)}
     line-height:1.25;
     white-space:normal;
   }
+  .lesson>.nav-row .btn.full-width{
+    grid-column:1 / -1;
+  }
   .lesson>.nav-row,
   .sv-box>.nav-row{
     display:grid;
@@ -617,6 +620,7 @@ function updateNav(){
   const ok=(step===2?answered[2]:step===3?answered[3]:true);
   $('#next').disabled=!ok;
   $('#prev').style.visibility=step===0?'hidden':'visible';
+  $('#next').classList.toggle('full-width',step===0);
   $('#prev').textContent='← Voltar';
   const labels=[
     'Assistir à videoaula →',
