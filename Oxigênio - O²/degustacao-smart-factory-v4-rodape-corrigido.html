@@ -306,15 +306,23 @@ textarea:focus{outline:0;border-color:var(--senai)}
     border-radius:12px;
     justify-content:center;
     font-size:15px;
+    width:100%;
+    min-width:0;
+    padding:12px 10px;
+    line-height:1.25;
+    white-space:normal;
+  }
+  .lesson>.nav-row,
+  .sv-box>.nav-row{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
   #prev,#svPrev{
-    flex:0 0 auto;
-    min-width:108px;
-    padding-left:14px;
-    padding-right:14px;
+    min-width:0;
+    max-width:none;
+    white-space:normal;
   }
   #next,#svNext{
-    flex:1 1 auto;
     min-width:0;
     margin-left:0;
   }
@@ -331,10 +339,10 @@ textarea:focus{outline:0;border-color:var(--senai)}
     padding-right:12px;
   }
   #prev,#svPrev{
-    min-width:96px;
+    min-width:0;
     max-width:none;
-    overflow:visible;
-    text-overflow:clip;
+    padding-left:8px;
+    padding-right:8px;
   }
   .real-video-shell video{border-radius:14px}
 }
