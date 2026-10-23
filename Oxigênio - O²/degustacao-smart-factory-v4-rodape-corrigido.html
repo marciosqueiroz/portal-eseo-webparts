@@ -271,6 +271,8 @@ textarea:focus{outline:0;border-color:var(--senai)}
 .nav-row .btn{min-height:48px;border-radius:12px;justify-content:center}
 #next,#svNext{margin-left:auto;min-width:190px}
 #prev,#svPrev{white-space:nowrap}
+.lesson>.nav-row.first-step #prev{display:none}
+.lesson>.nav-row.first-step #next{width:100%;min-width:0;margin-left:0;justify-content:center}
 @media (hover:none){
   .opt:hover,.act:hover,.chip:hover{transform:none}
 }
@@ -621,6 +623,7 @@ function updateNav(){
   $('#next').disabled=!ok;
   $('#prev').style.visibility=step===0?'hidden':'visible';
   $('#next').classList.toggle('full-width',step===0);
+  $('.lesson>.nav-row').classList.toggle('first-step',step===0);
   $('#prev').textContent='← Voltar';
   const labels=[
     'Assistir à videoaula →',
