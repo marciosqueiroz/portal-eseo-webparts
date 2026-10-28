@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0156)file:///C:/Users/sn1092236/Documents/Codex/2026-10-19/referenced-chatgpt-conversation-this-is-an-2/outputs/Portal%20ESEO%20%E2%80%94%20Hero%20Integrado.html -->
+<!-- saved from url=(0140)file:///C:/Users/sn1092236/Documents/Codex/2026-10-28/referenced-chatgpt-conversation-this-is-an/outputs/Portal-ESEO-Home-ATUAL-Sem-BOT.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -231,10 +231,32 @@ body{overflow-x:hidden}
   text-transform:uppercase;
   text-shadow:0 2px 14px rgba(0,0,0,.3);
 }
+#userGreeting,
+.welcome-line{
+  font-size:19px;
+  line-height:1.25;
+  font-weight:600;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.92);
+  text-shadow:0 2px 12px rgba(0,0,0,.24);
+}
+#userGreeting{
+  margin:0 0 8px;
+}
+.welcome-line{
+  margin:0 0 18px;
+}
+.greeting-name{
+  color:var(--cyan);
+  font-size:1.08em;
+  font-weight:900;
+  text-shadow:0 0 16px rgba(102,230,242,.35);
+}
 h1{
   margin:0;
   color:#fff;
-  font-size:clamp(74px,7.5vw,125px);
+  font-size:clamp(76px,8vw,140px);
   line-height:.95;
   letter-spacing:-.045em;
   font-weight:900;
@@ -357,7 +379,9 @@ h1{
     max-width:none;
   }
   .eyebrow{font-size:12px;letter-spacing:.22em}
-  h1{white-space:normal;font-size:clamp(54px,15vw,82px)}
+  #userGreeting,
+  .welcome-line{font-size:16px;letter-spacing:.01em}
+  h1{white-space:normal;font-size:clamp(52px,14vw,62px)}
   .tagline{font-size:17px;max-width:510px;white-space:normal}
   .redline{width:72px;height:5px;margin:22px 0 18px}
   .quick-actions{
@@ -408,27 +432,33 @@ h1{
   .shortcut strong{font-size:14px}
 }
 
-/* Integração com a navegação nativa. O cenário continua no SharePoint. */
-.sharepoint-top-blend{height:32px;background:transparent}
-.topbar{justify-content:flex-end}
-.content{left:-12px}
-@media (min-width:1360px){.content{left:calc(668px - 50vw)}}
-@media (max-width:1050px){.content{left:-7px}}
-@media (max-width:720px){
- .content{left:auto}
- .search-wrap{max-width:100%}
- .search.is-open{width:min(300px,calc(100vw - 28px))}
- .suggestions{width:min(430px,calc(100vw - 28px))}
-}
 </style>
 </head>
 <body>
 
-<div class="sharepoint-top-blend" aria-hidden="true"></div>
+<div style="height:32px;"></div>
 
 <section class="hero">
   <div class="shell">
     <header class="topbar">
+      <nav class="nav" aria-label="Navegação principal do Portal ESEO">
+        <a data-page="home" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/OrganizationHome.aspx" aria-current="page" target="_self">Home</a>
+        <a data-page="conheca" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Conheca_a_eseo.aspx" target="_self">Conheça a ESEO</a>
+        <a data-page="oferta" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/Oferta.aspx" target="_self">Oferta de cursos online</a>
+      </nav>
+      <script>
+        (function(){
+          try {
+            document.querySelectorAll('.nav a[data-page]').forEach(function(a){
+              a.addEventListener('click', function(e){
+                e.preventDefault();
+                window.location.href = a.href;
+              });
+            });
+          } catch(e){}
+        })();
+      </script>
+
       <div class="search-wrap" id="searchWrap">
         <form class="search" id="searchForm" role="search" autocomplete="off">
           <input id="searchInput" type="search" placeholder="Pesquisar no Portal ESEO" aria-label="Pesquisar somente no Portal ESEO">
@@ -444,14 +474,13 @@ h1{
     </header>
 
     <main class="content">
-      <p class="eyebrow">QUE BOM TER VOCÊ AQUI</p>
       <h1>PORTAL ESEO</h1>
       <div class="redline" aria-hidden="true"></div>
       <p class="tagline">Um só lugar para orientar, ofertar e ampliar a Educação Online nas escolas SENAI-SP.</p>
     </main>
 
     <nav class="quick-actions" aria-label="Ações rápidas">
-      <a class="shortcut" href="https://app.powerbi.com/view?r=eyJrIjoiYzk1MzhjNWQtYTZlMy00ZmY4LWFiM2MtZGMxZjRlMzJiNDA3IiwidCI6IjQxNDhhNmRlLTBkZDEtNGQwNC1hNGM1LTc4ZTM3NGU0ZjZkNiIsImMiOjR9" target="_blank" rel="noopener noreferrer" data-tip="Consulte cursos, formatos e informações do catálogo EAD.">
+      <a class="shortcut" href="https://portalindicadores.sp.senai.br/Home/Relatorio/76120a89190e4272a2f3709c47499137" target="_blank" rel="noopener noreferrer" data-tip="Consulte cursos, formatos e informações do catálogo EAD.">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M3 8.5 12 4l9 4.5-9 4.5-9-4.5Z"></path>
           <path d="M6.5 10.5v4.2c2.9 2.2 8.1 2.2 11 0v-4.2"></path>
@@ -489,6 +518,80 @@ h1{
 
 <script>
 (() => {
+  const greeting = document.getElementById("userGreeting");
+  const welcome = document.querySelector(".welcome-line");
+  if (!greeting || !welcome) return;
+  const sharePointOrigin = "https://sesisenaisp.sharepoint.com";
+  const sitePath = "/sites/ESEOConecta";
+  const currentUserUrl =
+    `${sharePointOrigin}${sitePath}/_api/web/currentuser?$select=Title`;
+
+  const getSalutation = () => {
+    const hour = new Date().getHours();
+    if (hour >= 6 && hour < 12) return "Bom dia";
+    if (hour >= 12 && hour < 18) return "Boa tarde";
+    return "Boa noite";
+  };
+
+  const updateGreeting = firstName => {
+    const name = document.createElement("span");
+    name.className = "greeting-name";
+    name.textContent = firstName;
+    greeting.replaceChildren(document.createTextNode(getSalutation()));
+    if (firstName) {
+      greeting.append(document.createTextNode(", "), name);
+    }
+    welcome.textContent = "— Que bom ter você por aqui.";
+  };
+
+  updateGreeting("");
+  window.setInterval(() => updateGreeting(
+    greeting.querySelector(".greeting-name")?.textContent || ""
+  ), 60_000);
+
+  if (window.location.origin !== sharePointOrigin) {
+    console.warn("ESEO greeting: o HTML não está sendo executado em SharePoint.", {
+      currentOrigin: window.location.origin,
+      expectedOrigin: sharePointOrigin
+    });
+    return;
+  }
+
+  fetch(currentUserUrl, {
+    credentials: "same-origin",
+    headers: { Accept: "application/json;odata=nometadata" }
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`ESEO greeting: Current User respondeu HTTP ${response.status}.`);
+      }
+
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        throw new Error(
+          "ESEO greeting: Current User não retornou JSON; a sessão pode ter sido redirecionada para login."
+        );
+      }
+
+      return response.json();
+    })
+    .then(user => {
+      const firstName = String(user.Title || "").trim().split(/\s+/)[0];
+      if (!firstName) {
+        throw new Error("ESEO greeting: a API respondeu sem o campo Title.");
+      }
+
+      updateGreeting(firstName);
+      console.info("ESEO greeting: usuário carregado.", { title: user.Title });
+    })
+    .catch(error => {
+      console.error("ESEO greeting: não foi possível carregar o usuário atual.", error);
+    });
+})();
+</script>
+
+<script>
+(() => {
   const PORTAL = "https://sesisenaisp.sharepoint.com/sites/ESEOConecta";
   const HOME = PORTAL + "/SitePages/OrganizationHome.aspx";
   const GITHUB_PAGES = "https://marciosqueiroz.github.io/portal-eseo-webparts";
@@ -506,6 +609,21 @@ h1{
   document.querySelectorAll(".nav a[data-page]").forEach(link => {
     if(link.dataset.page === activePage) link.setAttribute("aria-current","page");
     else link.removeAttribute("aria-current");
+  });
+
+  // Garantir que os links de navegação abram na mesma guia (previne overrides que abrem em nova guia)
+  document.querySelectorAll('.nav a').forEach(link => {
+    try {
+      link.target = '_self';
+      link.removeAttribute('rel');
+      // Se algum código posterior tentar interceptar o clique e abrir em nova guia, forçar abertura na mesma aba
+      link.addEventListener('click', e => {
+        // nada especial: deixar o comportamento padrão (mesma guia)
+      }, {capture: true});
+    } catch (err) {
+      // segurança: não quebrar a página
+      console.warn('Não foi possível forçar target para nav link', err);
+    }
   });
 
   const fallback = [
@@ -566,7 +684,7 @@ h1{
     "title": "Portfólio de cursos",
     "subtitle": "Consulte cursos, códigos, formatos e materiais",
     "icon": "P",
-    "url": "https://app.powerbi.com/view?r=eyJrIjoiYzk1MzhjNWQtYTZlMy00ZmY4LWFiM2MtZGMxZjRlMzJiNDA3IiwidCI6IjQxNDhhNmRlLTBkZDEtNGQwNC1hNGM1LTc4ZTM3NGU0ZjZkNiIsImMiOjR9",
+    "url": "https://portalindicadores.sp.senai.br/Home/Relatorio/76120a89190e4272a2f3709c47499137",
     "keywords": [
       "portfolio",
       "catalogo",
@@ -1525,8 +1643,7 @@ h1{
   document.addEventListener("click", e => {
     if(!e.target.closest("#searchWrap")){
       suggestions.classList.remove("show");
-      form.classList.remove("is-open");
-
+      if(!input.value.trim()) form.classList.remove("is-open");
     }
   });
 
@@ -1535,42 +1652,37 @@ h1{
 </script>
 
 <script>
-/* Navegação segura quando este HTML está incorporado em um iframe do SharePoint. */
+/* Navegação interna do Portal: mantém a pessoa na mesma guia da Home. */
 (() => {
-  function openSharePointSafeLink(url,target='_blank'){
-    let resolved='';
-    try{ resolved=new URL(url,window.location.href).href; }
-    catch(_){ resolved=String(url||''); }
-    if(!resolved) return;
-
-    const bridge=document.createElement('a');
-    bridge.href=resolved;
-    bridge.target=target||'_self';
-    bridge.rel='noopener noreferrer';
-    bridge.dataset.eseoBridge='1';
-    bridge.style.position='fixed';
-    bridge.style.left='-9999px';
-    bridge.style.top='-9999px';
-    bridge.textContent='Abrir';
-    document.body.appendChild(bridge);
-    bridge.click();
-    setTimeout(()=>bridge.remove(),1000);
+  function isInternalPortalUrl(url){
+    try{
+      const target=new URL(url,window.location.href);
+      return target.hostname === 'sesisenaisp.sharepoint.com' &&
+        target.pathname.toLowerCase().startsWith('/sites/eseoconecta');
+    }catch(_){
+      return false;
+    }
   }
 
   document.addEventListener('click',event=>{
     const link=event.target.closest?.('a[href]');
-    if(!link || link.dataset.eseoBridge==='1' || link.hasAttribute('download')) return;
+    if(!link || link.hasAttribute('download')) return;
     if(event.button!==0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     const href=link.getAttribute('href')||'';
     if(!href || href.startsWith('#') || href.startsWith('javascript:') || href.startsWith('data:')) return;
     if(href.startsWith('mailto:') || href.startsWith('tel:')) return;
+    if(!isInternalPortalUrl(href)) return;
+
     event.preventDefault();
-    openSharePointSafeLink(href,link.getAttribute('target')||'_self');
+    const url=new URL(href,window.location.href).href;
+    try{
+      window.top.location.assign(url);
+    }catch(_){
+      window.location.assign(url);
+    }
   },true);
 })();
 </script>
-
-
 
 
 
