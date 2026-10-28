@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rodapé — Portal ESEO</title>
+
+  <style>
+    :root {
+      --navy: #000000;
+      --navy-light: #000000;
+      --cyan: #63E5F2;
+      --white: #FFFFFF;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 190px;
+      margin: 0;
+      background: var(--navy);
+      color: var(--white);
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .footer {
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      min-height: 190px;
+      display: grid;
+      grid-template-columns: minmax(300px, 1fr) minmax(420px, auto);
+      align-items: center;
+      gap: clamp(28px, 5vw, 76px);
+      padding: 34px clamp(26px, 8vw, 150px);
+      overflow: hidden;
+      background: #000000;
+    }
+
+    .footer::before {
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 2px;
+      content: "";
+      background: linear-gradient(90deg, transparent, var(--cyan) 24%, rgba(99, 229, 242, .3) 76%, transparent);
+    }
+
+    .contact { min-width: 0; }
+
+    .contact__title {
+      margin: 0 0 10px;
+      color: var(--white);
+      font-size: clamp(17px, 1.35vw, 20px);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: .025em;
+    }
+
+    .contact__line {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 0;
+      color: rgba(255, 255, 255, .84);
+      font-size: clamp(15px, 1.25vw, 18px);
+      line-height: 1.45;
+    }
+
+    .contact__phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .contact__phone:hover,
+    .contact__phone:focus-visible {
+      color: var(--cyan);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .contact__phone:focus-visible {
+      border-radius: 3px;
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+    }
+
+    .contact__phone svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .contact__separator { color: rgba(255, 255, 255, .38); }
+
+    .social {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(68px, 1fr));
+      align-items: stretch;
+      justify-self: end;
+      gap: clamp(6px, .8vw, 12px);
+    }
+
+    .social__link {
+      position: relative;
+      min-width: 68px;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 8px;
+      padding: 12px 8px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 16px;
+      color: rgba(255, 255, 255, .9);
+      text-decoration: none;
+      transition:
+        background 240ms ease,
+        border-color 240ms ease,
+        color 240ms ease,
+        box-shadow 240ms ease,
+        transform 260ms cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .social__link:hover,
+    .social__link:focus-visible {
+      border-color: rgba(99, 229, 242, .48);
+      background: rgba(99, 229, 242, .1);
+      color: var(--white);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .22), 0 0 22px rgba(99, 229, 242, .1);
+    }
+
+    .social__link:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    @media (hover: hover) {
+      .social__link:hover .social__icon img,
+      .social__link:hover .social__brand-icon {
+        transform: scale(1.07) rotate(-2deg);
+      }
+    }
+
+    .social__icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+    }
+
+    .social__icon img {
+      width: 58px;
+      height: 58px;
+      display: block;
+      object-fit: contain;
+      filter: grayscale(1) brightness(0) invert(1);
+      transition: filter 260ms ease, transform 260ms cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .social__link:hover .social__icon img,
+    .social__link:focus-visible .social__icon img {
+      filter: none;
+      transform: scale(1.07);
+    }
+
+    .social__brand-icon {
+      width: 58px;
+      height: 58px;
+      display: block;
+      overflow: visible;
+      transition: transform 260ms cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .social__brand-icon .brand-default,
+    .social__brand-icon .brand-color {
+      transition: opacity 260ms ease;
+    }
+
+    .social__brand-icon .brand-default { filter: invert(1); }
+    .social__brand-icon .brand-default { opacity: 1; }
+    .social__brand-icon .brand-color { opacity: 0; }
+
+    .social__link:hover .social__brand-icon,
+    .social__link:focus-visible .social__brand-icon {
+      transform: scale(1.07);
+    }
+
+    .social__link:hover .social__brand-icon .brand-default,
+    .social__link:focus-visible .social__brand-icon .brand-default {
+      opacity: 0;
+    }
+
+    .social__link:hover .social__brand-icon .brand-color,
+    .social__link:focus-visible .social__brand-icon .brand-color {
+      opacity: 1;
+    }
+
+    .social__fallback {
+      width: 58px;
+      height: 58px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .social__fallback[hidden] { display: none; }
+
+    .social__label {
+      color: inherit;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.15;
+      text-align: center;
+    }
+
+    .access-notice {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, .62);
+      font-size: 11px;
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .access-tracker-status:not([hidden]) {
+      display: block;
+      margin-top: 6px;
+      color: #FFD0D0;
+      font-weight: 600;
+    }
+
+    @media (max-width: 860px) {
+      .footer {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding-block: 30px;
+      }
+      .social {
+        justify-self: stretch;
+        width: 100%;
+        grid-template-columns: repeat(5, minmax(60px, 1fr));
+      }
+    }
+
+    @media (max-width: 500px) {
+      .footer {
+        padding-inline: 20px;
+        gap: 22px;
+      }
+      .social {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .contact__separator { display: none; }
+      .contact__line { align-items: flex-start; flex-direction: column; }
+      .access-notice { white-space: normal; }
+      .social__link {
+        min-width: 0;
+        padding: 10px 4px;
+      }
+      .social__icon,
+      .social__icon img,
+      .social__brand-icon { width: 48px; height: 48px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: .01ms !important; }
+      .social__icon img,
+      .social__brand-icon,
+      .social__brand-icon .brand-default,
+      .social__brand-icon .brand-color { transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <footer class="footer" aria-label="Rodapé do Portal ESEO">
+    <div class="contact">
+      <p class="contact__title">ESEO – ESCOLA SENAI DE EDUCAÇÃO ONLINE</p>
+      <p class="contact__line">
+        <a class="contact__phone" href="tel:+551133122450" target="_top">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.4 15.4 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.58 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.6 21 3 13.4 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .58 3.6 1 1 0 0 1-.25 1Z"></path></svg>
+          (11)&nbsp;3312&#8209;2450
+        </a>
+        <span class="contact__separator" aria-hidden="true">|</span>
+        <a class="contact__phone" href="https://wa.me/551133122420" target="_blank" rel="noopener noreferrer">WhatsApp (11)&nbsp;3312&#8209;2420</a>
+      </p>
+    </div>
+
+    <nav class="social" aria-label="Canais digitais do SENAI-SP">
+      <a class="social__link" href="https://www.instagram.com/ead.senai.sp/" target="_blank" rel="noopener noreferrer" aria-label="Instagram do SENAI-SP. Abre em nova aba.">
+        <span class="social__icon">
+          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="instagramGradientEseo" x1="6%" y1="94%" x2="94%" y2="6%">
+                <stop offset="0" stop-color="#FFD600"></stop>
+                <stop offset=".34" stop-color="#FF7A00"></stop>
+                <stop offset=".66" stop-color="#FF0169"></stop>
+                <stop offset="1" stop-color="#D300C5"></stop>
+              </linearGradient>
+            </defs>
+            <g class="brand-default" fill="none" stroke="#000000" stroke-width="6">
+              <rect x="7" y="7" width="50" height="50" rx="15"></rect>
+              <circle cx="32" cy="32" r="11"></circle>
+              <circle cx="48" cy="16" r="3" fill="#000000" stroke="none"></circle>
+            </g>
+            <g class="brand-color" fill="none" stroke="url(#instagramGradientEseo)" stroke-width="6">
+              <rect x="7" y="7" width="50" height="50" rx="15"></rect>
+              <circle cx="32" cy="32" r="11"></circle>
+              <circle cx="48" cy="16" r="3" fill="#D300C5" stroke="none"></circle>
+            </g>
+          </svg>
+        </span>
+        <span class="social__label">Instagram</span>
+      </a>
+
+      <a class="social__link" href="https://www.facebook.com/ead.senai.sp" target="_blank" rel="noopener noreferrer" aria-label="Facebook do SENAI-SP. Abre em nova aba.">
+        <span class="social__icon">
+          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <g class="brand-default">
+              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
+              <path d="M37.4 59V37.4h7.4l1.1-8.4h-8.5v-5.3c0-2.4.7-4.1 4.3-4.1h4.6v-7.5c-.8-.1-3.5-.3-6.7-.3-6.6 0-11.1 4-11.1 11.4V29H21v8.4h7.5V59Z" fill="#FFFFFF"></path>
+            </g>
+            <g class="brand-color">
+              <circle cx="32" cy="32" r="28" fill="#0866FF"></circle>
+              <path d="M37.4 59V37.4h7.4l1.1-8.4h-8.5v-5.3c0-2.4.7-4.1 4.3-4.1h4.6v-7.5c-.8-.1-3.5-.3-6.7-.3-6.6 0-11.1 4-11.1 11.4V29H21v8.4h7.5V59Z" fill="#FFFFFF"></path>
+            </g>
+          </svg>
+        </span>
+        <span class="social__label">Facebook</span>
+      </a>
+
+      <a class="social__link" href="https://www.sp.senai.br/" target="_blank" rel="noopener noreferrer" aria-label="Site do SENAI-SP. Abre em nova aba.">
+        <span class="social__icon">
+          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <g class="brand-default">
+              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
+              <circle cx="32" cy="32" r="18" fill="none" stroke="#FFFFFF" stroke-width="3"></circle>
+              <path d="M14 32h36M32 14c6 6 9 12 9 18s-3 12-9 18M32 14c-6 6-9 12-9 18s3 12 9 18" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-width="3"></path>
+            </g>
+            <g class="brand-color">
+              <circle cx="32" cy="32" r="28" fill="#1D728F"></circle>
+              <circle cx="32" cy="32" r="18" fill="none" stroke="#FFFFFF" stroke-width="3"></circle>
+              <path d="M14 32h36M32 14c6 6 9 12 9 18s-3 12-9 18M32 14c-6 6-9 12-9 18s3 12 9 18" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-width="3"></path>
+            </g>
+          </svg>
+        </span>
+        <span class="social__label">Site SENAI</span>
+      </a>
+
+      <a class="social__link" href="https://ead.sp.senai.br/" target="_blank" rel="noopener noreferrer" aria-label="Portal Online do SENAI-SP. Abre em nova aba.">
+        <span class="social__icon">
+          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <g class="brand-default">
+              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
+              <rect x="14" y="13" width="36" height="30" rx="6" fill="none" stroke="#FFFFFF" stroke-width="3"></rect>
+              <path d="m21 25 11-6 11 6-11 6-11-6Zm4 5v6c4 3 10 3 14 0v-6M25 50h14M32 43v7" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+            </g>
+            <g class="brand-color">
+              <circle cx="32" cy="32" r="28" fill="#E30613"></circle>
+              <rect x="14" y="13" width="36" height="30" rx="6" fill="none" stroke="#FFFFFF" stroke-width="3"></rect>
+              <path d="m21 25 11-6 11 6-11 6-11-6Zm4 5v6c4 3 10 3 14 0v-6M25 50h14M32 43v7" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+            </g>
+          </svg>
+        </span>
+        <span class="social__label">Portal Online</span>
+      </a>
+
+      <a class="social__link" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/REGRAS-DE-NEG%C3%93CIOS---PORTAL-ESEO.aspx" target="_blank" rel="noopener noreferrer" aria-label="Regras do Portal ESEO. Abre em nova aba.">
+        <span class="social__icon">
+          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
+            <g class="brand-default">
+              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
+              <path d="M32 15 45 20v10c0 9-5.4 15.7-13 19-7.6-3.3-13-10-13-19V20l13-5Z" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linejoin="round"></path>
+              <path d="m25 31 5 5 9-10" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+            <g class="brand-color">
+              <circle cx="32" cy="32" r="28" fill="#0EB7D5"></circle>
+              <path d="M32 15 45 20v10c0 9-5.4 15.7-13 19-7.6-3.3-13-10-13-19V20l13-5Z" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linejoin="round"></path>
+              <path d="m25 31 5 5 9-10" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg>
+        </span>
+        <span class="social__label">Regras do Portal</span>
+      </a>
+    </nav>
+  </footer>
+
+</body>
+</html>
