@@ -279,6 +279,17 @@
       .social__brand-icon .brand-default,
       .social__brand-icon .brand-color { transition: none; }
     }
+    /* Ícones uniformes: brancos no repouso, cor na interação. */
+    .social__icon{width:48px;height:48px}
+    .social__brand-icon{width:40px;height:40px;filter:none}
+    .social__label{color:#FFFFFF}
+    .social__link:nth-child(1){--icon-color:#F05AA6}
+    .social__link:nth-child(2){--icon-color:#70A7FF}
+    .social__link:nth-child(3){--icon-color:#63E5F2}
+    .social__link:nth-child(4){--icon-color:#FF5262}
+    .social__link:nth-child(5){--icon-color:#63E5F2}
+    .social__link:hover,.social__link:focus-visible{color:var(--icon-color);border-color:var(--icon-color)}
+    @media(max-width:500px){.social__icon{width:44px;height:44px}.social__brand-icon{width:36px;height:36px}}
   </style>
 </head>
 
@@ -299,96 +310,35 @@
     <nav class="social" aria-label="Canais digitais do SENAI-SP">
       <a class="social__link" href="https://www.instagram.com/ead.senai.sp/" target="_blank" rel="noopener noreferrer" aria-label="Instagram do SENAI-SP. Abre em nova aba.">
         <span class="social__icon">
-          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
-            <defs>
-              <linearGradient id="instagramGradientEseo" x1="6%" y1="94%" x2="94%" y2="6%">
-                <stop offset="0" stop-color="#FFD600"></stop>
-                <stop offset=".34" stop-color="#FF7A00"></stop>
-                <stop offset=".66" stop-color="#FF0169"></stop>
-                <stop offset="1" stop-color="#D300C5"></stop>
-              </linearGradient>
-            </defs>
-            <g class="brand-default" fill="none" stroke="#000000" stroke-width="6">
-              <rect x="7" y="7" width="50" height="50" rx="15"></rect>
-              <circle cx="32" cy="32" r="11"></circle>
-              <circle cx="48" cy="16" r="3" fill="#000000" stroke="none"></circle>
-            </g>
-            <g class="brand-color" fill="none" stroke="url(#instagramGradientEseo)" stroke-width="6">
-              <rect x="7" y="7" width="50" height="50" rx="15"></rect>
-              <circle cx="32" cy="32" r="11"></circle>
-              <circle cx="48" cy="16" r="3" fill="#D300C5" stroke="none"></circle>
-            </g>
-          </svg>
+<svg class="social__brand-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         </span>
         <span class="social__label">Instagram</span>
       </a>
 
       <a class="social__link" href="https://www.facebook.com/ead.senai.sp" target="_blank" rel="noopener noreferrer" aria-label="Facebook do SENAI-SP. Abre em nova aba.">
         <span class="social__icon">
-          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
-            <g class="brand-default">
-              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
-              <path d="M37.4 59V37.4h7.4l1.1-8.4h-8.5v-5.3c0-2.4.7-4.1 4.3-4.1h4.6v-7.5c-.8-.1-3.5-.3-6.7-.3-6.6 0-11.1 4-11.1 11.4V29H21v8.4h7.5V59Z" fill="#FFFFFF"></path>
-            </g>
-            <g class="brand-color">
-              <circle cx="32" cy="32" r="28" fill="#0866FF"></circle>
-              <path d="M37.4 59V37.4h7.4l1.1-8.4h-8.5v-5.3c0-2.4.7-4.1 4.3-4.1h4.6v-7.5c-.8-.1-3.5-.3-6.7-.3-6.6 0-11.1 4-11.1 11.4V29H21v8.4h7.5V59Z" fill="#FFFFFF"></path>
-            </g>
-          </svg>
+<svg class="social__brand-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 21v-8h3l.5-4H14V7c0-1 .5-2 2-2h2V1.5C17.3 1.2 16.2 1 15 1c-3 0-5 2-5 5v3H7v4h3v8"/></svg>
         </span>
         <span class="social__label">Facebook</span>
       </a>
 
       <a class="social__link" href="https://www.sp.senai.br/" target="_blank" rel="noopener noreferrer" aria-label="Site do SENAI-SP. Abre em nova aba.">
         <span class="social__icon">
-          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
-            <g class="brand-default">
-              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
-              <circle cx="32" cy="32" r="18" fill="none" stroke="#FFFFFF" stroke-width="3"></circle>
-              <path d="M14 32h36M32 14c6 6 9 12 9 18s-3 12-9 18M32 14c-6 6-9 12-9 18s3 12 9 18" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-width="3"></path>
-            </g>
-            <g class="brand-color">
-              <circle cx="32" cy="32" r="28" fill="#1D728F"></circle>
-              <circle cx="32" cy="32" r="18" fill="none" stroke="#FFFFFF" stroke-width="3"></circle>
-              <path d="M14 32h36M32 14c6 6 9 12 9 18s-3 12-9 18M32 14c-6 6-9 12-9 18s3 12 9 18" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-width="3"></path>
-            </g>
-          </svg>
+<svg class="social__brand-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4.5 6 4.5 9S15 18 12 21c-3-3-4.5-6-4.5-9S9 6 12 3Z"/></svg>
         </span>
         <span class="social__label">Site SENAI</span>
       </a>
 
       <a class="social__link" href="https://ead.sp.senai.br/" target="_blank" rel="noopener noreferrer" aria-label="Portal Online do SENAI-SP. Abre em nova aba.">
         <span class="social__icon">
-          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
-            <g class="brand-default">
-              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
-              <rect x="14" y="13" width="36" height="30" rx="6" fill="none" stroke="#FFFFFF" stroke-width="3"></rect>
-              <path d="m21 25 11-6 11 6-11 6-11-6Zm4 5v6c4 3 10 3 14 0v-6M25 50h14M32 43v7" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
-            </g>
-            <g class="brand-color">
-              <circle cx="32" cy="32" r="28" fill="#E30613"></circle>
-              <rect x="14" y="13" width="36" height="30" rx="6" fill="none" stroke="#FFFFFF" stroke-width="3"></rect>
-              <path d="m21 25 11-6 11 6-11 6-11-6Zm4 5v6c4 3 10 3 14 0v-6M25 50h14M32 43v7" fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
-            </g>
-          </svg>
+<svg class="social__brand-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8m-4-4v4m-6-12 6-3 6 3-6 3-6-3Zm3 2v3c2 1.5 4 1.5 6 0v-3"/></svg>
         </span>
         <span class="social__label">Portal Online</span>
       </a>
 
       <a class="social__link" href="https://sesisenaisp.sharepoint.com/sites/ESEOConecta/SitePages/REGRAS-DE-NEG%C3%93CIOS---PORTAL-ESEO.aspx" target="_blank" rel="noopener noreferrer" aria-label="Regras do Portal ESEO. Abre em nova aba.">
         <span class="social__icon">
-          <svg class="social__brand-icon" viewBox="0 0 64 64" aria-hidden="true">
-            <g class="brand-default">
-              <circle cx="32" cy="32" r="28" fill="#000000"></circle>
-              <path d="M32 15 45 20v10c0 9-5.4 15.7-13 19-7.6-3.3-13-10-13-19V20l13-5Z" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linejoin="round"></path>
-              <path d="m25 31 5 5 9-10" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-            <g class="brand-color">
-              <circle cx="32" cy="32" r="28" fill="#0EB7D5"></circle>
-              <path d="M32 15 45 20v10c0 9-5.4 15.7-13 19-7.6-3.3-13-10-13-19V20l13-5Z" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linejoin="round"></path>
-              <path d="m25 31 5 5 9-10" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            </g>
-          </svg>
+<svg class="social__brand-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 8 3v6c0 5-3 8.5-8 11-5-2.5-8-6-8-11V5l8-3Z"/><path d="m8 12 3 3 5-6"/></svg>
         </span>
         <span class="social__label">Regras do Portal</span>
       </a>
