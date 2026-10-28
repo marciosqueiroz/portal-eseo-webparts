@@ -7,8 +7,6 @@
 
   <style>
     :root {
-      --navy: #000000;
-      --navy-light: #000000;
       --cyan: #63E5F2;
       --white: #FFFFFF;
     }
@@ -20,7 +18,7 @@
       width: 100%;
       min-height: 190px;
       margin: 0;
-      background: var(--navy);
+      background: transparent !important;
       color: var(--white);
       font-family: "Segoe UI", Arial, sans-serif;
     }
@@ -36,7 +34,7 @@
       gap: clamp(28px, 5vw, 76px);
       padding: 34px clamp(26px, 8vw, 150px);
       overflow: hidden;
-      background: #000000;
+      background: transparent !important;
     }
 
     .footer::before {
@@ -46,7 +44,7 @@
       right: 0;
       left: 0;
       height: 2px;
-      content: "";
+      content: none;
       background: linear-gradient(90deg, transparent, var(--cyan) 24%, rgba(99, 229, 242, .3) 76%, transparent);
     }
 
@@ -99,7 +97,7 @@
       fill: currentColor;
     }
 
-    .contact__separator { color: rgba(255, 255, 255, .38); }
+    .contact__separator { color: #FFFFFF; }
 
     .social {
       display: grid;
@@ -117,9 +115,10 @@
       justify-items: center;
       gap: 8px;
       padding: 12px 8px;
-      border: 1px solid rgba(255, 255, 255, .08);
+      border: 1px solid transparent;
       border-radius: 16px;
-      color: rgba(255, 255, 255, .9);
+      color: #FFFFFF;
+      background: transparent;
       text-decoration: none;
       transition:
         background 240ms ease,
